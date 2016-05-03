@@ -1,6 +1,6 @@
 Quick setup: (copy-paste to terminal)
 
-    git clone --no-checkout git@github.com:bukzor/dotfiles.git  tmp-dotfiles
+    git clone --no-checkout git@git.yelpcorp.com:devs/jngu/dotfiles tmp-dotfiles
     mv tmp-dotfiles/.git .
     rmdir tmp-dotfiles
     git checkout  -f
