@@ -21,7 +21,7 @@ export PAGER=less
 
 
 #unmap CTRL-S and CTRL-Q
-if tty -w; then
+if tty -s; then
     stty -ixon -ixoff
 fi
 
