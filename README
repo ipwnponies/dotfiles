@@ -6,3 +6,7 @@ Quick setup: (copy-paste to terminal)
     git checkout  -f
     git submodule update --init
 
+
+Install a vim plugin:
+
+    git submodule add https://github.com/tpope/vim-sensible.git .vim/bundle/vim-sensible
