@@ -1,3 +1,9 @@
 [user]
 	email = jngu@yelp.com
 	name = John Nguyen
+[alias]
+	ci = commit
+	co = checkout
+	st = status
+	br = branch
+	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short

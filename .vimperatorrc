@@ -1,9 +1,20 @@
+" Bindings
 inoremap jj <esc>
 nnoremap gi gi<c-e>
 nnoremap h H
+nnoremap H h
 nnoremap l L
+nnoremap L l
 nnoremap f <c-f>
 nnoremap b <c-b>
 nnoremap v f
-nnoremap e <c-6>
+nnoremap e <c-^>
+
+" Settings
 set statuslinevisibilty=visible
+set focuscontent
+set gui=addons,nobookmarks,nomenu,navigation,tabs
+set showstatuslinks=3
+set wildmode=list:full
+
+set complete=Slf

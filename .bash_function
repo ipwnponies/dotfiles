@@ -1,0 +1,69 @@
+# All functions in this file are sourced by $HOME/.bashrc.
+#  
+# Uses egrep to match, make sure to give an exact enough string
+function lsWithLess
+{
+	\ls "$@" "$LS_OPTIONS" --color=always | less -RXF
+	unset LS_OPTIONS
+}
+
+# Like >> but to the beginning. Uses a temp file.
+function prepend
+{
+	cat - $1 > /tmp/prepend-out && mv /tmp/prepend-out $1
+}
+
+# Traverse up te directory tree.
+# up [[0-9] | pattern]
+# If no argument is given, move up one level.
+# If a number is given, move up that many levels.
+# If a pattern is given, non-greedily match any glob and move above the matched directory one level.
+function up
+{
+    dir=""
+    #if [ -z "$1" ]; then
+    #    dir=..
+    if [[ $1 =~ ^[0-9]+$ ]]; then
+        x=0
+		# Note the default value of 1 if $i is null.
+        while [ $x -lt ${1:-1} ]; do
+            dir=${dir}../
+            x=$(($x+1))
+        done
+    else
+        dir=${PWD%/*$1*}
+    fi
+    cd "$dir";
+}
+
+# Prints the first twelve chars of the first word of input.
+function print12
+{
+	# echo at the end to start the next line on a new line.
+	awk '{print $1}' | xargs printf %.12s && echo
+}
+ 
+# Alias for pushd. But we can drop the '+' character.
+function p
+{
+	if [ $# -eq 1 ]; then
+		pushd +$1
+	else
+		pushd
+	fi
+}
+
+# Alias for popd. But we can drop the '+' character.
+function pd
+{
+	if [ $# -eq 1 ]; then
+		popd +$1
+	else
+		popd
+	fi
+}
+
+# export key functions
+export -f prepend
+export -f up
+export -f print12

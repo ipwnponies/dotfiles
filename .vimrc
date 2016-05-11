@@ -22,13 +22,54 @@
     endif
 " }
 
-colorscheme ir_black
+
+" Bindings for normal mode
+" Bindings for insert mode
 inoremap jj <esc>
+nnoremap <c-j> gj
+nnoremap <c-k> gk
+nnoremap <C-e> 5<C-e>
+nnoremap <C-y> 5<C-y>
+nnoremap Y y$
+noremap go o<esc>
+noremap gO O<esc>
+
+" Bindings for command line
+cmap <c-p> <up>
+cmap <c-n> <down>
+
+" Settings 
 set number
 set fo+=orjc
 set textwidth=130
 set scrolloff=3
 set hlsearch
 set expandtab
-set sts=4
-set sw=4
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set smartcase
+set noinfercase
+set backspace=2
+set foldmethod=syntax
+set nocompatible
+set ruler
+set incsearch
+set hidden
+set wildmode=full
+set wildmenu
+set visualbell
+
+syntax enable
+colorscheme ir_black
+filetype plugin on
+
+set ai si
+autocmd BufNewFile,BufRead,FileType *.sql set expandtab
+autocmd BufNewFile,BufRead,FileType *.sql set nonumber
+
+if !&diff
+	autocmd BufNewFile,BufRead,FileType *.cs set foldmethod=indent
+	autocmd BufNewFile,BufRead,FileType *.xml set foldmethod=indent
+	autocmd BufNewFile,BufRead,FileType *.py set foldmethod=indent
+endif

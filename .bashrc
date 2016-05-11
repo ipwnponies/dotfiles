@@ -20,3 +20,23 @@ source ~/.shrc
 if [[ $TMUX ]]; then
     PROMPT_COMMAND='eval export "$(tmux show-environment | grep \^SSH_AUTH_SOCK=)"'
 fi
+
+# Use case-insensitive filename globbing
+shopt -s nocaseglob
+
+# WE NEED MOAR POWER!
+shopt -s extglob
+shopt -s nocaseglob
+shopt -s histappend
+shopt -s histreedit
+shopt -s cdspell
+. ~/.bash_function
+export LS_COLORS='ow=01;37:';
+# some useful aliases
+alias ls='ls -CF --color=auto'
+alias ll='export LS_OPTIONS="-lh"; lsWithLess'
+alias la='export LS_OPTIONS="-lhA"; lsWithLess'
+alias df='df -h'
+alias du='du -h'
+alias j='jobs'
+alias g='egrep -i --color=auto'

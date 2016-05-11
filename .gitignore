@@ -14,7 +14,12 @@
 !.subversion
 !.bashrc
 !.bash_profile
+!.bash_function
 !.irssi
 !.vimrc
 !.inputrc
 !.vimperatorrc
+!.gvimrc
+!.pythonrc.py
+!.xmodmaprc
+!.xpdfrc
