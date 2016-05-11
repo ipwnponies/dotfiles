@@ -1,0 +1,9 @@
+inoremap jj <esc>
+nnoremap gi gi<c-e>
+nnoremap h H
+nnoremap l L
+nnoremap f <c-f>
+nnoremap b <c-b>
+nnoremap v f
+nnoremap e <c-6>
+set statuslinevisibilty=visible
