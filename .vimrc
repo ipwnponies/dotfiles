@@ -1,5 +1,11 @@
 colorscheme ir_black
 inoremap jj <esc>
+set number
+set hlsearch
+set expandtab
+set sts=4
+set sw=4
+
 
 " multiple files {
     " be smarter about multiple buffers / vim instances
