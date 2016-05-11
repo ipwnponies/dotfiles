@@ -1,12 +1,3 @@
-colorscheme ir_black
-inoremap jj <esc>
-set number
-set hlsearch
-set expandtab
-set sts=4
-set sw=4
-
-
 " multiple files {
     " be smarter about multiple buffers / vim instances
     "quick buffer switching with TAB, even with edited files
@@ -30,3 +21,14 @@ set sw=4
         runtime bundle_config.vim "give me a chance to configure the plugins
     endif
 " }
+
+colorscheme ir_black
+inoremap jj <esc>
+set number
+set fo+=orjc
+set textwidth=130
+set scrolloff=3
+set hlsearch
+set expandtab
+set sts=4
+set sw=4
