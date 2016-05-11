@@ -13,5 +13,6 @@
 !.bash_completion.d
 !.subversion
 !.bashrc
+!.bash_profile
 !.irssi
 !.vimrc

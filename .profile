@@ -8,9 +8,3 @@ else
     git pull
 fi
 git submodule update --init
-
-
-# include .bashrc if it exists
-if [ -f ~/.bashrc ]; then
-    . ~/.bashrc
-fi
