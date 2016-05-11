@@ -14,7 +14,7 @@ shopt -s histappend
 # match all files and zero or more directories and subdirectories.
 shopt -s globstar
 
-source .shrc
+source ~/.shrc
 
 # reconnect ssh-agent under tmux
 if [[ $TMUX ]]; then
