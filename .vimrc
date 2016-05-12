@@ -64,8 +64,9 @@ set visualbell
 syntax enable
 colorscheme ir_black
 filetype plugin on
+highlight Search cterm=reverse
 
-set ai si
+set autoindent smartindent
 autocmd BufNewFile,BufRead,FileType *.sql set expandtab
 autocmd BufNewFile,BufRead,FileType *.sql set nonumber
 
