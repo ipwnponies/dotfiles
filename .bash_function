@@ -1,12 +1,5 @@
 # All functions in this file are sourced by $HOME/.bashrc.
 #  
-# Uses egrep to match, make sure to give an exact enough string
-function lsWithLess
-{
-	\ls "$@" "$LS_OPTIONS" --color=always | less -RXF
-	unset LS_OPTIONS
-}
-
 # Like >> but to the beginning. Uses a temp file.
 function prepend
 {
