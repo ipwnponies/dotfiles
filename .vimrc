@@ -40,7 +40,10 @@ cmap <c-n> <down>
 
 " Settings 
 set number
-set formatoptions+=orcj
+set formatoptions+=orc
+if has("patch-7.3.541")
+    set formatoptions+=j
+endif
 
 set textwidth=130
 set scrolloff=3
