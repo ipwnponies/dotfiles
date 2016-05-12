@@ -11,7 +11,7 @@ nnoremap v f
 nnoremap e <c-^>
 
 " Settings
-set statuslinevisibilty=visible
+set statuslinevisibility=visible
 set focuscontent
 set gui=addons,nobookmarks,nomenu,navigation,tabs
 set showstatuslinks=3
