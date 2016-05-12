@@ -9,6 +9,8 @@ nnoremap f <c-f>
 nnoremap b <c-b>
 nnoremap v f
 nnoremap e <c-^>
+cnoremap <C-p> <up>
+cnoremap <C-n> <down>
 
 " Settings
 set statuslinevisibility=visible
