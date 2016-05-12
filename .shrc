@@ -24,8 +24,3 @@ export PAGER=less
 if tty -s; then
     stty -ixon -ixoff
 fi
-
-
-# aliases
-alias ll='ls -l'
-alias up='cd ..'
