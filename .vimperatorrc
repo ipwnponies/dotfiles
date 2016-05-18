@@ -19,4 +19,4 @@ set gui=addons,nobookmarks,nomenu,navigation,tabs
 set showstatuslinks=3
 set wildmode=list:full
 
-set complete=Slf
+set complete=lSf
