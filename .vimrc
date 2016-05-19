@@ -63,6 +63,7 @@ set hidden
 set wildmode=full
 set wildmenu
 set visualbell
+set ignorecase
 
 syntax enable
 colorscheme ir_black
