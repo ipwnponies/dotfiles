@@ -6,7 +6,8 @@ esac
 
 
 # don't put duplicate lines in the history. See bash(1) for more options
-HISTCONTROL=erasedups
+HISTCONTROL="erasedups:ignorespace"
+HISTIGNORE="ls *: ll *: la *:up *"
 # append to the history file, don't overwrite it
 shopt -s histappend
 
