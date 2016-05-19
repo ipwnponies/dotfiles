@@ -7,6 +7,6 @@
 	co = checkout
 	st = status
 	br = branch
-    po = push origin
+    po = push origin HEAD
 	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
 	histmore = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short --stat
