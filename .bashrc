@@ -19,7 +19,7 @@ source ~/.shrc
 
 # reconnect ssh-agent under tmux
 if [[ $TMUX ]]; then
-    PROMPT_COMMAND='eval export "$(tmux show-environment | grep \^SSH_AUTH_SOCK=)"'
+    PROMPT_COMMAND='eval export "$(tmux show-environment | grep \^SSH_AUTH_SOCK=)"'"; $PROMPT_COMMAND"
 fi
 
 # Use case-insensitive filename globbing
