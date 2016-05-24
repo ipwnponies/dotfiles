@@ -8,5 +8,5 @@
 	st = status
 	br = branch
     po = push origin HEAD
-	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
-	histmore = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short --stat
+    hist = log --color=always --decorate --pretty=format:\"%C(auto)%h - %C(bold blue)%aE %C(green)(%cr)%C(auto)%d%C(reset) %s\" --graph --date=short
+    histmore = log --color=always --decorate --pretty=format:\"%C(auto)%h - %C(bold blue)%aE %C(green)(%cr)%C(auto)%d%C(reset) %s\" --graph --date=short --stat
