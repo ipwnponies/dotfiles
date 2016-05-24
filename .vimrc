@@ -69,7 +69,7 @@ set ignorecase
 syntax enable
 colorscheme ir_black
 filetype plugin on
-highlight Search cterm=reverse
+highlight Search cterm=reverse,underline
 
 set autoindent smartindent
 autocmd BufNewFile,BufRead,FileType *.sql set expandtab
