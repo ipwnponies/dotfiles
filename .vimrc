@@ -62,6 +62,7 @@ set incsearch
 set hidden
 set wildmode=full
 set wildmenu
+set wildignorecase
 set visualbell
 set ignorecase
 
