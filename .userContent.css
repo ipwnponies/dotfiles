@@ -3,3 +3,8 @@
         max-width:50em !important;
     }
 }
+@-moz-document domain("getpocket.com") {
+    .reader_content{ 
+        max-width:50em !important;
+    }
+}
