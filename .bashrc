@@ -41,3 +41,7 @@ alias df='df -h'
 alias du='du -h'
 alias j='jobs'
 alias g='egrep -i --color=auto'
+
+if shopt -q login_shell && [ -n "$SSH_CLIENT" ]; then
+    tmux attach || tmux
+fi
