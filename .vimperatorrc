@@ -22,3 +22,4 @@ set wildmode=list:full
 set complete=lSf
 
 command -nargs=0 reader :execute "open about:reader?url=" + content.location.href
+ignorekeys add https://docs\.google\.com/document/d/.*
