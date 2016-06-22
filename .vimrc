@@ -23,9 +23,17 @@
 " }
 
 
-" Bindings for normal mode
+" YouCompleteMe: {
+    " Enable a more fluid IDE experience.
+    let g:ycm_add_preview_to_completeopt=1
+    let g:ycm_autoclose_preview_window_after_completion=1
+    map gd :YcmCompleter GoTo<cr>
+" }
+
 " Bindings for insert mode
 inoremap jj <esc>
+
+" Bindings for normal mode
 nnoremap <c-j> gj
 nnoremap <c-k> gk
 nnoremap <C-e> 5<C-e>
