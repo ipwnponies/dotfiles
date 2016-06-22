@@ -2,7 +2,7 @@
 # general shell setup, shared by bash/zsh/sh
 
 # set PATH so it includes user's private bin if it exists
-export PATH=~/bin:"${PATH}"
+export PATH=~/bin:~/.local/bin:"${PATH}"
 
 export EDITOR VISUAL GIT_EDITOR
 EDITOR=vim
