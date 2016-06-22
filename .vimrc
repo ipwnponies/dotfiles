@@ -48,7 +48,7 @@ cmap <c-n> <down>
 
 " Settings 
 set number
-set formatoptions+=orc
+set formatoptions+=orcb
 if has("patch-7.3.541")
     set formatoptions+=j
 endif
@@ -64,7 +64,6 @@ set smartcase
 set noinfercase
 set backspace=2
 set foldmethod=syntax
-set nocompatible
 set ruler
 set incsearch
 set hidden
@@ -74,12 +73,14 @@ set wildignorecase
 set visualbell
 set ignorecase
 
+set pastetoggle=<f2>
+
 syntax enable
 colorscheme ir_black
 filetype plugin on
 highlight Search cterm=reverse,underline
 
-set autoindent smartindent
+set autoindent
 autocmd BufNewFile,BufRead,FileType *.sql set expandtab
 autocmd BufNewFile,BufRead,FileType *.sql set nonumber
 
