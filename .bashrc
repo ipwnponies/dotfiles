@@ -42,6 +42,7 @@ alias du='du -h'
 alias j='jobs'
 alias g='egrep -i --color=auto'
 
+# Reattach to tmux session if one exists
 if shopt -q login_shell && [ -n "$SSH_CLIENT" ] && [ -z "$TMUX" ]; then
-    tmux attach || tmux
+    tmux attach
 fi
