@@ -95,3 +95,4 @@ hi DiffAdd      ctermfg=234 ctermbg=34
 hi DiffDelete   ctermfg=000 ctermbg=88
 hi diffchange   ctermfg=249 ctermbg=27
 hi difftext     ctermfg=255 ctermbg=9
+hi PmenuSel     ctermfg=51  ctermbg=236
