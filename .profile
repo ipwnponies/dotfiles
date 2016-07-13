@@ -5,7 +5,6 @@ if [ ! -d .git ]; then
     rmdir tmp-dotfiles
     git checkout  -f
     source ~/.profile
-    source ~/.bashrc
 else
     git pull
 fi
