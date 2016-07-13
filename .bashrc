@@ -15,6 +15,9 @@ shopt -s histappend
 # match all files and zero or more directories and subdirectories.
 shopt -s globstar
 
+# cd to a directory by executing it as a command
+shopt -s -q autocd
+
 source ~/.shrc
 
 # reconnect ssh-agent under tmux
