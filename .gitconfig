@@ -14,3 +14,5 @@
     ahead = log --color=always --decorate --pretty=format:\"%C(auto)%h - %C(bold blue)%aE %C(green)(%cr)%C(auto)%d%C(reset) %s\" --graph --date=short origin/master..@
     g = grep -ni
     gall = !git g
+    dw = diff --word-diff
+    ds = diff --word-diff --staged
