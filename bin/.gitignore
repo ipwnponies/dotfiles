@@ -1,3 +1,5 @@
-!*
+*
 .*
-!.gitignore
+
+# Whitelist of things we want in bin
+!git-deploy

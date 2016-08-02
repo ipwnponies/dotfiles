@@ -1,0 +1,64 @@
+#!/bin/bash
+
+OPTIND=1
+
+USAGE=$(cat <<END
+    Usage: git deploy [-h] [-i] [-f] [remote]
+    Will git push the current u/$(whoami)/* branch to d/$(whoami)/*
+
+    -h to display this help
+    -i to push to integration branch instead
+    -f to force push. Only valid for deploy branches.
+    The remote is origin by default, unless passed in as [remote] argument.
+END
+)
+
+refhead='d'
+
+while getopts ":hif" opt; do
+    case "$opt" in
+        h)
+            echo "$USAGE"
+            exit 0
+            ;;
+        i)
+            if [ -n "$force_deploy" ]; then
+                echo "Cannot force to integration branch!"
+                exit 1
+            fi
+            refhead='i'
+            ;;
+        f)
+            if [ "$refhead" == 'i' ]; then
+                echo "Cannot force to integration branch!"
+                exit 1
+            fi
+            force_deploy='-f'
+            ;;
+        *)
+            echo "Unknown arg: $opt"
+            echo "See -h for usage"
+            exit 0
+            ;;
+    esac
+done
+shift $((OPTIND-1));
+
+BRANCHNAME=$(git symbolic-ref --short HEAD)
+
+if [[ $BRANCHNAME == u/$(whoami)/* ]]; then
+    remote="origin"
+    if [ -n "$1" ]; then
+        remote="$1"
+    else
+        remote="origin"
+    fi
+    command="git push $force_deploy $remote HEAD:${refhead}/${BRANCHNAME#u/}"
+    echo "$command"
+    read -p "Continue (y/n)?" choice
+    if [[ $choice == y* ]]; then
+        eval $command
+    fi
+else
+    echo "git deploy can only be used to push u/ branches to d/"
+fi
