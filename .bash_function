@@ -27,16 +27,3 @@ function up
     fi
     cd "$dir";
 }
-
-# Prints the first twelve chars of the first word of input.
-function awkprint
-{
-    # Numeric check
-    if ! [[ $1 =~ ^[0-9]$ ]]; then
-        echo 'awkprint requires a positional integer'
-        return
-    else
-        # echo at the end to start the next line on a new line.
-        awk "{print \$$1}" /dev/stdin
-    fi
-}
