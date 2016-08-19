@@ -3,37 +3,37 @@
 OPTIND=1
 
 USAGE=$(cat <<END
-    Usage: git deploy [-h] [-i] [-f] [remote]
+    Usage: git deploy [-h] [-i] [-f] [-d] [-l] [remote]
     Will git push the current u/$(whoami)/* branch to d/$(whoami)/*
 
     -h to display this help
     -i to push to integration branch instead
     -f to force push. Only valid for deploy branches.
+    -d to delete deploy or integration branch.
+    -l to list remote deploy and integration branches belonging to us.
     The remote is origin by default, unless passed in as [remote] argument.
 END
 )
 
 refhead='d'
 
-while getopts ":hif" opt; do
+while getopts ":hifdl" opt; do
     case "$opt" in
         h)
             echo "$USAGE"
             exit 0
             ;;
         i)
-            if [ -n "$force_deploy" ]; then
-                echo "Cannot force to integration branch!"
-                exit 1
-            fi
             refhead='i'
             ;;
         f)
-            if [ "$refhead" == 'i' ]; then
-                echo "Cannot force to integration branch!"
-                exit 1
-            fi
             force_deploy='-f'
+            ;;
+        d)
+            delete=0
+            ;;
+        l)
+            list=0
             ;;
         *)
             echo "Unknown arg: $opt"
@@ -42,23 +42,41 @@ while getopts ":hif" opt; do
             ;;
     esac
 done
+
 shift $((OPTIND-1));
 
+
+# List all remote branches belonging to us
+if [ $list ]; then
+    git branch -r | egrep "^\s*origin/./$(whoami)"
+    exit 0
+fi
+
+remote="origin"
+if [ -n "$1" ]; then
+    remote="$1"
+else
+    remote="origin"
+fi
+
+# Get canonical name of current branch
 BRANCHNAME=$(git symbolic-ref --short HEAD)
 
-if [[ $BRANCHNAME == u/$(whoami)/* ]]; then
-    remote="origin"
-    if [ -n "$1" ]; then
-        remote="$1"
-    else
-        remote="origin"
-    fi
-    command="git push $force_deploy $remote HEAD:${refhead}/${BRANCHNAME#u/}"
-    echo "$command"
-    read -p "Continue (y/n)?" choice
-    if [[ $choice == y* ]]; then
-        eval $command
-    fi
+# Check that the branch name is a user branch, starts with u/jngu
+if [[ $BRANCHNAME != u/$(whoami)/* ]]; then
+    message=
+    echo -e "$(tput bold)$(tput setaf 1)Error:$(tput sgr0) git deploy can only be used to push u/ branches to d/"
+    exit 1
+fi
+
+if [ $delete ]; then
+    command="git push $remote --delete ${refhead}/${BRANCHNAME#u/}"
 else
-    echo "git deploy can only be used to push u/ branches to d/"
+    command="git push $force_deploy $remote HEAD:${refhead}/${BRANCHNAME#u/}"
+fi
+
+echo "$command"
+read -p "Continue (y/n)?" choice
+if [[ $choice == y* ]]; then
+    eval $command
 fi
