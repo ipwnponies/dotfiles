@@ -46,3 +46,4 @@ alias g='egrep -i --color=auto'
 if shopt -q login_shell && [ -n "$SSH_CLIENT" ] && [ -z "$TMUX" ]; then
     tmux attach
 fi
+CDPATH=.:~/cdpath
