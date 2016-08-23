@@ -16,3 +16,5 @@
     gall = !git g
     ds = diff -C --staged
     duh = diff -C
+[fetch]
+	prune = true
