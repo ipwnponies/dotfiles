@@ -1,5 +1,13 @@
-#!/bin/bash
-# Git alias to get the previous Nth revision of a file. Like a HEAD~N but for a file instead of a branch
+#! /bin/bash
+# Get the previous Nth revision of a file. Like a HEAD~N but for a file instead of a branch
+#
+# Usage:
+# git previous <N> [file]
+# - N is the number of revisions to go back
+# - file can be omitted, then you would be looking at the Nth last change in repo.
+#
+# ie. 'git previous 2 fileA' would give the return the SHA for the version of the file two changes ago.
+# Most commonly, you would want to use N=1 to get the last file version for reverting
 
 num_version_rollback=$1
 file=$2
