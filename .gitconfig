@@ -1,12 +1,12 @@
 [user]
-	email = jngu@yelp.com
-	name = John Nguyen
+    email = jngu@yelp.com
+    name = John Nguyen
 [alias]
-	ci = commit
+    ci = commit
     amend = commit --amend --no-edit
-	co = checkout
-	st = status -sb
-	br = branch
+    co = checkout
+    st = status -sb
+    br = branch
     po = push origin HEAD
     hist = log --color=always --decorate --pretty=format:\"%C(auto)%h - %C(bold blue)%aE %C(green)(%cr)%C(auto)%d%C(reset) %s\" --graph --date=short
     histmore = log --color=always --decorate --pretty=format:\"%C(auto)%h - %C(bold blue)%aE %C(green)(%cr)%C(auto)%d%C(reset) %s\" --graph --date=short --stat
@@ -17,4 +17,4 @@
     ds = diff -C --staged
     duh = diff -C
 [fetch]
-	prune = true
+    prune = true
