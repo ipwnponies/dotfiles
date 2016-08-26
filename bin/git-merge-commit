@@ -1,2 +1,9 @@
-#!/bin/bash
+#! /bin/bash
+# Usage:
+# git merge-commit <commit> [branch]
+# - commit has changes of interest
+# - branch is the ref that already contains the changes
+#
+# Return the merge commit where the changes were first introduced
+
 git rev-list --ancestry-path ${1}..${2} | grep -f <(git rev-list --first-parent ${1}..${2}) | tail -1
