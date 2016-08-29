@@ -6,7 +6,7 @@
     amend = commit --amend --no-edit
     st = status -sb
     br = branch
-    po = push origin HEAD
+    po = push
     hist = log --color=always --decorate --pretty=format:\"%C(auto)%h - %C(bold blue)%aE %C(green)(%cr)%C(auto)%d%C(reset) %s\" --graph --date=short
     histmore = log --color=always --decorate --pretty=format:\"%C(auto)%h - %C(bold blue)%aE %C(green)(%cr)%C(auto)%d%C(reset) %s\" --graph --date=short --stat
     behind = log --color=always --decorate --pretty=format:\"%C(auto)%h - %C(bold blue)%aE %C(green)(%cr)%C(auto)%d%C(reset) %s\" --graph --date=short @..origin/master
@@ -17,3 +17,7 @@
     duh = diff -C
 [fetch]
     prune = true
+[push]
+	default = simple
+[branch]
+	autoSetupRebase = remote
