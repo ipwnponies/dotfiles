@@ -5,7 +5,7 @@
     ci = commit
     amend = commit --amend --no-edit
     st = status -sb
-    br = branch
+    br = branch -vv
     po = push
     hist = log --color=always --decorate --pretty=format:\"%C(auto)%h - %C(bold blue)%aE %C(green)(%cr)%C(auto)%d%C(reset) %s\" --graph --date=short
     histmore = log --color=always --decorate --pretty=format:\"%C(auto)%h - %C(bold blue)%aE %C(green)(%cr)%C(auto)%d%C(reset) %s\" --graph --date=short --stat
