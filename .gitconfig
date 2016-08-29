@@ -4,7 +4,6 @@
 [alias]
     ci = commit
     amend = commit --amend --no-edit
-    co = checkout
     st = status -sb
     br = branch
     po = push origin HEAD
