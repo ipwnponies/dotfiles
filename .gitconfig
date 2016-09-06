@@ -2,7 +2,7 @@
     email = jngu@yelp.com
     name = John Nguyen
 [alias]
-    ci = commit
+    ci = commit -v
     amend = commit --amend --no-edit
     st = status -sb
     br = branch -vv
