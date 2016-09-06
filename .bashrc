@@ -34,7 +34,7 @@ shopt -s cdspell
 . ~/.bash_function
 export LS_COLORS='ow=01;37:';
 # some useful aliases
-alias ls='ls -CF --color=always'
+alias ls='ls -F --color=always'
 alias ll='ls -lh'
 alias la='ls -lhA'
 alias df='df -h'
