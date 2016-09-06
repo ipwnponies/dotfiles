@@ -39,7 +39,7 @@ alias ll='ls -lh'
 alias la='ls -lhA'
 alias df='df -h'
 alias du='du -h'
-alias j='jobs'
+alias j='jobs -l'
 alias g='egrep -i --color=auto'
 
 # Reattach to tmux session if one exists
