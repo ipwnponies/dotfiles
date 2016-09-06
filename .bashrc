@@ -48,4 +48,9 @@ if shopt -q login_shell && [ -n "$SSH_CLIENT" ] && [ -z "$TMUX" ]; then
 fi
 CDPATH=.:~/cdpath
 
-PS1='\[\e[1;34m\]\u\[\e[0;39m\]@\[\e[1;32m\]\h\[\e[0;39m\]:\[\e[1;33m\]\w\[\e[0;39m\]$(__git_ps1)\$ '
+PS1_GREEN=$(tput setaf 2)$(tput bold)
+PS1_BLUE=$(tput setaf 4)$(tput bold)
+PS1_YELLOW=$(tput setaf 3)$(tput bold)
+PS1_CYAN=$(tput setaf 6)$(tput bold)
+PS1_DEFAULT=$(tput sgr0)
+PS1='\[$PS1_BLUE\]\u\[$PS1_DEFAULT\]@\[$PS1_GREEN\]\h\[$PS1_DEFAULT\]:\[$PS1_YELLOW\]\w\[$PS1_DEFAULT\]\[$PS1_CYAN\]$(__git_ps1)\[$PS1_DEFAULT\]\$ \[$PS1_DEFAULT\]'

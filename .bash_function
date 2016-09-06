@@ -54,6 +54,6 @@ __git_ps1 () {
             fi
         fi
 
-        printf " \e[1;36m(%s)\e[0;39m " "${b##refs/heads/}$r"
+        printf " (%s) " "${b##refs/heads/}$r"
     fi
 }
