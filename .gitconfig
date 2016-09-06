@@ -13,8 +13,8 @@
     ahead = log --color=always --decorate --pretty=format:\"%C(auto)%h - %C(bold blue)%aE %C(green)(%cr)%C(auto)%d%C(reset) %s\" --graph --date=short origin/master..@
     g = grep -ni
     gall = !git g
-    ds = diff -C --staged
-    duh = diff -C
+    ds = diff -C --staged --color-words
+    d = diff -C --color-words
 [fetch]
     prune = true
 [push]
