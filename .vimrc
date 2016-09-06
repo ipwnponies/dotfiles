@@ -75,6 +75,8 @@ set wildmenu
 set wildignorecase
 set visualbell
 set ignorecase
+set cursorcolumn
+set cursorline
 
 set pastetoggle=<f2>
 
@@ -99,3 +101,5 @@ hi DiffDelete   ctermfg=000 ctermbg=88
 hi diffchange   ctermfg=249 ctermbg=27
 hi difftext     ctermfg=255 ctermbg=9
 hi PmenuSel     ctermfg=51  ctermbg=236
+hi CursorColumn             ctermbg=233
+hi CursorLine               ctermbg=236
