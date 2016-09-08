@@ -44,6 +44,7 @@ nnoremap <C-y> 5<C-y>
 nnoremap Y y$
 noremap go o<esc>
 noremap gO O<esc>
+noremap <esc>o <c-i>
 
 " Bindings for command line
 cmap <c-p> <up>
