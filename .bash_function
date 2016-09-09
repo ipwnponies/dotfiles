@@ -14,7 +14,7 @@ function prepend
 # If a pattern is given, non-greedily match any glob and move above the matched directory one level.
 function up
 {
-    dir=""
+    local dir=""
     if [[ $1 =~ ^[0-9]+$ ]]; then
         x=0
 		# Note the default value of 1 if $i is null.
