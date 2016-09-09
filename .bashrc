@@ -26,10 +26,13 @@ fi
 shopt -s nocaseglob
 
 # WE NEED MOAR POWER!
+shopt -s checkjobs
+shopt -s checkwinsize
 shopt -s extglob
 shopt -s nocaseglob
 shopt -s histappend
 shopt -s histreedit
+shopt -s histverify
 shopt -s cdspell
 . ~/.bash_function
 export LS_COLORS='ow=01;37:';
