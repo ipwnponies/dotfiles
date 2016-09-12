@@ -1,7 +1,7 @@
 #! /bin/bash
 # Usage:
-# git co <branch>
-# Switch to branch if it exists. If not, create a branch that tracks origin/master.
+# git cb <branch>
+# Switch to local branch if it exists. If not, create a branch that tracks origin/master.
 
 if git rev-parse "$1" &>/dev/null; then
     git checkout "$1"
