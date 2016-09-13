@@ -22,10 +22,6 @@
     endif
 " }
 
-" Vim Fugitive: {
-    exe "set previewheight=" . (winheight(0)*2/5)
-" }
-
 " YouCompleteMe: {
     " Enable a more fluid IDE experience.
     let g:ycm_add_preview_to_completeopt=1
