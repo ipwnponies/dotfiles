@@ -29,6 +29,23 @@
     map gd :YcmCompleter GoTo<cr>
 " }
 
+" Status_Line: {
+    set statusline =                " clear!
+    set statusline +=%<             " truncation point
+    set statusline +=%2n:           " buffer number
+    set statusline +=%f\            " relative path to file
+    set statusline +=%#Error#       " BEGIN error highlighting
+    set statusline +=%m             " modified flag [+]
+    set statusline +=%r             " readonly flag [RO]
+    set statusline +=%##            " END error highlighting
+    set statusline +=%y             " filetype [ruby]
+    set statusline +=%=             " split point for left and right justification
+    set statusline +=col:%2v\      " current virtual column number (visual count)
+    set statusline +=row:%3l      " current line number
+    set statusline +=/%-L\         " number of lines in buffer
+    set statusline +=%2p%%\         " percentage through buffer
+" }
+
 " Insert_map: {
     inoremap jj <esc>
 " }
