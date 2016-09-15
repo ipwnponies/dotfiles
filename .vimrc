@@ -81,6 +81,7 @@ set visualbell
 set ignorecase
 set cursorcolumn
 set cursorline
+set nofoldenable
 
 set pastetoggle=<f2>
 
