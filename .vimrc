@@ -29,21 +29,29 @@
     map gd :YcmCompleter GoTo<cr>
 " }
 
-" Bindings for insert mode
-inoremap jj <esc>
+" Insert_map: {
+    inoremap jj <esc>
+" }
 
-" Bindings for normal mode
-nnoremap <c-j> gj
-nnoremap <c-k> gk
-nnoremap <C-e> 5<C-e>
-nnoremap <C-y> 5<C-y>
-nnoremap Y y$
-noremap go o<esc>
-noremap gO O<esc>
+" Normal_Map: {
+    nnoremap <c-j> gj
+    nnoremap <c-k> gk
+    nnoremap <C-e> 5<C-e>
+    nnoremap <C-y> 5<C-y>
+    nnoremap Y y$
+    noremap go o<esc>
+    noremap gO O<esc>
+    noremap <space> za
+" }
 
-" Bindings for command line
-cmap <c-p> <up>
-cmap <c-n> <down>
+" Visual_map: {
+    vnoremap <space> zf
+" }
+
+" Commandline_map: {
+    cmap <c-p> <up>
+    cmap <c-n> <down>
+" }
 
 " Settings 
 set number
