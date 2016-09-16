@@ -57,3 +57,5 @@ PS1_YELLOW=$(tput setaf 3)$(tput bold)
 PS1_CYAN=$(tput setaf 6)$(tput bold)
 PS1_DEFAULT=$(tput sgr0)
 PS1='\[$PS1_BLUE\]\u\[$PS1_DEFAULT\]@\[$PS1_GREEN\]\h\[$PS1_DEFAULT\]:\[$PS1_YELLOW\]\w\[$PS1_DEFAULT\]\[$PS1_CYAN\]$(__git_ps1)\[$PS1_DEFAULT\]\$ \[$PS1_DEFAULT\]'
+
+eval "$(aactivator init)"

@@ -58,6 +58,7 @@
     nnoremap Y y$
     noremap go o<esc>
     noremap gO O<esc>
+    noremap <esc>o <c-i>
     noremap <space> za
 " }
 
