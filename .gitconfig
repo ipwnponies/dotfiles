@@ -16,6 +16,8 @@
     d = diff -C --color-words
 [fetch]
     prune = true
+[interactive]
+    singleKey = yes
 [remote "origin"]
     tagOpt = --no-tags
 [push]
