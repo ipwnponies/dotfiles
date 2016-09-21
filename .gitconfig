@@ -7,16 +7,17 @@
     st = status -sb
     br = branch -vv
     po = push
-    hist = log --color=always --decorate --pretty=format:\"%C(auto)%h - %C(bold blue)%aE %C(green)(%cr)%C(auto)%d%C(reset) %s\" --graph --date=short
-    histmore = log --color=always --decorate --pretty=format:\"%C(auto)%h - %C(bold blue)%aE %C(green)(%cr)%C(auto)%d%C(reset) %s\" --graph --date=short --stat
-    behind = log --color=always --decorate --pretty=format:\"%C(auto)%h - %C(bold blue)%aE %C(green)(%cr)%C(auto)%d%C(reset) %s\" --graph --date=short @..@{u}
-    ahead = log --color=always --decorate --pretty=format:\"%C(auto)%h - %C(bold blue)%aE %C(green)(%cr)%C(auto)%d%C(reset) %s\" --graph --date=short @{u}..@
+    hist = log --color=always --pretty=format:\"%C(auto)%h - %C(bold blue)%aE %C(green)(%cr)%C(reset) %s\" --graph --date=short
+    behind = log --color=always --pretty=format:\"%C(auto)%h - %C(bold blue)%aE %C(green)(%cr)%C(auto)%d%C(reset) %s\" --graph --date=short @..@{u}
+    ahead = log --color=always --pretty=format:\"%C(auto)%h - %C(bold blue)%aE %C(green)(%cr)%C(auto)%d%C(reset) %s\" --graph --date=short @{u}..@
     g = grep -ni
     gall = !git g
     ds = diff -C --staged --color-words
     d = diff -C --color-words
 [fetch]
     prune = true
+[remote "origin"]
+    tagOpt = --no-tags
 [push]
 	default = simple
 [branch]
