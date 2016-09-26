@@ -78,7 +78,7 @@ if has("patch-7.3.541")
     set formatoptions+=j
 endif
 
-set textwidth=130
+set textwidth=100
 set scrolloff=3
 set hlsearch
 set expandtab
