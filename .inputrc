@@ -1,4 +1,10 @@
 "\C-p": history-search-backward
 "\C-n": history-search-forward
+
+# Case insensitive filename completion
 set completion-ignore-case On
 set bell-style none
+# Single tab to show completion
+set show-all-if-ambiguous on
+# Completion will suffix files with filetype character
+set visible-stats on
