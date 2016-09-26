@@ -73,7 +73,15 @@
 
 " Settings 
 set number
-set formatoptions+=orcb
+
+" Format_Option: {
+    set formatoptions +=b   " Break at blank. No autowrapping if line is >textwidth before insert or no blank
+    set formatoptions +=j   " Remove comment leader when joining lines
+    set formatoptions +=c   " Insert comment leader when wrapping lines
+    set formatoptions +=r   " Insert comment leader in insert mode when <CR>
+    set formatoptions +=o   " Insert comment leader for o/O in normal mode
+    set formatoptions +=q   " Allow gq for comments
+" }
 if has("patch-7.3.541")
     set formatoptions+=j
 endif
