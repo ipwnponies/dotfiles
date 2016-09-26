@@ -6,8 +6,7 @@
     amend = commit --amend --no-edit
     st = status -sb
     br = branch -vv
-    po = push
-    hist = log --color=always --pretty=format:\"%C(auto)%h - %C(bold blue)%aE %C(green)(%cr)%C(reset) %s\" --graph --date=short
+    hist = log --color=always --pretty=format:\"%C(auto)%h - %C(bold blue)%aE %C(green)(%cr)%C(auto)%d%C(reset) %s\" --graph --date=short
     behind = log --color=always --pretty=format:\"%C(auto)%h - %C(bold blue)%aE %C(green)(%cr)%C(auto)%d%C(reset) %s\" --graph --date=short @..@{u}
     ahead = log --color=always --pretty=format:\"%C(auto)%h - %C(bold blue)%aE %C(green)(%cr)%C(auto)%d%C(reset) %s\" --graph --date=short @{u}..@
     g = grep -ni
