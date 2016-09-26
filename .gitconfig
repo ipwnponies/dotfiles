@@ -3,6 +3,7 @@
     name = John Nguyen
 [alias]
     ci = commit -v
+    co = checkout
     amend = commit --amend --no-edit
     st = status -sb
     br = branch -vv
