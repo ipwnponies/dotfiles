@@ -1,25 +1,57 @@
-" Bindings
-inoremap jj <esc>
-nnoremap gi gi<c-e>
-nnoremap h H
-nnoremap H h
-nnoremap l L
-nnoremap L l
-nnoremap f <c-f>
-nnoremap b <c-b>
-nnoremap v f
-nnoremap e <c-^>
-cnoremap <C-p> <up>
-cnoremap <C-n> <down>
+" Insert mapping: {
+    inoremap jj <esc>
+" }
 
-" Settings
+" Insert mapping: {
+    " Insert mode and go to end of line
+    nnoremap gi gi<c-e>
+
+    " Swap page back/forth to lower case as it's more often used
+    nnoremap h H
+    nnoremap H h
+    nnoremap l L
+    nnoremap L l
+
+    " Move page up/down to convenient keys
+    nnoremap f <c-f>
+    nnoremap b <c-b>
+
+    " Remap hint as f is used for moving pages
+    nnoremap v f
+
+    " Switch to previous tab
+    nnoremap e <c-^>
+" }
+
+" Command-line mapping: {
+    cnoremap <C-p> <up>
+    cnoremap <C-n> <down>
+" }
+
+" Always show status bar so it doesn't jump around
 set statuslinevisibility=visible
+
+" Stay in normal mode when visiting page
 set focuscontent
+
+" Only show tabs and navigation bar/addons
 set gui=addons,nobookmarks,nomenu,navigation,tabs
+
+" Show links like normal Firefox, don't pollute vimperator
 set showstatuslinks=3
+
+" Complete first match and show other options
 set wildmode=list:full
 
-set complete=lSf
+" Search complete order: {
+    set complete=   " Clear
+    set complete+=s " Search engine and keyword search
+    set complete+=l " Location bar (bookmark and history)
+    set complete+=S " Search suggestions
+" }
 
+" Command to go to reading mode
 command -nargs=0 reader :execute "open about:reader?url=" + content.location.href
+
+" Google docs doesn't play well, takes its ball home
 ignorekeys add https://docs\.google\.com/document/d/.*
