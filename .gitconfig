@@ -2,25 +2,47 @@
     email = jngu@yelp.com
     name = John Nguyen
 [alias]
+    # Verbose commit will show diff when writing commit message
     ci = commit -v
     co = checkout
+
+    # Amend like 'fix' in rebase
     amend = commit --amend --no-edit
+
+    # Short message and show ahead/behind tracking branch
     st = status -sb
+
+    # List tracking branches and branch ahead/behind
     br = branch -vv
+
     hist = log --color=always --pretty=format:\"%C(auto)%h - %C(bold blue)%aE %C(green)(%cr)%C(auto)%d%C(reset) %s\" --graph --date=short
+    # Log that shows how many commits the upstream has moved ahead
     behind = log --color=always --pretty=format:\"%C(auto)%h - %C(bold blue)%aE %C(green)(%cr)%C(auto)%d%C(reset) %s\" --graph --date=short @..@{u}
+    # Show how many commits current branch has moved away from upstream
     ahead = log --color=always --pretty=format:\"%C(auto)%h - %C(bold blue)%aE %C(green)(%cr)%C(auto)%d%C(reset) %s\" --graph --date=short @{u}..@
+
+    # Case insensitive search and show matching line numbers
     g = grep -ni
+
     gall = !git g
+
+    # Show diff with inline diff
     ds = diff -C --staged --color-words
     d = diff -C --color-words
 [fetch]
+    # Remove refs that no longer exist on remote
     prune = true
 [interactive]
+    # Less keystrokes for interactive modes
     singleKey = yes
 [remote "origin"]
+    # Fetch will not implicitly fetch tags
     tagOpt = --no-tags
 [push]
+    # Push current branch to upstream as long as name matches
 	default = simple
 [branch]
-	autoSetupRebase = remote
+    # Pull will rebase for both local and remote tracking branches
+    autoSetupRebase = always
+    # Checkout and branch will setup upstream branch for local and remote starting branch
+    autoSetupMerge = always
