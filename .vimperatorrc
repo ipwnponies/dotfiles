@@ -56,6 +56,7 @@ set wildmode=list:full
 
 " Command to go to reading mode
 command -nargs=0 reader :execute "open about:reader?url=" + content.location.href
+command -nargs=0 fatsecret :js window.content.window.document.getElementById('searchOtherExp').click();
 
 " Google docs doesn't play well, takes its ball home
 ignorekeys add https://docs\.google\.com/document/d/.*
