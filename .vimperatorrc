@@ -44,10 +44,14 @@ set showstatuslinks=3
 set wildmode=list:full
 
 " Search complete order: {
-    set complete=   " Clear
-    set complete+=s " Search engine and keyword search
-    set complete+=l " Location bar (bookmark and history)
-    set complete+=S " Search suggestions
+    " Clear
+    set complete=
+    " Search engine and keyword search
+    set complete+=s
+    " Location bar (bookmark and history)
+    set complete+=l
+    " Search suggestions
+    set complete+=S
 " }
 
 " Command to go to reading mode
