@@ -15,7 +15,7 @@
     # List tracking branches and branch ahead/behind
     br = branch -vv
 
-    hist = log --color=always --pretty=format:\"%C(auto)%h - %C(bold blue)%aE %C(green)(%cr)%C(auto)%d%C(reset) %s\" --graph --date=short
+    hist = log --color=always --pretty=format:\"%C(auto)%h - %C(bold blue)%aE %C(green)(%cr)%C(auto)%d%C(reset) %s\" --graph --date=short @ @{u} -15
     # Log that shows how many commits the upstream has moved ahead
     behind = log --color=always --pretty=format:\"%C(auto)%h - %C(bold blue)%aE %C(green)(%cr)%C(auto)%d%C(reset) %s\" --graph --date=short @..@{u}
     # Show how many commits current branch has moved away from upstream
