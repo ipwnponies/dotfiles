@@ -59,7 +59,12 @@
     noremap go o<esc>
     noremap gO O<esc>
     noremap <esc>o <c-i>
-    noremap <space> za
+
+    " Open up all folds
+    noremap <space> zO
+
+    " Ctrl-Space to update folds to current cursor
+    noremap <C-@> zxzczO
 " }
 
 " Visual_map: {
