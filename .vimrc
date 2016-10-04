@@ -127,7 +127,7 @@ if !&diff
 endif
 
 " Diff colours. Didn't want to put this in ir_black but we may fork ir_black to add this
-hi DiffAdd      ctermfg=234 ctermbg=34 
+hi DiffAdd      ctermfg=195 ctermbg=34
 hi DiffDelete   ctermfg=000 ctermbg=88
 hi diffchange   ctermfg=249 ctermbg=27
 hi difftext     ctermfg=255 ctermbg=9
