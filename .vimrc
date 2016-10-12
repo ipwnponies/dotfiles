@@ -53,8 +53,8 @@
 " }
 
 " Normal_Map: {
-    nnoremap <c-j> gj
-    nnoremap <c-k> gk
+    nnoremap <c-j> :lnext<CR>
+    nnoremap <c-k> :lprevious<CR>
     nnoremap <C-e> 5<C-e>
     nnoremap <C-y> 5<C-y>
     nnoremap Y y$
