@@ -3,4 +3,4 @@ if [ -f  ~/.bashrc ]; then
     . ~/.bashrc
 fi
 
-~/bin/bash_completion.sh
+. ~/bin/bash_completion.sh
