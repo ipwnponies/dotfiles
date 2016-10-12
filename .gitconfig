@@ -32,6 +32,9 @@
 
     # Resync with tracked branch
     sync = reset --hard @{u}
+
+    # Merge and use default merge message
+    mer = merge --no-edit
 [fetch]
     # Remove refs that no longer exist on remote
     prune = true
