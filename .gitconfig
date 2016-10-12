@@ -41,9 +41,6 @@
 [interactive]
     # Less keystrokes for interactive modes
     singleKey = yes
-[remote "origin"]
-    # Fetch will not implicitly fetch tags
-    tagOpt = --no-tags
 [push]
     # Push current branch to upstream as long as name matches
 	default = simple
