@@ -3,4 +3,8 @@ if [ -f  ~/.bashrc ]; then
     . ~/.bashrc
 fi
 
-. ~/bin/bash_completion.sh
+if [ -f ~/bin/bash_completion.sh ]; then
+    . ~/bin/bash_completion.sh
+else
+    echo 'No bash completion available'
+fi
