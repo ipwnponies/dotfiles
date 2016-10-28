@@ -59,4 +59,4 @@ command -nargs=0 reader :execute "open about:reader?url=" + content.location.hre
 command -nargs=0 fatsecret :js var doc=window.content.window.document; (doc.getElementById('searchBfastExp') || doc.getElementById('searchLunchExp') || doc.getElementById('searchDinnerExp') || doc.getElementById('searchOtherExp')).click()
 
 " Google docs doesn't play well, takes its ball home
-ignorekeys add https://docs\.google\.com/document/d/.*
+ignorekeys add https://docs\.google\.com/(document|presentation)/d/.*
