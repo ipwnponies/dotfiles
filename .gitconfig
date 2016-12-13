@@ -2,9 +2,15 @@
     email = jngu@yelp.com
     name = John Nguyen
 [alias]
+    addp = add -p
+
     # Verbose commit will show diff when writing commit message
     ci = commit -v
+    cip = commit -vp
+
+    # Checkout
     co = checkout
+    cop = checkout -p
 
     # Amend like 'fix' in rebase
     amend = commit --amend --no-edit
