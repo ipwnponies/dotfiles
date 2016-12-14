@@ -44,6 +44,7 @@ alias df='df -h'
 alias du='du -h --max-depth=1'
 alias j='jobs -l'
 alias g='grep -Pi --color=auto'
+alias ps='ps -f'
 
 # Reattach to tmux session if one exists
 if shopt -q login_shell && [ -n "$SSH_CLIENT" ] && [ -z "$TMUX" ]; then
