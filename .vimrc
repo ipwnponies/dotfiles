@@ -98,6 +98,7 @@ if has("patch-7.3.541")
     set formatoptions+=j
 endif
 
+set autoindent
 set textwidth=100
 set scrolloff=3
 set hlsearch
@@ -128,21 +129,27 @@ colorscheme ir_black
 filetype plugin on
 highlight Search cterm=reverse,underline
 
-set autoindent
+" Filetype Settings: {
 autocmd BufNewFile,BufRead,FileType *.sql set expandtab
 autocmd BufNewFile,BufRead,FileType *.sql set nonumber
 
+" Diffs use diff foldmethod
 if !&diff
+    " These files, when properly formatted, can use the indent method for folding
 	autocmd BufNewFile,BufRead,FileType *.cs set foldmethod=indent
 	autocmd BufNewFile,BufRead,FileType *.xml set foldmethod=indent
+    " Python is a perfect candidate for indent foldmethod because it is whitespace significant
 	autocmd BufNewFile,BufRead,FileType *.py set foldmethod=indent
 endif
+" }
 
-" Diff colours. Didn't want to put this in ir_black but we may fork ir_black to add this
-hi DiffAdd      ctermfg=195 ctermbg=34
-hi DiffDelete   ctermfg=000 ctermbg=88
-hi diffchange   ctermfg=249 ctermbg=27
-hi difftext     ctermfg=255 ctermbg=9
-hi PmenuSel     ctermfg=51  ctermbg=236
-hi CursorColumn             ctermbg=233
-hi CursorLine               ctermbg=236
+" Diff Colours: {
+    " Override the diff colours in ir_black
+    hi DiffAdd      ctermfg=195 ctermbg=34
+    hi DiffDelete   ctermfg=000 ctermbg=88
+    hi diffchange   ctermfg=249 ctermbg=27
+    hi difftext     ctermfg=255 ctermbg=9
+    hi PmenuSel     ctermfg=51  ctermbg=236
+    hi CursorColumn             ctermbg=233
+    hi CursorLine               ctermbg=236
+" }
