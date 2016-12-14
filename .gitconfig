@@ -56,3 +56,6 @@
     autoSetupRebase = always
     # Checkout and branch will setup upstream branch for local and remote starting branch
     autoSetupMerge = always
+[merge]
+    tool = vimdiff
+    conflictstyle = diff3
