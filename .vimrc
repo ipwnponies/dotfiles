@@ -31,6 +31,11 @@
     map gr :YcmCompleter GoToReferences<cr>
 " }
 
+" GitGutter: {
+    " Git status while editing files
+    set updatetime=250
+" }
+
 " Status_Line: {
     set statusline =                " clear!
     set statusline +=%<             " truncation point
