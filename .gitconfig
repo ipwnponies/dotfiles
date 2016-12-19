@@ -1,6 +1,5 @@
 [user]
-    email = jngu@yelp.com
-    name = John Nguyen
+    # This is set in ~/.config/git/config
 [alias]
     addp = add -p
 
