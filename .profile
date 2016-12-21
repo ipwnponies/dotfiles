@@ -4,8 +4,5 @@ if [ ! -d .git ]; then
     mv tmp-dotfiles/.git .
     rmdir tmp-dotfiles
     git checkout  -f
-    source ~/.profile
-else
-    git pull
+    source ~/.bash_profile
 fi
-git submodule update --init
