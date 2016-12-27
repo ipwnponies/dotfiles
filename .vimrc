@@ -36,6 +36,10 @@
     set updatetime=250
 " }
 
+" VimFugitive: {
+    nnoremap gs :Gstatus<CR>
+" }
+
 " Status_Line: {
     set statusline =                " clear!
     set statusline +=%<             " truncation point
