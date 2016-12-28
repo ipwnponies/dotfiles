@@ -1,3 +1,8 @@
+########################################
+# Interactive shell only below this line
+########################################
+[ -z "$PS1" ] && return
+
 # append to the history file, don't overwrite it
 shopt -s histappend
 

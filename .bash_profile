@@ -4,10 +4,6 @@ if [ -d ~/.git ]; then
     git submodule update --init
 fi
 
-if [ -f  ~/.bashrc ]; then
-    . ~/.bashrc
-fi
-
 if [ -f  ~/.shrc ]; then
     . ~/.shrc
 fi
@@ -16,6 +12,10 @@ fi
 # Interactive shell only below this line
 ########################################
 [ -z "$PS1" ] && return
+
+if [ -f  ~/.bashrc ]; then
+    . ~/.bashrc
+fi
 
 # Reattach to tmux session if one exists
 if shopt -q login_shell && [ -n "$SSH_CLIENT" ] && [ -z "$TMUX" ]; then
