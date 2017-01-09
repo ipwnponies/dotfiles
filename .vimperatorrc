@@ -2,9 +2,11 @@
     inoremap jj <esc>
 " }
 
-" Insert mapping: {
+" Normal mapping: {
     " Insert mode and go to end of line
     nnoremap gi gi<c-e>
+    " Fatsecret go to insert mode
+    nnoremap gI :fatsecret<cr>2gi
 
     " Swap page back/forth to lower case as it's more often used
     nnoremap h H
