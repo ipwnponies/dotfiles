@@ -1,7 +1,2 @@
 *
 .*
-
-# Whitelist of things we want in bin
-!git-deploy
-!git-previous
-!git-find-merge-commit
