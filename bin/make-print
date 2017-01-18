@@ -1,0 +1,35 @@
+#! /bin/bash
+# make-print [var1 var2...]
+# This will print out the evaluated variables
+# Since most variables are capitalized by convention, this will automatically check the uppercase
+# target as well.
+
+if [ $# -eq 0 ]; then
+    echo Missing variables to query
+    exit 1
+fi
+
+# Create the debugging make rules in a temporary file
+exec 3<<'EOF'
+print-%:
+	@echo "$*\t\t== $($*)"
+EOF
+
+read -r -a targets <<< "$*"
+
+# Generate the make rule for each argument
+for i in ${targets[@]}; do
+    uppercase=$(echo $i | sed 's/.*/\U&/')
+    lowercase=$(echo $i | sed 's/.*/\L&/')
+    wordcase=$(echo $i | sed 's/.*/\u&/')
+
+    # eval echo is required to defer brace expansion until after parameter substitution. Without
+    # eval, the result would literally be "print-$i print-$uppercase print-...".
+    make_rules+="$(eval echo print-{$i,$uppercase,$lowercase,$wordcase}) "
+done
+
+echo Querying make variables...
+
+# Run make with default makefile and debugging rule injected and filter only results matching
+# results
+make -S -f Makefile -f /dev/fd/3 $make_rules &>2 | sed '/==\s*$/d'
