@@ -32,4 +32,4 @@ echo Querying make variables...
 
 # Run make with default makefile and debugging rule injected and filter only results matching
 # results
-make -S -f Makefile -f /dev/fd/3 $make_rules &>2 | sed '/==\s*$/d'
+make -S -f Makefile -f /dev/fd/3 $make_rules | sed -nr '/== \S+$/p'
