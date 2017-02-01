@@ -1,6 +1,10 @@
 "\C-p": history-search-backward
 "\C-n": history-search-forward
 
+# Cycle through the files that have matching prefix
+Tab: menu-complete
+"\e[Z": menu-complete-backward
+
 # Case insensitive filename completion
 set completion-ignore-case On
 set bell-style none
@@ -8,3 +12,23 @@ set bell-style none
 set show-all-if-ambiguous on
 # Completion will suffix files with filetype character
 set visible-stats on
+
+# Common prefix of completion is displayed in another colour
+set colored-completion-prefix on
+
+# Completion will show file types with different colours
+set colored-stats on
+
+# Limit how many items are allowed in completion
+set completion-query-items 20
+
+# Completed directories include trailing slash
+set mark-directories on
+# Symlinks are explicitly not so that we can sort of protect against being dumb
+set mark-symlinked-directories off
+
+# Common completion prefix are listed before cycling
+set menu-complete-display-prefix on
+
+# Prevents duplicate insertion if autocomplete in the middle of word
+set skip-completed-text on
