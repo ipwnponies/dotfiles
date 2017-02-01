@@ -29,7 +29,7 @@
     ahead = log --color=always --pretty=format:\"%C(auto)%h %C(green)%>(12)%cd %C(bold blue)%<(15,trunc)%aE %C(reset)%<(50,trunc)%s%C(auto)%d\" --graph --date=relative @{u}..@
 
     # Case insensitive search and show matching line numbers
-    g = grep -ni
+    g = grep -niP
 
     gall = !git g
 
