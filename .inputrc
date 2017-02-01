@@ -5,6 +5,10 @@
 Tab: menu-complete
 "\e[Z": menu-complete-backward
 
+# Replace default 'move word' with shell words
+"\ef": shell-forward-word
+"\eb": shell-backword-word
+
 # Case insensitive filename completion
 set completion-ignore-case On
 set bell-style none
