@@ -85,6 +85,7 @@
 " Commandline_map: {
     cmap <c-p> <up>
     cmap <c-n> <down>
+    cmap w!! w !sudo tee >/dev/null %
 " }
 
 " Settings 
