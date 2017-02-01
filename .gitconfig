@@ -43,6 +43,9 @@
     # Merge and use default merge message
     mer = merge --no-edit
     pullmer = pull --no-rebase
+
+    # Rebase
+    rb = rebase -i --autosquash
 [fetch]
     # Remove refs that no longer exist on remote
     prune = true
