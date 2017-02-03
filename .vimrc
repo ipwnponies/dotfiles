@@ -129,6 +129,9 @@ set nofoldenable
 
 set pastetoggle=<f2>
 
+set diffopt+=vertical
+set diffopt+=context:2
+
 syntax enable
 colorscheme ir_black
 filetype plugin on
