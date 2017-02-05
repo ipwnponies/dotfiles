@@ -11,16 +11,6 @@
     noremap <C-P> <C-I>
 " }
 
-" Pathogen: {
-    " keep plugins nicely bundled in separate folders.
-    " http://www.vim.org/scripts/script.php?script_id=2332
-    runtime autoload/pathogen.vim
-    if exists('g:loaded_pathogen')
-        call pathogen#infect()    "load the bundles, if possible
-        Helptags                  "plus any bundled help
-        runtime bundle_config.vim "give me a chance to configure the plugins
-    endif
-" }
 
 " YouCompleteMe: {
     " Enable a more fluid IDE experience.
