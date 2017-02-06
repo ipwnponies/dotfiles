@@ -48,7 +48,12 @@
             " - status: 'installed', 'updated', or 'unchanged'
             " - force:  set on PlugInstall! or PlugUpdate!
             if a:info.status == 'installed' || a:info.force
-                !./install.py
+                let gcc_version = system('g++ -dumpversion')[:-2]
+                if gcc_version == '4.6'
+                    !CXX=g++-4.8 ./install.py
+                else
+                    !./install.py
+                endif
             endif
         endfunction
         Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
