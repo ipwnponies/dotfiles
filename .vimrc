@@ -11,6 +11,42 @@
     noremap <C-P> <C-I>
 " }
 
+" Vim-Plug: {
+    " Bootstrap vim-plug for fresh vim install
+    if empty(glob('~/.vim/autoload/plug.vim'))
+      silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+      autocmd VimEnter * PlugInstall
+    endif
+
+    call plug#begin('~/.vim/bundle')
+        " Git plugins
+        Plug 'airblade/vim-gitgutter'
+        Plug 'gregsexton/gitv'
+        Plug 'tpope/vim-fugitive'
+
+        " Lang-specific
+        Plug 'hynek/vim-python-pep8-indent'
+        Plug 'rodjek/vim-puppet'
+        Plug 'scrooloose/syntastic'
+
+        " Functionality
+        Plug 'roxma/vim-paste-easy'
+        Plug 'tpope/vim-commentary'
+        Plug 'tpope/vim-surround'
+        Plug 'tpope/vim-sensible'
+
+        function! BuildYCM(info)
+            " info is a dictionary with 3 fields
+            " - name:   name of the plugin
+            " - status: 'installed', 'updated', or 'unchanged'
+            " - force:  set on PlugInstall! or PlugUpdate!
+            if a:info.status == 'installed' || a:info.force
+                !./install.py
+            endif
+        endfunction
+        Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
+    call plug#end()
+" }
 
 " YouCompleteMe: {
     " Enable a more fluid IDE experience.
