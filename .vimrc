@@ -28,12 +28,19 @@
         Plug 'hynek/vim-python-pep8-indent'
         Plug 'rodjek/vim-puppet'
         Plug 'scrooloose/syntastic'
+        Plug 'plasticboy/vim-markdown'
 
         " Functionality
         Plug 'roxma/vim-paste-easy'
         Plug 'tpope/vim-commentary'
         Plug 'tpope/vim-surround'
         Plug 'tpope/vim-sensible'
+        Plug 'tpope/vim-endwise'
+        Plug 'tpope/vim-dispatch'
+        Plug 'mbbill/undotree'
+        Plug 'Yggdroot/indentLine'
+        Plug 'scrooloose/nerdtree'
+        Plug 'Xuyuanp/nerdtree-git-plugin'
 
         function! BuildYCM(info)
             " info is a dictionary with 3 fields
