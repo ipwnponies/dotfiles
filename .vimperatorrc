@@ -64,3 +64,22 @@ command -nargs=0 fatsecret :js var doc=window.content.window.document; (doc.getE
 ignorekeys add https://docs\.google\.com/(document|presentation)/d/.*
 ignorekeys add inbox\\.google\\.com     -except g,t,e,<C-^>,:,<C-b>,b,<C-f>,f,v,d,r
 ignorekeys add mail\\.google\\.com      -except g,t,e,<C-^>,:,<C-b>,b,<C-f>,f,v,d,r
+
+" Firefox 51 broke Vimperator 3.15.0, workaround until 3.16.0 is released
+" https://addons.mozilla.org/en-US/firefox/addon/vimperator/
+" This restores partial functionality to a subset of tab-related functions
+" : {
+    " Open tab
+    nnoremap t :customopen!<space>
+    nnoremap o :customopen<space>
+    command! customopen -bang -nargs=+ -description "Open new tab using js eval" :js liberator.open("<args>", "<bang>" ? liberator.NEW_TAB : liberator.CURRENT_TAB)
+
+    " Close tab
+    nnoremap d :js config.tabbrowser.removeTab(config.tabbrowser.mCurrentTab)<cr>
+
+    " Undo tab close
+    nnoremap u :js window.undoCloseTab()<cr>
+
+    " Reload tab
+    nnoremap r :js config.tabbrowser.reloadTab(config.tabbrowser.mCurrentTab)<cr>
+" }
