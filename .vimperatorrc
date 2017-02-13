@@ -57,8 +57,8 @@ set wildmode=list:full
 " }
 
 " Command to go to reading mode
-command -nargs=0 reader :execute "open about:reader?url=" + content.location.href
-command -nargs=0 fatsecret :js var doc=window.content.window.document; (doc.getElementById('searchBfastExp') || doc.getElementById('searchLunchExp') || doc.getElementById('searchDinnerExp') || doc.getElementById('searchOtherExp')).click()
+command! -nargs=0 -description="Open current page in reader mode" reader :execute "open about:reader?url=" + content.location.href
+command! -nargs=0 -description="Emulate mouse click to trigger fatsecret js magic on search boxes" fatsecret :js var doc=window.content.window.document; (doc.getElementById('searchBfastExp') || doc.getElementById('searchLunchExp') || doc.getElementById('searchDinnerExp') || doc.getElementById('searchOtherExp')).click()
 
 " Google docs doesn't play well, takes its ball home
 ignorekeys add https://docs\.google\.com/(document|presentation)/d/.*
