@@ -52,3 +52,8 @@ if [[ $TMUX ]]; then
     # available in .profile and only available to login shell...
     PROMPT_COMMAND='eval export "$(tmux show-environment | grep \^SSH_AUTH_SOCK=)"'"; $PROMPT_COMMAND"
 fi
+
+# .bashrc_local is for host specific settings, not versioned controlled
+if [ -f ~/.bashrc_local ]; then
+    . ~/.bashrc_local
+fi
