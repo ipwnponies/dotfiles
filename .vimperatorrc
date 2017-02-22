@@ -1,8 +1,47 @@
-" Insert mapping: {
+" Status Line: {
+    " Always show status bar so it doesn't jump around
+    set statuslinevisibility=visible
+
+    " Show links like normal Firefox, don't pollute vimperator
+    set showstatuslinks=3
+" }
+
+" Search Complete Order: {
+    " Clear
+    set complete=
+    " Search engine and keyword search is disabled because it slows down custom search keywords
+    " set complete+=s
+    " Location bar (bookmark and history)
+    set complete+=l
+    " Search suggestions
+    set complete+=S
+" }
+
+" Miscellaneous Settings: {
+    " Stay in normal mode when visiting page
+    set focuscontent
+
+    " Only show tabs and navigation bar/addons
+    set gui=addons,nobookmarks,nomenu,navigation,tabs
+
+    " Complete first match and show other options
+    set wildmode=list:full
+" }
+
+" Ignorekeys: {
+    " Google docs doesn't play well, often crashes when vimperator commands are present
+    ignorekeys add https://docs\.google\.com/(document|presentation)/d/.*
+
+    " Enable google's shortcuts
+    ignorekeys add inbox\\.google\\.com     -except g,t,e,<C-^>,:,<C-b>,b,<C-f>,f,v,d,r
+    ignorekeys add mail\\.google\\.com      -except g,t,e,<C-^>,:,<C-b>,b,<C-f>,f,v,d,r
+" }
+
+" Insert Mapping: {
     inoremap jj <esc>
 " }
 
-" Normal mapping: {
+" Normal Mapping: {
     " Insert mode and go to end of line
     nnoremap gi gi<c-e>
     " Fatsecret go to insert mode
@@ -25,42 +64,12 @@
     nnoremap e <c-^>
 " }
 
-" Command-line mapping: {
+" Command Mapping: {
     cnoremap <C-p> <up>
     cnoremap <C-n> <down>
 " }
 
-" Always show status bar so it doesn't jump around
-set statuslinevisibility=visible
-
-" Stay in normal mode when visiting page
-set focuscontent
-
-" Only show tabs and navigation bar/addons
-set gui=addons,nobookmarks,nomenu,navigation,tabs
-
-" Show links like normal Firefox, don't pollute vimperator
-set showstatuslinks=3
-
-" Complete first match and show other options
-set wildmode=list:full
-
-" Search complete order: {
-    " Clear
-    set complete=
-    " Search engine and keyword search is disabled because it slows down custom search keywords
-    " set complete+=s
-    " Location bar (bookmark and history)
-    set complete+=l
-    " Search suggestions
-    set complete+=S
+" Custom Commands: {
+    command! reader     -nargs=0 -description="Open current page in reader mode" :execute "open about:reader?url=" + content.location.href
+    command! fatsecret  -nargs=0 -description="Emulate mouse click to trigger fatsecret js magic on search boxes" :js var doc=window.content.window.document; (doc.getElementById('searchBfastExp') || doc.getElementById('searchLunchExp') || doc.getElementById('searchDinnerExp') || doc.getElementById('searchOtherExp')).click()
 " }
-
-" Command to go to reading mode
-command! -nargs=0 -description="Open current page in reader mode" reader :execute "open about:reader?url=" + content.location.href
-command! -nargs=0 -description="Emulate mouse click to trigger fatsecret js magic on search boxes" fatsecret :js var doc=window.content.window.document; (doc.getElementById('searchBfastExp') || doc.getElementById('searchLunchExp') || doc.getElementById('searchDinnerExp') || doc.getElementById('searchOtherExp')).click()
-
-" Google docs doesn't play well, takes its ball home
-ignorekeys add https://docs\.google\.com/(document|presentation)/d/.*
-ignorekeys add inbox\\.google\\.com     -except g,t,e,<C-^>,:,<C-b>,b,<C-f>,f,v,d,r
-ignorekeys add mail\\.google\\.com      -except g,t,e,<C-^>,:,<C-b>,b,<C-f>,f,v,d,r
