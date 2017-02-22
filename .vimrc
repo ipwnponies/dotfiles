@@ -97,6 +97,9 @@
 
 " Insert_map: {
     inoremap jj <esc>
+
+    iabbrev teh the
+    iabbrev waht what
 " }
 
 " Normal_Map: {
