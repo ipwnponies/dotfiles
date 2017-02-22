@@ -73,3 +73,5 @@
     command! reader     -nargs=0 -description="Open current page in reader mode" :execute "open about:reader?url=" + content.location.href
     command! fatsecret  -nargs=0 -description="Emulate mouse click to trigger fatsecret js magic on search boxes" :js var doc=window.content.window.document; (doc.getElementById('searchBfastExp') || doc.getElementById('searchLunchExp') || doc.getElementById('searchDinnerExp') || doc.getElementById('searchOtherExp')).click()
 " }
+
+" vim: filetype=vim
