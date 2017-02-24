@@ -34,8 +34,8 @@
     gall = !git g
 
     # Show diff with inline diff
-    ds = diff -C --staged --color-words
-    d = diff -C --color-words
+    ds = diff -C --staged --ws-error-highlight=all --color-words --word-diff-regex=.
+    d = diff -C --ws-error-highlight=all --color-words --word-diff-regex=.
 
     # Resync with tracked branch
     sync = reset --hard @{u}
