@@ -39,9 +39,9 @@ else
     echo 'No bash completion available'
 fi
 
-if [ -f ~/.bash_function ]; then
-    . ~/.bash_function
-fi
+. ~/.bash_function
+_Z_DATA=~/.z/cd_data
+. ~/.z/z.sh
 
 # Directories available at top level for cd
 CDPATH=.:~/cdpath
