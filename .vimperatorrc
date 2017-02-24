@@ -33,8 +33,10 @@
     ignorekeys add https://docs\.google\.com/(document|presentation)/d/.*
 
     " Enable google's shortcuts
-    ignorekeys add inbox\\.google\\.com     -except g,t,e,<C-^>,:,<C-b>,b,<C-f>,f,v,d,r
-    ignorekeys add mail\\.google\\.com      -except g,t,e,<C-^>,:,<C-b>,b,<C-f>,f,v,d,r
+    ignorekeys add inbox\\.google\\.com     -except=g,t,e,<C-^>,:,<C-b>,b,<C-f>,f,v,d,r
+    ignorekeys add mail\\.google\\.com      -except=g,t,e,<C-^>,:,<C-b>,b,<C-f>,f,v,d,r
+
+    ignorekeys add reddit\\.com             -except=g,t,e,<C-^>,:,;,<C-b>,b,<C-f>,f,v,d,r
 " }
 
 " Insert Mapping: {
