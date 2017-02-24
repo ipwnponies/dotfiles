@@ -32,6 +32,7 @@ alias du='du -h --max-depth=1'
 alias j='jobs -l'
 alias g='grep -Pi --color=auto'
 alias ps='ps -f'
+alias review-branch-submit='review-branch --submit $(history -p "!?git mer?:$")'
 
 if [ -f ~/bin/bash_completion.sh ]; then
     . ~/bin/bash_completion.sh
