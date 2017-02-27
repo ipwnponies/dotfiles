@@ -41,8 +41,9 @@ else
 fi
 
 . ~/.bash_function
-_Z_DATA=~/.z/cd_data
-. ~/.z/z.sh
+
+_Z_DATA=~/.config/z/cd_data
+. ~/.config/z/z/z.sh
 
 # Directories available at top level for cd
 CDPATH=.:~/cdpath
