@@ -86,4 +86,16 @@
     command! fatsecret  -nargs=0 -description="Emulate mouse click to trigger fatsecret js magic on search boxes" :js var doc=window.content.window.document; (doc.getElementById('searchBfastExp') || doc.getElementById('searchLunchExp') || doc.getElementById('searchDinnerExp') || doc.getElementById('searchOtherExp')).click()
 " }
 
+" This is for all the patches to vimperator until next release comes out
+" VimperatorPatches: {
+
+    "  Fix search highlighting
+    js <<EOF
+    finder.highlight = function() {
+        this.setupFindbar();
+        this.findbar.toggleHighlight(true);
+    }
+EOF
+" }
+
 " vim: filetype=vim
