@@ -45,5 +45,8 @@ if not set -q __fish_prompt_cwd
 
 printf '[%s] %s%s@%s %s%s %s%s \f\r> ' (date "+%H:%M:%S") "$__fish_color_blue" $USER $__fish_prompt_hostname "$__fish_prompt_cwd" "$PWD" "$stat" "$__fish_prompt_normal"
 
+# Keep tmux ssh-agent information up-to-date
+eval export "(tmux show-environment | grep \^SSH_AUTH_SOCK=)"
+
 end
 end
