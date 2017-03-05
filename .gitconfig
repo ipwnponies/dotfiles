@@ -63,3 +63,7 @@
 [merge]
     tool = vimdiff
     conflictstyle = diff3
+[rebase]
+	autoSquash = true
+	autoStash = true
+	stat = true
