@@ -29,6 +29,7 @@
         Plug 'rodjek/vim-puppet'
         Plug 'scrooloose/syntastic'
         Plug 'plasticboy/vim-markdown'
+        Plug 'dag/vim-fish'
 
         " Functionality
         Plug 'roxma/vim-paste-easy'
