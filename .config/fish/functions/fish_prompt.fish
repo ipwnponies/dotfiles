@@ -67,8 +67,7 @@ function __fish_prompt_git
             if [ -f $git_root_dir/BISECT_LOG ];
                 set r "|BISECTING"
             end
-            set b (git symbolic-ref HEAD 2>/dev/null)
-            if [ ! $status ];
+            if not set b (git symbolic-ref HEAD 2>/dev/null)
                 set b (cut -c1-7 $git_root_dir/HEAD)...
             end
         end
