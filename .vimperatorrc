@@ -41,12 +41,12 @@
 
 " Highlight: {
     highlight CmdLine>* font-family: "Ubuntu Mono",monospace; font-size: medium;
-    highlight CompItem>* -append font-size:large
+    highlight CompItem>* -append font-size:medium
     highlight CompTitle>* -append font-size:large; font-weight:normal;
     highlight Help -append font-family: Gill Sans; font-size: large; font-weight:lighter;
     highlight HintActive color: black; background-color: darkorange
     highlight HintElem color: black; background-color: palegreen
-    highlight StatusLine -append font-size: x-large;
+    highlight StatusLine -append font-size: medium;
 " }
 
 " Insert Mapping: {
