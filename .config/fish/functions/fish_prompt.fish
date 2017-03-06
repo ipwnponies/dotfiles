@@ -49,22 +49,21 @@ end
 end
 
 function __fish_prompt_git
-    set git_root_dir (git rev-parse --git-dir 2>/dev/null)
-    if [ -n $git_root_dir ];
-        if [ -d "$git_root_dir/../.dotest" ];
+    if set git_root_dir (git rev-parse --git-dir 2>/dev/null)
+        if test -d "$git_root_dir/../.dotest"
             set r "|AM/REBASE"
             set b (git symbolic-ref HEAD 2>/dev/null)
-        else if [ -f "$git_root_dir/.dotest-merge/interactive" ];
+        else if test -f "$git_root_dir/.dotest-merge/interactive"
             set r "|REBASE-i"
             set b (cat $git_root_dir/.dotest-merge/head-name)
-        else if [ -d "$git_root_dir/.dotest-merge" ];
+        else if test -d "$git_root_dir/.dotest-merge"
             set r "|REBASE-m"
             set b (cat $git_root_dir/.dotest-merge/head-name)
-        else if [ -f "$git_root_dir/MERGE_HEAD" ];
+        else if test -f "$git_root_dir/MERGE_HEAD"
             set r "|MERGING"
             set b (git symbolic-ref HEAD 2>/dev/null)
         else;
-            if [ -f $git_root_dir/BISECT_LOG ];
+            if test -f $git_root_dir/BISECT_LOG
                 set r "|BISECTING"
             end
             if not set b (git symbolic-ref HEAD 2>/dev/null)
