@@ -135,9 +135,6 @@
     cmap w!! w !sudo tee >/dev/null %
 " }
 
-" Settings 
-set number
-
 " Format_Option: {
     set formatoptions +=b   " Break at blank. No autowrapping if line is >textwidth before insert or no blank
     set formatoptions +=j   " Remove comment leader when joining lines
@@ -145,39 +142,50 @@ set number
     set formatoptions +=r   " Insert comment leader in insert mode when <CR>
     set formatoptions +=o   " Insert comment leader for o/O in normal mode
     set formatoptions +=q   " Allow gq for comments
+    if has("patch-7.3.541")
+        set formatoptions+=j
+    endif
 " }
-if has("patch-7.3.541")
-    set formatoptions+=j
-endif
 
-set autoindent
-set textwidth=100
-set scrolloff=3
-set hlsearch
-set expandtab
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set smartcase
-set noinfercase
-set backspace=2
-set foldmethod=syntax
-set ruler
-set incsearch
-set hidden
-set wildmode=full
-set wildmenu
-set wildignorecase
-set visualbell
-set ignorecase
-set cursorcolumn
-set cursorline
-set nofoldenable
+" Settings: {
+    " Search
+    set hlsearch
+    set incsearch
+    set ignorecase
+    set smartcase
 
-set pastetoggle=<f2>
+    " Spaces, tabs, indents
+    set expandtab
+    set tabstop=4
+    set softtabstop=4
+    set shiftwidth=4
+    set autoindent
 
-set diffopt+=vertical
-set diffopt+=context:2
+    " Diff and folds
+    set foldmethod=syntax
+    set nofoldenable
+    set diffopt+=vertical
+    set diffopt+=context:2
+
+    " Completion
+    set wildmode=full
+    set wildmenu
+    set wildignorecase
+    set noinfercase
+
+    " Visuals
+    set visualbell
+    set cursorcolumn
+    set cursorline
+    set number
+    set scrolloff=3
+
+    " Misc
+    set textwidth=100
+    set pastetoggle=<f2>
+    set hidden
+    set backspace=2
+" }
 
 syntax enable
 colorscheme ir_black
