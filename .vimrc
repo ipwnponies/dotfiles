@@ -79,6 +79,11 @@
     nnoremap gs :Gstatus<CR>
 " }
 
+" IndentLine: {
+    " Disable Yggdroot/indentLine overrides
+    let g:indentLine_concealcursor='c'
+"}
+"
 " Status_Line: {
     set statusline =                " clear!
     set statusline +=%<             " truncation point
