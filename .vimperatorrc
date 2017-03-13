@@ -86,6 +86,12 @@
     command! fatsecret  -nargs=0 -description="Emulate mouse click to trigger fatsecret js magic on search boxes" :js var doc=window.content.window.document; (doc.getElementById('searchBfastExp') || doc.getElementById('searchLunchExp') || doc.getElementById('searchDinnerExp') || doc.getElementById('searchOtherExp')).click()
 " }
 
+" Bookmarks: {
+    bmark -keyword wolfram      -title 'Search Wolfram|Alpha: Computational Knowledge Engine' 'https://www.wolframalpha.com/input/?i=%s'
+    bmark -keyword sickbeatz    -title 'video game music - YouTube' 'https://www.youtube.com/playlist?list=PLHg9rVhctvtYtVf-ED3O9R3akyYMh7opc'
+    bmark -keyword define       -title 'Wiktionary' 'https://en.wiktionary.org/w/index.php?search=%s&title=Special%3ASearch'
+" }
+
 " This is for all the patches to vimperator until next release comes out
 " VimperatorPatches: {
 
