@@ -1,1 +1,1 @@
-z-fish/z.fish
+../plugins/z-fish/z.fish

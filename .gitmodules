@@ -1,6 +1,6 @@
 [submodule "z"]
 	path = .config/z/z
 	url = https://github.com/rupa/z.git
-[submodule ".config/fish/functions/z-fish"]
-	path = .config/fish/functions/z-fish
-	url = https://github.com/sjl/z-fish.git
+[submodule ".config/fish/plugins/z-fish"]
+	path = .config/fish/plugins/z-fish
+	url = git@github.com:ipwnponies/z-fish.git
