@@ -9,4 +9,4 @@
 COMMIT=$1
 BRANCH=${2:-HEAD}
 
-git rev-list --ancestry-path $COMMIT..$BRANCH | grep -f <(git rev-list --first-parent $COMMIT..$BRANCH) | tail -1
+git rev-list --ancestry-path "$COMMIT".."$BRANCH" | grep -f <(git rev-list --first-parent "$COMMIT".."$BRANCH") | tail -1

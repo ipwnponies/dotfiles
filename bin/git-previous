@@ -12,4 +12,4 @@
 num_version_rollback=$1
 file=$2
 
-git log --pretty=format:'%h' $file | awk -v row="$num_version_rollback" 'FNR == row+1 {print}'
+git log --pretty=format:'%h' "$file" | awk -v row="$num_version_rollback" 'FNR == row+1 {print}'

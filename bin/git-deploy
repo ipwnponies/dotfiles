@@ -64,7 +64,6 @@ BRANCHNAME=$(git symbolic-ref --short HEAD)
 
 # Check that the branch name is a user branch, starts with u/jngu
 if [[ $BRANCHNAME != u/$(whoami)/* ]]; then
-    message=
     echo -e "$(tput bold)$(tput setaf 1)Error:$(tput sgr0) git deploy can only be used to push u/ branches to d/"
     exit 1
 fi
@@ -76,7 +75,7 @@ else
 fi
 
 echo "$command"
-read -p "Continue (y/n)?" choice
+read -rp "Continue (y/n)?" choice
 if [[ $choice == y* ]]; then
-    eval $command
+    eval "$command"
 fi
