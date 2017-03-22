@@ -10,7 +10,7 @@
     " Clear
     set complete=
     " Search engine and keyword search is disabled because it slows down custom search keywords
-    " set complete+=s
+    set complete+=s
     " Location bar (bookmark and history)
     set complete+=l
     " Search suggestions
