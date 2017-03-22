@@ -43,7 +43,7 @@ if not set -q __fish_prompt_cwd
             set -g __fish_prompt_cwd (set_color $fish_color_cwd)
         end
 
-printf '%s%s%s@%s%s%s: %s%s %s(%s)%s%s \f\r╰─➤ ' "$__fish_color_blue" $USER $__fish_prompt_normal (set_color -o green) $__fish_prompt_hostname $__fish_prompt_normal (set_color -o yellow) (prompt_pwd $PWD) (set_color -o cyan) (__fish_prompt_git) "$stat" "$__fish_prompt_normal"
+printf '%s%s%s@%s%s%s: %s%s %s(%s)%s%s \n╰─➤ ' "$__fish_color_blue" $USER $__fish_prompt_normal (set_color -o green) $__fish_prompt_hostname $__fish_prompt_normal (set_color -o yellow) (prompt_pwd $PWD) (set_color -o cyan) (__fish_prompt_git) "$stat" "$__fish_prompt_normal"
 
 end
 end
