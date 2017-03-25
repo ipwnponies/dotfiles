@@ -8,9 +8,8 @@
     cip = commit -vp
 
     # Checkout
-    co = checkout
+    co = !"git checkout $1 2>/dev/null || git checkout -b $1 origin/master && :"
     cop = checkout -p
-    cob = checkout origin/master -b
 
     # Amend like 'fix' in rebase
     amend = commit --amend --no-edit
