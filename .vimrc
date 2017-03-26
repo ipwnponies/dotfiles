@@ -40,6 +40,7 @@
         Plug 'Yggdroot/indentLine'
         Plug 'scrooloose/nerdtree'
         Plug 'Xuyuanp/nerdtree-git-plugin'
+        Plug 'jceb/vim-orgmode'
 
         function! BuildYCM(info)
             " info is a dictionary with 3 fields
@@ -71,6 +72,8 @@
         nnoremap gs :Gstatus<CR>
     " IndentLine: Disable Yggdroot/indentLine overrides
         let g:indentLine_concealcursor='c'
+    " Vim Org: Todo lists
+        let g:org_indent = 1
 
 " Status_Line:
     set statusline =                " clear!
