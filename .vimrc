@@ -1,4 +1,4 @@
-" multiple files {
+" Multiple Files:
     " be smarter about multiple buffers / vim instances
     "quick buffer switching with TAB, even with edited files
     set hidden
@@ -9,10 +9,8 @@
 
     "replacement for CTRL-I, also known as <tab>
     noremap <C-P> <C-I>
-" }
 
-" Vim-Plug: {
-    " Bootstrap vim-plug for fresh vim install
+" Vim Plug: Bootstrap vim-plug for fresh vim install
     if empty(glob('~/.vim/autoload/plug.vim'))
       silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
       autocmd VimEnter * PlugInstall
@@ -59,32 +57,22 @@
         endfunction
         Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
     call plug#end()
-" }
 
-" YouCompleteMe: {
-    " Enable a more fluid IDE experience.
-    let g:ycm_add_preview_to_completeopt=1
-    let g:ycm_autoclose_preview_window_after_completion=1
-    map gd :YcmCompleter GoTo<cr>
-    map gD :YcmCompleter GetDoc<cr>
-    map gr :YcmCompleter GoToReferences<cr>
-" }
+" Plugin Custom Configurations:
+    " YouCompleteMe: Enable a more fluid IDE experience.
+        let g:ycm_add_preview_to_completeopt=1
+        let g:ycm_autoclose_preview_window_after_completion=1
+        map gd :YcmCompleter GoTo<cr>
+        map gD :YcmCompleter GetDoc<cr>
+        map gr :YcmCompleter GoToReferences<cr>
+    " GitGutter: Git status while editing files
+        set updatetime=250
+    " VimFugitive: Git operations in vim
+        nnoremap gs :Gstatus<CR>
+    " IndentLine: Disable Yggdroot/indentLine overrides
+        let g:indentLine_concealcursor='c'
 
-" GitGutter: {
-    " Git status while editing files
-    set updatetime=250
-" }
-
-" VimFugitive: {
-    nnoremap gs :Gstatus<CR>
-" }
-
-" IndentLine: {
-    " Disable Yggdroot/indentLine overrides
-    let g:indentLine_concealcursor='c'
-"}
-"
-" Status_Line: {
+" Status_Line:
     set statusline =                " clear!
     set statusline +=%<             " truncation point
     set statusline +=%2n:           " buffer number
@@ -99,16 +87,14 @@
     set statusline +=row:%3l      " current line number
     set statusline +=/%-L\         " number of lines in buffer
     set statusline +=%2p%%\         " percentage through buffer
-" }
 
-" Insert_map: {
+" Insert_map:
     inoremap jj <esc>
 
     iabbrev teh the
     iabbrev waht what
-" }
 
-" Normal_Map: {
+" Normal_Map:
     nnoremap <c-j> :lnext<CR>
     nnoremap <c-k> :lprevious<CR>
     nnoremap <C-e> 5<C-e>
@@ -123,19 +109,16 @@
 
     " Ctrl-Space to update folds to current cursor
     noremap <C-@> zxzczO
-" }
 
-" Visual_map: {
+" Visual_map:
     vnoremap <space> zf
-" }
 
-" Commandline_map: {
+" Commandline_map:
     cmap <c-p> <up>
     cmap <c-n> <down>
     cmap w!! w !sudo tee >/dev/null %
-" }
 
-" Format_Option: {
+" Format_Option:
     set formatoptions +=b   " Break at blank. No autowrapping if line is >textwidth before insert or no blank
     set formatoptions +=j   " Remove comment leader when joining lines
     set formatoptions +=c   " Insert comment leader when wrapping lines
@@ -145,9 +128,8 @@
     if has("patch-7.3.541")
         set formatoptions+=j
     endif
-" }
 
-" Settings: {
+" Settings:
     " Search
     set hlsearch
     set incsearch
@@ -185,30 +167,29 @@
     set pastetoggle=<f2>
     set hidden
     set backspace=2
-" }
+    set modeline
 
-syntax enable
-colorscheme ir_black
-filetype plugin on
-highlight Search cterm=reverse,underline
+" Misc:
+    syntax enable
+    colorscheme ir_black
+    filetype plugin on
+    highlight Search cterm=reverse,underline
 
-" Filetype Settings: {
-autocmd BufNewFile,BufRead,FileType *.sql set expandtab
-autocmd BufNewFile,BufRead,FileType *.sql set nonumber
-autocmd BufNewFile,BufRead,FileType *.yaml set ts=2 sw=2
+" Autocmd:
+    autocmd BufNewFile,BufRead,FileType *.sql set expandtab
+    autocmd BufNewFile,BufRead,FileType *.sql set nonumber
+    autocmd BufNewFile,BufRead,FileType *.yaml set ts=2 sw=2
 
-" Diffs use diff foldmethod
-if !&diff
-    " These files, when properly formatted, can use the indent method for folding
-	autocmd BufNewFile,BufRead,FileType *.cs set foldmethod=indent
-	autocmd BufNewFile,BufRead,FileType *.xml set foldmethod=indent
-    " Python is a perfect candidate for indent foldmethod because it is whitespace significant
-	autocmd BufNewFile,BufRead,FileType *.py set foldmethod=indent
-endif
-" }
+    " Diffs use diff foldmethod
+    if !&diff
+        " These files, when properly formatted, can use the indent method for folding
+        autocmd BufNewFile,BufRead,FileType *.cs set foldmethod=indent
+        autocmd BufNewFile,BufRead,FileType *.xml set foldmethod=indent
+        " Python is a perfect candidate for indent foldmethod because it is whitespace significant
+        autocmd BufNewFile,BufRead,FileType *.py set foldmethod=indent
+    endif
 
-" Diff Colours: {
-    " Override the diff colours in ir_black
+" Diff Colours: Override the diff colours in ir_black
     hi DiffAdd      ctermfg=195 ctermbg=34
     hi DiffDelete   ctermfg=000 ctermbg=88
     hi diffchange   ctermfg=249 ctermbg=27
@@ -216,4 +197,3 @@ endif
     hi PmenuSel     ctermfg=51  ctermbg=236
     hi CursorColumn             ctermbg=233
     hi CursorLine               ctermbg=236
-" }
