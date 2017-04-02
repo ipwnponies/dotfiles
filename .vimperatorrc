@@ -1,12 +1,11 @@
-" Status Line: {
+" Status Line:
     " Always show status bar so it doesn't jump around
     set statuslinevisibility=visible
 
     " Show links like normal Firefox, don't pollute vimperator
     set showstatuslinks=3
-" }
 
-" Search Complete Order: {
+" Search Complete Order:
     " Clear
     set complete=
     " Search engine and keyword search is disabled because it slows down custom search keywords
@@ -15,9 +14,8 @@
     set complete+=l
     " Search suggestions
     set complete+=S
-" }
 
-" Miscellaneous Settings: {
+" Miscellaneous Settings:
     " Stay in normal mode when visiting page
     set focuscontent
 
@@ -26,9 +24,8 @@
 
     " Complete first match and show other options
     set wildmode=list:full
-" }
 
-" Ignorekeys: {
+" Ignorekeys:
     " Google docs doesn't play well, often crashes when vimperator commands are present
     ignorekeys add https://docs\.google\.com/(document|presentation)/d/.*
 
@@ -37,9 +34,8 @@
     ignorekeys add mail\\.google\\.com      -except=g,t,T,o,O,e,<C-^>,:,<C-b>,b,<C-f>,f,F,v,d,D,r
 
     ignorekeys add reddit\\.com             -except=g,t,T,o,O,e,<C-^>,:,<C-b>,b,<C-f>,f,F,v,d,D,r,h,H,l,L,/,n,N,u,;
-" }
 
-" Highlight: {
+" Highlight:
     highlight CmdLine>* font-family: "Ubuntu Mono",monospace; font-size: medium;
     highlight CompItem>* -append font-size:medium
     highlight CompTitle>* -append font-size:large; font-weight:normal;
@@ -47,13 +43,11 @@
     highlight HintActive color: black; background-color: darkorange
     highlight HintElem color: black; background-color: palegreen
     highlight StatusLine -append font-size: medium;
-" }
 
-" Insert Mapping: {
+" Insert Mapping:
     inoremap jj <esc>
-" }
 
-" Normal Mapping: {
+" Normal Mapping:
     " Insert mode and go to end of line
     nnoremap gi gi<c-e>
     " Fatsecret go to insert mode
@@ -74,26 +68,23 @@
 
     " Switch to previous tab
     nnoremap e <c-^>
-" }
 
-" Command Mapping: {
+" Command Mapping:
     cnoremap <C-p> <up>
     cnoremap <C-n> <down>
-" }
 
-" Custom Commands: {
+" Custom Commands:
     command! reader     -nargs=0 -description="Open current page in reader mode" :execute "open about:reader?url=" + content.location.href
     command! fatsecret  -nargs=0 -description="Emulate mouse click to trigger fatsecret js magic on search boxes" :js var doc=window.content.window.document; (doc.getElementById('searchBfastExp') || doc.getElementById('searchLunchExp') || doc.getElementById('searchDinnerExp') || doc.getElementById('searchOtherExp')).click()
-" }
 
-" Bookmarks: {
+" Bookmarks:
     bmark -keyword wolfram      -title 'Search Wolfram|Alpha: Computational Knowledge Engine' 'https://www.wolframalpha.com/input/?i=%s'
     bmark -keyword sickbeatz    -title 'video game music - YouTube' 'https://www.youtube.com/playlist?list=PLHg9rVhctvtYtVf-ED3O9R3akyYMh7opc'
     bmark -keyword define       -title 'Wiktionary' 'https://en.wiktionary.org/w/index.php?search=%s&title=Special%3ASearch'
-" }
+    bmark -keyword usda         -title 'USDA National Nutrient Database' 'https://ndb.nal.usda.gov/ndb/search/list?ds=Standard+Reference&qlookup=%s'
 
 " This is for all the patches to vimperator until next release comes out
-" VimperatorPatches: {
+" VimperatorPatches:
 
     "  Fix search highlighting
     js <<EOF
@@ -102,6 +93,5 @@
         this.findbar.toggleHighlight(true);
     }
 EOF
-" }
 
 " vim: filetype=vim
