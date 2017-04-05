@@ -40,7 +40,7 @@
     sync = reset --hard @{u}
 
     # Merge and use default merge message
-    mer = merge --no-edit
+    mer = merge --no-edit --no-ff
     pullmer = pull --no-rebase
 
     # Rebase
