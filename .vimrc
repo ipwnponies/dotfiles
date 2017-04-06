@@ -98,8 +98,8 @@
     iabbrev waht what
 
 " Normal_Map:
-    nnoremap <c-j> :lnext<CR>
-    nnoremap <c-k> :lprevious<CR>
+    nnoremap <leader><c-j> :lnext<CR>
+    nnoremap <leader><c-k> :lprevious<CR>
     nnoremap <C-e> 5<C-e>
     nnoremap <C-y> 5<C-y>
     nnoremap Y y$
@@ -112,6 +112,12 @@
 
     " Ctrl-Space to update folds to current cursor
     noremap <C-@> zxzczO
+
+    " Window Movement:
+    nnoremap <c-j> <c-w><c-j>
+    nnoremap <c-k> <c-w><c-k>
+    nnoremap <c-l> <c-w><c-l>
+    nnoremap <c-h> <c-w><c-h>
 
 " Visual_map:
     vnoremap <space> zf
@@ -165,8 +171,12 @@
     set number
     set scrolloff=3
 
-    " Misc
+    " Layout
     set textwidth=100
+    set splitbelow
+    set splitright
+
+    " Misc
     set pastetoggle=<f2>
     set hidden
     set backspace=2
