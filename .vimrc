@@ -194,6 +194,7 @@
     autocmd BufNewFile,BufRead,FileType *.sql set expandtab
     autocmd BufNewFile,BufRead,FileType *.sql set nonumber
     autocmd BufNewFile,BufRead,FileType *.yaml set ts=2 sw=2
+    autocmd Filetype gitcommit setlocal spell textwidth=72
 
     " Diffs use diff foldmethod
     if !&diff
