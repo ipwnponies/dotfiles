@@ -8,7 +8,7 @@
     cip = commit -vp
 
     # Checkout
-    co = !"git checkout $1 2>/dev/null || git checkout -b $1 origin/master && :"
+    co = !"if git checkout $1 2>&1 | grep -v 'pathspec'; then : ; else git checkout -b $1 origin/master; fi && :"
     cop = checkout -p
 
     # Amend like 'fix' in rebase
