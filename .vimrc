@@ -178,6 +178,9 @@
     set splitbelow
     set splitright
 
+    " Persistent Undo
+    set undofile
+
     " Misc
     set pastetoggle=<f2>
     set hidden
