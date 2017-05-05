@@ -8,6 +8,10 @@ if test -f config_local.fish
     source config_local.fish
 end
 
+if status --is-login; and test -z $TMUX; and test -n $SSH_CLIENT
+    tmux attach
+end
+
 # Abbreviations
 abbr --add g    'grep -Pi --color=auto'
 abbr --add df   'df -h'
