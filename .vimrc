@@ -178,6 +178,11 @@
     set splitbelow
     set splitright
 
+    " Temp file directories
+    let &undodir = $HOME . '/.cache/vim/undo//'
+    let &directory = $HOME . '/.cache/vim/swp//'
+    execute 'silent !mkdir -p ' . &undodir . ' ' . &directory
+
     " Persistent Undo
     set undofile
 
