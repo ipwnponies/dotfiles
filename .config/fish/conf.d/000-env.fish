@@ -11,3 +11,5 @@ end
 if status --is-login; and test -z $TMUX; and test -n $SSH_CLIENT
     tmux attach
 end
+
+bash -c 'source ~/.bash_profile'
