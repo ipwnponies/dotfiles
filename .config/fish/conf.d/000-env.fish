@@ -1,4 +1,4 @@
-set -x PATH ~/bin ~/.local/bin $PATH
+set -x PATH "$HOME/bin" "$HOME/.local/bin" $PATH
 set -x EDITOR vim
 
 # Show entire dir name for pwd
