@@ -50,7 +50,7 @@
             if a:info.status == 'installed' || a:info.force
                 let gcc_version = system('g++ -dumpversion')[:-2]
                 if gcc_version == '4.6'
-                    !CXX=g++-4.8 ./install.py
+                    !/bin/sh -c 'CXX=g++-4.8 ./install.py'
                 else
                     !./install.py
                 endif
