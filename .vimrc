@@ -130,6 +130,9 @@
     cmap <c-n> <down>
     cmap w!! w !sudo tee >/dev/null %
 
+    cabbrev Glgrep Glgrep -i
+    cabbrev Ggrep Ggrep -i
+
 " Format_Option:
     set formatoptions +=b   " Break at blank. No autowrapping if line is >textwidth before insert or no blank
     set formatoptions +=j   " Remove comment leader when joining lines
@@ -204,6 +207,8 @@
     autocmd BufNewFile,BufRead,FileType *.sql set nonumber
     autocmd BufNewFile,BufRead,FileType *.yaml set ts=2 sw=2
     autocmd Filetype gitcommit setlocal spell textwidth=72
+    autocmd QuickFixCmdPost [^l]* nested cwindow
+    autocmd QuickFixCmdPost l* nested lwindow
 
     " Diffs use diff foldmethod
     if !&diff
