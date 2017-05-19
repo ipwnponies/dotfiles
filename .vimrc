@@ -41,6 +41,7 @@
         Plug 'scrooloose/nerdtree'
         Plug 'Xuyuanp/nerdtree-git-plugin'
         Plug 'jceb/vim-orgmode'
+        Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
         function! BuildYCM(info)
             " info is a dictionary with 3 fields
