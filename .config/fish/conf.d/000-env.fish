@@ -1,4 +1,9 @@
-set -x PATH "$HOME/bin" "$HOME/.local/bin" "$HOME/.local/virtualenv/bin" $PATH
+# XDG defaults
+set -x XDG_DATA_HOME $HOME/.local/share
+set -x XDG_CONFIG_HOME $HOME/.config
+set -x XDG_CACHE_HOME $HOME/.cache
+
+set PATH "$HOME/bin" $PATH
 set -x EDITOR vim
 
 # Show entire dir name for pwd

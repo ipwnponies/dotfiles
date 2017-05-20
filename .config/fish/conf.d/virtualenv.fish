@@ -1,8 +1,10 @@
 if status --is-interactive
-    set venv "$HOME/.local/virtualenv"
+    set venv "$XDG_CONFIG_HOME/virtualenv"
     if not test -d $venv
         virtualenv --python python3 $venv
     end
+
+    set PATH "$XDG_CONFIG_HOME/virtualenv/bin" $PATH
 
     set packages 'mycli' 'powerline-status'
     for i in $packages
