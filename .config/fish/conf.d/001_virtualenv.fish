@@ -8,7 +8,7 @@ if status --is-interactive
 
     set packages 'mycli' 'powerline-status'
     for i in $packages
-        if not eval $venv/bin/pip list | tail -n +1 | grep --silent $i
+        if not eval $venv/bin/pip show -q $i
             eval $venv/bin/pip install $i
         end
     end
