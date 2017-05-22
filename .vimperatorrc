@@ -34,6 +34,7 @@
     ignorekeys add mail\\.google\\.com      -except=g,t,T,o,O,e,<C-^>,:,<C-b>,b,<C-f>,f,F,v,d,D,r
 
     ignorekeys add reddit\\.com             -except=g,t,T,o,O,e,<C-^>,:,<C-b>,b,<C-f>,f,F,v,d,D,r,h,H,l,L,/,n,N,u,;
+    ignorekeys add feedly\\.com             -except=g,t,T,o,O,e,<C-^>,:,<C-b>,b,<C-f>,f,F,d,D,r,h,H,l,L,/,u,;
 
 " Highlight:
     highlight CmdLine>* font-family: "Ubuntu Mono",monospace; font-size: medium;
