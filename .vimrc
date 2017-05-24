@@ -171,6 +171,7 @@
     set number
     set scrolloff=3
     set showcmd
+    set showbreak=>>
 
     " Layout
     set textwidth=100
@@ -225,3 +226,4 @@
     hi PmenuSel     ctermfg=51  ctermbg=236
     hi CursorColumn             ctermbg=233
     hi CursorLine               ctermbg=236
+    hi NonText      ctermfg=247 ctermbg=237 cterm=bold
