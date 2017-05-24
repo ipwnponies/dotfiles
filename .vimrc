@@ -11,7 +11,7 @@
     noremap <C-P> <C-I>
 
 " Vim Plug: Bootstrap vim-plug for fresh vim install
-    if empty(glob('~/.vim/autoload/plug.vim'))
+    if !filereadable(expand('~/.vim/autoload/plug.vim'))
       silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
       autocmd VimEnter * PlugInstall
     endif
@@ -183,9 +183,11 @@
     set splitright
 
     " Temp file directories
-    let &undodir = $HOME . '/.cache/vim/undo//'
-    let &directory = $HOME . '/.cache/vim/swp//'
-    execute 'silent !mkdir -p ' . &undodir . ' ' . &directory
+    let &undodir = expand('~/.cache/vim/undo//')
+    let &directory = expand('~/.cache/vim/swp//')
+    if !isdirectory(&undodir) || !isdirectory(&directory)
+        execute 'silent !mkdir -p ' . &undodir . ' ' . &directory
+    endif
 
     " Persistent Undo
     set undofile
