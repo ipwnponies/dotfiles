@@ -13,8 +13,10 @@ if test -f config_local.fish
     source config_local.fish
 end
 
-if status --is-login; and test -z $TMUX; and test -n $SSH_CLIENT
-    tmux attach
-end
+if status --is-login
+    bash -c 'source ~/.bash_profile'
 
-bash -c 'source ~/.bash_profile'
+    if not set -q TMUX; and set -q SSH_CLIENT; and type -q tmux
+        tmux attach
+    end
+end
