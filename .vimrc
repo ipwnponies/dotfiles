@@ -170,6 +170,7 @@
     set cursorline
     set number
     set scrolloff=3
+    set showmatch
     set showcmd
     set showbreak=>>
 
