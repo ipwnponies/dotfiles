@@ -110,20 +110,14 @@
     noremap gO O<esc>
     noremap <esc>o <c-i>
 
-    " Open up all folds
-    noremap <space> zO
-
-    " Ctrl-Space to update folds to current cursor
-    noremap <C-@> zxzczO
+    nnoremap <space> :
+    nmap <CR> <leader>
 
     " Window Movement:
     nnoremap <c-j> <c-w><c-j>
     nnoremap <c-k> <c-w><c-k>
     nnoremap <c-l> <c-w><c-l>
     nnoremap <c-h> <c-w><c-h>
-
-" Visual_map:
-    vnoremap <space> zf
 
 " Commandline_map:
     cmap <c-p> <up>
@@ -176,6 +170,7 @@
     set cursorline
     set number
     set scrolloff=3
+    set showcmd
 
     " Layout
     set textwidth=100
@@ -208,6 +203,7 @@
     autocmd BufNewFile,BufRead,FileType *.sql set expandtab
     autocmd BufNewFile,BufRead,FileType *.sql set nonumber
     autocmd BufNewFile,BufRead,FileType *.yaml set ts=2 sw=2
+    autocmd BufReadPost quickfix nnoremap <buffer> <cr> <cr>
     autocmd Filetype gitcommit setlocal spell textwidth=72
     autocmd QuickFixCmdPost [^l]* nested cwindow
     autocmd QuickFixCmdPost l* nested lwindow
