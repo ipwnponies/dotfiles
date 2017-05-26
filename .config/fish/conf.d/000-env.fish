@@ -9,12 +9,8 @@ set -x EDITOR vim
 # Show entire dir name for pwd
 set -x fish_prompt_pwd_dir_length 0
 
-if test -f config_local.fish
-    source config_local.fish
-end
-
-if status --is-login
-    bash -c 'source ~/.bash_profile'
+if status --is-login; and status --is-interactive
+    bash -c 'source ~/.bash_profile' &
 
     if not set -q TMUX; and set -q SSH_CLIENT; and type -q tmux
         tmux attach
