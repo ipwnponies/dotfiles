@@ -116,8 +116,8 @@
     noremap gO O<esc>
     noremap <esc>o <c-i>
 
-    nnoremap <space> :
-    nmap <CR> <leader>
+    nnoremap <cr> :
+    nmap <space> <leader>
 
     " Window Movement:
     nnoremap <c-j> <c-w><c-j>
