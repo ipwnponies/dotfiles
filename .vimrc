@@ -172,7 +172,6 @@
 
     " Visuals
     set visualbell
-    set cursorcolumn
     set cursorline
     set number
     set scrolloff=3
@@ -212,7 +211,7 @@
     autocmd BufNewFile,BufRead,FileType *.sql set nonumber
     autocmd BufNewFile,BufRead,FileType *.yaml set ts=2 sw=2
     autocmd BufReadPost quickfix nnoremap <buffer> <cr> <cr>
-    autocmd Filetype gitcommit setlocal spell textwidth=72
+    autocmd Filetype gitcommit setlocal spell textwidth=72 nocursorline
     autocmd QuickFixCmdPost [^l]* nested cwindow
     autocmd QuickFixCmdPost l* nested lwindow
 
