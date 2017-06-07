@@ -18,6 +18,7 @@
         Plug 'airblade/vim-gitgutter'
         Plug 'gregsexton/gitv'
         Plug 'tpope/vim-fugitive'
+        Plug 'jreybert/vimagit'
 
         " Lang-specific
         Plug 'hynek/vim-python-pep8-indent'
