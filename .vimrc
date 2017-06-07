@@ -214,6 +214,7 @@
     autocmd Filetype gitcommit setlocal spell textwidth=72 nocursorline
     autocmd QuickFixCmdPost [^l]* nested cwindow
     autocmd QuickFixCmdPost l* nested lwindow
+    autocmd FileType python :iabbrev <buffer> pudb import pudb; pu.db
 
     " Diffs use diff foldmethod
     if !&diff
