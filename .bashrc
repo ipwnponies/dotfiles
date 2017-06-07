@@ -45,9 +45,6 @@ fi
 _Z_DATA=~/.config/z/cd_data
 . ~/.config/z/z/z.sh
 
-# Directories available at top level for cd
-CDPATH=.:~/cdpath
-
 # Keep tmux ssh-agent information updated
 if [[ $TMUX ]]; then
     # This should be exported but somebody put a command into $PROMPT_COMMAND that is only
