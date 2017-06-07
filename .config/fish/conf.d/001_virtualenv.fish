@@ -3,6 +3,7 @@ if status --is-login; and status --is-interactive
     set venv_update "$XDG_CONFIG_HOME/venv-update/venv-update"
     set requirements "$XDG_CONFIG_HOME/venv-update/requirements.txt"
     set logfile "$XDG_CACHE_HOME/venv-update/log"
+    mkdir -p (dirname $logfile)
 
     echo 'venv-updating...'
 
