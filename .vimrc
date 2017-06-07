@@ -41,6 +41,7 @@
         Plug 'mbbill/undotree'
         Plug 'junegunn/fzf', { 'dir': '~/.config/fzf', 'do': './install --all' }
         Plug 'vim-airline/vim-airline'
+        Plug 'jeetsukumaran/vim-buffergator'
 
         function! BuildYCM(info)
             " info is a dictionary with 3 fields
