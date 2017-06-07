@@ -1,2 +1,3 @@
 mycli
 powerline-status
+http-prompt
