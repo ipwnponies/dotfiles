@@ -26,19 +26,21 @@
         Plug 'plasticboy/vim-markdown'
         Plug 'dag/vim-fish'
 
-        " Functionality
+        " Editing
         Plug 'roxma/vim-paste-easy'
         Plug 'tpope/vim-commentary'
         Plug 'tpope/vim-surround'
         Plug 'tpope/vim-sensible'
         Plug 'tpope/vim-endwise'
         Plug 'tpope/vim-dispatch'
-        Plug 'mbbill/undotree'
         Plug 'Yggdroot/indentLine'
+
+        " Usability
         Plug 'scrooloose/nerdtree'
         Plug 'Xuyuanp/nerdtree-git-plugin'
-        Plug 'jceb/vim-orgmode'
+        Plug 'mbbill/undotree'
         Plug 'junegunn/fzf', { 'dir': '~/.config/fzf', 'do': './install --all' }
+        Plug 'vim-airline/vim-airline'
 
         function! BuildYCM(info)
             " info is a dictionary with 3 fields
@@ -55,6 +57,9 @@
             endif
         endfunction
         Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
+
+        " Tools
+        Plug 'jceb/vim-orgmode'
     call plug#end()
 
 " Plugin Custom Configurations:
@@ -66,14 +71,16 @@
         map gr :YcmCompleter GoToReferences<cr>
     " GitGutter: Git status while editing files
         set updatetime=250
-    " VimFugitive: Git operations in vim
+    " Vim Fugitive: Git operations in vim
         nnoremap gs :Gstatus<CR>
     " Gitv: Expand Vim-Fugititve git log operations
         let g:Gitv_DoNotMapCtrlKey = 1
     " IndentLine: Disable Yggdroot/indentLine overrides
         let g:indentLine_concealcursor='c'
-    " Vim Org: Todo lists
+    " VimOrg: Todo lists
         let g:org_indent = 1
+    " VimAirline:
+        let g:airline#extensions#tabline#enabled = 1
 
 " Status_Line:
     set statusline =                " clear!
