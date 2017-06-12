@@ -1,5 +1,5 @@
 package argu
 package expand
-package https://github.com/thisisshi/plugin-powerline
 package z
+theme bobthefish
 theme default
