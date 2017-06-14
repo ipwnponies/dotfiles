@@ -16,9 +16,9 @@
     call plug#begin('~/.vim/bundle')
         " Git plugins
         Plug 'airblade/vim-gitgutter'
-        Plug 'gregsexton/gitv'
+        Plug 'gregsexton/gitv', {'on': 'Gitv'}
         Plug 'tpope/vim-fugitive'
-        Plug 'jreybert/vimagit'
+        Plug 'jreybert/vimagit', {'on': ['Magit', 'MagitOnly']}
 
         " Lang-specific
         Plug 'hynek/vim-python-pep8-indent'
@@ -37,12 +37,12 @@
         Plug 'Yggdroot/indentLine'
 
         " Usability
-        Plug 'scrooloose/nerdtree'
-        Plug 'Xuyuanp/nerdtree-git-plugin'
-        Plug 'mbbill/undotree'
+        Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
+        Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'}
+        Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
         Plug 'junegunn/fzf', { 'dir': '~/.config/fzf', 'do': './install --all' }
         Plug 'vim-airline/vim-airline'
-        Plug 'jeetsukumaran/vim-buffergator'
+        Plug 'jeetsukumaran/vim-buffergator', {'on': 'BuffergatorTabsToggle'}
 
         function! BuildYCM(info)
             " info is a dictionary with 3 fields
