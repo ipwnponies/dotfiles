@@ -58,7 +58,7 @@
                 endif
             endif
         endfunction
-        Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
+        Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM'), 'commit': '61b5aa7' }
 
         " Tools
         Plug 'jceb/vim-orgmode'
