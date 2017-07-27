@@ -11,4 +11,7 @@ if status --is-interactive; and set -q OMF_PATH
 
     # Bash's !-n history substitution
     expand-word -p '^!-[0-9]$' -e 'echo -n $history[(string sub -s -1 (commandline -t))]'
+
+    # Git merge expansion
+    expand-word -p '^gitmer$' -e 'echo git merge (git rev-parse --abbrev-ref \'@{-1}\')'
 end
