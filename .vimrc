@@ -28,7 +28,6 @@
         Plug 'dag/vim-fish'
 
         " Editing
-        Plug 'roxma/vim-paste-easy'
         Plug 'tpope/vim-commentary'
         Plug 'tpope/vim-surround'
         Plug 'tpope/vim-sensible'
@@ -42,7 +41,7 @@
         Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
         Plug 'junegunn/fzf', { 'dir': '~/.config/fzf', 'do': './install --all' }
         Plug 'vim-airline/vim-airline'
-        Plug 'jeetsukumaran/vim-buffergator', {'on': 'BuffergatorTabsToggle'}
+        Plug 'jeetsukumaran/vim-buffergator', {'on': 'BuffergatorToggle'}
 
         function! BuildYCM(info)
             " info is a dictionary with 3 fields

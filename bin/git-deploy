@@ -24,6 +24,7 @@ while getopts ":hifdl" opt; do
             exit 0
             ;;
         i)
+            echo "$(tput setaf 3)Caution: Integration workflow is only setup for certain repos."
             refhead='i'
             ;;
         f)
@@ -62,7 +63,7 @@ fi
 # Get canonical name of current branch
 BRANCHNAME=$(git symbolic-ref --short HEAD)
 
-# Check that the branch name is a user branch, starts with u/jngu
+# Check that the branch name is a user branch, starts with u/<USER>
 if [[ $BRANCHNAME != u/$(whoami)/* ]]; then
     echo -e "$(tput bold)$(tput setaf 1)Error:$(tput sgr0) git deploy can only be used to push u/ branches to d/"
     exit 1
