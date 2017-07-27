@@ -8,5 +8,4 @@ Quick setup: (copy-paste to terminal)
 
 
 Install a vim plugin:
-
-    git submodule add https://github.com/tpope/vim-sensible.git .vim/bundle/vim-sensible
+    Use vim-plug and add via .vimrc

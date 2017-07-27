@@ -5,7 +5,7 @@
 export PATH=~/bin:~/.local/bin:~/.local/virtualenv/bin:"${PATH}"
 
 export EDITOR VISUAL GIT_EDITOR
-EDITOR=vim
+EDITOR=nvim
 VISUAL=$EDITOR
 GIT_EDITOR=$EDITOR
 
