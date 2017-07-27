@@ -18,9 +18,3 @@ export LESS='-XFR -i -M -w -z-4'
 export PAGER=less
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "`SHELL=/bin/sh lesspipe`"
-
-
-#unmap CTRL-S and CTRL-Q
-if tty -s; then
-    stty -ixon -ixoff
-fi
