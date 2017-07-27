@@ -1,1 +1,1 @@
-/Users/jngu/.vimrc
+../.vimrc
