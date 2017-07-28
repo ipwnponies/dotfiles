@@ -24,7 +24,7 @@ while getopts ":hifdl" opt; do
             exit 0
             ;;
         i)
-            echo "$(tput setaf 3)Caution: Integration workflow is only setup for certain repos."
+            echo "$(tput setaf 3)Caution: Integration workflow is only setup for certain repos.$(tput sgr0)"
             refhead='i'
             ;;
         f)
