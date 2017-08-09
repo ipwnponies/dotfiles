@@ -1,6 +1,6 @@
-if status --is-interactive; and set -q OMF_PATH
-    # plugin-expand
+# Configure plugin-expand
 
+if status --is-interactive; and set -q OMF_PATH
     expand-word -p '^!$' -e 'printf "%s\n" $history'
 
     # Bash's ^foo^bar^ substitution

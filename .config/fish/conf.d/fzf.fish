@@ -1,5 +1,4 @@
-if status --is-login; and status --is-interactive
-    if not test -d $XDG_CONFIG_HOME/fzf
-        nvim -c 'silent! PlugInstall fzf' -c 'qa'
-    end
+if status --is-login; and status --is-interactive; and not type -q fzf
+    # Install fzf via vim-plug
+    eval $EDITOR -c 'silent! PlugInstall fzf' -c 'qa'
 end

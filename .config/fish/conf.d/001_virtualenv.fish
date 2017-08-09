@@ -1,13 +1,16 @@
-if status --is-login; and status --is-interactive
+# Installation of local virtualenv
+
+if status --is-login; and status --is-interactive; and type -q virtualenv;
+
     set venv "$XDG_CONFIG_HOME/virtualenv"
     set venv_update "$XDG_CONFIG_HOME/venv-update/venv-update"
     set requirements "$XDG_CONFIG_HOME/venv-update/requirements.txt"
     set logfile "$XDG_CACHE_HOME/venv-update/log"
-    mkdir -p (dirname $logfile)
-
-    echo 'venv-updating...'
 
     set install_script "
+        echo 'venv-updating...'
+
+        mkdir -p (dirname $logfile)
         if not $venv_update venv= -p python3 $venv install= -r $requirements >> $logfile
             echo 'Uh... that didn\'t work gud. So check out $logfile'
         end
