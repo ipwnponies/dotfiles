@@ -1,7 +1,8 @@
+# Start up ssh-agent and load ssh keys
 if status --is-login; and status --is-interactive
     set ssh_env_file $HOME/.ssh/ssh-agent-env
 
-    function start_agent
+    function start_agent -d 'Start ssh-agent and store env vars for other shells to reuse'
         ssh-agent -c | sed 's/^echo/#/' > $ssh_env_file
         chmod 600 $ssh_env_file
         source $ssh_env_file
