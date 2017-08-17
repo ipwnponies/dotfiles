@@ -199,6 +199,8 @@
     set backspace=2
     set modeline
 
+    set shell=/bin/bash
+
 " Misc:
     syntax enable
     colorscheme ir_black
