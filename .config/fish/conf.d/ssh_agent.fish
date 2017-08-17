@@ -5,26 +5,30 @@ if status --is-login; and status --is-interactive
         ssh-agent -c | sed 's/^echo/#/' > $ssh_env_file
         chmod 600 $ssh_env_file
         source $ssh_env_file
-        ssh-add
     end
 
-    function test_agent
-        if ssh-add -l | grep -q 'The agent has no identities'
+    function startup
+        # Key is already loaded, nothing more to do
+        if ssh-add -l ^&1 >/dev/null
+            return
+        end
+
+        # Try loading existing existing agent
+        if test -f $ssh_env_file
+            source $ssh_env_file
+        end
+
+        # Test if existing agent has not gone stale
+        ssh-add -l ^&1 >/dev/null
+        if test $status -eq 1;
+            # No keys loaded in ssh-agent
             ssh-add
-            if test $status -eq 2
-                start_agent
-            end
+        else if test $status -eq 2;
+            # No ssh-agent running
+            start_agent
+            ssh-add
         end
     end
-        # start_agent
-    if test -f $ssh_env_file
-        source $ssh_env_file
-    end
 
-    if set -q SSH_AGENT_PID; and ps -ef | grep $SSH_AGENT_PID | grep -q 'ssh-agent'
-        test_agent
-    else
-        echo start agent
-        start_agent
-    end
+    startup
 end
