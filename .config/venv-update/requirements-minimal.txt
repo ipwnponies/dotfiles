@@ -1,0 +1,6 @@
+mycli
+powerline-status
+ipython
+http-prompt
+neovim<=0.1.10
+requirements-tools
