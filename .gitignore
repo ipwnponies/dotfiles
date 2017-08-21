@@ -1,5 +1,5 @@
 # Ignore most things.
-*
+/*
 !.gitignore
 
 # But there are some things I'd like to keep track of.
