@@ -2,7 +2,7 @@
 
 if status --is-login; and status --is-interactive; and type -q virtualenv;
 
-    set venv "$XDG_CONFIG_HOME/virtualenv"
+    set venv "$XDG_DATA_HOME/virtualenv"
     set venv_update "$XDG_CONFIG_HOME/venv-update/venv-update"
     set requirements "$XDG_CONFIG_HOME/venv-update/requirements.txt"
     set logfile "$XDG_CACHE_HOME/venv-update/log"
