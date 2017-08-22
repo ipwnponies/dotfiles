@@ -1,28 +1,9 @@
 # Ignore most things.
 /*
-!.gitignore
 
 # But there are some things I'd like to keep track of.
 # These directories all have their own .gitignore file.
 !README
 !bin
-!docs
-!trees
 !.vim
-!.ssh
-!.bash_completion.d
-!.subversion
-!.bashrc
-!.bash_profile
-!.bash_function
-!.irssi
-!.vimrc
-!.inputrc
-!.vimperatorrc
-!.gvimrc
-!.pythonrc.py
-!.xmodmaprc
-!.xpdfrc
-!.usercontent.css
-!.gitconfig
 !.config

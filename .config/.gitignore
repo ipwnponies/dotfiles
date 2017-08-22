@@ -1,2 +1,6 @@
-!fish/
-!venv-update/
+configstore/
+fzf/
+virtualenv/
+http-prompt/
+htop/
+git/
