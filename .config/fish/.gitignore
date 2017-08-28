@@ -2,3 +2,4 @@ config_local.fish
 plugins/
 fishd.*
 functions/fish_prompt.[0-9]*.copy
+functions/fzf_key_bindings.fish

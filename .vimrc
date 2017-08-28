@@ -39,7 +39,7 @@
         Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
         Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'}
         Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
-        Plug 'junegunn/fzf', { 'dir': '~/.config/fzf', 'do': './install --all' }
+        Plug 'junegunn/fzf', { 'dir': '~/.local/share/fzf', 'do': './install --all' }
         Plug 'vim-airline/vim-airline'
         Plug 'jeetsukumaran/vim-buffergator', {'on': 'BuffergatorToggle'}
 
