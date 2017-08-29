@@ -1,6 +1,7 @@
 mycli
 powerline-status
 ipython
+ptpython
 http-prompt
 neovim<=0.1.10
 requirements-tools
