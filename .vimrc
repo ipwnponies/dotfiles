@@ -40,6 +40,8 @@
         Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'}
         Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
         Plug 'junegunn/fzf', { 'dir': '~/.local/share/fzf', 'do': './install --all' }
+        Plug 'junegunn/fzf.vim'
+
         Plug 'vim-airline/vim-airline'
         Plug 'jeetsukumaran/vim-buffergator', {'on': 'BuffergatorToggle'}
 
@@ -82,6 +84,12 @@
         let g:org_indent = 1
     " VimAirline:
         let g:airline#extensions#tabline#enabled = 1
+    " NerdTree:
+        nnoremap <leader>n :NERDTree<CR>
+        nnoremap <leader>nf :NERDTreeFind<CR>
+    " Buffergator:
+        nnoremap <leader>b :BuffergatorToggle<CR>
+
 
 " Status_Line:
     set statusline =                " clear!
