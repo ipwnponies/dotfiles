@@ -19,10 +19,5 @@ if status --is-login
 
     if status --is-interactive
         bash -c 'source ~/.bash_profile' &
-
-        if type -q tmux; and not set -q TMUX; and set -q SSH_CLIENT;
-            # Automatically reattach to tmux session
-            tmux attach
-        end
     end
 end
