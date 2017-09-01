@@ -11,4 +11,9 @@ abbr --add kill     'kill -s TERM'
 abbr --add fzfdo    'fzf | read -l fzf; and'
 abbr --add fzf      'fzf --border --height 40% --min-height 10 --margin 1,5 --reverse'
 abbr --add pytest   'pytest --verbose --capture no --pdbcls IPython.terminal.debugger:TerminalPdb'
-abbr --add less     'less -i'
+abbr --add less     'less -iR'
+
+set local_functions (dirname (status --current-filename))/abbr_local.fish
+if test -e $local_functions
+    source $local_functions
+end
