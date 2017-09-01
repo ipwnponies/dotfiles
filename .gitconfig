@@ -33,8 +33,8 @@
     gall = !git g
 
     # Show diff with inline diff
-    ds = diff -C --staged --ws-error-highlight=all --color-words --word-diff-regex=.
-    d = diff -C --ws-error-highlight=all --color-words --word-diff-regex=.
+    ds = diff -C --staged --ws-error-highlight=all --color-words --word-diff-regex='\\w+'
+    d = diff -C --ws-error-highlight=all --color-words --word-diff-regex='\\w+'
 
     # Resync with tracked branch
     sync = reset --hard @{u}
@@ -63,8 +63,11 @@
     # Checkout and branch will setup upstream branch for local and remote starting branch
     autoSetupMerge = always
 [merge]
-    tool = vimdiff
+    tool = nvim
     conflictstyle = diff3
+[mergetool "nvim"]
+    cmd = nvim -d "$BASE" "$LOCAL" "$REMOTE" "$MERGED" -c '$wincmd w' -c 'wincmd J'
+    prompt = true
 [rebase]
     autoSquash = true
     autoStash = true
