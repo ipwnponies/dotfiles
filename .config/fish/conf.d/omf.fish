@@ -8,9 +8,6 @@ if status --is-interactive;
             and set -gx OMF_PATH "$XDG_DATA_HOME/omf";
             or set -gx OMF_PATH "$HOME/.local/share/omf";
 
-        # Configure path to z (autojump)
-        set -x Z_SCRIPT_PATH $XDG_CONFIG_HOME/z/z/z.sh
-
         # Load Oh My Fish configuration.
         source $OMF_PATH/init.fish
 

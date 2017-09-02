@@ -42,9 +42,6 @@ fi
 
 . ~/.bash_function
 
-_Z_DATA=~/.config/z/cd_data
-. ~/.config/z/z/z.sh
-
 # Keep tmux ssh-agent information updated
 if [[ $TMUX ]]; then
     # This should be exported but somebody put a command into $PROMPT_COMMAND that is only
