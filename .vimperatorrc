@@ -61,8 +61,8 @@
     nnoremap L l
 
     " Move page up/down to convenient keys
-    nnoremap f <c-f>
-    nnoremap b <c-b>
+    nnoremap f <pagedown>
+    nnoremap b <pageup>
 
     " Remap hint as f is used for moving pages
     nnoremap v f
