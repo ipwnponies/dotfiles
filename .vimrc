@@ -219,6 +219,7 @@
     autocmd QuickFixCmdPost [^l]* nested cwindow
     autocmd QuickFixCmdPost l* nested lwindow
     autocmd FileType python :iabbrev <buffer> pudb import pudb; pu.db
+    autocmd FileType markdown set spell
 
     " Diffs use diff foldmethod
     if !&diff
