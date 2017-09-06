@@ -60,9 +60,6 @@
             endif
         endfunction
         Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM'), 'commit': '61b5aa7' }
-
-        " Tools
-        Plug 'jceb/vim-orgmode'
     call plug#end()
 
 " Plugin Custom Configurations:
@@ -80,8 +77,6 @@
         let g:Gitv_DoNotMapCtrlKey = 1
     " IndentLine: Disable Yggdroot/indentLine overrides
         let g:indentLine_concealcursor='c'
-    " VimOrg: Todo lists
-        let g:org_indent = 1
     " VimAirline:
         let g:airline#extensions#tabline#enabled = 1
     " NerdTree:
