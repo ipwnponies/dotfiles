@@ -1,5 +1,8 @@
-configstore/
-virtualenv/
-http-prompt/
-htop/
-git/
+/configstore/
+/virtualenv/
+/http-prompt/
+/htop/
+/git/
+/gcloud/
+/gtk-2.0/
+/karabiner/

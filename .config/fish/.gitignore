@@ -1,8 +1,8 @@
-config_local.fish
-plugins/
-fishd.*
-functions/fish_prompt.[0-9]*.copy
-functions/fzf_key_bindings.fish
-functions/*_local.fish
-completions/*_local.fish
-conf.d/*_local.fish
+/config_local.fish
+/plugins/
+/fishd.*
+/functions/fish_prompt.[0-9]*.copy
+/functions/fzf_key_bindings.fish
+/functions/*_local.fish
+/completions/*_local.fish
+/conf.d/*_local.fish
