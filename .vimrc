@@ -85,7 +85,6 @@
     " Buffergator:
         nnoremap <leader>b :BuffergatorToggle<CR>
 
-
 " Status_Line:
     set statusline =                " clear!
     set statusline +=%<             " truncation point
@@ -111,6 +110,8 @@
 " Normal_Map:
     nnoremap <leader><c-j> :lnext<CR>
     nnoremap <leader><c-k> :lprevious<CR>
+    nnoremap <leader>j :cnext<CR>
+    nnoremap <leader>k :cprevious<CR>
     nnoremap <C-e> 5<C-e>
     nnoremap <C-y> 5<C-y>
     nnoremap Y y$
