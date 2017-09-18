@@ -93,6 +93,16 @@
         this.setupFindbar();
         this.findbar.toggleHighlight(true);
     }
+    hints.addMode('h', 'Hover over', function (elem){
+        function FireEvent(event){
+            var mouseEvent = document.createEvent('Events');
+            mouseEvent.initEvent(event, true, false);
+            elem.dispatchEvent(mouseEvent);
+            alert(elem.classList);
+            elem.classList.add('hover');
+        }
+        FireEvent('mouseover');
+    });
 EOF
 
 " vim: filetype=vim
