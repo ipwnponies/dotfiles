@@ -2,3 +2,4 @@ http-prompt
 ipython
 mycli
 ptpython
+thefuck
