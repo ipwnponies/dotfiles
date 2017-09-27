@@ -76,7 +76,25 @@
 
 " Custom Commands:
     command! reader     -nargs=0 -description="Open current page in reader mode" :execute "open about:reader?url=" + content.location.href
-    command! fatsecret  -nargs=0 -description="Emulate mouse click to trigger fatsecret js magic on search boxes" :js var doc=window.content.window.document; (doc.getElementById('searchBfastExp') || doc.getElementById('searchLunchExp') || doc.getElementById('searchDinnerExp') || doc.getElementById('searchOtherExp')).click()
+
+    command! fatsecret  -nargs=0 -description="Emulate mouse click to trigger fatsecret js magic on search boxes" :js fatsecret()
+    command! toggledark -nargs=0 -description="Toggle dark light text extension" :js toggleDark()
+    js <<EOF
+    function toggleDark(){
+        let prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
+        let key = 'extensions.jid1-QoFqdK4qzUfGWQ@jetpack.enabled';
+        prefs.setBoolPref(key, ! prefs.getBoolPref(key));
+    }
+
+    function fatsecret(){
+        var doc=window.content.window.document;
+        var breakfastInput = doc.getElementById('searchBfastExp');
+        var lunchInput = doc.getElementById('searchLunchExp');
+        var dinnerInput = doc.getElementById('searchDinnerExp');
+        var otherInput = doc.getElementById('searchOtherExp');
+        (breakfastInput || lunchInput || dinnerInput || otherInput).click()
+    }
+EOF
 
 " Bookmarks:
     bmark -keyword wolfram      -title 'Search Wolfram|Alpha: Computational Knowledge Engine' 'https://www.wolframalpha.com/input/?i=%s'
