@@ -1,4 +1,4 @@
-pre-commit
 neovim<=0.1.10
 powerline-status
+pre-commit
 requirements-tools
