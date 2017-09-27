@@ -13,5 +13,10 @@ if status --is-interactive; and set -q OMF_PATH
     expand-word -p '^!-[0-9]$' -e 'echo -n $history[(string sub -s -1 (commandline -t))]'
 
     # Git merge expansion
-    expand-word -p '^gitmer$' -e 'echo git merge (git rev-parse --abbrev-ref \'@{-1}\')'
+    expand-word -p '^gitmer$' -e '_expand_gitmer'
+    function _expand_gitmer
+        set -l branches (git for-each-ref --format '%(refname:short)' refs/heads/)
+        # Provide optional suggestion for --no-ff
+        printf 'git merge --no-edit %s\n' $branches{' --no-ff',}
+    end
 end
