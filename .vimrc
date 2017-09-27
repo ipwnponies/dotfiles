@@ -72,6 +72,7 @@
         set updatetime=250
     " Vim Fugitive: Git operations in vim
         nnoremap gs :Gstatus<CR>
+        nnoremap <leader>gg :Ggrep -i <cword><CR>
     " Gitv: Expand Vim-Fugititve git log operations
         let g:Gitv_DoNotMapCtrlKey = 1
     " IndentLine: Disable Yggdroot/indentLine overrides
