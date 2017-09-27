@@ -12,7 +12,7 @@ import atexit
 import os
 import readline
 import rlcompleter
- 
+
 histFilePath = os.path.expanduser('~/.python_history')
 
 # load an existing python history file.
@@ -22,7 +22,7 @@ except IOError:
 	pass
 
 atexit.register(readline.write_history_file, histFilePath)
- 
+
 readline.parse_and_bind('tab: complete')
 
 del os, atexit, readline, rlcompleter, histFilePath

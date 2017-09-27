@@ -18,7 +18,7 @@ function _activate_venv --on-variable PWD --description 'Automatically activate 
 
         set -g ACTIVATED_VENV $activate_script_dir
         source $activate_script_dir/.activate.fish
-    else if set -q ACTIVATED_VENV 
+    else if set -q ACTIVATED_VENV
         # No aactivator found, deactivate current venv
         deactivate
         set -e ACTIVATED_VENV

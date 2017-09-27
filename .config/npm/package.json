@@ -1,8 +1,8 @@
 {
-  "name": "dotfile_install",
-  "description": "Install npm tools for development environment",
-  "version": "0.0.0",
-   "dependencies": {
+  "dependencies": {
     "diff-so-fancy": "*"
-  }
+  },
+  "description": "Install npm tools for development environment",
+  "name": "dotfile_install",
+  "version": "0.0.0"
 }

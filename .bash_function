@@ -1,6 +1,6 @@
 #! /usr/bin/bash
 # All functions in this file are sourced by $HOME/.bashrc.
-#  
+#
 # Like >> but to the beginning. Uses a temp file.
 function prepend
 {

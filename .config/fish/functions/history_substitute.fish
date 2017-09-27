@@ -9,7 +9,7 @@ function history_substitute --description "Load up recent command history into E
         # Return last ten lines
         set history_lines (history --max 10)
     end
-    
+
     # Replace current buffer with history
     commandline -r $history_lines
     edit_command_buffer
@@ -19,4 +19,3 @@ function history_substitute --description "Load up recent command history into E
         commandline -r ''
     end
 end
-

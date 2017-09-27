@@ -1,14 +1,14 @@
 initialZoom 100
 continuousView yes
- 
+
 bind f any pageDown
 bind b any pageUp
- 
+
 bind h any scrollLeft(20)
 bind j any scrollDown(20)
 bind k any scrollUp(20)
 bind l any scrollRight(20)
- 
+
 bind ctrl-g any gotoPage(1)
 bind g any focusToPageNum
 bind shift-g any gotoLastPage
@@ -29,5 +29,5 @@ unbind n scrLockOff
 unbind n scrLockOn
 bind / any find
 bind n any findNext
- 
+
 bind q any quit
