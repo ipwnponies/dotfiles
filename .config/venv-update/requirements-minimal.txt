@@ -1,7 +1,4 @@
 http-prompt
 ipython
 mycli
-neovim<=0.1.10
-powerline-status
 ptpython
-requirements-tools
