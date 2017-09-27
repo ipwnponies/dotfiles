@@ -36,14 +36,13 @@
         Plug 'Yggdroot/indentLine'
 
         " Usability
-        Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
-        Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'}
+        Plug 'scrooloose/nerdtree', {'on': ['NERDTree', 'NERDTreeFind']}
+        Plug 'Xuyuanp/nerdtree-git-plugin', {'on': ['NERDTree', 'NERDTreeFind']}
         Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
         Plug 'junegunn/fzf', { 'dir': '~/.local/share/fzf', 'do': './install --all' }
         Plug 'junegunn/fzf.vim'
 
         Plug 'vim-airline/vim-airline'
-        Plug 'jeetsukumaran/vim-buffergator', {'on': 'BuffergatorToggle'}
 
         function! BuildYCM(info)
             " info is a dictionary with 3 fields
@@ -82,8 +81,9 @@
     " NerdTree:
         nnoremap <leader>n :NERDTree<CR>
         nnoremap <leader>nf :NERDTreeFind<CR>
-    " Buffergator:
-        nnoremap <leader>b :BuffergatorToggle<CR>
+    " Fzf:
+        nnoremap <leader>b :Buffers<CR>
+        nnoremap <leader>gf :GFiles<CR>
 
 " Status_Line:
     set statusline =                " clear!
@@ -118,6 +118,7 @@
     noremap go o<esc>
     noremap gO O<esc>
     noremap <esc>o <c-i>
+    nnoremap <leader>bd :bnext<cr>:bd #<cr>
 
     nnoremap <cr> :
     nmap <space> <leader>
