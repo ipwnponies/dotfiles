@@ -25,6 +25,9 @@
     " Complete first match and show other options
     set wildmode=list:full
 
+    " Don't beep or anything: visual bell highlight is set to none
+    set visualbell
+
 " Ignorekeys:
     " Google docs doesn't play well, often crashes when vimperator commands are present
     ignorekeys add https://docs\.google\.com/(document|presentation)/d/.*
@@ -44,6 +47,7 @@
     highlight HintActive color: black; background-color: darkorange
     highlight HintElem color: black; background-color: palegreen
     highlight StatusLine -append font-size: medium;
+    highlight Bell display:none
 
 " Insert Mapping:
     inoremap jj <esc>
@@ -98,7 +102,6 @@ EOF
 
 " Bookmarks:
     bmark -keyword wolfram      -title 'Search Wolfram|Alpha: Computational Knowledge Engine' 'https://www.wolframalpha.com/input/?i=%s'
-    bmark -keyword sickbeatz    -title 'video game music - YouTube' 'https://www.youtube.com/playlist?list=PLHg9rVhctvtYtVf-ED3O9R3akyYMh7opc'
     bmark -keyword define       -title 'Wiktionary' 'https://en.wiktionary.org/w/index.php?search=%s&title=Special%3ASearch'
     bmark -keyword usda         -title 'USDA National Nutrient Database' 'https://ndb.nal.usda.gov/ndb/search/list?ds=Standard+Reference&qlookup=%s'
 
