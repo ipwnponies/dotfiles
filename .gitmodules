@@ -1,3 +1,6 @@
 [submodule ".config/fish/plugins/oh-my-fish"]
 	path = .config/fish/plugins/oh-my-fish
 	url = https://github.com/oh-my-fish/oh-my-fish
+[submodule ".local/share/tmux/plugins/tpm"]
+	path = .local/share/tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm
