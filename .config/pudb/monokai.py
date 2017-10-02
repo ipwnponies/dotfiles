@@ -20,7 +20,8 @@ palette.update({
 
     "focused current frame name": ("black", "dark green"),
     "focused current frame class": (
-        add_setting("white", "bold"), "dark green"),
+        add_setting("white", "bold"), "dark green",
+    ),
     "focused current frame location": ("dark blue", "dark green"),
 
     "search box": ("default", "default"),
@@ -31,11 +32,14 @@ palette.update({
     "focused disabled breakpoint": ("dark gray", "dark green"),
     "current breakpoint": (add_setting("white", "bold"), "default"),
     "disabled current breakpoint": (
-        add_setting("dark gray", "bold"), "default"),
+        add_setting("dark gray", "bold"), "default",
+    ),
     "focused current breakpoint": (
-        add_setting("white", "bold"), "dark green", "bold"),
+        add_setting("white", "bold"), "dark green", "bold",
+    ),
     "focused disabled current breakpoint": (
-        add_setting("dark gray", "bold"), "dark green", "bold"),
+        add_setting("dark gray", "bold"), "dark green", "bold",
+    ),
 
     "source": ("white", "default"),
     "highlighted source": ("white", "light cyan"),
@@ -79,7 +83,8 @@ palette.update({
 
     "focused command line output": ("black", "dark green"),
     "focused command line input": (
-        add_setting("white", "bold"), "dark green"),
+        add_setting("white", "bold"), "dark green",
+    ),
     "focused command line error": ("black", "dark green"),
 
     "command line clear button": (add_setting("white", "bold"), "default"),

@@ -7,7 +7,6 @@
 #
 # Note that PYTHONSTARTUP does *not* expand "~", so you have to put in the
 # full path to your home directory.
-
 import atexit
 import os
 import readline
