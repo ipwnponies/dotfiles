@@ -17,20 +17,14 @@ if status --is-interactive;
         end
 
     else if status --is-login
-        # Install oh-my-fish asynchronously. This is better for quicker user experience but also means we
-        # need shell restart before environment configuration converges.  This needs to run after the omf
-        # configuration since it is asyncrhonous and will get into race condition.
-
         # This is used to undo clobbering by the omf installer
         set -l current_file (status --current-filename)
 
-        set install_script "
-            echo 'Installing oh-my-fish in background...'
-            $XDG_CONFIG_HOME/fish/plugins/oh-my-fish/bin/install --noninteractive --offline
-            git checkout $current_file
-            echo 'Finished installing, reload shell if you want omf'
-        "
-        fish -c $install_script &
+        eval $XDG_CONFIG_HOME/fish/plugins/oh-my-fish/bin/install --noninteractive --offline
+        git checkout $current_file
+
+        # Exec into a new fish shell so omf settings can load correctly
+        exec fish --login
     end
 
 end
