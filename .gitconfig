@@ -33,8 +33,8 @@
     gall = !git g
 
     # Show diff with inline diff
-    ds = diff -C --staged
-    d = diff -C
+    ds = diff -C -p --stat --staged
+    d = diff -C -p --stat
 
     # Resync with tracked branch
     sync = reset --hard @{u}
@@ -74,18 +74,23 @@
     autoStash = true
     stat = true
 [core]
-	pager = diff-so-fancy | less -iRF --tabs=4
+    pager = diff-so-fancy | less -iRF --tabs=4
 [color]
-	ui = true
+    ui = true
 [color "diff-highlight"]
-	oldNormal = red bold
-	oldHighlight = red bold 52
-	newNormal = green bold
-	newHighlight = green bold 22
+    oldNormal = red bold
+    oldHighlight = red bold 52
+    newNormal = green bold
+    newHighlight = green bold 22
 [color "diff"]
-	meta = 227
-	frag = magenta bold
-	commit = 227 bold
-	old = red bold
-	new = green bold
-	whitespace = red reverse
+    meta = 227
+    frag = magenta bold
+    commit = 227 bold
+    old = red bold
+    new = green bold
+    whitespace = red reverse
+[stash]
+    showStat = true
+    showPatch = true
+[help]
+    autoCorrect = 10
