@@ -73,7 +73,7 @@
         set updatetime=250
     " Vim Fugitive: Git operations in vim
         nnoremap gs :Gstatus<CR>
-        nnoremap <leader>gg :Ggrep -i <cword><CR>
+        nnoremap <leader>gg :Ggrep -i <cword>
     " Gitv: Expand Vim-Fugititve git log operations
         let g:Gitv_DoNotMapCtrlKey = 1
     " IndentLine: Disable Yggdroot/indentLine overrides
@@ -107,7 +107,7 @@
     noremap go o<esc>
     noremap gO O<esc>
     noremap <esc>o <c-i>
-    nnoremap <leader>bd :bnext<cr>:bd #<cr>
+    nnoremap <leader>bd :b#<cr>:bd #<cr>
 
     nnoremap <cr> :
     nmap <space> <leader>
@@ -204,7 +204,7 @@
 " Autocmd:
     autocmd BufNewFile,BufRead,FileType *.sql set expandtab
     autocmd BufNewFile,BufRead,FileType *.sql set nonumber
-    autocmd BufNewFile,BufRead,FileType *.yaml set ts=2 sw=2
+    autocmd BufNewFile,BufRead,FileType *.yaml set ts=4 sw=4
     autocmd BufReadPost quickfix nnoremap <buffer> <cr> <cr>
     autocmd Filetype gitcommit setlocal spell textwidth=72 nocursorline
     autocmd QuickFixCmdPost [^l]* nested cwindow
