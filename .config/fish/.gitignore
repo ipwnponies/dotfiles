@@ -4,5 +4,6 @@
 /functions/fish_prompt.[0-9]*.copy
 /functions/fzf_key_bindings.fish
 /functions/*_local.fish
+/functions/.gitignore
 /completions/*_local.fish
 /conf.d/*_local.fish
