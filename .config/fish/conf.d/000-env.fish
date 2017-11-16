@@ -6,7 +6,7 @@ if status --is-login
     set -x XDG_CONFIG_HOME $HOME/.config
     set -x XDG_CACHE_HOME $HOME/.cache
 
-    set PATH "$HOME/bin" $PATH
+    set PATH "$HOME/bin" "$HOME/.local/bin" $PATH
 
     if type -q nvim
         set -x EDITOR nvim
