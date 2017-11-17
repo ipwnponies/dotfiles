@@ -2,6 +2,9 @@
 	"segments": {
 		"right": [
 			{
+				"function": "custom.hostname"
+			},
+			{
 				"function": "powerline.segments.common.time.date",
 				"name": "date",
 				"args": {
@@ -15,9 +18,6 @@
 					"format": "%H:%M",
 					"istime": true
 				}
-			},
-			{
-				"function": "powerline.segments.common.net.hostname"
 			}
 		]
 	}
