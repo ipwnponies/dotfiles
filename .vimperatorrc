@@ -68,6 +68,10 @@
     nnoremap f <pagedown>
     nnoremap b <pageup>
 
+    " Use arrow keys for smooth scrolling
+    nnoremap j <down>
+    nnoremap k <up>
+
     " Remap hint as f is used for moving pages
     nnoremap v f
 
