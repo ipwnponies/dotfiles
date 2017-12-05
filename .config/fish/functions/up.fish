@@ -15,3 +15,5 @@ function up -d 'cd up directory with int param'
         cd $path
     end
 end
+
+complete -c up -f -d 'level to jump up' -a '(seq 5)'
