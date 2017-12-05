@@ -15,6 +15,9 @@
     " Search suggestions
     set complete+=S
 
+" Hint Settings:
+    set hintmatching=fuzzy
+
 " Miscellaneous Settings:
     " Stay in normal mode when visiting page
     set focuscontent
@@ -27,6 +30,8 @@
 
     " Don't beep or anything: visual bell highlight is set to none
     set visualbell
+
+    set animations!
 
 " Ignorekeys:
     " Google docs doesn't play well, often crashes when vimperator commands are present
