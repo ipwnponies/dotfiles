@@ -1,9 +1,11 @@
 /configstore/
-/virtualenv/
-/http-prompt/
-/htop/
-/git/
 /gcloud/
+/git/
 /gtk-2.0/
+/htop/
+/http-prompt/
 /karabiner/
+/mono.addins/
+/Pinta/
 /thefuck/
+/virtualenv/
