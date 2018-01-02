@@ -92,5 +92,7 @@
 [stash]
     showStat = true
     showPatch = true
+[status]
+    showStash = true
 [help]
     autoCorrect = 10
