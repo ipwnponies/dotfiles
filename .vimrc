@@ -22,10 +22,10 @@
 
         " Lang-specific
         Plug 'hynek/vim-python-pep8-indent'
-        Plug 'rodjek/vim-puppet'
+        Plug 'rodjek/vim-puppet', { 'for': 'puppet' }
         Plug 'scrooloose/syntastic'
-        Plug 'plasticboy/vim-markdown'
-        Plug 'dag/vim-fish'
+        Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
+        Plug 'dag/vim-fish', {'for': 'fish'}
 
         " Editing
         Plug 'tpope/vim-commentary'
@@ -202,15 +202,14 @@
     highlight Search cterm=reverse,underline
 
 " Autocmd:
-    autocmd BufNewFile,BufRead,FileType *.sql set expandtab
-    autocmd BufNewFile,BufRead,FileType *.sql set nonumber
-    autocmd BufNewFile,BufRead,FileType *.yaml set ts=4 sw=4
+    autocmd FileType sql set expandtab
+    autocmd FileType yaml set ts=2 sw=2
     autocmd BufReadPost quickfix nnoremap <buffer> <cr> <cr>
     autocmd Filetype gitcommit setlocal spell textwidth=72 nocursorline
     autocmd QuickFixCmdPost [^l]* nested cwindow
     autocmd QuickFixCmdPost l* nested lwindow
-    autocmd FileType python :iabbrev <buffer> pudb import pudb; pu.db
-    autocmd FileType markdown set spell
+    autocmd FileType python :iabbrev <buffer> pudb import pudb; pu.db # noqa
+    autocmd FileType markdown setlocal spell
 
     " Diffs use diff foldmethod
     if !&diff
