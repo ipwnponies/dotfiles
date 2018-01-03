@@ -23,7 +23,7 @@
         " Lang-specific
         Plug 'hynek/vim-python-pep8-indent'
         Plug 'rodjek/vim-puppet', { 'for': 'puppet' }
-        Plug 'scrooloose/syntastic'
+        Plug 'w0rp/ale'
         Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
         Plug 'dag/vim-fish', {'for': 'fish'}
 
@@ -86,6 +86,10 @@
     " Fzf:
         nnoremap <leader>b :Buffers<CR>
         nnoremap <leader>gf :GFiles<CR>
+    " Ale:
+        let g:ale_echo_msg_format = '[%linter%] %code: %%s'
+        let g:ale_lint_on_insert_leave = 1
+        let g:ale_lint_on_text_changed = 'normal'
 
 " Status_Line:
     set noshowmode
