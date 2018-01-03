@@ -83,6 +83,8 @@
     " NerdTree:
         nnoremap <leader>n :NERDTree<CR>
         nnoremap <leader>nf :NERDTreeFind<CR>
+        let NERDTreeMapOpenVSplit='v'
+        let NERDTreeMapOpenSplit='s'
     " Fzf:
         nnoremap <leader>fb :Buffers<CR>
         nnoremap <leader>fg :GFiles<CR>
