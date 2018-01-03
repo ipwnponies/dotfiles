@@ -72,7 +72,7 @@
     " GitGutter: Git status while editing files
         set updatetime=250
     " Vim Fugitive: Git operations in vim
-        nnoremap gs :Gstatus<CR>
+        nnoremap <leader>gs :Gstatus<CR>
         nnoremap <leader>gg :Ggrep -i <cword>
     " Gitv: Expand Vim-Fugititve git log operations
         let g:Gitv_DoNotMapCtrlKey = 1
@@ -84,8 +84,10 @@
         nnoremap <leader>n :NERDTree<CR>
         nnoremap <leader>nf :NERDTreeFind<CR>
     " Fzf:
-        nnoremap <leader>b :Buffers<CR>
-        nnoremap <leader>gf :GFiles<CR>
+        nnoremap <leader>fb :Buffers<CR>
+        nnoremap <leader>fg :GFiles<CR>
+        nnoremap <leader>fG :GFiles?<CR>
+        nnoremap <leader>fl :Lines<CR>
     " Ale:
         let g:ale_echo_msg_format = '[%linter%] %code: %%s'
         let g:ale_lint_on_insert_leave = 1
