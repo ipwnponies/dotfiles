@@ -18,7 +18,7 @@ function __fish_git_branches_fzf -d 'Override the native fish function for getti
     string trim | \
     # Short qualified name for remote branches. Noop for local branches
     string replace -r "^remotes/" "" | \
-    fzf --border --height 40% --min-height 10 --margin 1,5 --reverse --inline-info --preview 'git log -1 {} --color=always' --query $query --bind pgdn:preview-page-down,pgup:preview-page-up,change:top
+    fzf --preview 'git log -1 {} --color=always' --query $query --tiebreak=end,index
 
     if test $status -ne 0
         git symbolic-ref HEAD --short
@@ -28,12 +28,12 @@ end
 
 function __fish_git_stash_show
     command git stash list --format=format:'%gd' | \
-    fzf --border --height 40% --min-height 50 --margin 1,5 --reverse --inline-info --preview 'git stash show {} --color=always' --bind pgdn:preview-page-down,pgup:preview-page-up,change:top
+    fzf --preview 'git stash show {} --color=always'
 end
 
 function __fish_git_ci_fixup
     command git log --pretty=oneline --abbrev-commit | \
-    fzf --border --height 40% --min-height 50 --margin 1,5 --reverse --inline-info --preview 'git show (echo {} | cut -d " " -f 1) --color=always' --bind pgdn:preview-page-down,pgup:preview-page-up,change:top | \
+    fzf --preview 'git show (echo {} | cut -d " " -f 1) --color=always' | \
     cut -d ' ' -f 1
 end
 
