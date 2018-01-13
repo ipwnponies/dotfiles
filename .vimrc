@@ -34,6 +34,7 @@
         Plug 'tpope/vim-endwise'
         Plug 'tpope/vim-dispatch'
         Plug 'Yggdroot/indentLine'
+        Plug 'junegunn/vim-easy-align'
 
         " Usability
         Plug 'scrooloose/nerdtree', {'on': ['NERDTree', 'NERDTreeFind']}
