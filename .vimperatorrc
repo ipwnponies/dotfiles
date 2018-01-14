@@ -107,6 +107,10 @@
         var otherInput = doc.getElementById('searchOtherExp');
         (breakfastInput || lunchInput || dinnerInput || otherInput).click()
     }
+
+    mappings.addUserMap([modes.NORMAL], ['<Leader>gs'], ':open site:', () => {
+        commandline.open('', commands.commandToString({command: `open site:${window.content.document.domain} `}), modes.EX);
+    })
 EOF
 
 " Bookmarks:
