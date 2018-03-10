@@ -115,7 +115,7 @@
     nnoremap Y y$
     noremap go o<esc>
     noremap gO O<esc>
-    noremap <esc>o <c-i>
+    noremap <m-o> <C-I>
     nnoremap <leader>bd :b#<cr>:bd #<cr>
 
     nnoremap <cr> :
@@ -180,6 +180,8 @@
     set showmatch
     set showcmd
     set showbreak=>>
+    set inccommand=split
+    set gdefault
 
     " Layout
     set textwidth=100
