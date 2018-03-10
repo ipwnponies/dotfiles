@@ -42,10 +42,6 @@
     # Resync with tracked branch
     sync = reset --hard @{u}
 
-    # Merge and use default merge message
-    mer = merge --no-edit --no-ff
-    pullmer = pull --no-rebase
-
     # Rebase
     rb = rebase -i --autosquash
 
@@ -56,6 +52,8 @@
 [interactive]
     # Less keystrokes for interactive modes
     singleKey = yes
+[pull]
+    rebase = preserve
 [push]
     # Push current branch to upstream as long as name matches
     default = simple
