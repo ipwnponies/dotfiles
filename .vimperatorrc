@@ -83,6 +83,9 @@
     " Switch to previous tab
     nnoremap e <c-^>
 
+    " Quicker buffer switching
+    nnoremap B :buffer<space>
+
 " Command Mapping:
     cnoremap <C-p> <up>
     cnoremap <C-n> <down>
