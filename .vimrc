@@ -180,7 +180,9 @@
     set showmatch
     set showcmd
     set showbreak=>>
-    set inccommand=split
+    if has('nvim')
+        set inccommand=split
+    endif
     set gdefault
 
     " Layout
