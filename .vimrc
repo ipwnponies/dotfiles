@@ -42,6 +42,7 @@
         Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
         Plug 'junegunn/fzf', { 'dir': '~/.local/share/fzf', 'do': './install --all' }
         Plug 'junegunn/fzf.vim'
+        Plug 'junegunn/vim-peekaboo'
 
         Plug 'vim-airline/vim-airline'
         Plug 'tmux-plugins/vim-tmux-focus-events'
@@ -95,6 +96,8 @@
         let g:ale_echo_msg_format = '[%linter%] %code: %%s'
         let g:ale_lint_on_insert_leave = 1
         let g:ale_lint_on_text_changed = 'normal'
+    " Vim_Peeakboo:
+        let g:peekaboo_window = "botright 30new"
 
 " Status_Line:
     set noshowmode
