@@ -185,6 +185,16 @@
     set showbreak=>>
     if has('nvim')
         set inccommand=split
+
+        " Figure out the python virtualenv for neovim
+        " Skip the activated virtualenv, which probably doesn't have neovim package
+        if exists("$VIRTUAL_ENV")
+            let g:python3_host_prog = system("type -ap python3 | head -n2 | tail -n1")[:-2]
+            let g:python_host_prog = system("tpye -ap python2 | head -n2 | tail -n1")[:-2]
+        else
+            let g:python3_host_prog = system("command -v python3")[:-2]
+            let g:python_host_prog = system("command -v python2")[:-2]
+        endif
     endif
     set gdefault
 
