@@ -1,5 +1,11 @@
 # Source common git functions from fish native git completions
-source /usr/share/fish/completions/git.fish
+set -l fish_install_dir (printf '%s/share/fish/completions/git.fish' (dirname (dirname (command -v fish))))
+if test -f $fish_install_dir
+    source $fish_install_dir
+else
+    printf "Could not load custom git completions!" >&2
+    exit 1
+end
 
 complete -r -f -c git -n '__fish_git_using_command co' -a '(__fish_git_branches_fzf -r)' --description 'all branches'
 complete -r -f -c git -n '__fish_git_using_command ci' -l fixup -a '(__fish_git_ci_fixup)' --description 'sha'
@@ -22,7 +28,6 @@ function __fish_git_branches_fzf -d 'Override the native fish function for getti
 
     if test $status -ne 0
         git symbolic-ref HEAD --short
-        echo jngu_wtf
     end
 end
 
