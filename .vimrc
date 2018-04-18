@@ -53,15 +53,15 @@
             " - status: 'installed', 'updated', or 'unchanged'
             " - force:  set on PlugInstall! or PlugUpdate!
             if a:info.status == 'installed' || a:info.force
-                let gcc_version = system('g++ -dumpversion')[:-2]
-                if gcc_version == '4.6'
-                    !/bin/sh -c 'CXX=g++-4.8 ./install.py'
-                else
-                    !./install.py
+
+                if !executable('cmake')
+                    echoerr 'Need cmake to install YCM!'
                 endif
+
+                !./install.py
             endif
         endfunction
-        Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM'), 'commit': '61b5aa7' }
+        Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
     call plug#end()
 
 " Plugin Custom Configurations:
