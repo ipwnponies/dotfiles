@@ -159,8 +159,8 @@
     " Spaces, tabs, indents
     set expandtab
     set tabstop=4
-    set softtabstop=4
-    set shiftwidth=4
+    set softtabstop=0
+    set shiftwidth=0
     set autoindent
 
     " Diff and folds
