@@ -35,6 +35,7 @@
         Plug 'tpope/vim-dispatch'
         Plug 'Yggdroot/indentLine'
         Plug 'junegunn/vim-easy-align'
+        Plug 'AndrewRadev/sideways.vim'
 
         " Usability
         Plug 'scrooloose/nerdtree', {'on': ['NERDTree', 'NERDTreeFind']}
@@ -123,6 +124,9 @@
 
     nnoremap <cr> :
     nmap <space> <leader>
+
+    nnoremap <leader><c-h> :SidewaysLeft<cr>
+    nnoremap <leader><c-l> :SidewaysRight<cr>
 
     " Window Movement:
     nnoremap <c-j> <c-w><c-j>
