@@ -23,6 +23,7 @@
     # List tracking branches and branch ahead/behind
     br = branch -vv
 
+    # Pretty formatted git log
     hist = log --color=always --pretty=format:\"%x09%C(auto)%h %C(bold green)%>(12)%cd %C(blue)%<(15,trunc)%aE %C(reset)%<(50,trunc)%s%C(auto)%d\" --graph --date=relative -15
     histmore = log --color=always --pretty=format:\"%C(auto)%h%d %n%x09Author: %C(bold blue)%aE %C(green)(%ad)%n%x09Committer: %C(bold blue)%cE %C(green)(%cd)%C(reset)%n%x09%C(bold )%s%+b\" --graph --date=relative
     # Log that shows how many commits the upstream has moved ahead
@@ -59,8 +60,6 @@
     default = simple
     followTags = true
 [branch]
-    # Pull will rebase for both local and remote tracking branches
-    autoSetupRebase = always
     # Checkout and branch will setup upstream branch for local and remote starting branch
     autoSetupMerge = always
 [merge]
