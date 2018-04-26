@@ -93,6 +93,7 @@
         nnoremap <leader>fg :GFiles<CR>
         nnoremap <leader>fG :GFiles?<CR>
         nnoremap <leader>fl :Lines<CR>
+        nnoremap <leader>/ :BLines<CR>
     " Ale:
         let g:ale_echo_msg_format = '[%linter%] %code: %%s'
         let g:ale_lint_on_insert_leave = 1
@@ -106,8 +107,7 @@
 " Insert_map:
     inoremap jj <esc>
 
-    iabbrev teh the
-    iabbrev waht what
+    iabbrev todo: TODO(user#ticket\|201x-xx-yy):
 
 " Normal_Map:
     nnoremap <leader><c-j> :lnext<CR>
@@ -159,6 +159,10 @@
     set incsearch
     set ignorecase
     set smartcase
+    set gdefault
+    if has('nvim')
+        set inccommand=split
+    endif
 
     " Spaces, tabs, indents
     set expandtab
@@ -178,18 +182,7 @@
     set wildmenu
     set wildignorecase
     set noinfercase
-
-    " Visuals
-    set visualbell
-    set cursorline
-    set number
-    set scrolloff=3
-    set showmatch
-    set showcmd
-    set showbreak=>>
     if has('nvim')
-        set inccommand=split
-
         " Figure out the python virtualenv for neovim
         " Skip the activated virtualenv, which probably doesn't have neovim package
         if exists("$VIRTUAL_ENV")
@@ -200,10 +193,18 @@
             let g:python_host_prog = system("command -v python2")[:-2]
         endif
     endif
-    set gdefault
+
+    " Visuals
+    set visualbell
+    set cursorline
+    set number
+    set scrolloff=3
+    set showmatch
+    set showcmd
+    set showbreak=>>
 
     " Layout
-    set textwidth=100
+    set textwidth=120
     set splitbelow
     set splitright
 
@@ -222,10 +223,10 @@
     set hidden
     set backspace=2
     set modeline
+    set mouse=a
 
     set shell=/bin/bash
 
-" Misc:
     syntax enable
     colorscheme ir_black
     filetype plugin on
@@ -240,6 +241,7 @@
     autocmd QuickFixCmdPost l* nested lwindow
     autocmd FileType python :iabbrev <buffer> pudb import pudb; pu.db # noqa
     autocmd FileType markdown setlocal spell
+    autocmd BufNewFile,BufRead *.avsc set filetype=json
 
     " Diffs use diff foldmethod
     if !&diff
