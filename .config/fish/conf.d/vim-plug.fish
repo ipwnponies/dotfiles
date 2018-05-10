@@ -1,5 +1,7 @@
 # Installation of vim-plug plugins
 
 if status --is-login; and status --is-interactive;
-    eval $EDITOR -E -s -u $HOME/.vimrc -c PlugInstall -c qa >/dev/null
+    # Async installation of plugins to speed up shell startup
+    # stdin and stdout are redirected to the void, to signify this is non-interactive vim session
+    fish -c "$EDITOR -u $HOME/.vimrc -c PlugInstall -c qa </dev/null >/dev/null" &
 end

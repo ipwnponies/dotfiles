@@ -12,11 +12,12 @@ if status --is-login; and status --is-interactive; and type -q virtualenv;
     echo 'venv-updating...'
 
     mkdir -p (dirname $logfile)
-    if not eval $venv_update \
-        venv= -p python3 $venv \
-        bootstrap-deps= -r $requirements_bootstrap \
-        install= -r $requirements -r $requirements_dev \
-        >> $logfile
+    if not fish -c "
+        $venv_update \
+            venv= -p python3 $venv \
+            bootstrap-deps= -r $requirements_bootstrap \
+            install= -r $requirements -r $requirements_dev \
+        " >> $logfile
         echo "Uh... that didn\'t work gud. So check out $logfile"
     end
 
