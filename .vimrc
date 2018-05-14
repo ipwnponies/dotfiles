@@ -105,7 +105,7 @@
     set noshowmode
 
 " Insert_map:
-    inoremap jj <esc>
+    inoremap jk <esc>
 
     iabbrev todo: TODO(user#ticket\|201x-xx-yy):
 
@@ -122,7 +122,7 @@
     noremap <m-o> <C-I>
     nnoremap <leader>bd :b#<cr>:bd #<cr>
 
-    nnoremap <cr> :
+    nnoremap <leader><space> :
     nmap <space> <leader>
 
     nnoremap <leader><c-h> :SidewaysLeft<cr>
