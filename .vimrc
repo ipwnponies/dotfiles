@@ -1,3 +1,8 @@
+" neovim and vim compatibility
+    " We need to set this so that plugins won't break. Apparently vim still lives in the savage past but many plugins
+    " have moved on with life. This is duped with vim-sensible but we need this for bootstrapping.
+    set nocompatible
+
 " Multiple Files:
     " be smarter about multiple buffers / vim instances
     "quick buffer switching with TAB, even with edited files
