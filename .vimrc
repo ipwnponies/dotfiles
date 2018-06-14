@@ -23,7 +23,6 @@
         Plug 'airblade/vim-gitgutter'
         Plug 'gregsexton/gitv', {'on': 'Gitv'}
         Plug 'tpope/vim-fugitive'
-        Plug 'jreybert/vimagit', {'on': ['Magit', 'MagitOnly']}
 
         " Lang-specific
         Plug 'hynek/vim-python-pep8-indent'
@@ -37,7 +36,6 @@
         Plug 'tpope/vim-surround'
         Plug 'tpope/vim-sensible'
         Plug 'tpope/vim-endwise'
-        Plug 'tpope/vim-dispatch'
         Plug 'Yggdroot/indentLine'
         Plug 'junegunn/vim-easy-align'
         Plug 'AndrewRadev/sideways.vim'
