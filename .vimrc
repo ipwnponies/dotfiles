@@ -25,11 +25,8 @@
         Plug 'tpope/vim-fugitive'
 
         " Lang-specific
-        Plug 'hynek/vim-python-pep8-indent'
-        Plug 'rodjek/vim-puppet', { 'for': 'puppet' }
         Plug 'w0rp/ale'
-        Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
-        Plug 'dag/vim-fish', {'for': 'fish'}
+        Plug 'sheerun/vim-polyglot'
 
         " Editing
         Plug 'tpope/vim-commentary'
