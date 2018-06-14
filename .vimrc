@@ -36,6 +36,7 @@
         Plug 'Yggdroot/indentLine'
         Plug 'junegunn/vim-easy-align'
         Plug 'AndrewRadev/sideways.vim'
+        Plug 'michaeljsmith/vim-indent-object'
 
         " Usability
         Plug 'scrooloose/nerdtree', {'on': ['NERDTree', 'NERDTreeFind']}
