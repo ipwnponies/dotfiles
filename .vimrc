@@ -46,6 +46,7 @@
         Plug 'junegunn/fzf', { 'dir': '~/.local/share/fzf', 'do': './install --all' }
         Plug 'junegunn/fzf.vim'
         Plug 'junegunn/vim-peekaboo'
+        Plug 'bronson/vim-visual-star-search'
 
         Plug 'vim-airline/vim-airline'
         Plug 'tmux-plugins/vim-tmux-focus-events'
