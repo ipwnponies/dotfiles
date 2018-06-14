@@ -36,6 +36,7 @@
         Plug 'Yggdroot/indentLine'
         Plug 'junegunn/vim-easy-align'
         Plug 'AndrewRadev/sideways.vim'
+        Plug 'AndrewRadev/splitjoin.vim'
         Plug 'michaeljsmith/vim-indent-object'
 
         " Usability
@@ -101,6 +102,9 @@
         let g:ale_lint_on_text_changed = 'normal'
     " Vim_Peeakboo:
         let g:peekaboo_window = "botright 30new"
+    " SplitJoin:
+        let g:splitjoin_python_brackets_on_separate_lines = 1
+        let g:splitjoin_trailing_comma = 1
 
 " Status_Line:
     set noshowmode
