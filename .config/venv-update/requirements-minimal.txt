@@ -3,3 +3,4 @@ ipython
 mycli
 ptpython
 thefuck
+yamllint
