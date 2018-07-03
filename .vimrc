@@ -77,9 +77,10 @@
         map gr :YcmCompleter GoToReferences<cr>
     " GitGutter: Git status while editing files
         set updatetime=250
+        set signcolumn=yes
     " Vim Fugitive: Git operations in vim
         nnoremap <leader>gs :Gstatus<CR>
-        nnoremap <leader>gg :Ggrep -i <cword>
+        nnoremap <leader>gg :Ggrep -iP <cword>
     " Gitv: Expand Vim-Fugititve git log operations
         let g:Gitv_DoNotMapCtrlKey = 1
     " IndentLine: Disable Yggdroot/indentLine overrides
