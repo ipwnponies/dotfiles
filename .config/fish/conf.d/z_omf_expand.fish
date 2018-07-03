@@ -12,6 +12,6 @@ if status --is-interactive; and set -q OMF_PATH
         # Suggest previous branch as default first candidate, then the rest of existing branches
         set -l branches (git rev-parse --abbrev-ref '@{-1}') (git for-each-ref --format '%(refname:short)' refs/heads/)
         # Provide optional suggestion for --no-ff
-        printf 'git merge --no-edit %s\n' $branches{,' --no-ff'}
+        printf 'git merge %s\n' $branches{,' --no-ff'}
     end
 end
