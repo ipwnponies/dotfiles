@@ -12,7 +12,6 @@ complete -r -f -c git -n '__fish_git_using_command ci' -l fixup -a '(__fish_git_
 complete -r -f -c git -n '__fish_git_using_command stash' -a '(__fish_git_stash_show)' --description 'Stashes'
 
 function __fish_git_branches_fzf -d 'Override the native fish function for getting local branches'
-    set query (commandline -t)
     set remote (test "$argv[1]" = '-r'; and echo '-a'; or echo '*')
 
     # Taken from fish shell git completions but changed git branch to only return local branches
@@ -24,7 +23,7 @@ function __fish_git_branches_fzf -d 'Override the native fish function for getti
     string trim | \
     # Short qualified name for remote branches. Noop for local branches
     string replace -r "^remotes/" "" | \
-    fzf --preview 'git log -1 {} --color=always' --query $query --tiebreak=end,index
+    fzf_complete --preview 'git log -1 {} --color=always' --tiebreak=end,index
 
     if test $status -ne 0
         git symbolic-ref HEAD --short
@@ -33,12 +32,12 @@ end
 
 function __fish_git_stash_show
     command git stash list --format=format:'%gd' | \
-    fzf --preview 'git stash show {} --color=always'
+    fzf_complete --preview 'git stash show {} --color=always'
 end
 
 function __fish_git_ci_fixup
     command git log --pretty=oneline --abbrev-commit | \
-    fzf --preview 'git show (echo {} | cut -d " " -f 1) --color=always' | \
+    fzf_complete --preview 'git show {1} --color=always' --with-nth 2.. --tiebreak begin,index --no-sort | \
     cut -d ' ' -f 1
 end
 
