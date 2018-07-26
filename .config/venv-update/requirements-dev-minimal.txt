@@ -1,5 +1,5 @@
 flake8
-neovim<=0.1.10
+neovim
 powerline-status
 pre-commit
 requirements-tools
