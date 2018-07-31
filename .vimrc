@@ -72,6 +72,8 @@
     " YouCompleteMe: Enable a more fluid IDE experience.
         let g:ycm_add_preview_to_completeopt=1
         let g:ycm_autoclose_preview_window_after_completion=1
+        " Use `env python` YCM/jedi server, instead of python vim uses
+        let g:ycm_python_binary_path = 'python'
         map gd :YcmCompleter GoTo<cr>
         map gD :YcmCompleter GetDoc<cr>
         map gr :YcmCompleter GoToReferences<cr>
