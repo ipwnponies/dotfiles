@@ -55,7 +55,7 @@
     highlight Bell display:none
 
 " Insert Mapping:
-    inoremap jj <esc>
+    inoremap jk <esc>
 
 " Normal Mapping:
     " Insert mode and go to end of line
