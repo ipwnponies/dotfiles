@@ -38,6 +38,7 @@
         Plug 'AndrewRadev/sideways.vim'
         Plug 'AndrewRadev/splitjoin.vim'
         Plug 'michaeljsmith/vim-indent-object'
+        Plug 'mattn/vim-xxdcursor'
 
         " Usability
         Plug 'scrooloose/nerdtree', {'on': ['NERDTree', 'NERDTreeFind']}
@@ -273,3 +274,26 @@
     hi CursorColumn             ctermbg=233
     hi CursorLine               ctermbg=236
     hi NonText      ctermfg=247 ctermbg=237 cterm=bold
+
+" BinaryEditing:
+    " Automatically convert to xxd format upon read and write
+    augroup binary
+        autocmd!
+        autocmd BufReadPre  *.bin,*.sav let &bin=1
+        autocmd BufReadPost *.bin,*.sav if &bin | %!xxd
+        autocmd BufReadPost *.bin,*.sav set ft=xxd | endif
+        autocmd BufWritePre *.bin,*.sav if &bin | %!xxd -r
+        autocmd BufWritePre *.bin,*.sav endif
+        autocmd BufWritePost *.bin,*.sav if &bin | %!xxd
+        autocmd BufWritePost *.bin,*.sav set nomod | endif
+    augroup END
+
+    " Get decimal value of hex under cursor
+    function! GetHexUnderCursor()
+        let hex = getline(".")[col('.')-1:col('.')]
+        return hex =~ '\x\{2\}' ? '0x' + str2nr(hex, 16) : ''
+    endfunction
+
+    " Register with vim-airline
+    call airline#parts#define_function('convertHex', 'GetHexUnderCursor')
+    let g:airline_section_y = airline#section#create_right(['ffenc','convertHex'])
