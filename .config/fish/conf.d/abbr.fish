@@ -9,10 +9,10 @@ abbr --add pgrep    'pgrep -fau (whoami)'
 abbr --add pkill    'pkill -fu (whoami)'
 abbr --add kill     'kill -s TERM'
 abbr --add fzfdo    'fzf | read -l fzf; and'
-abbr --add pytest   'pytest --verbose --capture no --pdbcls IPython.terminal.debugger:TerminalPdb'
+abbr --add pytest   'pytest --verbose --capture no --exitfirst --failed-first'
 abbr --add less     'less -iR'
 abbr --add netstat  'netstat --listening --program --numeric'
-abbr --add jq       'jq -C -S'
+abbr --add jq       'jq --color-output --sort-keys'
 
 set local_functions (dirname (status --current-filename))/abbr_local.fish
 if test -e $local_functions
