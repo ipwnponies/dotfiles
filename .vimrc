@@ -50,7 +50,6 @@
         Plug 'bronson/vim-visual-star-search'
 
         Plug 'vim-airline/vim-airline'
-        Plug 'tmux-plugins/vim-tmux-focus-events'
 
         function! BuildYCM(info)
             " info is a dictionary with 3 fields
