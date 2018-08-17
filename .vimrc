@@ -79,7 +79,7 @@
         map gr :YcmCompleter GoToReferences<cr>
     " GitGutter: Git status while editing files
         set updatetime=250
-        set signcolumn=yes
+        if exists('&signcolumn') | set signcolumn=yes | endif
     " Vim Fugitive: Git operations in vim
         nnoremap <leader>gs :Gstatus<CR>
         nnoremap <leader>gg :Ggrep -iP <cword>
