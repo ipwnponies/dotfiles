@@ -96,6 +96,7 @@
         let NERDTreeMapOpenSplit='s'
     " Fzf:
         nnoremap <leader>fb :Buffers<CR>
+        nnoremap <leader>ff :FZF<CR>
         nnoremap <leader>fg :GFiles<CR>
         nnoremap <leader>fG :GFiles?<CR>
         nnoremap <leader>fl :Lines<CR>
@@ -110,6 +111,7 @@
     " SplitJoin:
         let g:splitjoin_python_brackets_on_separate_lines = 1
         let g:splitjoin_trailing_comma = 1
+        nnoremap <leader>s :SplitjoinSplit<CR>
 
 " Status_Line:
     set noshowmode
