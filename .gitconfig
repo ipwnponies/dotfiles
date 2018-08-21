@@ -22,6 +22,8 @@
 
     # List tracking branches and branch ahead/behind
     br = branch -vv
+    brdr = !git push origin --delete $(git rev-parse --abbrev-ref @)
+    brd = branch --delete '@{-1}'
 
     # Pretty formatted git log
     hist = log --color=always --pretty=format:\"%x09%C(auto)%h %C(bold green)%>(12)%cd %C(blue)%<(15,trunc)%aE %C(reset)%<(50,trunc)%s%C(auto)%d\" --graph --date=relative -15
