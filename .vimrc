@@ -52,6 +52,7 @@
         Plug 'bronson/vim-visual-star-search'
         Plug 'sickill/vim-monokai'
         Plug 'romainl/vim-qf'
+        Plug 'chrisbra/vim-diff-enhanced'
 
         Plug 'vim-airline/vim-airline'
 
