@@ -172,7 +172,7 @@
     set ignorecase
     set smartcase
     set gdefault
-    if has('nvim')
+    if exists('&inccommand')
         set inccommand=split
     endif
 
