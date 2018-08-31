@@ -48,6 +48,7 @@
         Plug 'junegunn/fzf.vim'
         Plug 'junegunn/vim-peekaboo'
         Plug 'bronson/vim-visual-star-search'
+        Plug 'sickill/vim-monokai'
 
         Plug 'vim-airline/vim-airline'
 
@@ -242,7 +243,7 @@
     set shell=/bin/bash
 
     syntax enable
-    colorscheme ir_black
+    colorscheme monokai
     filetype plugin on
     highlight Search cterm=reverse,underline
 
@@ -265,16 +266,6 @@
         " Python is a perfect candidate for indent foldmethod because it is whitespace significant
         autocmd BufNewFile,BufRead,FileType *.py set foldmethod=indent
     endif
-
-" Diff Colours: Override the diff colours in ir_black
-    hi DiffAdd      ctermfg=195 ctermbg=34
-    hi DiffDelete   ctermfg=000 ctermbg=88
-    hi diffchange   ctermfg=249 ctermbg=27
-    hi difftext     ctermfg=255 ctermbg=9
-    hi PmenuSel     ctermfg=51  ctermbg=236
-    hi CursorColumn             ctermbg=233
-    hi CursorLine               ctermbg=236
-    hi NonText      ctermfg=247 ctermbg=237 cterm=bold
 
 " BinaryEditing:
     " Automatically convert to xxd format upon read and write
