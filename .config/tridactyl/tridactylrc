@@ -1,0 +1,27 @@
+" Binds
+bind v hint
+bind e buffer #
+
+bind f scrollpage 0.92
+bind b scrollpage -0.92
+bind j scrollline 5
+bind k scrollline -5
+bind H scrollpx -50
+bind L scrollpx 50
+bind h back
+bind l forward
+
+" Ignores
+blacklistadd docs.google.com
+blacklistadd inbox.google.com
+
+autocmd TabEnter inbox.google.com composite mode ignore; set ignoremaps.v hint; set ignoremaps.: fillcmdline_notrail
+autocmd TabLeft inbox.google.com composite unset ignoremaps.v; unset ignoremaps.:
+autocmd DocEnd inbox.google.com composite unset ignoremaps.v; unset ignoremaps.:
+
+" Settings
+set smoothscroll true
+
+source ~/.config/tridactyl/tridactylrc_local
+
+" vim: set filetype=vim:
