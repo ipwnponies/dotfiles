@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name        FatSecret redirect to absolute date
+// @name        Redirect to absolute date
 // @namespace   ipwnponies
 // @description Resolves food diary to absolute url. Because they try to do clever, stateful shit using with cookies.
 // @version     1.0.1
-// @match       https://*.fatsecret.com/Diary.aspx
+// @match       https://www.fatsecret.com/Diary.aspx
 // @grant       none
 // ==/UserScript==
 
