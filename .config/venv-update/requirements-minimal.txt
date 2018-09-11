@@ -3,5 +3,6 @@ ipython
 mycli
 ptpython
 thefuck
+tldr
 visidata
 yamllint
