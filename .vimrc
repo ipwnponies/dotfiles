@@ -38,6 +38,8 @@
         Plug 'AndrewRadev/sideways.vim'
         Plug 'AndrewRadev/splitjoin.vim'
         Plug 'michaeljsmith/vim-indent-object'
+        Plug 'jeetsukumaran/vim-indentwise'
+        Plug 'voithos/vim-python-matchit'
         Plug 'mattn/vim-xxdcursor'
 
         " Usability
