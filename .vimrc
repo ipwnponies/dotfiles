@@ -125,10 +125,10 @@
     iabbrev todo: TODO(user#ticket\|201x-xx-yy):
 
 " Normal_Map:
-    nnoremap <leader><c-j> :lnext<CR>
-    nnoremap <leader><c-k> :lprevious<CR>
-    nnoremap <leader>j :cnext<CR>
-    nnoremap <leader>k :cprevious<CR>
+    nnoremap <leader><c-j> :<c-u>exe v:count1 . 'lnext'<CR>
+    nnoremap <leader><c-k> :<c-u>exe v:count1 . 'lprevious'<CR>
+    nnoremap <leader>j :<c-u>exe v:count1 . 'cnext'<CR>
+    nnoremap <leader>k :<c-u>exe v:count1 . 'cprevious'<CR>
     nnoremap <C-e> 5<C-e>
     nnoremap <C-y> 5<C-y>
     nnoremap Y y$
