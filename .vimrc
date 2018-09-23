@@ -97,6 +97,7 @@
         nnoremap <leader>nf :NERDTreeFind<CR>
         let NERDTreeMapOpenVSplit='v'
         let NERDTreeMapOpenSplit='s'
+        let NERDTreeQuitOnOpen=1
     " Fzf:
         nnoremap <leader>fb :Buffers<CR>
         nnoremap <leader>ff :FZF<CR>
