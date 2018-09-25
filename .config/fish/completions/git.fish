@@ -41,7 +41,7 @@ function __fish_git_ci_fixup
     cut -d ' ' -f 1
 end
 
-set local_functions (dirname (status --current-filename))/git_local.fish
+set -l local_functions (dirname (status --current-filename))/git_local.fish
 if test -e $local_functions
     source $local_functions
 end

@@ -14,7 +14,7 @@ abbr --add less     'less -iR'
 abbr --add netstat  'netstat --listening --program --numeric'
 abbr --add jq       'jq --color-output --sort-keys'
 
-set local_functions (dirname (status --current-filename))/abbr_local.fish
+set -l local_functions (dirname (status --current-filename))/abbr_local.fish
 if test -e $local_functions
     source $local_functions
 end
