@@ -9,7 +9,9 @@ abbr --add pgrep    'pgrep -fau (whoami)'
 abbr --add pkill    'pkill -fu (whoami)'
 abbr --add kill     'kill -s TERM'
 abbr --add fzfdo    'fzf | read -l fzf; and'
-abbr --add pytest   'pytest -vv --capture no --exitfirst --failed-first'
+set -l pytest_args     '-vv --capture no --exitfirst --failed-first tests/'
+abbr --add pytest   "pytest $pytest_args"
+abbr --add pytestw  "pytest-watch -- $pytest_args"
 abbr --add less     'less -iR'
 abbr --add netstat  'netstat --listening --program --numeric'
 abbr --add jq       'jq --color-output --sort-keys'
