@@ -1,0 +1,15 @@
+#!/usr/bin/fish
+
+set remote origin
+git fetch $remote
+set master (git rev-parse --abbrev-ref $remote/HEAD)
+set merged_branches (git branch -r --merged $master | grep -v $master | sed "s#^\s*$remote/##")
+
+if test (count $merged_branches) -eq 0;
+    printf 'woah, this remote is clean. Nice\n'
+    exit
+end
+
+printf '%s\n' $merged_branches
+set_color -o yellow; printf '\nTotal of %s branches deleted\n' (count $merged_branches)
+git push $remote --delete $merged_branches
