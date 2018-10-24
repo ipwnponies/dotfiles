@@ -51,6 +51,7 @@
         Plug 'junegunn/vim-peekaboo'
         Plug 'bronson/vim-visual-star-search'
         Plug 'sickill/vim-monokai'
+        Plug 'romainl/vim-qf'
 
         Plug 'vim-airline/vim-airline'
 
@@ -126,10 +127,6 @@
     iabbrev todo: TODO(user#ticket\|201x-xx-yy):
 
 " Normal_Map:
-    nnoremap <leader><c-j> :<c-u>exe v:count1 . 'lnext'<CR>
-    nnoremap <leader><c-k> :<c-u>exe v:count1 . 'lprevious'<CR>
-    nnoremap <leader>j :<c-u>exe v:count1 . 'cnext'<CR>
-    nnoremap <leader>k :<c-u>exe v:count1 . 'cprevious'<CR>
     nnoremap <C-e> 5<C-e>
     nnoremap <C-y> 5<C-y>
     nnoremap Y y$
@@ -143,6 +140,16 @@
 
     nnoremap <leader><c-h> :SidewaysLeft<cr>
     nnoremap <leader><c-l> :SidewaysRight<cr>
+
+    " Quickfix/Location List
+    nmap <leader><c-j> :<c-u>exe v:count1 . 'lnext'<CR>
+    nmap <leader><c-k> :<c-u>exe v:count1 . 'lprevious'<CR>
+    nmap <leader>j :<c-u>exe v:count1 . 'cnext'<CR>
+    nmap <leader>k :<c-u>exe v:count1 . 'cprevious'<CR>
+    nmap <leader>c <Plug>(qf_qf_switch)
+    nmap <leader><F5> <Plug>(qf_qf_toggle_stay)
+    nmap <leader><F6> <Plug>(qf_loc_toggle_stay)
+
 
     " Window Movement:
     nnoremap <c-j> <c-w><c-j>
