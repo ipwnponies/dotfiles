@@ -21,6 +21,10 @@ autocmd TabEnter docs.google.com mode ignore
 autocmd DocStart inbox.google.com mode ignore
 autocmd TabEnter inbox.google.com mode ignore
 
+" YouTube
+autocmd TabEnter youtube.com mode ignore
+autocmd DocStart youtube.com mode ignore
+
 " Feedly
 autocmd TabEnter feedly.com composite mode ignore; set ignoremaps.v hint; set ignoremaps.: fillcmdline_notrail
 autocmd TabLeft feedly.com composite unset ignoremaps.v; unset ignoremaps.:
