@@ -21,6 +21,12 @@ autocmd TabEnter docs.google.com mode ignore
 autocmd DocStart inbox.google.com mode ignore
 autocmd TabEnter inbox.google.com mode ignore
 
+" Feedly
+autocmd TabEnter feedly.com composite mode ignore; set ignoremaps.v hint; set ignoremaps.: fillcmdline_notrail
+autocmd TabLeft feedly.com composite unset ignoremaps.v; unset ignoremaps.:
+autocmd DocStart feedly.com composite mode ignore; set ignoremaps.v hint; set ignoremaps.: fillcmdline_notrail
+autocmd DocEnd feedly.com composite unset ignoremaps.v; unset ignoremaps.:
+
 " Settings
 set smoothscroll true
 
