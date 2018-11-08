@@ -11,13 +11,25 @@ bind L scrollpx 50
 bind h back
 bind l forward
 
-" Ignores
-blacklistadd docs.google.com
-blacklistadd inbox.google.com
+" Ignore mappings blacklist
 
-autocmd TabEnter inbox.google.com composite mode ignore; set ignoremaps.v hint; set ignoremaps.: fillcmdline_notrail
-autocmd TabLeft inbox.google.com composite unset ignoremaps.v; unset ignoremaps.:
-autocmd DocEnd inbox.google.com composite unset ignoremaps.v; unset ignoremaps.:
+" Google Docs
+autocmd DocStart docs.google.com mode ignore
+autocmd TabEnter docs.google.com mode ignore
+
+" Inbox
+autocmd DocStart inbox.google.com mode ignore
+autocmd TabEnter inbox.google.com mode ignore
+
+" YouTube
+autocmd TabEnter youtube.com mode ignore
+autocmd DocStart youtube.com mode ignore
+
+" Feedly
+autocmd TabEnter feedly.com composite mode ignore; set ignoremaps.v hint; set ignoremaps.: fillcmdline_notrail
+autocmd TabLeft feedly.com composite unset ignoremaps.v; unset ignoremaps.:
+autocmd DocStart feedly.com composite mode ignore; set ignoremaps.v hint; set ignoremaps.: fillcmdline_notrail
+autocmd DocEnd feedly.com composite unset ignoremaps.v; unset ignoremaps.:
 
 " Settings
 set smoothscroll true
