@@ -8,6 +8,9 @@ if status --is-login
 
     set PATH "$HOME/bin" $PATH
 
+    # Set less arguments so they will be applied when used as pager
+    set -x LESS '-XFR -i -M -w -z-4'
+
     if type -q nvim
         set -x EDITOR nvim
     else
@@ -18,6 +21,16 @@ if status --is-login
     set -x fish_prompt_pwd_dir_length 0
 
     if status --is-interactive
-        bash -c 'source ~/.bash_profile' &
+        if test -d ~/.git
+            git pull
+            git submodule update --init
+        end
+
+        # Deprecation warning
+        if test -e ~/.bashrc_local
+            set_color --bold red
+            printf 'Executing .bashrc_local is deprecated for fish, please port this to %s if necessary.\n' (status current-filename)
+            set_color normal
+        end
     end
 end
