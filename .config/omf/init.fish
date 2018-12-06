@@ -3,7 +3,7 @@ set -gx _Z_DATA $XDG_CACHE_HOME/z_datafile
 
 # plugin-expand
 begin
-    expand-word -p '^!$' -e 'printf "%s\n" $history'
+    expand-word -p '^!$' -e 'history'
 
     # Bash's ^foo^bar^ substitution. Supports sed syntax command
     expand-word -p '^s(.)..*\1.*$' -e '_expand_sed_history'
