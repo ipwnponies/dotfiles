@@ -1,6 +1,7 @@
 /config_local.fish
 /plugins/
 /fishd.*
+/fish_variables
 /functions/fish_prompt.[0-9]*.copy
 /functions/fzf_key_bindings.fish
 /functions/*_local.fish
