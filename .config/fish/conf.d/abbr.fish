@@ -1,10 +1,9 @@
 # Abbreviations
-abbr --add g        'command grep -Pi --color=auto'
 abbr --add df       'df -h'
 abbr --add du       'du -h --max-depth=1'
 abbr --add j        'jobs'
 abbr --add g        'grep -Pi --color=auto'
-abbr --add ps       'ps -f'
+abbr --add ps       'ps uT --forest'
 abbr --add pgrep    'pgrep -fau (whoami)'
 abbr --add pkill    'pkill -fu (whoami)'
 abbr --add kill     'kill -s TERM'
