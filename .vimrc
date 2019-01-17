@@ -159,8 +159,10 @@
     nnoremap <c-h> <c-w><c-h>
 
 " Commandline_map:
-    cmap <c-p> <up>
-    cmap <c-n> <down>
+    cnoremap <c-p> <up>
+    cnoremap <c-n> <down>
+    " Unsure why vim decided to deviate from readline here, it's not like this was already mapped
+    cnoremap <c-a> <c-b>
     cmap w!! w !sudo tee >/dev/null %
 
     cabbrev Glgrep Glgrep -i
