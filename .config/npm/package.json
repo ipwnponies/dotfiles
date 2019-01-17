@@ -1,6 +1,7 @@
 {
   "dependencies": {
-    "diff-so-fancy": "*"
+    "diff-so-fancy": "*",
+    "typescript": "*"
   },
   "description": "Install npm tools for development environment",
   "name": "dotfile_install",

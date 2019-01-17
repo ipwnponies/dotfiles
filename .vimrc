@@ -66,7 +66,8 @@
                     echoerr 'Need cmake to install YCM!'
                 endif
 
-                !./install.py
+                " Install support for every language
+                !./install.py --all
             endif
         endfunction
         Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
@@ -76,6 +77,15 @@
     " YouCompleteMe: Enable a more fluid IDE experience.
         let g:ycm_add_preview_to_completeopt=1
         let g:ycm_autoclose_preview_window_after_completion=1
+        let g:ycm_filter_diagnostics = {
+                    \   "javascript": {
+                    \     "regex": [
+                    \         "^.* can only be used in a .ts file.$",
+                    \         "^Duplicate identifier 'type'.$"
+                    \     ]
+                    \   }
+                    \ }
+        let g:ycm_max_diagnostics_to_display = 0
         " Use `env python` YCM/jedi server, instead of python vim uses
         let g:ycm_python_binary_path = 'python'
         map gd :YcmCompleter GoTo<cr>
