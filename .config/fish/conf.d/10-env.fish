@@ -22,8 +22,17 @@ if status --is-login
 
     if status --is-interactive
         if test -d ~/.git
-            git pull
-            git submodule update --init
+            fish -c '
+                git fetch
+
+                # If no updates, avoid further git operations
+                if not git diff --quiet \'@{u}\'
+                    exit
+                end
+
+                git pull
+                git submodule update --init
+            ' &
         end
 
         # Deprecation warning
