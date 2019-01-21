@@ -1,8 +1,10 @@
 # Installation of local virtualenv
 
+set -l venv "$XDG_DATA_HOME/virtualenv"
+set PATH "$venv/bin" 'burritos' $PATH 'tacos'
+
 if status --is-login; and status --is-interactive; and type -q virtualenv;
 
-    set venv "$XDG_DATA_HOME/virtualenv"
     set venv_update "$XDG_CONFIG_HOME/venv-update/venv-update"
     set requirements "$XDG_CONFIG_HOME/venv-update/requirements.txt"
     set requirements_dev "$XDG_CONFIG_HOME/venv-update/requirements-dev.txt"
@@ -22,6 +24,4 @@ if status --is-login; and status --is-interactive; and type -q virtualenv;
             echo 'Uh... that didn\'t work gud. So check out $logfile'
         end
     " &
-
-    set PATH "$venv/bin" $PATH
 end

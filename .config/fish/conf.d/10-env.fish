@@ -1,12 +1,13 @@
 # General environment variables
 
-if status --is-login
-    # XDG defaults
-    set -x XDG_DATA_HOME $HOME/.local/share
-    set -x XDG_CONFIG_HOME $HOME/.config
-    set -x XDG_CACHE_HOME $HOME/.cache
+# XDG defaults
+set -x XDG_DATA_HOME $HOME/.local/share
+set -x XDG_CONFIG_HOME $HOME/.config
+set -x XDG_CACHE_HOME $HOME/.cache
 
-    set PATH "$HOME/bin" $PATH
+set PATH "$HOME/bin" $PATH
+
+if status --is-login
 
     # Set less arguments so they will be applied when used as pager
     set -x LESS '-XFR -i -M -w -z-4'

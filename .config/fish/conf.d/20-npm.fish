@@ -1,8 +1,10 @@
 # Installation of local npm library
 
+set -l venv "$XDG_CONFIG_HOME/npm"
+set PATH "$venv/node_modules/.bin" $PATH
+
 if status --is-login; and status --is-interactive; and type -q npm;
 
-    set venv "$XDG_CONFIG_HOME/npm"
     set logfile "$XDG_CACHE_HOME/npm"
 
     fish -c "
@@ -11,6 +13,4 @@ if status --is-login; and status --is-interactive; and type -q npm;
             echo 'Uh... that didn\'t work gud. So check out $logfile'
         end
     " &
-
-    set PATH "$venv/node_modules/.bin" $PATH
 end
