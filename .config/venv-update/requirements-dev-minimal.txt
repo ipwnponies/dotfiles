@@ -2,4 +2,5 @@ flake8
 neovim
 powerline-status
 pre-commit
+python-language-server[all]
 requirements-tools

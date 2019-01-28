@@ -63,6 +63,7 @@
 " Plugin Custom Configurations:
     " LanguageClient: Enable a more fluid IDE experience.
         let g:LanguageClient_serverCommands = {
+                    \ 'python': ['pyls'],
                     \}
     " Deoplete: Completions
         let g:deoplete#enable_at_startup = 1
