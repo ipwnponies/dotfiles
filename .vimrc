@@ -55,32 +55,22 @@
 
         Plug 'vim-airline/vim-airline'
 
-        function! BuildYCM(info)
-            " info is a dictionary with 3 fields
-            " - name:   name of the plugin
-            " - status: 'installed', 'updated', or 'unchanged'
-            " - force:  set on PlugInstall! or PlugUpdate!
-            if a:info.status == 'installed' || a:info.force
-
-                if !executable('cmake')
-                    echoerr 'Need cmake to install YCM!'
-                endif
-
-                !./install.py
-            endif
-        endfunction
-        Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
+        " IDE
+        Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+        Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh', }
     call plug#end()
 
 " Plugin Custom Configurations:
-    " YouCompleteMe: Enable a more fluid IDE experience.
-        let g:ycm_add_preview_to_completeopt=1
-        let g:ycm_autoclose_preview_window_after_completion=1
-        " Use `env python` YCM/jedi server, instead of python vim uses
-        let g:ycm_python_binary_path = 'python'
-        map gd :YcmCompleter GoTo<cr>
-        map gD :YcmCompleter GetDoc<cr>
-        map gr :YcmCompleter GoToReferences<cr>
+    " LanguageClient: Enable a more fluid IDE experience.
+        let g:LanguageClient_serverCommands = {
+                    \}
+    " Deoplete: Completions
+        let g:deoplete#enable_at_startup = 1
+        " Completions do not interfere with typing, unless explicitly selected
+        set completeopt+=noselect
+        " Select completions using tab
+        inoremap <expr> <tab> pumvisible() ? '<c-n>' : '<tab>'
+        inoremap <expr> <s-tab> pumvisible() ? '<c-p>' : '<tab>'
     " GitGutter: Git status while editing files
         set updatetime=250
         if exists('&signcolumn') | set signcolumn=yes | endif
