@@ -241,8 +241,12 @@
     set mouse=a
 
     syntax enable
-    colorscheme monokai
     filetype plugin on
+
+" Colors:
+    colorscheme monokai
+    highlight Pmenu ctermbg=26
+    highlight PmenuSel ctermfg=214
     highlight Search cterm=reverse,underline
 
 " Autocmd:
