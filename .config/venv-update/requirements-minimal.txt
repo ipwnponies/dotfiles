@@ -1,4 +1,5 @@
-http-prompt
+# Disable http-prompt until updated to support prompt-toolkit >2.0
+# http-prompt
 ipython
 mycli
 ptpython
