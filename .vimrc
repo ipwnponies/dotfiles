@@ -212,14 +212,10 @@
     " Figure out the python virtualenv for neovim.
     " This only applies to interactive mode, put stuff in here that breaks due to interaction with tty.
     if has('nvim') && has('ttyin') && has('ttyout')
-        if exists("$VIRTUAL_ENV")
-            " Skip the activated virtualenv, which probably doesn't have neovim package
-            let g:python3_host_prog = system("type -ap python3 | head -n2 | tail -n1")[:-2]
-            let g:python_host_prog = system("type -ap python2 | head -n2 | tail -n1")[:-2]
-        else
-            let g:python3_host_prog = system("command -v python3")[:-2]
-            let g:python_host_prog = system("command -v python2")[:-2]
-        endif
+        " system will start a subshell, where PATH ordering will be reestablished.
+        " This will correctly ignore any activated python virtualenvs.
+        let g:python3_host_prog = system("command -v python3")[:-2]
+        let g:python_host_prog = system("command -v python2")[:-2]
     endif
 
     " Visuals
@@ -252,8 +248,6 @@
     set backspace=2
     set modeline
     set mouse=a
-
-    set shell=/bin/bash
 
     syntax enable
     colorscheme monokai

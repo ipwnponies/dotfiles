@@ -11,7 +11,9 @@ if status --is-interactive;
 
         # Install all omf plugins upon login
         if status --is-login
-            omf install
+            # This can introduce issues wth newly installed packages They won't work correctly until the next shell
+            # startup This is acceptable because it's infrequent and not worth paying on every shell startup.
+            omf install &
         end
 
     else if status --is-login
