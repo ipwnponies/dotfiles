@@ -67,6 +67,8 @@
                     \ 'javascript.jsx': ['/nail/home/jngu/.config/npm/node_modules/.bin/javascript-typescript-stdio'],
                     \ 'python': ['pyls'],
                     \}
+        nnoremap gd :call LanguageClient_textDocument_definition()<cr>
+        nnoremap gD :call LanguageClient_contextMenu()<cr>
         let g:LanguageClient_diagnosticsEnable = 0
     " Deoplete: Completions
         let g:deoplete#enable_at_startup = 1
