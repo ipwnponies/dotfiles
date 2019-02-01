@@ -117,6 +117,9 @@
         nnoremap <leader>fG :GFiles?<CR>
         nnoremap <leader>fl :Lines<CR>
         nnoremap <leader>/ :BLines<CR>
+        nnoremap <leader>fc :Commands<CR>
+        nnoremap <leader>fh :Helptags<CR>
+        nnoremap <leader>fC :BCommits<CR>
     " Ale:
         let g:ale_echo_msg_format = '[%linter%] %code: %%s'
         let g:ale_lint_on_insert_leave = 1
