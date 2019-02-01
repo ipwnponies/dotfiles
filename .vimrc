@@ -77,6 +77,21 @@
         " Select completions using tab
         inoremap <expr> <tab> pumvisible() ? '<c-n>' : '<tab>'
         inoremap <expr> <s-tab> pumvisible() ? '<c-p>' : '<tab>'
+        call deoplete#custom#option('auto_complete_delay', 200)
+        call deoplete#custom#option('ignore_case', v:true)
+        " Use head matcher instead of fuzzy matcher
+        call deoplete#custom#source('_',
+                    \ 'matchers', ['matcher_full_fuzzy'])
+        call deoplete#custom#option('sources', {
+                    \ '_': [],
+                    \ })
+        call deoplete#custom#var('around', {
+                    \   'range_above': 15,
+                    \   'range_below': 15,
+                    \   'mark_above': '[↑]',
+                    \   'mark_below': '[↓]',
+                    \   'mark_changes': '[*]',
+                    \})
     " GitGutter: Git status while editing files
         set updatetime=250
         if exists('&signcolumn') | set signcolumn=yes | endif
