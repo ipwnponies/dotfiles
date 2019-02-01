@@ -7,3 +7,5 @@ rules:
     max: 120
   indentation:
     indent-sequences: consistent
+
+# vim: filetype=yaml
