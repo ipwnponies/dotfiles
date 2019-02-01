@@ -63,8 +63,11 @@
 " Plugin Custom Configurations:
     " LanguageClient: Enable a more fluid IDE experience.
         let g:LanguageClient_serverCommands = {
+                    \ 'javascript': ['/nail/home/jngu/.config/npm/node_modules/.bin/javascript-typescript-stdio'],
+                    \ 'javascript.jsx': ['/nail/home/jngu/.config/npm/node_modules/.bin/javascript-typescript-stdio'],
                     \ 'python': ['pyls'],
                     \}
+        let g:LanguageClient_diagnosticsEnable = 0
     " Deoplete: Completions
         let g:deoplete#enable_at_startup = 1
         " Completions do not interfere with typing, unless explicitly selected
