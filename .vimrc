@@ -21,7 +21,8 @@
     call plug#begin('~/.vim/bundle')
         " Git plugins
         Plug 'airblade/vim-gitgutter'
-        Plug 'gregsexton/gitv', {'on': 'Gitv'}
+        " Use pre-release build, which has fugitive compatbility fixes
+        Plug 'gregsexton/gitv', {'on': 'Gitv', 'commit': 'e9486c2da297634dde7bc591b87fb8c0779b7789'}
         Plug 'tpope/vim-fugitive'
 
         " Lang-specific
@@ -98,7 +99,7 @@
     " Vim Fugitive: Git operations in vim
         nnoremap <leader>gs :Gstatus<CR>
         nnoremap <leader>gg :Ggrep -iP <cword>
-    " Gitv: Expand Vim-Fugititve git log operations
+    " Gitv: Expand Vim-Fugitive git log operations
         let g:Gitv_DoNotMapCtrlKey = 1
     " IndentLine: Disable Yggdroot/indentLine overrides
         let g:indentLine_concealcursor='c'
