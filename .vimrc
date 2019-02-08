@@ -51,10 +51,11 @@
         Plug 'junegunn/fzf.vim'
         Plug 'junegunn/vim-peekaboo'
         Plug 'bronson/vim-visual-star-search'
-        Plug 'sickill/vim-monokai'
         Plug 'romainl/vim-qf'
 
+        " Pretty
         Plug 'vim-airline/vim-airline'
+        Plug 'sickill/vim-monokai'
 
         " IDE
         Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -132,6 +133,8 @@
     " SplitJoin:
         let g:splitjoin_python_brackets_on_separate_lines = 1
         let g:splitjoin_trailing_comma = 1
+    " Undotree:
+        let g:undotree_SetFocusWhenToggle = 1
 
 " Status_Line:
     set noshowmode
