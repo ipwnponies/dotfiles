@@ -63,8 +63,8 @@
 " Plugin Custom Configurations:
     " LanguageClient: Enable a more fluid IDE experience.
         let g:LanguageClient_serverCommands = {
-                    \ 'javascript': ['/nail/home/jngu/.config/npm/node_modules/.bin/javascript-typescript-stdio'],
-                    \ 'javascript.jsx': ['/nail/home/jngu/.config/npm/node_modules/.bin/javascript-typescript-stdio'],
+                    \ 'javascript': ['javascript-typescript-stdio'],
+                    \ 'javascript.jsx': ['javascript-typescript-stdio'],
                     \ 'python': ['pyls'],
                     \}
         nnoremap gd :call LanguageClient_textDocument_definition()<cr>
