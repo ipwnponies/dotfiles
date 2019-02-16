@@ -11,6 +11,7 @@
     nmap <S-TAB> :bp<CR>
     set autoread            "auto-reload files, if there's no conflict
     set shortmess+=IA       "no intro message, no swap-file message
+    let mapleader = "\<space>" " Must be set early, so that plugin mappings are deterministic
 
 " Vim Plug: Bootstrap vim-plug for fresh vim install
     if !filereadable(expand('~/.vim/autoload/plug.vim'))
@@ -153,8 +154,6 @@
     noremap <m-o> <C-I>
     nnoremap <leader>bd :b#<cr>:bd #<cr>
 
-    nnoremap <leader><space> :
-    nmap <space> <leader>
 
     nnoremap <leader><c-h> :SidewaysLeft<cr>
     nnoremap <leader><c-l> :SidewaysRight<cr>
