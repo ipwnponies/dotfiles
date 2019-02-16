@@ -53,6 +53,7 @@
         Plug 'junegunn/vim-peekaboo'
         Plug 'bronson/vim-visual-star-search'
         Plug 'romainl/vim-qf'
+        Plug 'tpope/vim-unimpaired'
 
         " Pretty
         Plug 'vim-airline/vim-airline'
@@ -159,10 +160,6 @@
     nnoremap <leader><c-l> :SidewaysRight<cr>
 
     " Quickfix/Location List
-    nmap <leader><c-j> :<c-u>exe v:count1 . 'lnext'<CR>
-    nmap <leader><c-k> :<c-u>exe v:count1 . 'lprevious'<CR>
-    nmap <leader>j :<c-u>exe v:count1 . 'cnext'<CR>
-    nmap <leader>k :<c-u>exe v:count1 . 'cprevious'<CR>
     nmap <leader>c <Plug>(qf_qf_switch)
     nmap <leader><F5> <Plug>(qf_qf_toggle_stay)
     nmap <leader><F6> <Plug>(qf_loc_toggle_stay)
