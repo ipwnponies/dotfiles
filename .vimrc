@@ -54,6 +54,7 @@
         Plug 'bronson/vim-visual-star-search'
         Plug 'romainl/vim-qf'
         Plug 'rhysd/clever-f.vim'
+        Plug 'easymotion/vim-easymotion'
         Plug 'tpope/vim-unimpaired'
 
         " Pretty
@@ -140,6 +141,9 @@
         let g:clever_f_chars_match_any_signs = ';'
     " Undotree:
         let g:undotree_SetFocusWhenToggle = 1
+    " EasyMotion:
+        let g:EasyMotion_use_upper = 1
+        let g:EasyMotion_keys = 'ASDGHKLQWERTYUIOPZXCVBNMFJ;'
 
 " Status_Line:
     set noshowmode
