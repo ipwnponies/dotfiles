@@ -53,6 +53,7 @@
         Plug 'junegunn/vim-peekaboo'
         Plug 'bronson/vim-visual-star-search'
         Plug 'romainl/vim-qf'
+        Plug 'rhysd/clever-f.vim'
         Plug 'tpope/vim-unimpaired'
 
         " Pretty
@@ -135,6 +136,8 @@
     " SplitJoin:
         let g:splitjoin_python_brackets_on_separate_lines = 1
         let g:splitjoin_trailing_comma = 1
+    " CleverF:
+        let g:clever_f_chars_match_any_signs = ';'
     " Undotree:
         let g:undotree_SetFocusWhenToggle = 1
 
