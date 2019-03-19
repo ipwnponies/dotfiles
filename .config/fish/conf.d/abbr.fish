@@ -15,8 +15,8 @@ abbr --add watch   'watch -cd -n 5'
 abbr --add time    'time -f \'Total Time: %E\nExit Code: %x\''
 
 set -l pytest_args '-vv --capture no --exitfirst --failed-first tests/'
-abbr --add pytest  "pytest $pytest_args"
-abbr --add pytestw "pytest-watch -- $pytest_args"
+abbr --add pytest  "pytest --testmon $pytest_args"
+abbr --add pytestw "pytest-watch --testmon-readonly -- $pytest_args"
 
 set -l local_functions (dirname (status --current-filename))/abbr_local.fish
 if test -e $local_functions
