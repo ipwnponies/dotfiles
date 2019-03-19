@@ -1,7 +1,9 @@
 {
   "dependencies": {
     "diff-so-fancy": "*",
-    "javascript-typescript-langserver": "*"
+    "javascript-typescript-langserver": "*",
+    "markdownlint-cli": "*",
+    "textlint": "*"
   },
   "description": "Install npm tools for development environment",
   "name": "dotfile_install",
