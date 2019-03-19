@@ -10,7 +10,7 @@ set PATH "$HOME/bin" $PATH
 if status --is-login
 
     # Set less arguments so they will be applied when used as pager
-    set -x LESS '-XFR -i -M -w -z-4'
+    set -x LESS '--no-init --RAW-CONTROL-CHARS --IGNORE-CASE --LONG-PROMPT --hilite-unread --window=-4'
 
     if type -q nvim
         set -x EDITOR nvim
