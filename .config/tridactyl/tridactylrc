@@ -31,6 +31,11 @@ autocmd DocStart feedly.com mode ignore
 
 " Settings
 set smoothscroll true
+set hintfiltermode vimperator-reflow
+set hintchars 1234567890
+
+" Restore native find
+unbind <c-f>
 
 source ~/.config/tridactyl/tridactylrc_local
 
