@@ -131,7 +131,7 @@
         let g:ale_lint_on_insert_leave = 1
         let g:ale_lint_on_text_changed = 'normal'
         let g:ale_fixers = ['remove_trailing_lines', 'trim_whitespace']
-    " Vim_Peeakboo:
+    " Vim Peeakboo:
         let g:peekaboo_window = "botright 30new"
         let g:peekaboo_delay = 300
     " SplitJoin:
@@ -145,15 +145,16 @@
         let g:EasyMotion_use_upper = 1
         let g:EasyMotion_keys = 'ASDGHKLQWERTYUIOPZXCVBNMFJ;'
 
-" Status_Line:
+" Status Line:
     set noshowmode
 
-" Insert_map:
+" Insert Map:
     inoremap jk <esc>
+    inoremap <c-l> <c-g>u<esc>[s1z=`]a<c-g>u
 
     iabbrev todo: TODO(TICKET):
 
-" Normal_Map:
+" Normal Map:
     nnoremap <C-e> 5<C-e>
     nnoremap <C-y> 5<C-y>
     nnoremap Y y$
@@ -178,7 +179,7 @@
     nnoremap <c-l> <c-w><c-l>
     nnoremap <c-h> <c-w><c-h>
 
-" Commandline_map:
+" Commandline Map:
     cnoremap <c-p> <up>
     cnoremap <c-n> <down>
     " Unsure why vim decided to deviate from readline here, it's not like this was already mapped
@@ -188,7 +189,10 @@
     cabbrev Glgrep Glgrep -i
     cabbrev Ggrep Ggrep -i
 
-" Format_Option:
+" Terminal Mode Map:
+    tnoremap <C-Space> <C-\><C-n>
+
+" Format Option:
     set formatoptions +=b   " Break at blank. No autowrapping if line is >textwidth before insert or no blank
     set formatoptions +=j   " Remove comment leader when joining lines
     set formatoptions +=c   " Insert comment leader when wrapping lines
@@ -287,6 +291,7 @@
     autocmd FileType python :iabbrev <buffer> pudb import pudb; pu.db # noqa
     autocmd FileType markdown setlocal spell
     autocmd BufNewFile,BufRead *.avsc set filetype=json
+    autocmd TermOpen * setlocal nonumber
 
     " Diffs use diff foldmethod
     if !&diff
