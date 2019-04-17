@@ -36,7 +36,7 @@ function __fish_git_stash_show
 end
 
 function __fish_git_ci_fixup
-    command git log --pretty=oneline --abbrev-commit | \
+    command git log --pretty=oneline --abbrev-commit '@{u}..' | \
     fzf_complete --preview 'git show {1} --color=always' --with-nth 2.. --tiebreak begin,index --no-sort | \
     cut -d ' ' -f 1
 end
