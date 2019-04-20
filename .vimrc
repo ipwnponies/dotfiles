@@ -143,7 +143,17 @@
         let g:undotree_SetFocusWhenToggle = 1
     " EasyMotion:
         let g:EasyMotion_use_upper = 1
+        let g:EasyMotion_use_smartsign_us = 1
+        let g:EasyMotion_use_smartcase = 1
+        let g:EasyMotion_do_shade = 0
+        let g:EasyMotion_enter_jump_first = 1
         let g:EasyMotion_keys = 'ASDGHKLQWERTYUIOPZXCVBNMFJ;'
+        nmap / <Plug>(easymotion-sn)
+        omap / <Plug>(easymotion-tn)
+        nmap n <Plug>(easymotion-next)
+        nmap N <Plug>(easymotion-prev)
+        map t <Plug>(easymotion-prefix)
+        map s <Plug>(easymotion-s2)
 
 " Status Line:
     set noshowmode
@@ -204,7 +214,7 @@
 
 " Settings:
     " Search
-    set hlsearch
+    set nohlsearch
     set incsearch
     set ignorecase
     set smartcase
