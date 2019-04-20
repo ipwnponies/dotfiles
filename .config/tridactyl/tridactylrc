@@ -17,9 +17,9 @@ bind l forward
 autocmd DocStart docs.google.com mode ignore
 autocmd TabEnter docs.google.com mode ignore
 
-" Inbox
-autocmd DocStart inbox.google.com mode ignore
-autocmd TabEnter inbox.google.com mode ignore
+" GMail
+autocmd TabEnter mail.google.com/mail/u/ mode ignore
+autocmd DocStart mail.google.com/mail/u/ mode ignore
 
 " YouTube
 autocmd TabEnter youtube.com mode ignore
