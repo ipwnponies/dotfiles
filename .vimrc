@@ -152,7 +152,7 @@
         omap / <Plug>(easymotion-tn)
         nmap n <Plug>(easymotion-next)
         nmap N <Plug>(easymotion-prev)
-        map t <Plug>(easymotion-prefix)
+        nmap t <Plug>(easymotion-prefix)
         map s <Plug>(easymotion-s2)
 
 " Status Line:
