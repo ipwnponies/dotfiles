@@ -27,7 +27,7 @@ if status --is-login
                 git fetch
 
                 # If no updates, avoid further git operations
-                if not git diff --quiet \'@{u}\'
+                if test (git rev-list --count \'..@{u}\') -eq 0
                     exit
                 end
 
