@@ -9,7 +9,7 @@ if status --is-login; and status --is-interactive; and type -q npm;
 
     fish -c "
         mkdir -p (dirname $logfile)
-        if not npm install --loglevel=error --prefix $venv >> $logfile
+        if not npm install --loglevel=error --prefix $venv >> $logfile 2>&1
             echo 'Uh... that didn\'t work gud. So check out $logfile'
         end
     " &

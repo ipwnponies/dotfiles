@@ -1,5 +1,6 @@
 if status --is-interactive;
     set -l omf_conf $XDG_DATA_HOME/omf/
+    set -l logfile $XDG_CACHE_HOME/omf/log
 
     if test -d $omf_conf
         # Configure oh-my-fish
@@ -13,7 +14,7 @@ if status --is-interactive;
         if status --is-login
             # This can introduce issues wth newly installed packages They won't work correctly until the next shell
             # startup This is acceptable because it's infrequent and not worth paying on every shell startup.
-            omf install &
+            omf install >> $logfile &
         end
 
     else if status --is-login
