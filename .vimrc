@@ -226,7 +226,7 @@
 
 " Settings:
     " Search
-    set nohlsearch
+    set hlsearch
     set incsearch
     set ignorecase
     set smartcase
@@ -301,7 +301,7 @@
     colorscheme monokai
     highlight Pmenu ctermbg=26
     highlight PmenuSel ctermfg=214
-    highlight Search cterm=reverse,underline
+    highlight Search cterm=bold ctermfg=40 ctermbg=NONE gui=bold guifg=#7fbf00
 
 " Autocmd:
     autocmd FileType sql set expandtab
