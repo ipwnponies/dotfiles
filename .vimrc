@@ -149,17 +149,15 @@
     " EasyMotion:
         let g:EasyMotion_use_upper = 1
         let g:EasyMotion_use_smartsign_us = 1
-        let g:EasyMotion_use_smartcase = 1
+        let g:EasyMotion_smartcase = 1
         let g:EasyMotion_do_shade = 0
         let g:EasyMotion_enter_jump_first = 1
         let g:EasyMotion_keys = 'ASDGHKLQWERTYUIOPZXCVBNMFJ;'
-        nmap / <Plug>(easymotion-sn)
-        omap / <Plug>(easymotion-tn)
-        nmap n <Plug>(easymotion-next)
-        nmap N <Plug>(easymotion-prev)
-        nmap t <Plug>(easymotion-prefix)
+        map t <Plug>(easymotion-prefix)
         map s <Plug>(easymotion-s2)
-
+        map <Plug>(easymotion-prefix)/ <Plug>(easymotion-sn)
+        map <Plug>(easymotion-prefix)w <Plug>(easymotion-bd-w)
+        map <Plug>(easymotion-prefix)W <Plug>(easymotion-bd-W)
     " Vim Asterisk:
         let g:asterisk#keeppos = 1
         map *  <Plug>(incsearch-nohl)<Plug>(asterisk-z*)
