@@ -53,7 +53,7 @@
         Plug 'junegunn/vim-peekaboo'
         Plug 'haya14busa/vim-asterisk'
         Plug 'romainl/vim-qf'
-        Plug 'rhysd/clever-f.vim'
+        " Plug 'rhysd/clever-f.vim'
         Plug 'easymotion/vim-easymotion'
         Plug 'tpope/vim-unimpaired'
 
@@ -138,8 +138,11 @@
     " SplitJoin:
         let g:splitjoin_python_brackets_on_separate_lines = 1
         let g:splitjoin_trailing_comma = 1
-    " CleverF:
-        let g:clever_f_chars_match_any_signs = ';'
+    " " CleverF:
+    "     let g:clever_f_chars_match_any_signs = ';'
+    " Sideways:
+        nnoremap <leader><c-h> :SidewaysLeft<cr>
+        nnoremap <leader><c-l> :SidewaysRight<cr>
     " Undotree:
         let g:undotree_SetFocusWhenToggle = 1
     " EasyMotion:
@@ -172,6 +175,7 @@
 
 " Insert Map:
     inoremap jk <esc>
+    " Auto-correct while typing
     inoremap <c-l> <c-g>u<esc>[s1z=`]a<c-g>u
 
     iabbrev todo: TODO(TICKET):
@@ -180,14 +184,9 @@
     nnoremap <C-e> 5<C-e>
     nnoremap <C-y> 5<C-y>
     nnoremap Y y$
-    noremap go o<esc>
-    noremap gO O<esc>
     noremap <m-o> <C-I>
     nnoremap <leader>bd :b#<cr>:bd #<cr>
 
-
-    nnoremap <leader><c-h> :SidewaysLeft<cr>
-    nnoremap <leader><c-l> :SidewaysRight<cr>
 
     " Quickfix/Location List
     nmap <leader>c <Plug>(qf_qf_switch)
