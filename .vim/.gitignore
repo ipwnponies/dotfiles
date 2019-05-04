@@ -1,5 +1,7 @@
-autoload/
-doc/
-bundle/
-plugin/
-.netrwhist
+/.netrwhist
+
+/autoload/
+/bundle/
+/doc/
+/plugin/
+/spell/
