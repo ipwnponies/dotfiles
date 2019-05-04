@@ -51,7 +51,7 @@
         Plug 'junegunn/fzf', { 'dir': '~/.local/share/fzf', 'do': './install --all' }
         Plug 'junegunn/fzf.vim'
         Plug 'junegunn/vim-peekaboo'
-        Plug 'bronson/vim-visual-star-search'
+        Plug 'haya14busa/vim-asterisk'
         Plug 'romainl/vim-qf'
         Plug 'rhysd/clever-f.vim'
         Plug 'easymotion/vim-easymotion'
@@ -155,8 +155,12 @@
         nmap t <Plug>(easymotion-prefix)
         map s <Plug>(easymotion-s2)
 
-" Status Line:
-    set noshowmode
+    " Vim Asterisk:
+        let g:asterisk#keeppos = 1
+        map *  <Plug>(incsearch-nohl)<Plug>(asterisk-z*)
+        map #  <Plug>(incsearch-nohl)<Plug>(asterisk-z#)
+        map g* <Plug>(incsearch-nohl)<Plug>(asterisk-gz*)
+        map g# <Plug>(incsearch-nohl)<Plug>(asterisk-gz#)
 
 " Insert Map:
     inoremap jk <esc>
