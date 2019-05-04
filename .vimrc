@@ -314,6 +314,7 @@
     autocmd FileType markdown setlocal spell
     autocmd BufNewFile,BufRead *.avsc set filetype=json
     autocmd TermOpen * setlocal nonumber
+    autocmd BufRead,BufNewfile *.tmpl set filetype=htmlcheetah
 
     " Diffs use diff foldmethod
     if !&diff
