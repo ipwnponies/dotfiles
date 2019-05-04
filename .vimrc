@@ -79,6 +79,7 @@
         let g:LanguageClient_diagnosticsEnable = 0
     " Deoplete: Completions
         let g:deoplete#enable_at_startup = 1
+        autocmd InsertLeave * silent! pclose!
         " Completions do not interfere with typing, unless explicitly selected
         set completeopt+=noselect
         " Select completions using tab
