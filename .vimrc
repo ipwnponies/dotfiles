@@ -60,6 +60,7 @@
         " Pretty
         Plug 'vim-airline/vim-airline'
         Plug 'sickill/vim-monokai'
+        Plug 'haya14busa/incsearch.vim'
 
         " IDE
         Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -161,6 +162,13 @@
         map #  <Plug>(incsearch-nohl)<Plug>(asterisk-z#)
         map g* <Plug>(incsearch-nohl)<Plug>(asterisk-gz*)
         map g# <Plug>(incsearch-nohl)<Plug>(asterisk-gz#)
+    " Incsearch:
+        let g:incsearch#auto_nohlsearch = 1
+        map n  <Plug>(incsearch-nohl-n)
+        map N  <Plug>(incsearch-nohl-N)
+        map /  <Plug>(incsearch-forward)
+        map ?  <Plug>(incsearch-backward)
+        map g/ <Plug>(incsearch-stay)
 
 " Insert Map:
     inoremap jk <esc>
