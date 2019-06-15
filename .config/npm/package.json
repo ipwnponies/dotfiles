@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "diff-so-fancy": "*",
+    "fx": "*",
     "javascript-typescript-langserver": "*",
     "markdownlint-cli": "*",
     "textlint": "*"
