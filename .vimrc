@@ -53,7 +53,6 @@
         Plug 'junegunn/vim-peekaboo'
         Plug 'haya14busa/vim-asterisk'
         Plug 'romainl/vim-qf'
-        " Plug 'rhysd/clever-f.vim'
         Plug 'easymotion/vim-easymotion'
         Plug 'tpope/vim-unimpaired'
 
@@ -181,6 +180,8 @@
                     \       'jsClassKeyword', 'jsOperatorKeyword', 'jsExtendsKeyword', 'jsFrom', 'jsConditional', 'jsReturn'],
                     \ 'python': ['', 'pythonString', 'pythonFunction', 'pythonDottedName', 'pythonNone', 'pythonComment'],
                     \ }
+    " Vim QF:
+        let g:qf_mapping_ack_style = 1
 
 " Insert Map:
     inoremap jk <esc>
