@@ -61,6 +61,7 @@
         Plug 'vim-airline/vim-airline'
         Plug 'sickill/vim-monokai'
         Plug 'haya14busa/incsearch.vim'
+        Plug 'RRethy/vim-illuminate'
 
         " IDE
         Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -171,6 +172,15 @@
         map /  <Plug>(incsearch-forward)
         map ?  <Plug>(incsearch-backward)
         map g/ <Plug>(incsearch-stay)
+    " Vim Illuminate:
+        let g:Illuminate_delay = 100
+        hi link illuminatedWord Search
+        let g:Illuminate_ftHighlightGroups = {
+                    \ 'qf': [''],
+                    \ 'javascript.jsx:blacklist': ['jsImport', 'jsExport', 'jsExportDefault', 'jsStorageClass', 'jsGlobalNodeObjects',
+                    \       'jsClassKeyword', 'jsOperatorKeyword', 'jsExtendsKeyword', 'jsFrom', 'jsConditional', 'jsReturn'],
+                    \ 'python': ['', 'pythonString', 'pythonFunction', 'pythonDottedName', 'pythonNone', 'pythonComment'],
+                    \ }
 
 " Insert Map:
     inoremap jk <esc>
