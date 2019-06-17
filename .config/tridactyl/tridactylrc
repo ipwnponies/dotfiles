@@ -29,6 +29,10 @@ autocmd DocStart youtube.com mode ignore
 autocmd TabEnter feedly.com mode ignore
 autocmd DocStart feedly.com mode ignore
 
+" Netflix
+autocmd TabEnter netflix.com mode ignore
+autocmd DocStart netflix.com mode ignore
+
 " Settings
 set smoothscroll true
 set hintfiltermode vimperator-reflow
