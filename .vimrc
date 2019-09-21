@@ -321,6 +321,7 @@
     autocmd QuickFixCmdPost [^l]* nested cwindow
     autocmd QuickFixCmdPost l* nested lwindow
     autocmd FileType python :iabbrev <buffer> pudb import pudb; pu.db # noqa
+    autocmd FileType javascript.jsx :iabbrev <buffer> debugger debugger; // eslint-disable-line
     autocmd FileType markdown setlocal spell
     autocmd BufNewFile,BufRead *.avsc set filetype=json
     autocmd TermOpen * setlocal nonumber
