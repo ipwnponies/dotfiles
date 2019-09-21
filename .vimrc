@@ -154,7 +154,7 @@
         let g:EasyMotion_enter_jump_first = 1
         let g:EasyMotion_keys = 'ASDGHKLQWERTYUIOPZXCVBNMFJ;'
         map ; <Plug>(easymotion-prefix)
-        map s <Plug>(easymotion-s2)
+        map s <Plug>(easymotion-sn)
         map <Plug>(easymotion-prefix)/ <Plug>(easymotion-sn)
         map <Plug>(easymotion-prefix)w <Plug>(easymotion-bd-w)
         map <Plug>(easymotion-prefix)W <Plug>(easymotion-bd-W)
