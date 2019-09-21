@@ -285,6 +285,7 @@
     set textwidth=120
     set splitbelow
     set splitright
+    set switchbuf=useopen
 
     " Temp file directories
     let &undodir = expand('~/.cache/vim/undo//')
