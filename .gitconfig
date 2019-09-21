@@ -58,7 +58,7 @@
     # Less keystrokes for interactive modes
     singleKey = yes
 [pull]
-    rebase = preserve
+    rebase = merges
 [push]
     # Push current branch to upstream as long as name matches
     default = simple
