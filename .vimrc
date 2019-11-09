@@ -90,6 +90,8 @@
         " Use head matcher instead of fuzzy matcher
         call deoplete#custom#source('_',
                     \ 'matchers', ['matcher_full_fuzzy'])
+        call deoplete#custom#source('buffer',
+                    \ 'matchers', ['matcher_head'])
         call deoplete#custom#option('sources', {
                     \ '_': [],
                     \ })
