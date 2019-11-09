@@ -1,0 +1,5 @@
+search.case.sensitive=no
+alias.burndown=burndown.daily
+default.command=ready limit:5
+report.next.columns=id,start.age,entry.age,depends,priority,project,tags,recur,scheduled.remaining,due.relative,until.remaining,description,urgency
+report.ready.columns=id,start.age,entry.age,depends.indicator,priority,project,tags,recur.indicator,scheduled.countdown,due.remaining,until.remaining,description,urgency
