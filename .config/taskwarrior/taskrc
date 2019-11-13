@@ -3,3 +3,8 @@ alias.burndown=burndown.daily
 default.command=ready limit:5
 report.next.columns=id,start.age,entry.age,depends,priority,project,tags,recur,scheduled.remaining,due.relative,until.remaining,description,urgency
 report.ready.columns=id,start.age,entry.age,depends.indicator,priority,project,tags,recur.indicator,scheduled.countdown,due.remaining,until.remaining,description,urgency
+
+urgency.uda.priority..coefficient=1.8
+urgency.uda.priority.L.coefficient=0
+urgency.age.max=90
+urgency.age.coefficient=4
