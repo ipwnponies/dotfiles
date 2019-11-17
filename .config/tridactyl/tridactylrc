@@ -33,6 +33,10 @@ autocmd DocStart feedly.com mode ignore
 autocmd TabEnter netflix.com mode ignore
 autocmd DocStart netflix.com mode ignore
 
+" Trello
+autocmd TabEnter trello.com mode ignore
+autocmd DocStart trello.com mode ignore
+
 " Settings
 set smoothscroll true
 set hintfiltermode vimperator-reflow
