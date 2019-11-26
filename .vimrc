@@ -85,8 +85,11 @@
         " Select completions using tab
         inoremap <expr> <tab> pumvisible() ? '<c-n>' : '<tab>'
         inoremap <expr> <s-tab> pumvisible() ? '<c-p>' : '<tab>'
-        call deoplete#custom#option('auto_complete_delay', 200)
-        call deoplete#custom#option('ignore_case', v:true)
+        call deoplete#custom#option({
+                    \ 'auto_complete_delay': 500,
+                    \ 'camel_case': v:true,
+                    \ })
+        call deoplete#custom#var('buffer', 'require_same_filetype', v:false)
         " Use head matcher instead of fuzzy matcher
         call deoplete#custom#source('_',
                     \ 'matchers', ['matcher_full_fuzzy'])
