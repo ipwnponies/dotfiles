@@ -13,9 +13,16 @@ abbr --global --add jq      'jq --color-output --sort-keys'
 abbr --global --add watch   'watch -cd -n 5'
 abbr --global --add time    'time -f \'Total Time: %E\nExit Code: %x\''
 
+# pytest
 set -l pytest_args '--capture no --exitfirst --failed-first --testmon --tlf tests/'
 abbr --global --add pytest  "pytest -vv $pytest_args"
 abbr --global --add pytestw "pytest-watch -- $pytest_args"
+
+# taskwarrior
+abbr --global --add ta 'task add'
+abbr --global --add td 'task +ACTIVE'
+abbr --global --add tm 'task modify'
+abbr --global --add tl 'task +LATEST annotate'
 
 set -l local_functions (dirname (status --current-filename))/abbr_local.fish
 if test -e $local_functions
