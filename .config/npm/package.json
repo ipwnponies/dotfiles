@@ -3,7 +3,7 @@
     "diff-so-fancy": "*",
     "fx": "*",
     "javascript-typescript-langserver": "*",
-    "markdownlint-cli": "*",
+    "markdownlint-cli": "^0.19.0",
     "textlint": "*"
   },
   "description": "Install npm tools for development environment",
