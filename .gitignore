@@ -6,5 +6,4 @@ __pycache__/
 # These directories all have their own .gitignore file.
 !README
 !/bin/
-!/.vim/
 !/.config/
