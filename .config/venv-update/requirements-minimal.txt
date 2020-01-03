@@ -3,6 +3,9 @@
 ipython
 mycli
 ptpython
+# mycli, ipython, and ptpython are not prompt-toolkit 3.0 ready yet
+prompt-toolkit<3
 thefuck
 visidata
+vit
 yamllint
