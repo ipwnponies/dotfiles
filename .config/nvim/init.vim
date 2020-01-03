@@ -63,48 +63,37 @@
         Plug 'RRethy/vim-illuminate'
 
         " IDE
-        Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-        Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh', }
+        Plug 'neoclide/coc.nvim', {'branch': 'release'}
     call plug#end()
 
 " Plugin Custom Configurations:
-    " LanguageClient: Enable a more fluid IDE experience.
-        let g:LanguageClient_serverCommands = {
-                    \ 'javascript': ['javascript-typescript-stdio'],
-                    \ 'javascript.jsx': ['javascript-typescript-stdio'],
-                    \ 'python': ['pyls'],
-                    \}
-        nnoremap gd :call LanguageClient_textDocument_definition()<cr>
-        nnoremap gD :call LanguageClient_contextMenu()<cr>
-        let g:LanguageClient_diagnosticsEnable = 0
-    " Deoplete: Completions
-        let g:deoplete#enable_at_startup = 1
-        autocmd InsertLeave * silent! pclose!
-        " Completions do not interfere with typing, unless explicitly selected
-        set completeopt+=noselect
-        " Select completions using tab
-        inoremap <expr> <tab> pumvisible() ? '<c-n>' : '<tab>'
-        inoremap <expr> <s-tab> pumvisible() ? '<c-p>' : '<tab>'
-        call deoplete#custom#option({
-                    \ 'auto_complete_delay': 500,
-                    \ 'camel_case': v:true,
-                    \ })
-        call deoplete#custom#var('buffer', 'require_same_filetype', v:false)
-        " Use head matcher instead of fuzzy matcher
-        call deoplete#custom#source('_',
-                    \ 'matchers', ['matcher_full_fuzzy'])
-        call deoplete#custom#source('buffer',
-                    \ 'matchers', ['matcher_head'])
-        call deoplete#custom#option('sources', {
-                    \ '_': [],
-                    \ })
-        call deoplete#custom#var('around', {
-                    \   'range_above': 15,
-                    \   'range_below': 15,
-                    \   'mark_above': '[↑]',
-                    \   'mark_below': '[↓]',
-                    \   'mark_changes': '[*]',
-                    \})
+    " Coc:
+        " Settings:
+            let g:airline#extensions#coc#enabled = 1
+            let g:coc_extension_root = $XDG_DATA_HOME . '/coc/extensions'
+        " Insert Mapping:
+        " Used to interact with completion popup menu
+            inoremap <silent><expr> <Tab> pumvisible() ? '<C-n>' : <SID>check_back_space() ? '<Tab>' : coc#refresh()
+            inoremap <expr> <S-Tab> pumvisible() ? '<C-p>' : '<S-Tab>'
+            inoremap <silent><expr> <c-space> coc#refresh()
+
+            function! s:check_back_space() abort
+              let col = col('.') - 1
+              return !col || getline('.')[col - 1]  =~ '\s'
+            endfunction
+        " Normal Mappings:
+        " Used to interact with LSP servers
+            nmap gd <Plug>(coc-definition)
+            nmap gD :call CocActionFzf()<cr>
+
+            function! CocActionFzf()
+                let l:availableActions = ['jumpDefinition', 'rename', 'jumpReferences', 'quickfixes', 'doHover', 'showSignatureHelp', 'jumpTypeDefinition', 'jumpImplementation', 'jumpDeclaration', 'format', 'formatSelected', 'workspaceSymbols', 'getCurrentFunctionSymbol',]
+                call fzf#run(fzf#wrap({'source': l:availableActions, 'sink': function('s:cocRunAction')}))
+            endfunction
+
+            function! s:cocRunAction(action)
+               call CocAction(a:action)
+            endfunction
     " GitGutter: Git status while editing files
         set updatetime=250
         if exists('&signcolumn') | set signcolumn=yes | endif

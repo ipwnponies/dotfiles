@@ -1,8 +1,8 @@
 {
   "dependencies": {
+    "coc-python": "*",
     "diff-so-fancy": "*",
     "fx": "*",
-    "javascript-typescript-langserver": "*",
     "markdownlint-cli": "^0.19.0",
     "textlint": "*"
   },
