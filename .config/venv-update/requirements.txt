@@ -1,3 +1,5 @@
+# Pin to pre-release >v2.0.0 with bug fixes
+-e git+https://github.com/scottkosty/vit@811c480ce9fa491cf419e04310bf49cbe7093e2d
 appnope==0.1.0
 backcall==0.1.0
 cffi==1.13.2
@@ -38,6 +40,5 @@ traitlets==4.3.3
 tzlocal==2.0.0
 urwid==2.1.0
 visidata==1.5.2
-vit==2.0.0
 wcwidth==0.1.8
 yamllint==1.20.0
