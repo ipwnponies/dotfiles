@@ -6,5 +6,5 @@ report.ready.columns=id,start.age,entry.age,depends.indicator,priority,project,t
 
 urgency.uda.priority..coefficient=1.8
 urgency.uda.priority.L.coefficient=0
-urgency.age.max=90
-urgency.age.coefficient=4
+urgency.age.max=30
+urgency.age.coefficient=10
