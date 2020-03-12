@@ -1,15 +1,51 @@
 #!/usr/bin/fish
+# vim: ft=fish
 
-set remote origin
-git fetch $remote
-set master (git rev-parse --abbrev-ref $remote/HEAD)
-set merged_branches (git branch -r --merged $master | grep -v $master | sed "s#^\s*$remote/##")
+function parse_args
+    set -l options (fish_opt --short h --long help)
+    set -l options $options (fish_opt --short r --long remote --required)
+    argparse --name 'clean-remote' $options -- $argv
 
-if test (count $merged_branches) -eq 0;
-    printf 'woah, this remote is clean. Nice\n'
-    exit
+    if set -q _flag_help
+        echo 'usage: clean-remote [-h] [-r remote]
+
+    optional arguments:
+      -h, --help            show this help message and exit
+      -r BAR, --remote BAR  remote to clean branches from. Defaults to origin
+    '
+        exit
+    end
+
+    set -q _flag_remote; and set -g remote $_flag_remote; or set -g remote origin
 end
 
-printf '%s\n' $merged_branches
-set_color -o yellow; printf '\nTotal of %s branches deleted\n' (count $merged_branches)
-git push $remote --delete $merged_branches
+function main
+    git fetch $remote
+
+    set master (git rev-parse --abbrev-ref $remote/HEAD)
+    set merged_branches (git branch -r --merged $master | grep -v $master | sed -n "s#^\s*$remote/##p")
+
+    set branch_count (count $merged_branches)
+    if test $branch_count -eq 0;
+        printf 'woah, this remote is clean. Nice\n'
+        exit
+    end
+
+    # Limit to only deleting 5 branches at a time
+    if test $branch_count -gt 5
+        set branch_count 5
+        set merged_branches $merged_branches[1..5]
+    end
+
+    printf 'Going to delete %s%s branches%s:\n' (set_color -o green) $branch_count (set_color normal)
+    set_color yellow; printf '%s\n' $merged_branches; set_color normal
+
+    # Prompt for confirmation
+    read --nchars 1 --local --prompt-str 'y/n to delete?' confirm
+    if test $confirm = 'y'
+        git push $remote --delete $merged_branches
+    end
+end
+
+parse_args
+main
