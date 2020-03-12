@@ -17,7 +17,7 @@ if status --is-login; and status --is-interactive; and type -q virtualenv;
     fish -c "
         mkdir -p (dirname $logfile)
         if not $venv_update \
-                venv= -p python3 $venv \
+                venv= -p python3.7 $venv \
                 bootstrap-deps= -r $requirements_bootstrap \
                 install= -r $requirements -r $requirements_dev \
              >> $logfile
