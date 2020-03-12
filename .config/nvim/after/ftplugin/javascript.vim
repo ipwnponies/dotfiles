@@ -1,3 +1,6 @@
+" Commands
+command! FlowReveal execute printf('!yarn flow type-at-pos %s %s %s', @%, line('.'), col('.'))
+
 " Plugin Settings
     " ALE:
     let b:ale_fixers = [ 'eslint' ]
