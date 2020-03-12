@@ -3,5 +3,6 @@
   "suggest.autoTrigger": "always",
   "suggest.minTriggerInputLength": 3,
   "suggest.snippetIndicator": "\u25ba",
-  "suggest.triggerAfterInsertEnter": true
+  "suggest.triggerAfterInsertEnter": true,
+  "tsserver.enableJavascript": false
 }
