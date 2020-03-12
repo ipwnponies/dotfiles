@@ -34,7 +34,7 @@ execute 'source ' . fnamemodify($MYVIMRC, ':p:h') . '/init_local.vim'
 
         " Editing
         Plug 'tpope/vim-commentary'
-        Plug 'tpope/vim-surround'
+        Plug 'machakann/vim-sandwich'
         Plug 'tpope/vim-sensible'
         Plug 'tpope/vim-endwise'
         Plug 'Yggdroot/indentLine'
@@ -150,7 +150,7 @@ execute 'source ' . fnamemodify($MYVIMRC, ':p:h') . '/init_local.vim'
         let g:EasyMotion_enter_jump_first = 1
         let g:EasyMotion_keys = 'ASDGHKLQWERTYUIOPZXCVBNMFJ;'
         map ; <Plug>(easymotion-prefix)
-        map s <Plug>(easymotion-sn)
+        map S <Plug>(easymotion-sn)
         map <Plug>(easymotion-prefix)/ <Plug>(easymotion-sn)
         map <Plug>(easymotion-prefix)w <Plug>(easymotion-bd-w)
         map <Plug>(easymotion-prefix)W <Plug>(easymotion-bd-W)
