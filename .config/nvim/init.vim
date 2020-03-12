@@ -316,7 +316,6 @@ execute 'source ' . fnamemodify($MYVIMRC, ':p:h') . '/init_local.vim'
     autocmd Filetype gitcommit setlocal spell textwidth=72 nocursorline
     autocmd QuickFixCmdPost [^l]* nested cwindow
     autocmd QuickFixCmdPost l* nested lwindow
-    autocmd FileType python :iabbrev <buffer> pudb import pudb; pu.db # noqa
     autocmd FileType markdown setlocal spell
     autocmd BufNewFile,BufRead *.avsc set filetype=json
     autocmd TermOpen * setlocal nonumber
