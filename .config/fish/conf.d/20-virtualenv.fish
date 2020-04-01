@@ -20,6 +20,7 @@ if status --is-login; and status --is-interactive; and type -q virtualenv;
                 venv= -p python3.7 $venv \
                 bootstrap-deps= -r $requirements_bootstrap \
                 install= -r $requirements -r $requirements_dev \
+                pip-command= pip-faster install --upgrade --prune --prefer-binary \
              >> $logfile
             echo 'Uh... that didn\'t work gud. So check out $logfile'
         end
