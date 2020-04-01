@@ -1,23 +1,21 @@
 #!/usr/bin/fish
 # vim: ft=fish
 
-function parse_args
-    set -l options (fish_opt --short h --long help)
-    set -l options $options (fish_opt --short r --long remote --required)
-    argparse --name 'clean-remote' $options -- $argv
+set -l options (fish_opt --short h --long help)
+set -l options $options (fish_opt --short r --long remote --required)
+argparse --name 'clean-remote' $options -- $argv
 
-    if set -q _flag_help
-        echo 'usage: clean-remote [-h] [-r remote]
+if set -q _flag_help
+    echo 'usage: clean-remote [-h] [-r remote]
 
-    optional arguments:
-      -h, --help            show this help message and exit
-      -r BAR, --remote BAR  remote to clean branches from. Defaults to origin
-    '
-        exit
-    end
-
-    set -q _flag_remote; and set -g remote $_flag_remote; or set -g remote origin
+optional arguments:
+  -h, --help            show this help message and exit
+  -r BAR, --remote BAR  remote to clean branches from. Defaults to origin
+'
+    exit
 end
+
+set -q _flag_remote; and set remote $_flag_remote; or set remote origin
 
 function main
     git fetch $remote
@@ -47,5 +45,4 @@ function main
     end
 end
 
-parse_args
 main
