@@ -311,7 +311,6 @@ execute 'source ' . fnamemodify($MYVIMRC, ':p:h') . '/init_local.vim'
 
 " Autocmd:
     autocmd FileType sql set expandtab
-    autocmd FileType yaml set ts=2 sw=2
     autocmd BufReadPost quickfix nnoremap <buffer> <cr> <cr>
     autocmd Filetype gitcommit setlocal spell textwidth=72 nocursorline
     autocmd QuickFixCmdPost [^l]* nested cwindow
