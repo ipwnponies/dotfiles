@@ -13,8 +13,6 @@
     set shortmess+=IA       "no intro message, no swap-file message, no completions
     let mapleader = "\<space>" " Must be set early, so that plugin mappings are deterministic
 
-execute 'source ' . fnamemodify($MYVIMRC, ':p:h') . '/init_local.vim'
-
 " Vim Plug: Bootstrap vim-plug for fresh vim install
     if !filereadable(expand('~/.vim/autoload/plug.vim'))
       silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -350,3 +348,9 @@ execute 'source ' . fnamemodify($MYVIMRC, ':p:h') . '/init_local.vim'
     " Register with vim-airline
     call airline#parts#define_function('convertHex', 'GetHexUnderCursor')
     let g:airline_section_y = airline#section#create_right(['ffenc','convertHex'])
+
+" Emulate exrc. Host-specific configurations
+let s:init_local = fnamemodify($MYVIMRC, '::h') . '/init_local.vim'
+if filereadable(s:init_local)
+    execute 'source ' . s:init_local
+endif
