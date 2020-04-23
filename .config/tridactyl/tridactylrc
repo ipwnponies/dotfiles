@@ -44,7 +44,7 @@ autocmd DocStart app.getpocket.com mode ignore
 " Settings
 set smoothscroll true
 set hintfiltermode vimperator-reflow
-set hintchars 1234567890
+set hintnames numeric
 
 " Restore native find
 unbind <c-f>
