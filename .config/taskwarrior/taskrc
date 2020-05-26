@@ -1,10 +1,13 @@
 search.case.sensitive=no
 alias.burndown=burndown.daily
 default.command=ready limit:10
-report.next.columns=id,start.age,entry.age,depends,priority,project,tags,recur,scheduled.remaining,due.relative,until.remaining,description,urgency
-report.ready.columns=id,start.age,entry.age,depends.indicator,priority,project,tags,recur.indicator,scheduled.countdown,due.remaining,until.remaining,description,urgency
+
 report.completed.filter=status:completed limit:5 rc.context:
 report.completed.sort=end-
+report.next.columns= id,start.age,entry.age,depends.count,priority,project,tags,recur,scheduled.remaining,due.relative,until.remaining,description.count,urgency
+report.ready.columns=id,start.age,entry.age,depends,priority,project,tags,recur.indicator,due.relative,until.remaining,description,urgency
+report.ready.labels=ID,Active,Age,D,P,Project,Tags,R,Due,Until,Description,Urg
+report.ready.sort= start,urgency-
 
 urgency.uda.priority..coefficient=1.8
 urgency.uda.priority.L.coefficient=0
