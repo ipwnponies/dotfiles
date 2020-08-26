@@ -1,4 +1,6 @@
 {
+  "coc.source.around.firstMatch": false,
+  "coc.source.buffer.firstMatch": false,
   "python.jediEnabled": false,
   "suggest.autoTrigger": "always",
   "suggest.minTriggerInputLength": 3,
