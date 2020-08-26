@@ -44,6 +44,9 @@ autocmd DocStart trello.com mode ignore
 autocmd TabEnter app.getpocket.com mode ignore
 autocmd DocStart app.getpocket.com mode ignore
 
+" Github
+bindurl ^https://github.*.com/.+/pull/\d+$ V hint -Jc nav > a[href]
+
 " Settings
 set smoothscroll true
 set hintfiltermode vimperator-reflow
