@@ -22,8 +22,11 @@ autocmd TabEnter mail.google.com/mail/u/ mode ignore
 autocmd DocStart mail.google.com/mail/u/ mode ignore
 
 " YouTube
-autocmd TabEnter youtube.com mode ignore
-autocmd DocStart youtube.com mode ignore
+autocmd TabEnter ^https://(\w+\.)?youtube.com/ mode ignore
+autocmd DocStart ^https://(\w+\.)?youtube.com/ mode ignore
+bindurl ^https://(\w+\.)?youtube.com/ --mode=ignore v hint
+bindurl ^https://(\w+\.)?youtube.com/ --mode=ignore f scrollpage 
+bindurl ^https://(\w+\.)?youtube.com/ --mode=ignore b scrollpage -1
 
 " Feedly
 autocmd TabEnter feedly.com mode ignore
