@@ -47,6 +47,9 @@ autocmd DocStart app.getpocket.com mode ignore
 " Github
 bindurl ^https://github.*.com/.+/pull/\d+$ V hint -Jc nav > a[href]
 
+" Duolingo
+bindurl ^https://www.duolingo.com/skill/ V hint -c [role='button']
+
 " Reddit
 autocmd TabEnter reddit.com mode ignore
 autocmd DocStart reddit.com mode ignore
