@@ -25,7 +25,7 @@ autocmd DocStart mail.google.com/mail/u/ mode ignore
 autocmd TabEnter ^https://(\w+\.)?youtube.com/ mode ignore
 autocmd DocStart ^https://(\w+\.)?youtube.com/ mode ignore
 bindurl ^https://(\w+\.)?youtube.com/ --mode=ignore v hint
-bindurl ^https://(\w+\.)?youtube.com/ --mode=ignore f scrollpage 
+bindurl ^https://(\w+\.)?youtube.com/ --mode=ignore f scrollpage
 bindurl ^https://(\w+\.)?youtube.com/ --mode=ignore b scrollpage -1
 
 " Feedly
@@ -46,6 +46,10 @@ autocmd DocStart app.getpocket.com mode ignore
 
 " Github
 bindurl ^https://github.*.com/.+/pull/\d+$ V hint -Jc nav > a[href]
+
+" Reddit
+autocmd TabEnter reddit.com mode ignore
+autocmd DocStart reddit.com mode ignore
 
 " Settings
 set smoothscroll true
