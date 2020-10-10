@@ -24,6 +24,7 @@ if status --is-interactive
     if status --is-login
         if test -d ~/.git
             fish -c '
+                cd $HOME
                 git fetch
 
                 # If no updates, avoid further git operations
