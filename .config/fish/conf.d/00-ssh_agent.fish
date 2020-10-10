@@ -10,7 +10,7 @@ if status --is-login; and status --is-interactive
 
     function startup
         # Key is already loaded, nothing more to do
-        if ssh-add -l >/dev/null ^&1
+        if ssh-add -l >/dev/null 2>&1
             return
         end
 
@@ -20,7 +20,7 @@ if status --is-login; and status --is-interactive
         end
 
         # Test if existing agent has not gone stale
-        ssh-add -l >/dev/null ^&1; set sshadd_status $status
+        ssh-add -l >/dev/null 2>&1; set sshadd_status $status
 
         if test $sshadd_status -eq 2;
             # No ssh-agent running
