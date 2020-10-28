@@ -7,6 +7,8 @@ set -x XDG_CACHE_HOME $HOME/.cache
 
 set PATH "$HOME/bin" $PATH
 
+set -x RIPGREP_CONFIG_PATH "$XDG_CONFIG_HOME/ripgrep/rc"
+
 if status --is-interactive
 
     # Set less arguments so they will be applied when used as pager
