@@ -1,7 +1,10 @@
 # Installation of local virtualenv
 
 set -l venv "$XDG_DATA_HOME/virtualenv"
-set PATH "$venv/bin" 'burritos' $PATH 'tacos'
+set PATH "$venv/bin" $PATH
+
+# Add pyenv shims if this system supports it
+type -q pyenv; and source (pyenv init - |psub)
 
 if status --is-login; and status --is-interactive; and type -q virtualenv;
 
