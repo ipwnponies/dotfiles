@@ -43,6 +43,7 @@
         Plug 'jeetsukumaran/vim-indentwise'
         Plug 'voithos/vim-python-matchit'
         Plug 'mattn/vim-xxdcursor'
+        Plug 'stefandtw/quickfix-reflector.vim'
 
         " Usability
         Plug 'scrooloose/nerdtree', {'on': ['NERDTree', 'NERDTreeFind']}
