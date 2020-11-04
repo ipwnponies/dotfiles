@@ -11,6 +11,8 @@ bind L scrollpx 50
 bind h back
 bind l forward
 
+bind gi focusinput
+
 " Ignore mappings blacklist
 
 " Google Docs
