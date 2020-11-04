@@ -1,7 +1,7 @@
-search.case.sensitive=no
 alias.burndown=burndown.daily
 default.command=ready limit:10
 
+# Customize reports
 report.completed.filter=status:completed limit:5 rc.context:
 report.completed.sort=end-
 report.next.columns= id,start.age,entry.age,depends.count,priority,project,tags,recur,scheduled.remaining,due.relative,until.remaining,description.count,urgency
@@ -9,7 +9,10 @@ report.ready.columns=id,start.age,entry.age,depends,priority,project,tags,recur.
 report.ready.labels=ID,Active,Age,D,P,Project,Tags,R,Due,Until,Description,Urg
 report.ready.sort= start,urgency-
 
+search.case.sensitive=no
+
+# Modify urgency scoring
+urgency.age.coefficient=10
+urgency.age.max=30
 urgency.uda.priority..coefficient=1.8
 urgency.uda.priority.L.coefficient=0
-urgency.age.max=30
-urgency.age.coefficient=10
