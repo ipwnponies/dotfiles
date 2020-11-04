@@ -1,12 +1,15 @@
+/coc/
 /configstore/
 /gcloud/
 /git/
 /gtk-2.0/
 /htop/
 /http-prompt/
+/joplin*
 /karabiner/
 /mealpy/
 /mono.addins/
+/nvm/
 /Pinta/
 /thefuck/
 /virtualenv/
