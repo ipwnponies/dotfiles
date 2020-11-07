@@ -6,8 +6,9 @@
     # Verbose commit will show diff when writing commit message
     ci = commit -v
 
-    # Checkout
-    co = !"if git checkout $1 2>&1 | grep -v 'pathspec'; then : ; else git checkout -b $1 origin/master; fi && :"
+    # Checkout/switch to existing branch or create new tracking branch from master
+    # Git aliases are only abbreviation, they don't consume cli arguments. Hence the funkiness
+    co = !"(git switch $1 2>/dev/null || git switch -c $1 ${2:-origin/master}) && : #swallow remaining cli args"
     cop = checkout -p
 
     # Amend like 'fix' in rebase
@@ -101,3 +102,5 @@
     showStash = true
 [help]
     autoCorrect = 10
+[log]
+    date = iso
