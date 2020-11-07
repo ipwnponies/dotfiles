@@ -65,6 +65,9 @@ set hintnames numeric
 " Restore native find
 unbind <c-f>
 
+" Allow space in hint filtering
+unbind --mode=hint <Space>
+
 source ~/.config/tridactyl/tridactylrc_local
 
 " vim: set filetype=vim:
