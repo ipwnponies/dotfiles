@@ -8,3 +8,8 @@
 /functions/.gitignore
 /completions/*_local.fish
 /conf.d/*_local.fish
+
+# nvm, kinda rude to install into user configs
+/conf.d/nvm.fish
+/functions/nvm.fish
+/completions/nvm.fish
