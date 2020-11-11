@@ -23,7 +23,7 @@ function __fish_git_branches_fzf -d 'Override the native fish function for getti
     string trim | \
     # Short qualified name for remote branches. Noop for local branches
     string replace -r "^remotes/" "" | \
-    fzf_complete --preview 'git log -1 {} --color=always' --tiebreak=begin
+    fzf_complete --preview 'git log -1 {} --color=always' --tiebreak=begin --no-sort
 
     if test $status -ne 0
         git symbolic-ref HEAD --short
