@@ -57,6 +57,9 @@ bindurl ^https://www.duolingo.com/skill/ V hint -c [role='button']
 autocmd TabEnter reddit.com mode ignore
 autocmd DocStart reddit.com mode ignore
 
+" Traktv
+bindurl ^https://trakt.tv/ V hint -Jc .summary-user-rating,.rating-hearts label
+
 " Settings
 set smoothscroll true
 set hintfiltermode vimperator-reflow
