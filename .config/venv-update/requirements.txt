@@ -27,7 +27,7 @@ PyMySQL==0.9.3
 pyte==0.8.0
 python-dateutil==2.8.1
 pytz==2019.3
-PyYAML==5.2
+PyYAML==5.4
 setuptools==44.0.0
 six==1.13.0
 sqlparse==0.3.0
