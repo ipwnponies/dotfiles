@@ -1,2 +1,4 @@
 --smart-case
 --engine=auto
+--ignore
+--max-filesize=500K
