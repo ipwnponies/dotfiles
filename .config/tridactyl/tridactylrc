@@ -48,6 +48,8 @@ autocmd DocStart trello.com mode ignore
 " Pocket
 autocmd TabEnter app.getpocket.com mode ignore
 autocmd DocStart app.getpocket.com mode ignore
+" auto close getpocket redirect tabs
+autocmd DocLoad getpocket.com/s tabclose TRI_FIRED_TRI_TABINDEX
 
 " Github
 bindurl ^https://github.*.com/.+/pull/\d+$ V hint -Jc nav > a[href]
