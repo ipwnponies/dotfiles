@@ -4,11 +4,10 @@
 function docker
     if test $argv[1] = 'exec'; and contains -- '-it' $argv
         command docker $argv &
-        set pid %last
+        set pid $last_pid
         fish -c "sleep 0.1; kill -SIGWINCH $pid" &
         fg $pid
     else
         command docker $argv
     end
 end
-
