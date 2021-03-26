@@ -27,6 +27,8 @@ autocmd DocStart mail.google.com/mail/u/ mode ignore
 unbindurl ^https://(\w+\.)?youtube.com/ --mode=normal j
 unbindurl ^https://(\w+\.)?youtube.com/ --mode=normal k
 unbindurl ^https://(\w+\.)?youtube.com/ --mode=normal l
+unbindurl ^https://(\w+\.)?youtube.com/ --mode=normal N
+unbindurl ^https://(\w+\.)?youtube.com/ --mode=normal P
 unbindurl ^https://(\w+\.)?youtube.com/ --mode=normal >>
 unbindurl ^https://(\w+\.)?youtube.com/ --mode=normal <<
 unbindurl ^https://(\w+\.)?youtube.com/ --mode=normal <Esc>
