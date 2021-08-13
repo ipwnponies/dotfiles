@@ -2,3 +2,7 @@
 --engine=auto
 --ignore
 --max-filesize=500K
+--type-add
+js:include:js,ts
+--type-add
+template:*.{jade,html}

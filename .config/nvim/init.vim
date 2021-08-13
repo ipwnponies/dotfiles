@@ -56,6 +56,7 @@
         Plug 'romainl/vim-qf'
         Plug 'easymotion/vim-easymotion'
         Plug 'tpope/vim-unimpaired'
+        Plug 'jesseleite/vim-agriculture'
 
         " Pretty
         Plug 'vim-airline/vim-airline'
@@ -179,6 +180,9 @@
     " Vim QF:
         let g:qf_mapping_ack_style = 1
         let g:qf_shorten_path = 0
+    " Vim Agriculture:
+        vmap <leader>* <Plug>RgRawVisualSelection
+        nmap <leader>* <Plug>RgRawWordUnderCursor
 
 " Insert Map:
     inoremap jk <esc>
