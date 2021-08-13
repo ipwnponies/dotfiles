@@ -72,6 +72,7 @@
         " Settings:
             let g:airline#extensions#coc#enabled = 1
             let g:coc_extension_root = $XDG_DATA_HOME . '/coc/extensions'
+            call coc#config('python', {'pythonPath': $PYENV_VIRTUAL_ENV})
         " Insert Mapping:
         " Used to interact with completion popup menu
             inoremap <silent><expr> <Tab> pumvisible() ? '<C-n>' : <SID>check_back_space() ? '<Tab>' : coc#refresh()

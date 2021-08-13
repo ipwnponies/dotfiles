@@ -4,7 +4,10 @@ set -l venv "$XDG_DATA_HOME/virtualenv"
 set PATH "$venv/bin" $PATH
 
 # Add pyenv shims if this system supports it
-type -q pyenv; and source (pyenv init - |psub)
+if status --is-interactive; and not set -q VIMRUNTIME; and type -q pyenv
+    pyenv init - | source
+    pyenv virtualenv-init - | source
+end
 
 if status --is-login; and status --is-interactive; and type -q virtualenv;
 
