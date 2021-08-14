@@ -1,3 +1,4 @@
+/Pinta/
 /coc/
 /configstore/
 /gcloud/
@@ -5,11 +6,13 @@
 /gtk-2.0/
 /htop/
 /http-prompt/
+/iterm2/
 /joplin*
 /karabiner/
 /mealpy/
 /mono.addins/
 /nvm/
-/Pinta/
+/pgcli/
+/taskwarrior-tui/
 /thefuck/
 /virtualenv/
