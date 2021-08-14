@@ -65,8 +65,8 @@ unbindurl ^https://github\.com/.+/blob/ --mode=normal .
 bindurl ^https://www.duolingo.com/skill/ V hint -c [role='button']
 
 " Reddit
-autocmd TabEnter reddit.com mode ignore
-autocmd DocStart reddit.com mode ignore
+autocmd TabEnter ^https://(\w+\.)?reddit.com mode ignore
+autocmd DocStart ^https://(\w+\.)?reddit.com mode ignore
 
 " Traktv
 bindurl ^https://trakt.tv/ V hint -Jc .summary-user-rating,.rating-hearts label
