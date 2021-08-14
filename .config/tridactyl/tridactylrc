@@ -54,8 +54,12 @@ autocmd DocLoad getpocket.com/s tabclose TRI_FIRED_TRI_TABINDEX
 " Github
 " Select only useful PR nav elements
 bindurl ^https://github.*.com/.+/pull/\d+ V hint -Jc nav > a[href], .js-reviewed-toggle
-" This is github's binding for viewing file on switching branches
+" Github binding for viewing file on switching branches
 unbindurl ^https://github\.com/.+/blob/ --mode=normal w
+" Github binding to get permalink
+unbindurl ^https://github\.com/.+/blob/ --mode=normal y
+" Github binding to launch codespace
+unbindurl ^https://github\.com/.+/blob/ --mode=normal .
 
 " Duolingo
 bindurl ^https://www.duolingo.com/skill/ V hint -c [role='button']
