@@ -81,6 +81,8 @@
 [core]
     pager = diff-so-fancy | less --tabs=4 --ignore-case --RAW-CONTROL-CHARS --quit-if-one-screen --hilite-unread
     autocrlf = input
+[diff]
+    colorMoved=dimmed-zebra
 [pager]
     branch = cat
     diff = diff-so-fancy | less --tabs=4 --ignore-case --RAW-CONTROL-CHARS --quit-if-one-screen --hilite-unread
