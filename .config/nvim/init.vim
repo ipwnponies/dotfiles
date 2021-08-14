@@ -62,6 +62,7 @@
         " Pretty
         Plug 'vim-airline/vim-airline'
         Plug 'sickill/vim-monokai'
+        Plug 'sainnhe/sonokai'
         Plug 'haya14busa/incsearch.vim'
         Plug 'RRethy/vim-illuminate'
 
@@ -310,10 +311,13 @@
     filetype plugin on
 
 " Colors:
+    set termguicolors
     colorscheme monokai
+    colorscheme sonokai
     highlight Pmenu ctermbg=26
     highlight PmenuSel ctermfg=214
-    highlight Search cterm=bold ctermfg=40 ctermbg=NONE gui=bold guifg=#7fbf00
+    highlight Visual ctermbg=237 guibg=#535D7E
+    highlight Search cterm=bold ctermfg=40 ctermbg=NONE gui=bold guifg=#E31222 guibg=#02E69B
 
 " Autocmd:
     autocmd FileType sql set expandtab
