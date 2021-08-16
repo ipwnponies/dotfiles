@@ -12,7 +12,7 @@ report.ready.sort= start,urgency-
 search.case.sensitive=no
 
 # Modify urgency scoring
-urgency.age.coefficient=10
-urgency.age.max=30
+urgency.age.coefficient=5
+urgency.age.max=60
 urgency.uda.priority..coefficient=1.8
 urgency.uda.priority.L.coefficient=0
