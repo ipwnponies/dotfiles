@@ -8,6 +8,6 @@ command! FlowReveal execute printf('!yarn flow type-at-pos %s %s %s', @%, line('
 
 " Plugin Settings
     " ALE:
-    let b:ale_fixers = [ 'eslint' ]
+    let b:ale_fixers = [ 'eslint', 'prettier' ]
     let b:ale_fix_on_save = 1
     let b:ale_linters_ignore = [ 'tsserver' ]
