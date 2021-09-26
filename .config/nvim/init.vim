@@ -74,7 +74,7 @@
     " Coc:
         " Settings:
             let g:airline#extensions#coc#enabled = 1
-            let g:coc_extension_root = $XDG_DATA_HOME . '/coc/extensions'
+            let g:coc_data_home = $XDG_DATA_HOME . '/coc/extensions'
             call coc#config('python', {'pythonPath': $PYENV_VIRTUAL_ENV})
         " Insert Mapping:
         " Used to interact with completion popup menu
