@@ -24,8 +24,7 @@ if status --is-interactive;
         eval $XDG_CONFIG_HOME/fish/plugins/oh-my-fish/bin/install --noninteractive --offline
         git checkout $current_file
 
-        # Exec into a new fish shell so omf settings can load correctly
-        exec fish --login
+        omf reload
     end
 
 end
