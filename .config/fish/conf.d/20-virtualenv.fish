@@ -5,6 +5,7 @@ set PATH "$venv/bin" $PATH
 
 # Add pyenv shims if this system supports it
 if status --is-interactive; and not set -q VIMRUNTIME; and type -q pyenv
+    pyenv init --path | source
     pyenv init - | source
     pyenv virtualenv-init - | source
 end
