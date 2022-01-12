@@ -1,4 +1,9 @@
 alias.burndown=burndown.daily
+
+# Undo alias expansion
+alias.rm=rm
+alias.shell=shell
+
 default.command=ready limit:10
 
 # Customize reports
