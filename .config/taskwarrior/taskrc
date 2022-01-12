@@ -7,6 +7,7 @@ alias.shell=shell
 default.command=ready limit:10
 
 # Customize reports
+report.active.filter=status:pending and +ACTIVE +READY
 report.completed.filter=status:completed limit:5 rc.context:
 report.completed.sort=end-
 report.next.columns= id,start.age,entry.age,depends.count,priority,project,tags,recur,scheduled.remaining,due.relative,until.remaining,description.count,urgency
