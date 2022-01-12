@@ -58,6 +58,8 @@
 [interactive]
     # Less keystrokes for interactive modes
     singleKey = yes
+    # Update d-s-f to 1.4 to get this support
+    diffFilter = diff-so-fancy --patch
 [pull]
     rebase = merges
 [push]
