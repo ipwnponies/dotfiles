@@ -25,7 +25,7 @@
         " Use pre-release build, which has fugitive compatbility fixes
         Plug 'gregsexton/gitv', {'on': 'Gitv', 'commit': 'e9486c2da297634dde7bc591b87fb8c0779b7789'}
         Plug 'tpope/vim-fugitive'
-        Plug 'tonchis/vim-to-github'
+        Plug 'ruanyl/vim-gh-line'
 
         " Lang-specific
         Plug 'w0rp/ale'
