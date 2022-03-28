@@ -13,6 +13,7 @@ abbr --global --add jq      'jq --color-output --sort-keys'
 abbr --global --add watch   'watch -cd -n 5'
 abbr --global --add time    'time -f \'Total Time: %E\nExit Code: %x\''
 abbr --global --add vd      'TERM=screen-256color vd'
+abbr --global --add jiq     'jiq -q'
 
 # pytest
 set -l pytest_args '--capture no --exitfirst --failed-first --testmon --tlf tests/'
