@@ -15,7 +15,7 @@ function __fish_git_branches_fzf -d 'Override the native fish function for getti
     set remote (test "$argv[1]" = '-r'; and echo '-a'; or echo '*')
 
     # Taken from fish shell git completions but changed git branch to only return local branches
-    command git branch --list --no-color $remote ^/dev/null | \
+    command git branch --list --no-color $remote 2>/dev/null | \
     # Filter out current branch
     string match -v '\**' | \
     # Ignore symbolic refs
