@@ -33,7 +33,7 @@ function __fish_okta_complete_profiles -d 'Suggest profiles'
 end
 
 for subcommand in env exec login
-    complete --command aws-okta --no-files -n "__fish_seen_subcommand_from $subcommand; and not __fish_seen_subcommand_from (__fish_okta_complete_profiles)" -a "(__fish_okta_complete_profiles)"
+    complete --command aws-okta --no-files -n "__fish_seen_subcommand_from $subcommand; and not __fish_seen_subcommand_from (__fish_okta_complete_profiles) --" -a "(__fish_okta_complete_profiles)"
 end
 
 # If we already have aws-okta exec <PROFILE>, then suggest the command delimiter
