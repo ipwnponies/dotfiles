@@ -47,7 +47,10 @@
 
     # Rebase
     rb = rebase -i --autosquash --onto '@{u}...@'
+    rbc = rebase --continue
+    rba = rebase --abort
 
+    # Push
     pu = push origin HEAD
 
     # Quickly switch to master branch
