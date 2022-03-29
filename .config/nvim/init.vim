@@ -90,12 +90,16 @@
             nmap gD :call CocActionFzf()<cr>
 
             function! CocActionFzf()
-                let l:availableActions = ['jumpDefinition', 'rename', 'jumpReferences', 'quickfixes', 'doHover', 'showSignatureHelp', 'jumpTypeDefinition', 'jumpImplementation', 'jumpDeclaration', 'format', 'formatSelected', 'workspaceSymbols', 'getCurrentFunctionSymbol',]
-                call fzf#run(fzf#wrap({'source': l:availableActions, 'sink': function('s:cocRunAction')}))
+                let l:availableActions = ['jumpDefinition', 'jumpDeclaration', 'jumpImplementation', 'jumpTypeDefinition', 'jumpReferences', 'doHover', 'definitionHover', 'showSignatureHelp', 'rename', 'format', 'formatSelected', 'quickfixes', 'showOutline']
+                call fzf#run(fzf#wrap({
+                            \ 'source': l:availableActions,
+                            \ 'sink': function('s:cocRunAction'),
+                            \ 'window': {'width': 40, 'height': 20},
+                            \ }))
             endfunction
 
             function! s:cocRunAction(action)
-               call CocAction(a:action)
+               call CocActionAsync(a:action)
             endfunction
     " GitGutter: Git status while editing files
         set updatetime=250
