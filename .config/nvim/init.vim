@@ -166,6 +166,9 @@
         nnoremap <leader><c-l> :SidewaysRight<cr>
     " Undotree:
         let g:undotree_SetFocusWhenToggle = 1
+        let g:undotree_DiffCommand = 'diff -u'
+        let g:undotree_ShortIndicators = 1
+        let g:undotree_WindowLayout=2
     " EasyMotion:
         let g:EasyMotion_use_upper = 1
         let g:EasyMotion_use_smartsign_us = 1
