@@ -132,6 +132,22 @@
         nnoremap <leader>fC :BCommits<CR>
 
         let g:fzf_preview_window = ['up:60%:+{2}/4', 'ctrl-/']
+
+        " FZF Buffer Delete
+        function! s:list_buffers() abort
+            redir => list
+            silent ls
+            redir END
+            return split(list, "\n")
+        endfunction
+
+        function! s:delete_buffers(lines) abort
+            " Use bdelete so buffers stay in locationlist
+            execute 'bdelete' join(map(a:lines, {_, line -> split(line)[0]}))
+        endfunction
+
+        command! BDelete call fzf#run(fzf#wrap({ 'source': s:list_buffers(), 'sink*': { lines -> s:delete_buffers(lines) }, 'options': '--multi --reverse --bind ctrl-a:select-all+accept' }))
+
     " Ale:
         let g:ale_echo_msg_format = '[%linter%] %code: %%s'
         let g:ale_lint_on_insert_leave = 1
