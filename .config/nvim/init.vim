@@ -107,6 +107,7 @@
     " Vim Fugitive: Git operations in vim
         nnoremap <leader>gs :Gstatus<CR>
         nnoremap <leader>gg :Ggrep! -iP <cword>
+        nnoremap <leader>gB :Git blame<cr>
     " Gitv: Expand Vim-Fugitive git log operations
         let g:Gitv_DoNotMapCtrlKey = 1
     " IndentLine: Disable Yggdroot/indentLine overrides
