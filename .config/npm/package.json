@@ -4,6 +4,7 @@
     "diff-so-fancy": "^1.4.3",
     "eslint": "*",
     "fx": "*",
+    "jsonlint": "*",
     "markdownlint-cli": "^0.19.0",
     "textlint": "*"
   },
