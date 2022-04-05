@@ -15,7 +15,7 @@ begin
         # Close sed command and add default option, global
         test (count (string match --all $delimiter $sed_command) -gt 2); and set sed_command $sed_command$delimiter'g'
 
-        history search $search_term | sed -e $sed_command
+        history search --max 5 $search_term | sed -e $sed_command
     end
 
     # Git merge expansion
