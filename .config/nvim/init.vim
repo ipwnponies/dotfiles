@@ -55,7 +55,7 @@
         Plug 'romainl/vim-qf'
         Plug 'easymotion/vim-easymotion'
         Plug 'tpope/vim-unimpaired'
-        Plug 'jesseleite/vim-agriculture'
+        Plug 'ipwnponies/vim-agriculture'
 
         " Pretty
         Plug 'vim-airline/vim-airline'
