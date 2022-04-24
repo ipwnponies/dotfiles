@@ -1,35 +1,34 @@
 function _activate_venv --on-variable PWD --description 'Automatically activate venv upon changing directory'
     set -l path $PWD
-    set -l possible_venvs '/.activate.fish' '/virtualenv_run/bin/activate.fish' '/venv/bin/activate.fish'
+    set -l found 0
 
     # Searches for aactivator bottom up
-    while test $path != '/'
-        for i in $path$possible_venvs
-            # Iterate through possible known venv directories
-            if test -e $i
-                set activate_script $i
-                break
-            end
-        end
+    while test $path != '/'; and test $found -eq 0
+        set activate_script "$path/activate.fish"
 
         # If venv found, exit loop, else go up a directory and continue
-        if set -q activate_script
-            break
-        else
-            set path (dirname $path)
+        if test -e $activate_script
+            set found 1
+            _aactivator_actually_activate $activate_script
         end
+
+        # Up a dir level
+        set path (dirname $path)
     end
 
-    if set -q activate_script
-        if set -q ACTIVATED_VENV; and test $activate_script != $ACTIVATED_VENV;
-            deactivate
-        end
-
-        set -g ACTIVATED_VENV $activate_script
-        source $activate_script
-    else if set -q ACTIVATED_VENV
-        # No aactivator found, deactivate current venv
+    # No aactivator found, deactivate current venv
+    if set -q ACTIVATED_VENV; and test $found -eq 0
         deactivate
         set -e ACTIVATED_VENV
     end
+end
+
+function _aactivator_actually_activate
+    set script $argv[1]
+    if set -q ACTIVATED_VENV; and test $script != $ACTIVATED_VENV;
+        deactivate
+    end
+
+    set -g ACTIVATED_VENV $script
+    source $script
 end
