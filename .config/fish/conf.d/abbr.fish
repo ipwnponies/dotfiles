@@ -16,7 +16,7 @@ abbr --global --add vd      'TERM=screen-256color vd'
 abbr --global --add jiq     'jiq -q'
 
 # pytest
-set -l pytest_args '--capture no --exitfirst --failed-first --testmon --tlf tests/'
+set -l pytest_args '--capture no --exitfirst --failed-first --testmon tests/'
 abbr --global --add pytest  "pytest -vv $pytest_args"
 abbr --global --add pytestw "pytest-watch -- $pytest_args"
 
