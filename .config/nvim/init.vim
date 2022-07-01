@@ -381,3 +381,9 @@ let s:init_local = fnamemodify($MYVIMRC, '::h') . '/init_local.vim'
 if filereadable(s:init_local)
     execute 'source ' . s:init_local
 endif
+
+lua <<EOF
+require'lspconfig'.tsserver.setup{
+    detached = false
+}
+EOF
