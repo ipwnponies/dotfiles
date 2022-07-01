@@ -29,6 +29,7 @@
         " Lang-specific
         Plug 'w0rp/ale'
         Plug 'sheerun/vim-polyglot'
+        Plug 'voithos/vim-python-matchit'
 
         " Editing
         Plug 'tpope/vim-commentary'
@@ -41,8 +42,8 @@
         Plug 'AndrewRadev/splitjoin.vim'
         Plug 'michaeljsmith/vim-indent-object'
         Plug 'jeetsukumaran/vim-indentwise'
-        Plug 'voithos/vim-python-matchit'
         Plug 'mattn/vim-xxdcursor'
+        Plug 'jiangmiao/auto-pairs'
 
         " Usability
         Plug 'scrooloose/nerdtree', {'on': ['NERDTree', 'NERDTreeFind']}
@@ -217,6 +218,8 @@
     " Vim Agriculture:
         vmap <leader>* <Plug>RgRawVisualSelection
         nmap <leader>* <Plug>RgRawWordUnderCursor
+    " Auto Pairs:
+        let g:AutoPairsFlyMode = 1
 
 " Insert Map:
     inoremap jk <esc>
