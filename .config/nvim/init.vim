@@ -152,7 +152,15 @@
         let g:ale_echo_msg_format = '[%linter%] %code: %%s'
         let g:ale_lint_on_insert_leave = 1
         let g:ale_lint_on_text_changed = 'normal'
-        let g:ale_fixers = ['remove_trailing_lines', 'trim_whitespace']
+        let g:ale_fix_on_save = 1
+        let g:ale_fixers = {
+                    \ 'javascript': [ 'eslint', 'prettier' ],
+                    \ 'markdown': ['prettier' ],
+                    \ 'python': ['black', 'isort'],
+                    \ 'terraform': ['terraform'],
+                    \ '*': ['remove_trailing_lines', 'trim_whitespace']
+                    \ }
+        let g:ale_linters_ignore = {'python': ['bar'], 'javascript': [ 'tsserver'], '*': ['remove_trailing_lines', 'trim_whitespace']}
     " Vim Peeakboo:
         let g:peekaboo_window = "botright 30new"
         let g:peekaboo_delay = 300
