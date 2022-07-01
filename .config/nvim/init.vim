@@ -66,42 +66,22 @@
         Plug 'RRethy/vim-illuminate'
 
         " IDE
-        Plug 'neoclide/coc.nvim', {'branch': 'release'}
+        Plug 'ms-jpq/coq_nvim', {'commit': 'bb03037d7888b40e9bd205b0b05365dd94a5b06e'}
+        Plug 'ms-jpq/coq.artifacts', {'commit': 'f8d60eec57f1aa63ef02e4194f806d0231d5d585'}
+        Plug 'ms-jpq/coq.thirdparty', {'commit': '274eaaa1a0aec4d4b4a576af5895904e67d03c1a'}
+        Plug 'neovim/nvim-lspconfig'
     call plug#end()
 
 " Plugin Custom Configurations:
-    " Coc:
-        " Settings:
-            let g:airline#extensions#coc#enabled = 1
-            let g:coc_data_home = $XDG_DATA_HOME . '/coc'
-            call coc#config('python', {'pythonPath': $PYENV_VIRTUAL_ENV})
-        " Insert Mapping:
-        " Used to interact with completion popup menu
-            inoremap <silent><expr> <Tab> pumvisible() ? '<C-n>' : <SID>check_back_space() ? '<Tab>' : coc#refresh()
-            inoremap <expr> <S-Tab> pumvisible() ? '<C-p>' : '<S-Tab>'
-            inoremap <silent><expr> <c-space> coc#refresh()
+    " Coq:
+        let g:coq_settings = {'auto_start': v:true}
+        inoremap <silent><expr> <Tab> pumvisible() ? '<Down>' : '<Tab>'
+        inoremap <expr> <S-Tab> pumvisible() ? '<Up>' : '<S-Tab>'
 
-            function! s:check_back_space() abort
-              let col = col('.') - 1
-              return !col || getline('.')[col - 1]  =~ '\s'
-            endfunction
-        " Normal Mappings:
-        " Used to interact with LSP servers
-            nmap gd <Plug>(coc-definition)
-            nmap gD :call CocActionFzf()<cr>
+        " TODO: Find coq replacements
+        nmap gd <Plug>(coc-definition)
+        nmap gD :call CocActionFzf()<cr>
 
-            function! CocActionFzf()
-                let l:availableActions = ['jumpDefinition', 'jumpDeclaration', 'jumpImplementation', 'jumpTypeDefinition', 'jumpReferences', 'doHover', 'definitionHover', 'showSignatureHelp', 'rename', 'format', 'formatSelected', 'quickfixes', 'showOutline']
-                call fzf#run(fzf#wrap({
-                            \ 'source': l:availableActions,
-                            \ 'sink': function('s:cocRunAction'),
-                            \ 'window': {'width': 40, 'height': 20},
-                            \ }))
-            endfunction
-
-            function! s:cocRunAction(action)
-               call CocActionAsync(a:action)
-            endfunction
     " GitGutter: Git status while editing files
         set updatetime=250
         if exists('&signcolumn') | set signcolumn=yes | endif
