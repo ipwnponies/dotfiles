@@ -65,7 +65,7 @@
         Plug 'RRethy/vim-illuminate'
 
         " IDE
-        Plug 'ms-jpq/coq_nvim', {'commit': 'bb03037d7888b40e9bd205b0b05365dd94a5b06e'}
+        Plug 'ms-jpq/coq_nvim', {'commit': 'bb03037d7888b40e9bd205b0b05365dd94a5b06e', 'do': 'python -m coq deps'}
         Plug 'ms-jpq/coq.artifacts', {'commit': 'f8d60eec57f1aa63ef02e4194f806d0231d5d585'}
         Plug 'ms-jpq/coq.thirdparty', {'commit': '274eaaa1a0aec4d4b4a576af5895904e67d03c1a'}
         Plug 'neovim/nvim-lspconfig'
@@ -282,15 +282,6 @@
     set wildmenu
     set wildignorecase
     set noinfercase
-
-    " Figure out the python virtualenv for neovim.
-    " This only applies to interactive mode, put stuff in here that breaks due to interaction with tty.
-    if has('nvim') && has('ttyin') && has('ttyout')
-        " system will start a subshell, where PATH ordering will be reestablished.
-        " This will correctly ignore any activated python virtualenvs.
-        let g:python3_host_prog = system("command -v python3")[:-2]
-        let g:python_host_prog = system("command -v python2")[:-2]
-    endif
 
     " Visuals
     set visualbell
