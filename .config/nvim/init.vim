@@ -53,7 +53,6 @@
         Plug 'junegunn/fzf.vim'
         Plug 'junegunn/vim-peekaboo'
         Plug 'haya14busa/vim-asterisk'
-        Plug 'romainl/vim-qf'
         Plug 'easymotion/vim-easymotion'
         Plug 'tpope/vim-unimpaired'
         Plug 'ipwnponies/vim-agriculture'
@@ -221,9 +220,8 @@
 
 
     " Quickfix/Location List
-    nmap <leader>c <Plug>(qf_qf_switch)
-    nmap <leader><F5> <Plug>(qf_qf_toggle_stay)
-    nmap <leader><F6> <Plug>(qf_loc_toggle_stay)
+    nmap <leader><F5> :cwindow<CR>
+    nmap <leader><F6> :lwindow<CR>
 
 
     " Window Movement:
