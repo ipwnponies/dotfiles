@@ -2,9 +2,10 @@
 # http-prompt
 ipython
 mycli
-ptpython
 # mycli, ipython, and ptpython are not prompt-toolkit 3.0 ready yet
 prompt-toolkit<3
+ptpython
+pyright
 thefuck
 visidata
 vit
