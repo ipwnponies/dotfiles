@@ -74,7 +74,11 @@
 
 " Plugin Custom Configurations:
     " Coq:
-        let g:coq_settings = {'auto_start': v:true}
+        " jump_to_mark is mapped to ctrl-l by default
+        let g:coq_settings = {
+            \ 'auto_start': v:true,
+            \ 'keymap.jump_to_mark': v:null,
+            \ }
         inoremap <silent><expr> <Tab> pumvisible() ? '<Down>' : '<Tab>'
         inoremap <expr> <S-Tab> pumvisible() ? '<Up>' : '<S-Tab>'
 
