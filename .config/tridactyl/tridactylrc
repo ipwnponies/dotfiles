@@ -52,8 +52,8 @@ autocmd DocStart app.getpocket.com mode ignore
 autocmd DocLoad getpocket.com/s tabclose TRI_FIRED_TRI_TABINDEX
 
 " Github
-autocmd TabEnter ^https://github\.com/ mode ignore
-autocmd DocStart ^https://github\.com/ mode ignore
+autocmd TabEnter ^https://(cs\.)?github\.com/ mode ignore
+autocmd DocStart ^https://(cs\.)?github\.com/ mode ignore
 
 " Duolingo
 bindurl ^https://www.duolingo.com/skill/ V hint -c [role='button']
