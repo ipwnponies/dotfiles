@@ -1,7 +1,0 @@
-flake8
-neovim
-powerline-status
-pre-commit
-# disable pyls, we're using coc-python which installs and manages it separately
-# python-language-server[all]
-requirements-tools
