@@ -62,6 +62,7 @@
         Plug 'sainnhe/sonokai'
         Plug 'haya14busa/incsearch.vim'
         Plug 'RRethy/vim-illuminate'
+        Plug 'ryanoasis/vim-devicons'
 
         " IDE
         Plug 'ms-jpq/coq_nvim', {'commit': 'bb03037d7888b40e9bd205b0b05365dd94a5b06e', 'do': 'python -m coq deps'}
