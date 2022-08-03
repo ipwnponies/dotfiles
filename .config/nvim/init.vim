@@ -47,7 +47,6 @@
 
         " Usability
         Plug 'scrooloose/nerdtree', {'on': ['NERDTree', 'NERDTreeFind']}
-        Plug 'Xuyuanp/nerdtree-git-plugin', {'on': ['NERDTree', 'NERDTreeFind']}
         Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
         Plug 'junegunn/fzf', { 'dir': '~/.local/share/fzf', 'do': './install --all' }
         Plug 'junegunn/fzf.vim'
