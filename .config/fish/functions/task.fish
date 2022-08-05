@@ -19,6 +19,6 @@ function taskdepends -d 'Add a task that depends on another task'
         end
     end
 
-    echo task add $add_args $argv[2..]
-    task add $add_args $argv[2..]
+    echo task add depends:$parent_task $add_args $argv[2..]
+    task add depends:$parent_task $add_args $argv[2..]
 end
