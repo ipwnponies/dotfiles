@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "coc-python": "*",
     "diff-so-fancy": "^1.4.3",
     "eslint": "*",
     "fx": "*",
