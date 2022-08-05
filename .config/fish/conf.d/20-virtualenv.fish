@@ -6,6 +6,7 @@ set PATH "$venv/bin" $PATH
 if status --is-login; and status --is-interactive; and type -q virtualenv;
 
     set requirements "$XDG_CONFIG_HOME/venv-update/requirements.txt"
+    set requirements_bootstrap "$XDG_CONFIG_HOME/venv-update/requirements-bootstrap.txt"
     set logfile "$XDG_CACHE_HOME/venv-update/log"
 
 
@@ -13,8 +14,8 @@ if status --is-login; and status --is-interactive; and type -q virtualenv;
     # When it does change something, we only need the side effects (new programs installed)
     fish -c "
         mkdir -p (dirname $logfile)
-        /usr/bin/virtualenv --python python3.9 $venv
-        $venv/bin/pip install -r $requirements
+        virtualenv --python python3.9 $venv
+        $venv/bin/pip install -r $requirements -r $requirements_bootstrap
     " >> $logfile &
 end
 
