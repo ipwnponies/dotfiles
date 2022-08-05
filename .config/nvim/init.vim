@@ -139,6 +139,7 @@
         let g:ale_fix_on_save = 1
         let g:ale_fixers = {
                     \ 'javascript': [ 'eslint', 'prettier' ],
+                    \ 'typescriptreact': [ 'eslint', 'prettier' ],
                     \ 'markdown': ['prettier' ],
                     \ 'python': ['black', 'isort'],
                     \ 'terraform': ['terraform'],
