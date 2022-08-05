@@ -1,7 +1,7 @@
 # Installation of local npm library
 
 set -l venv "$XDG_CONFIG_HOME/npm"
-set PATH "$venv/node_modules/.bin" $PATH
+fish_add_path --global $venv/node_modules/.bin
 
 if status --is-login; and status --is-interactive; and type -q npm;
 

@@ -1,7 +1,7 @@
 # Installation of local virtualenv
 
 set -l venv "$XDG_DATA_HOME/virtualenv"
-set PATH "$venv/bin" $PATH
+fish_add_path --global $venv/bin
 
 if status --is-login; and status --is-interactive; and type -q virtualenv;
 

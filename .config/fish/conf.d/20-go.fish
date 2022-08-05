@@ -1,5 +1,5 @@
 set -gx GOPATH $XDG_DATA_HOME/go
-set PATH $GOPATH/bin $PATH
+fish_add_path --global $GOPATH/bin
 
 if status --is-login; and status --is-interactive; and type -q go
     type -q jiq; or go get github.com/fiatjaf/jiq/cmd/jiq
