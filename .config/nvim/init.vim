@@ -383,4 +383,5 @@ require'lspconfig'.tsserver.setup{
 }
 require'lspconfig'.pyright.setup{}
 require'lspconfig'.bashls.setup{}
+require'lspconfig'.dockerls.setup{}
 EOF
