@@ -381,6 +381,6 @@ lua <<EOF
 require'lspconfig'.tsserver.setup{
     detached = false
 }
-
 require'lspconfig'.pyright.setup{}
+require'lspconfig'.bashls.setup{}
 EOF
