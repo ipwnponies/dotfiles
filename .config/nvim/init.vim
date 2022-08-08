@@ -412,4 +412,9 @@ require'lspconfig'.bashls.setup{
     end,
 }
 require'lspconfig'.dockerls.setup{}
-EOF
+
+local bufopts = { noremap=true, silent=true, buffer=bufnr }
+vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+vim.keymap.set('n', '<leader>K', vim.lsp.buf.signature_help, bufopts)
+--EOF
