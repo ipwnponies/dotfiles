@@ -83,9 +83,26 @@
                 \},
             \ }
 
-        " TODO: Find coq replacements
-        nmap gd <Plug>(coc-definition)
-        nmap gD :call CocActionFzf()<cr>
+    " fzf-lsp.nvim
+        nmap gD :LspAction<cr>
+        nmap gr :References<cr>
+
+        " Add missing LSP command to fzf-lsp
+        command Rename lua vim.lsp.buf.rename()
+        command LspAction call s:LspAction()
+
+        function s:LspAction()
+            call fzf#run(
+                        \ {
+                            \ 'source': ['definition', 'references', 'declaration', 'type_definition', 'implementation', 'hover', 'signature_help', 'code_action', 'formatting', 'execute_command', 'workspace_symbol', 'document_symbol', 'rename'],
+                            \ 'sink': {i -> s:executeLua(i)},
+                        \ }
+                    \ )
+        endfunction
+
+        function s:executeLua(action)
+            execute 'lua vim.lsp.buf.' . a:action . '()'
+        endfunction
 
     " GitGutter: Git status while editing files
         set updatetime=250
