@@ -68,6 +68,8 @@
         Plug 'ms-jpq/coq.artifacts', {'commit': 'f8d60eec57f1aa63ef02e4194f806d0231d5d585'}
         Plug 'ms-jpq/coq.thirdparty', {'commit': '274eaaa1a0aec4d4b4a576af5895904e67d03c1a'}
         Plug 'neovim/nvim-lspconfig'
+        Plug 'gfanto/fzf-lsp.nvim'
+        Plug 'nvim-lua/plenary.nvim' " Dependency of fzf-lsp
     call plug#end()
 
 " Plugin Custom Configurations:
