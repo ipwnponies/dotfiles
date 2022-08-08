@@ -58,7 +58,6 @@
 
         " Pretty
         Plug 'vim-airline/vim-airline'
-        Plug 'sickill/vim-monokai'
         Plug 'sainnhe/sonokai'
         Plug 'haya14busa/incsearch.vim'
         Plug 'RRethy/vim-illuminate'
@@ -322,7 +321,6 @@
 
 " Colors:
     set termguicolors
-    colorscheme monokai
     colorscheme sonokai
     highlight Pmenu ctermbg=26
     highlight PmenuSel ctermfg=214
