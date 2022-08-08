@@ -8,7 +8,8 @@
     "jsonlint": "^1.6.3",
     "markdownlint-cli": "^0.19.0",
     "textlint": "^12.2.1",
-    "typescript-language-server": "^0.11.2"
+    "typescript-language-server": "^0.11.2",
+    "yaml-language-server": "^1.9.0"
   },
   "description": "Install npm tools for development environment",
   "name": "dotfile_install",
