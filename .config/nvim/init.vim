@@ -367,10 +367,6 @@
         return hex =~ '\x\{2\}' ? '0x' + str2nr(hex, 16) : ''
     endfunction
 
-    " Register with vim-airline
-    call airline#parts#define_function('convertHex', 'GetHexUnderCursor')
-    let g:airline_section_y = airline#section#create_right(['ffenc','convertHex'])
-
 " Emulate exrc. Host-specific configurations
 let s:init_local = fnamemodify($MYVIMRC, '::h') . '/init_local.vim'
 if filereadable(s:init_local)
