@@ -327,7 +327,7 @@
     highlight Pmenu ctermbg=26
     highlight PmenuSel ctermfg=214
     highlight Visual ctermbg=237 guibg=#535D7E
-    highlight Search cterm=bold ctermfg=40 ctermbg=NONE gui=bold guifg=#E31222 guibg=#02E69B
+    highlight Search cterm=bold gui=bold gui=reverse guifg=None guibg=#53575c
 
 " Autocmd:
     autocmd FileType sql set expandtab
@@ -377,11 +377,26 @@ if filereadable(s:init_local)
     execute 'source ' . s:init_local
 endif
 
+highlight LspReferenceRead  ctermbg=237 guibg=Green
+highlight LspReferenceWrite ctermbg=237 guibg=Brown
+highlight LspReferenceText guibg=#53575c
+
 lua <<EOF
 require'lspconfig'.tsserver.setup{
-    detached = false
+    detached = false,
+    on_attach = function(client)
+      require 'illuminate'.on_attach(client)
+    end,
 }
-require'lspconfig'.pyright.setup{}
-require'lspconfig'.bashls.setup{}
+require'lspconfig'.pyright.setup{
+    on_attach = function(client)
+      require 'illuminate'.on_attach(client)
+    end,
+}
+require'lspconfig'.bashls.setup{
+    on_attach = function(client)
+      require 'illuminate'.on_attach(client)
+    end,
+}
 require'lspconfig'.dockerls.setup{}
 EOF
