@@ -1,3 +1,6 @@
+# Clean slate, ensure abbreviations are under version control
+abbr --erase (abbr --list)
+
 # Abbreviations
 abbr --global --add df      'df -h'
 abbr --global --add du      'du -h --max-depth=1'
