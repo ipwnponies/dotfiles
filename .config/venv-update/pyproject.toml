@@ -14,6 +14,7 @@ vit = "^2.2.0"
 yamllint = "^1.27.1"
 ptpython = "^3.0.20"
 pyright = "^1.1.264"
+termdown = "^1.18.0"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^5.0.0"

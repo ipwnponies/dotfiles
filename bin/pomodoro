@@ -1,0 +1,13 @@
+#! /usr/bin/env fish
+
+set voice samantha
+
+set main_text 'Time for a break!'
+set main_duration '25min'
+set break_text 'Back to work!'
+set break_duration '5min'
+
+while true;
+    termdown --voice $voice --alt-format --text $main_text --title Work $main_duration
+    termdown --voice $voice --alt-format --text $break_text --title Break $break_duration
+end
