@@ -219,8 +219,6 @@
     " Vim Agriculture:
         vmap <leader>* <Plug>RgRawVisualSelection
         nmap <leader>* <Plug>RgRawWordUnderCursor
-    " Auto Pairs:
-        let g:AutoPairsFlyMode = 1
 
 " Insert Map:
     inoremap jk <esc>
