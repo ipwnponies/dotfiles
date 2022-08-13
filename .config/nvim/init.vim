@@ -92,12 +92,10 @@
         command LspAction call s:LspAction()
 
         function s:LspAction()
-            call fzf#run(
-                        \ {
-                            \ 'source': ['definition', 'references', 'declaration', 'type_definition', 'implementation', 'hover', 'signature_help', 'code_action', 'formatting', 'execute_command', 'workspace_symbol', 'document_symbol', 'rename'],
-                            \ 'sink': {i -> s:executeLua(i)},
-                        \ }
-                    \ )
+            call fzf#run( fzf#wrap( {
+                        \ 'source': ['definition', 'references', 'declaration', 'type_definition', 'implementation', 'hover', 'signature_help', 'code_action', 'formatting', 'execute_command', 'workspace_symbol', 'document_symbol', 'rename'],
+                        \ 'sink': {i -> s:executeLua(i)},
+                        \ }))
         endfunction
 
         function s:executeLua(action)
