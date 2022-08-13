@@ -6,9 +6,9 @@
     "eslint": "^8.21.0",
     "fx": "^20.0.2",
     "jsonlint": "^1.6.3",
-    "markdownlint-cli": "^0.19.0",
+    "markdownlint-cli": "^0.32.1",
     "textlint": "^12.2.1",
-    "typescript-language-server": "^0.11.2",
+    "typescript-language-server": "^1.0.0",
     "yaml-language-server": "^1.9.0"
   },
   "description": "Install npm tools for development environment",
