@@ -407,7 +407,18 @@ require'lspconfig'.bashls.setup{
       require 'illuminate'.on_attach(client)
     end,
 }
-require'lspconfig'.dockerls.setup{}
+require'lspconfig'.dockerls.setup{
+    on_attach = function(client)
+      require 'illuminate'.on_attach(client)
+    end,
+}
+require'lspconfig'.html.setup {
+    capabilities = capabilities,
+    filetypes = { "html", "javascriptreact", "typescriptreact" },
+    on_attach = function(client)
+    require 'illuminate'.on_attach(client)
+    end,
+}
 
 local bufopts = { noremap=true, silent=true, buffer=bufnr }
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)

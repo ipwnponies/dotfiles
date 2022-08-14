@@ -8,6 +8,7 @@
     "markdownlint-cli": "^0.32.1",
     "textlint": "^12.2.1",
     "typescript-language-server": "^1.0.0",
+    "vscode-langservers-extracted": "^4.4.0",
     "yaml-language-server": "^1.9.0"
   },
   "description": "Install npm tools for development environment",
