@@ -28,14 +28,7 @@ if type -q pyenv; and begin
     end
 
     # Adds pyenv command and autocompletion
-    pyenv init - | source
-
-    # Adds to PATH. Without this, you need to use pyenv exec
-    # This is annoying because it's hard to get priority order right:
-    #  - Too high and we're accidentally shadowing dotfiles local venv
-    #  - Too low and we pick up commands (flake8) from dotfiles
-    #  Ideally, we want it to behave like activate.fish, instead of static shimming
-    pyenv init --path | source
+    pyenv init --no-rehash - | source
 
     # Auto-activates pyenv. This sets up env like normal virtualenv, sidestepping pyenv shim magic
     pyenv virtualenv-init - | source
