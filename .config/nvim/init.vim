@@ -325,6 +325,9 @@
     " Persistent Undo
     set undofile
 
+    " Local overrides
+    set exrc
+
     " Misc
     set pastetoggle=<f2>
     set hidden
