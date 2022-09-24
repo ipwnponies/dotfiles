@@ -21,7 +21,7 @@ if status --is-login; and status --is-interactive; and type -q virtualenv;
 end
 
 # Add pyenv shims if this system supports it
-if type -q pyenv; and begin
+if type -q pyenv; and not set -q POETRY_ACTIVE; and begin
         # Always use pyenv for interactive shells
         # Allow pyenv for non-interactive (shell scripts) but skip vim non-interactive, invoked frequently from vim plugins
         status --is-interactive; or not set -q VIMRUNTIME
