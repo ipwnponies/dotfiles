@@ -46,7 +46,7 @@
     sync = reset --hard @{u}
 
     # Rebase
-    rb = rebase -i --autosquash --onto '@{u}...@'
+    rb = rebase -i --rebase-merges --autosquash --onto '@{u}...@'
     rbc = rebase --continue
     rba = rebase --abort
 
