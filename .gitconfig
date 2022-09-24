@@ -8,7 +8,7 @@
 
     # Checkout/switch to existing branch or create new tracking branch from master
     # Git aliases are only abbreviation, they don't consume cli arguments. Hence the funkiness
-    co = !"(git switch $1 2>/dev/null || git switch -c $1 ${2:-origin/master}) && : #swallow remaining cli args"
+    co = !"(git switch $1 2>/dev/null || git switch -c $1 ${2:-origin}) && : #swallow remaining cli args"
     cop = checkout -p
 
     # Amend like 'fix' in rebase
@@ -54,7 +54,7 @@
     pu = push origin HEAD
 
     # Quickly switch to master branch
-    home = checkout master
+    home = switch -d origin
 [fetch]
     # Remove refs that no longer exist on remote
     prune = true
