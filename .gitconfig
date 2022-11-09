@@ -62,7 +62,7 @@
     # Less keystrokes for interactive modes
     singleKey = yes
     # Update d-s-f to 1.4 to get this support
-    diffFilter = diff-so-fancy --patch
+    diffFilter = delta --color-only --features=interactive
 [pull]
     rebase = merges
 [push]
@@ -84,13 +84,15 @@
     autoStash = true
     stat = true
 [core]
-    pager = diff-so-fancy | less --tabs=4 --ignore-case --RAW-CONTROL-CHARS --quit-if-one-screen --hilite-unread
+    pager = delta
     autocrlf = input
 [diff]
-    colorMoved=dimmed-zebra
+    colorMoved = dimmed-zebra
+    colorMovedWS = allow-indentation-change
+[delta]
+    features = line-numbers side-by-side navigate
 [pager]
     branch = cat
-    diff = diff-so-fancy | less --tabs=4 --ignore-case --RAW-CONTROL-CHARS --quit-if-one-screen --hilite-unread
 [color]
     ui = true
 [color "diff-highlight"]
@@ -99,7 +101,6 @@
     newNormal = green bold
     newHighlight = green bold 22
 [color "diff"]
-    meta = 227
     frag = magenta bold
     commit = 227 bold
     old = red bold
