@@ -16,7 +16,7 @@
 " Vim Plug: Bootstrap vim-plug for fresh vim install
     if !filereadable(expand('~/.vim/autoload/plug.vim'))
       silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-      autocmd VimEnter * PlugInstall
+      autocmd! VimEnter * PlugInstall
     endif
 
     call plug#begin('~/.vim/bundle')
@@ -347,14 +347,14 @@
     highlight Search cterm=bold gui=bold gui=reverse guifg=None guibg=#53575c
 
 " Autocmd:
-    autocmd FileType sql set expandtab
-    autocmd BufReadPost quickfix nnoremap <buffer> <cr> <cr>
-    autocmd Filetype gitcommit setlocal spell textwidth=72 nocursorline
-    autocmd QuickFixCmdPost [^l]* nested cwindow
-    autocmd QuickFixCmdPost l* nested lwindow
-    autocmd BufNewFile,BufRead *.avsc set filetype=json
-    autocmd TermOpen * setlocal nonumber
-    autocmd BufRead,BufNewfile *.tmpl set filetype=htmlcheetah
+    autocmd! FileType sql set expandtab
+    autocmd! BufReadPost quickfix nnoremap <buffer> <cr> <cr>
+    autocmd! Filetype gitcommit setlocal spell textwidth=72 nocursorline
+    autocmd! QuickFixCmdPost [^l]* nested cwindow
+    autocmd! QuickFixCmdPost l* nested lwindow
+    autocmd! BufNewFile,BufRead *.avsc set filetype=json
+    autocmd! TermOpen * setlocal nonumber
+    autocmd! BufRead,BufNewfile *.tmpl set filetype=htmlcheetah
 
     " Diffs use diff foldmethod
     if !&diff
