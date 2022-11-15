@@ -115,3 +115,5 @@
     autoCorrect = 10
 [log]
     date = iso
+[include]
+	path = .gitconfig_local
