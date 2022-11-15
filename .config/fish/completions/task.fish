@@ -3,5 +3,5 @@ test -d $completion_dir; or set completion_dir /usr/local/share/fish/vendor_comp
 
 source $completion_dir/task.fish
 function __fish.task.list.project
-    task _unique project
+    task +PENDING or end.after:'today - 3 month' _unique project
 end
