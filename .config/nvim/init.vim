@@ -109,6 +109,11 @@
         nnoremap <leader>gs :Gstatus<CR>
         nnoremap <leader>gg :Ggrep! -iP <cword>
         nnoremap <leader>gB :Git blame<cr>
+        cabbrev Glgrep Glgrep -i
+        cabbrev Ggrep Ggrep -i
+        cabbrev Gdiffsplit Gdiffsplit @{u}...
+        command! Gdifftool Git difftool --name-only @{u}...
+
     " Gitv: Expand Vim-Fugitive git log operations
         let g:Gitv_DoNotMapCtrlKey = 1
     " IndentLine: Disable Yggdroot/indentLine overrides
@@ -253,9 +258,6 @@
     " Unsure why vim decided to deviate from readline here, it's not like this was already mapped
     cnoremap <c-a> <c-b>
     cmap w!! w !sudo tee >/dev/null %
-
-    cabbrev Glgrep Glgrep -i
-    cabbrev Ggrep Ggrep -i
 
 " Terminal Mode Map:
     tnoremap <C-Space> <C-\><C-n>
