@@ -78,10 +78,11 @@
         let g:coq_settings = {
             \ 'auto_start': v:true,
             \ 'keymap': {
-                \ 'jump_to_mark': v:null,
-                \ 'pre_select': v:true,
+                \ 'jump_to_mark': '<c-i>'
                 \},
             \ }
+
+        inoremap <silent><expr> <CR>    pumvisible() ? (complete_info().selected == -1 ? "\<C-e><CR>" : "\<C-y>") : "\<CR>"
 
     " fzf-lsp.nvim
         nmap gD :LspAction<cr>
