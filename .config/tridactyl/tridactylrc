@@ -1,3 +1,5 @@
+sanitize tridactyllocal
+
 " Binds
 bind v hint
 bind e buffer #
