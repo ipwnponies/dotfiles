@@ -75,6 +75,7 @@
 [merge]
     tool = nvim
     conflictstyle = diff3
+    stat = false
 [mergetool]
     prompt = true
 [mergetool "nvim"]
@@ -82,7 +83,6 @@
 [rebase]
     autoSquash = true
     autoStash = true
-    stat = true
 [core]
     pager = delta
     autocrlf = input
