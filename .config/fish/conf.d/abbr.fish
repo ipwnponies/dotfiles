@@ -4,6 +4,7 @@ abbr --erase (abbr --list)
 # Abbreviations
 abbr --global --add df         'df -h'
 abbr --global --add du         'du -h --max-depth=1'
+abbr --global --add fswatch    'fswatch --event Renamed --exclude ".*" --include \'\' .'
 abbr --global --add fzfdo      'fzf | read -l fzf; and'
 abbr --global --add g          'grep -Pi --color=auto'
 abbr --global --add histdelete "printf '%s ' (seq 0) | history delete --prefix --"
