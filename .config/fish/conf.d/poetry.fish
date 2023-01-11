@@ -1,3 +1,5 @@
+fish_add_path $HOME/.local/bin
+
 if status --is-interactive
     if not type -q poetry
         echo 'poetry is not installed'
