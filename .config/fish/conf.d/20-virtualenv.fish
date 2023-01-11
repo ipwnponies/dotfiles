@@ -9,7 +9,7 @@ if status --is-login; and status --is-interactive; and type -q virtualenv;
     set requirements_bootstrap "$XDG_CONFIG_HOME/venv-update/requirements-bootstrap.txt"
     set logfile "$XDG_CACHE_HOME/venv-update/log"
 
-    set system_python (env --ignore-environment type --path python3.9)
+    set system_python /usr/bin/python3
 
     # Run venv-update in background because most of the time, this is noop
     # When it does change something, we only need the side effects (new programs installed)
