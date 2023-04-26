@@ -46,4 +46,7 @@ if status --is-interactive
             set_color normal
         end
     end
+
+    # This allows using python breakpoint() to invoke debugger
+    set -x PYTHONBREAKPOINT pudb.set_trace
 end
