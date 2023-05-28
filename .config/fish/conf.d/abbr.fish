@@ -28,7 +28,7 @@ abbr --global --add pytestw "pytest-watch -- $pytest_args"
 
 # taskwarrior
 abbr --global --add ta 'task +ACTIVE'
-abbr --global --add tl 'task +LATEST annotate'
+abbr --global --add tl 'task +LATEST edit'
 abbr --global --add tr 'task +READY'
 
 set -l local_functions (dirname (status --current-filename))/abbr_local.fish
