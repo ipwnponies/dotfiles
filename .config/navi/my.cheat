@@ -1,0 +1,25 @@
+% brew, cask fixed
+; cask is no longer a subcommand, is now an arg
+
+# get info for a cask
+brew info --cask <casks>
+
+# install a cask
+brew install --cask <casks>
+
+# edit cask
+brew edit --cask <casks>
+
+# reinstall a cask
+brew reinstall <caskinstalled>
+
+# uninstall a cask
+brew cask uninstall <caskinstalled>
+
+$ casks: brew list --cask
+$ caskinstalled: brew list --cask
+
+% git
+
+# Delete merged feature branch
+git rb; and git pull; and git home; and git brd
