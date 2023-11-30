@@ -1,0 +1,26 @@
+{
+  "packages": [
+    "exa@latest",
+    "fd@latest",
+    "tldr@latest",
+    "lazygit@latest",
+    "lazydocker@latest",
+    "choose@latest",
+    "angle-grinder@latest",
+    "gron@latest",
+    "jless@latest",
+    "fx@latest",
+    "navi@latest",
+    "entr@latest"
+  ],
+  "shell": {
+    "init_hook": [
+      "echo 'Welcome to devbox!' > /dev/null"
+    ],
+    "scripts": {
+      "test": [
+        "echo \"Error: no test specified\" && exit 1"
+      ]
+    }
+  }
+}
