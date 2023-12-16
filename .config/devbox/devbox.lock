@@ -240,6 +240,26 @@
           "store_path": "/nix/store/7ks5i49ra5h57m17zdzaljj9knrwvlb5-tldr-1.6.0"
         }
       }
+    },
+    "tree@latest": {
+      "last_modified": "2023-12-11T05:36:02Z",
+      "resolved": "github:NixOS/nixpkgs/e97b3e4186bcadf0ef1b6be22b8558eab1cdeb5d#tree",
+      "source": "devbox-search",
+      "version": "2.1.1",
+      "systems": {
+        "aarch64-darwin": {
+          "store_path": "/nix/store/pnn20zni6dnvcr23acaa2l859ds54x7f-tree-2.1.1"
+        },
+        "aarch64-linux": {
+          "store_path": "/nix/store/lqkn7p5pswwa6xyknqc5j69l0dv5fqjg-tree-2.1.1"
+        },
+        "x86_64-darwin": {
+          "store_path": "/nix/store/wazx1r2lmapn2g9allqhs3dbl3rppx13-tree-2.1.1"
+        },
+        "x86_64-linux": {
+          "store_path": "/nix/store/y9x314ap02i1s01ggkh4nmm54ks2ly5d-tree-2.1.1"
+        }
+      }
     }
   }
 }

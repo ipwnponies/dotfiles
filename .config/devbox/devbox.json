@@ -11,7 +11,8 @@
     "jless@latest",
     "fx@latest",
     "navi@latest",
-    "entr@latest"
+    "entr@latest",
+    "tree@latest"
   ],
   "shell": {
     "init_hook": [
