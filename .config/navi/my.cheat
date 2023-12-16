@@ -32,3 +32,8 @@ git hist --grep '<input>'
 
 # Search log by diff content
 git hist -G '<regex>'
+
+% taskwarrior
+
+# get recurring task's parent
+task information uuid:<id>.parent
