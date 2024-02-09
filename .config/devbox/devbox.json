@@ -14,7 +14,8 @@
     "litecli@latest",
     "navi@latest",
     "tldr@latest",
-    "tree@latest"
+    "tree@latest",
+    "yarn@latest"
   ],
   "shell": {
     "init_hook": [
