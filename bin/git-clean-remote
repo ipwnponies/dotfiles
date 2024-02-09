@@ -1,4 +1,4 @@
-#!/usr/bin/fish
+#! /usr/bin/env fish
 # vim: ft=fish
 
 set -l options (fish_opt --short h --long help)
