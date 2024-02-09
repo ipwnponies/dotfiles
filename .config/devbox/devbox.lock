@@ -61,23 +61,23 @@
         }
       }
     },
-    "exa@latest": {
-      "last_modified": "2023-09-06T20:35:33Z",
-      "resolved": "github:NixOS/nixpkgs/efd23a1c9ae8c574e2ca923c2b2dc336797f4cc4#exa",
+    "eza@latest": {
+      "last_modified": "2023-12-14T07:33:05Z",
+      "resolved": "github:NixOS/nixpkgs/aa9d4729cbc99dabacb50e3994dcefb3ea0f7447#eza",
       "source": "devbox-search",
-      "version": "2023-03-01",
+      "version": "0.17.0",
       "systems": {
         "aarch64-darwin": {
-          "store_path": "/nix/store/b8gn0ypb3wd82673iahqk099ifriflyq-exa-unstable-2023-03-01"
+          "store_path": "/nix/store/drs4kmigk8ccy601365zbdhypzali7s5-eza-0.17.0"
         },
         "aarch64-linux": {
-          "store_path": "/nix/store/baaa6q31c6y8nc88h0grvj6357lq01gj-exa-unstable-2023-03-01"
+          "store_path": "/nix/store/abprvxbxizl7i5zwl8aq1d31fx0diidb-eza-0.17.0"
         },
         "x86_64-darwin": {
-          "store_path": "/nix/store/sdqspvbzvs1d1kvfkwj4yngwywdc1s8r-exa-unstable-2023-03-01"
+          "store_path": "/nix/store/4r5g176mr1jqsw3mp9cw0x6jdnwpc009-eza-0.17.0"
         },
         "x86_64-linux": {
-          "store_path": "/nix/store/9rcc6z61paivss0g7d96izw7zqmg21gx-exa-unstable-2023-03-01"
+          "store_path": "/nix/store/v35mszl4kgcjc1v76dkfgw24lsbgn9ya-eza-0.17.0"
         }
       }
     },
