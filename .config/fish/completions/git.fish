@@ -11,7 +11,6 @@ end
 set --erase __fish_git_alias_co
 complete -r -f -c git -n '__fish_git_using_command co' -a '(__fish_git_branches_fzf)' --description 'all branches'
 complete -r -f -c git -n '__fish_git_using_command ci' -l fixup -a '(__fish_git_ci_fixup)' --description 'sha'
-complete -r -f -c git -n '__fish_git_using_command stash' -a '(__fish_git_stash_show)' --description 'Stashes'
 
 function __fish_git_branches_fzf -d 'Override the native fish function for getting local branches'
     set remote (test "$argv[1]" = '-r'; and echo '-a'; or echo '*')
