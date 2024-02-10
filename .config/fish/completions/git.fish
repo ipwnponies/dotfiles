@@ -46,3 +46,6 @@ set -l local_functions (dirname (status --current-filename))/git_local.fish
 if test -e $local_functions
     source $local_functions
 end
+
+complete -f -c git -n '__fish_git_using_command forgit' -a 'add blame branch_delete checkout_branch checkout_commit checkout_file checkout_tag cherry_pick cherry_pick_from_branch clean diff fixup ignore log rebase reset_head revert_commit stash_show stash_push'
+complete -f -c git -n __fish_git_needs_command -a forgit -d 'Git, powered by fzf'
