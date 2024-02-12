@@ -4,3 +4,5 @@ set softtabstop=0
 set shiftwidth=0
 set expandtab
 iabbrev <buffer> pudb breakpoint() # noqa
+
+let b:ale_linters_ignore = ['pylint']
