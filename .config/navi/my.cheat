@@ -36,6 +36,12 @@ git hist -G '<regex>'
 # Search log by deleted file
 git hist --all --full-history -- '*<file>*'
 
+# Ignore extra whitespace (padding) when diffing
+git diff --ignore-space-change
+
+# Ignore all whitespace changes when diffing
+git diff --ignore-all-space
+
 % taskwarrior
 
 # get recurring task's parent
