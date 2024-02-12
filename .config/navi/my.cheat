@@ -33,6 +33,9 @@ git hist --grep '<input>'
 # Search log by diff content
 git hist -G '<regex>'
 
+# Search log by deleted file
+git hist --all --full-history -- '*<file>*'
+
 % taskwarrior
 
 # get recurring task's parent
