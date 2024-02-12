@@ -6,3 +6,6 @@ set expandtab
 iabbrev <buffer> pudb breakpoint() # noqa
 
 let b:ale_linters_ignore = ['pylint']
+
+" Add -> None to all pytest test cases
+command TestReturnNone %substitute/\vdef test_.*(None)@<!\zs\ze:$/ -> None
