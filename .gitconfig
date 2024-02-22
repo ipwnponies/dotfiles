@@ -51,7 +51,7 @@
     rba = rebase --abort
 
     # Push
-    pu = push origin HEAD
+    pu = push
 
     # Quickly switch to master branch
     home = switch -d origin
@@ -67,7 +67,7 @@
     rebase = merges
 [push]
     # Push current branch to upstream as long as name matches
-    default = simple
+    default = current
     followTags = true
 [branch]
     # Checkout and branch will setup upstream branch for local and remote starting branch
