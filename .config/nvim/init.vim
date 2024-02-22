@@ -137,6 +137,9 @@
         nnoremap <leader>fh :Helptags<CR>
         nnoremap <leader>fC :BCommits<CR>
 
+        " Certain fzf.vim commands do not work with fish shell
+        set shell=sh
+
         let g:fzf_preview_window = ['up:60%:+{2}/4', 'ctrl-/']
 
         " FZF Buffer Delete
