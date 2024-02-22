@@ -320,6 +320,26 @@
           "store_path": "/nix/store/yickii092b1il40gdjd65nvwx32ss7rb-yarn-1.22.19"
         }
       }
+    },
+    "zoxide@latest": {
+      "last_modified": "2024-02-01T15:59:28Z",
+      "resolved": "github:NixOS/nixpkgs/f38bca1ca559974b36863d0ff4bb710b7bc12890#zoxide",
+      "source": "devbox-search",
+      "version": "2023-11-20",
+      "systems": {
+        "aarch64-darwin": {
+          "store_path": "/nix/store/brw508nm00109cr9pbccrw6gkc2r03zv-zoxide-unstable-2023-11-20"
+        },
+        "aarch64-linux": {
+          "store_path": "/nix/store/3ha1jl500mcl7k2hd1fr9xqqm0mpn6yk-zoxide-unstable-2023-11-20"
+        },
+        "x86_64-darwin": {
+          "store_path": "/nix/store/jb8lsc5mr4idq0df9bj54nf5gaa85gmn-zoxide-unstable-2023-11-20"
+        },
+        "x86_64-linux": {
+          "store_path": "/nix/store/v3qfsszihzmd0slpq5l02sn7jinrca4m-zoxide-unstable-2023-11-20"
+        }
+      }
     }
   }
 }

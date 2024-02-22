@@ -15,7 +15,8 @@
     "navi@latest",
     "tldr@latest",
     "tree@latest",
-    "yarn@latest"
+    "yarn@latest",
+    "zoxide@latest"
   ],
   "shell": {
     "init_hook": [
