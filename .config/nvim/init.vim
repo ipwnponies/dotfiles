@@ -58,7 +58,7 @@
         " Pretty
         Plug 'vim-airline/vim-airline'
         Plug 'sainnhe/sonokai'
-        Plug 'haya14busa/incsearch.vim'
+        Plug 'haya14busa/is.vim'
         Plug 'RRethy/vim-illuminate'
         Plug 'ryanoasis/vim-devicons'
 
@@ -202,17 +202,10 @@
         map <Plug>(easymotion-prefix)W <Plug>(easymotion-bd-W)
     " Vim Asterisk:
         let g:asterisk#keeppos = 1
-        map *  <Plug>(incsearch-nohl)<Plug>(asterisk-z*)
-        map #  <Plug>(incsearch-nohl)<Plug>(asterisk-z#)
-        map g* <Plug>(incsearch-nohl)<Plug>(asterisk-gz*)
-        map g# <Plug>(incsearch-nohl)<Plug>(asterisk-gz#)
-    " Incsearch:
-        let g:incsearch#auto_nohlsearch = 1
-        map n  <Plug>(incsearch-nohl-n)
-        map N  <Plug>(incsearch-nohl-N)
-        map /  <Plug>(incsearch-forward)
-        map ?  <Plug>(incsearch-backward)
-        map g/ <Plug>(incsearch-stay)
+        map *  <Plug>(is-nohl)<Plug>(asterisk-z*)
+        map #  <Plug>(is-nohl)<Plug>(asterisk-z#)
+        map g* <Plug>(is-nohl)<Plug>(asterisk-gz*)
+        map g# <Plug>(is-nohl)<Plug>(asterisk-gz#)
     " Vim Illuminate:
         let g:Illuminate_delay = 100
         hi link illuminatedWord Search
