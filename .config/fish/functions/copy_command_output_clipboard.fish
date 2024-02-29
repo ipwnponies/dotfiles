@@ -6,7 +6,7 @@ function copy_command_output_clipboard
     end
 
     set stdout (mktemp)
-    echo -e "\$ $argv\n" >> $stdout
-    $argv >> $stdout
+    echo -e "\$ $cmd\n" | tee --append $stdout
+    $cmd 2>&1 | tee --append $stdout
     pbcopy < $stdout
 end
