@@ -46,3 +46,8 @@ git diff --ignore-all-space
 
 # get recurring task's parent
 task information uuid:<id>.parent
+
+% clipboard
+
+# Edit clipboard contents
+pbpaste | vipe | pbcopy
