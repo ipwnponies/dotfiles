@@ -84,8 +84,8 @@
         inoremap <silent><expr> <CR>    pumvisible() ? (complete_info().selected == -1 ? "\<C-e><CR>" : "\<C-y>") : "\<CR>"
 
     " fzf-lsp.nvim
-        nmap gD :LspAction<cr>
         nmap gr :References<cr>
+        nmap gl :LspAction<cr>
 
         " Add missing LSP command to fzf-lsp
         command Rename lua vim.lsp.buf.rename()
@@ -93,13 +93,20 @@
 
         function s:LspAction()
             call fzf#run( fzf#wrap( {
-                        \ 'source': ['definition', 'references', 'declaration', 'type_definition', 'implementation', 'hover', 'signature_help', 'code_action', 'formatting', 'execute_command', 'workspace_symbol', 'document_symbol', 'rename'],
+                        \ 'source': ['Definition', 'References', 'Declaration', 'TypeDefinition', 'Implementation', 'hover', 'signature_help', 'code_action', 'formatting', 'execute_command', 'workspace_symbol', 'document_symbol', 'rename'],
                         \ 'sink': {i -> s:executeLua(i)},
                         \ }))
         endfunction
 
         function s:executeLua(action)
-            execute 'lua vim.lsp.buf.' . a:action . '()'
+            " Feed certain actions to fzf-lsp.vim
+            let fzf_lsp_action = ['Definition', 'References', 'Declaration', 'TypeDefinition', 'Implementation']
+
+            if fzf_lsp_action->index(a:action) >= 0
+                execute a:action
+            else
+                execute 'lua vim.lsp.buf.' . a:action . '()'
+            endif
         endfunction
 
     " GitGutter: Git status while editing files
