@@ -16,7 +16,7 @@ destructive_warning = True
 # In Unix/Linux: ~/.config/litecli/log
 # In Windows: %USERPROFILE%\AppData\Local\dbcli\litecli\log
 # %USERPROFILE% is typically C:\Users\{username}
-log_file = default
+log_file = $XDG_STATE_HOME/litecli/log
 
 # Default log level. Possible values: "CRITICAL", "ERROR", "WARNING", "INFO"
 # and "DEBUG". "NONE" disables logging.
