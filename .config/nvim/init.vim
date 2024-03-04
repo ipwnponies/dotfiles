@@ -70,6 +70,7 @@
         Plug 'neovim/nvim-lspconfig'
         Plug 'gfanto/fzf-lsp.nvim'
         Plug 'nvim-lua/plenary.nvim' " Dependency of fzf-lsp
+        Plug 'github/copilot.vim', {'do': ':Copilot setup'}
     call plug#end()
 
 " Plugin Custom Configurations:
@@ -234,6 +235,8 @@
     inoremap jk <esc>
     " Auto-correct while typing
     inoremap <c-l> <c-g>u<esc>[s1z=`]a<c-g>u
+    " Github copilot suggestions
+    inoremap <silent><script><expr> <m-l> copilot#Accept("\<CR>")
 
     iabbrev todo: TODO(TICKET):
 
