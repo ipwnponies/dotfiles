@@ -67,6 +67,9 @@
         Plug 'neovim/nvim-lspconfig'
         Plug 'gfanto/fzf-lsp.nvim'
         Plug 'nvim-lua/plenary.nvim' " Dependency of fzf-lsp
+        Plug 'hrsh7th/nvim-cmp'
+        Plug 'hrsh7th/cmp-nvim-lsp'
+        Plug 'hrsh7th/cmp-buffer'
         Plug 'github/copilot.vim', {'do': ':Copilot setup'}
     call plug#end()
 
@@ -427,4 +430,59 @@ vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
 vim.keymap.set('n', '<leader>K', vim.lsp.buf.signature_help, bufopts)
 vim.api.nvim_set_keymap('n', ']d', '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>', {noremap=true})
 vim.api.nvim_set_keymap('n', '[d', '<cmd>lua require"illuminate".next_reference{reverse=true,wrap=true}<cr>', {noremap=true})
+local cmp = require 'cmp'
+local cmp_buffer = require('cmp_buffer')
+cmp.setup {
+  mapping = cmp.mapping.preset.insert {
+    ['<C-n>'] = cmp.mapping.select_next_item(),
+    ['<C-p>'] = cmp.mapping.select_prev_item(),
+    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete {},
+    ['<CR>'] = cmp.mapping.confirm {
+      behavior = cmp.ConfirmBehavior.Replace,
+    },
+    ['<Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+    ['<S-Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+  },
+    sources = {
+        {
+            name = 'nvim_lsp',
+            priority = 10,
+        },
+        {
+            name = 'buffer',
+            keyword_length=3,
+            max_item_count=5,
+            option = {
+                get_bufnrs = function()
+                    local bufs = {}
+                    for _, win in ipairs(vim.api.nvim_list_wins()) do
+                        bufs[vim.api.nvim_win_get_buf(win)] = true
+                    end
+                    return vim.tbl_keys(bufs)
+                end
+            },
+        },
+    },
+    sorting = {
+        priority_weight = 2,
+        comparators = {
+            function(...) return cmp_buffer:compare_locality(...) end,
+            -- The rest of your comparators...
+        }
+    }
+}
 EOF
