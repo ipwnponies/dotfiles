@@ -43,6 +43,7 @@
         Plug 'michaeljsmith/vim-indent-object'
         Plug 'jeetsukumaran/vim-indentwise'
         Plug 'mattn/vim-xxdcursor'
+        Plug 'tpope/vim-sleuth'
 
         " Usability
         Plug 'scrooloose/nerdtree', {'on': ['NERDTree', 'NERDTreeFind']}
