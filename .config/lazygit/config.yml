@@ -1,0 +1,19 @@
+---
+gui:
+  timeFormat: "2006-01-02"
+  shortTimeFormat: "15:04"
+  nerdFontsVersion: "3"
+  skipRewordInEditorWarning: true
+  filterMode: substring
+promptToReturnFromSubprocess: false
+customCommands:
+  - &push
+    description: Push (override)
+    key: 'P'
+    command: git pu --verbose
+    context: files
+    loadingText: Reticulating splines...
+    stream: false
+    showOutput: true
+  - <<: *push
+    context: commits
