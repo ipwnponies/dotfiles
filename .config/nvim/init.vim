@@ -72,6 +72,9 @@
         Plug 'hrsh7th/nvim-cmp'
         Plug 'hrsh7th/cmp-nvim-lsp'
         Plug 'hrsh7th/cmp-buffer'
+        Plug 'hrsh7th/cmp-cmdline'
+        Plug 'hrsh7th/cmp-nvim-lsp-document-symbol'
+        Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
         Plug 'github/copilot.vim', {'do': ':Copilot setup'}
         Plug 'CopilotC-Nvim/CopilotChat.nvim', { 'branch': 'canary' }
     call plug#end()
@@ -500,6 +503,7 @@ cmp.setup {
             name = 'nvim_lsp',
             priority = 10,
         },
+    { name = 'nvim_lsp_signature_help' },
         {
             name = 'buffer',
             keyword_length=3,
@@ -522,6 +526,25 @@ cmp.setup {
             -- The rest of your comparators...
         }
     }
+}
+cmp.setup.cmdline({ '/', '?' }, {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = 'nvim_lsp_document_symbol' },
+    { name = 'buffer' },
+  }
+})
+  cmp.setup.cmdline(":", {
+  	mapping = cmp.mapping.preset.cmdline(),
+  	--window = { completion = cmp.config.window.bordered({ col_offset = 0 }) },
+  	--formatting = { fields = { "abbr" } },
+  	sources = cmp.config.sources({
+  		{ name = "buffer", keyword_length = 3, max_item_count = 10 },
+--  	}, {
+--  		{ name = "path" },
+  		{ name = "cmdline", keyword_length = 3, max_item_count = 10 },
+  	}),
+  })
 require("CopilotChat").setup {
 }
 EOF
