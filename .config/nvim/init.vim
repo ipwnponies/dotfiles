@@ -167,7 +167,7 @@
                     \ 'javascriptreact': [ 'eslint', 'prettier' ],
                     \ 'typescriptreact': [ 'eslint', 'prettier' ],
                     \ 'markdown': ['prettier' ],
-                    \ 'python': ['black', 'isort'],
+                    \ 'python': ['black', 'isort', 'ruff', 'ruff_format'],
                     \ 'terraform': ['terraform'],
                     \ '*': ['remove_trailing_lines', 'trim_whitespace']
                     \ }
