@@ -67,6 +67,8 @@
         Plug 'neovim/nvim-lspconfig'
         Plug 'gfanto/fzf-lsp.nvim'
         Plug 'nvim-lua/plenary.nvim' " Dependency of fzf-lsp
+        Plug 'williamboman/mason.nvim'
+        Plug 'williamboman/mason-lspconfig.nvim'
         Plug 'hrsh7th/nvim-cmp'
         Plug 'hrsh7th/cmp-nvim-lsp'
         Plug 'hrsh7th/cmp-buffer'
@@ -430,6 +432,41 @@ vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
 vim.keymap.set('n', '<leader>K', vim.lsp.buf.signature_help, bufopts)
 vim.api.nvim_set_keymap('n', ']d', '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>', {noremap=true})
 vim.api.nvim_set_keymap('n', '[d', '<cmd>lua require"illuminate".next_reference{reverse=true,wrap=true}<cr>', {noremap=true})
+require("mason").setup()
+mason_lspconfig_on_attach = function(client, bufnr)
+    local illuminate = require 'illuminate'
+      illuminate.on_attach(client)
+
+  nmap( ']d', function()
+      require('illuminate').next_reference{wrap=true}
+  end,'Next Reference' )
+  nmap( '[d', function()
+      require'illuminate'.next_reference{reverse=true,wrap=true}
+  end, 'Previous Reference')
+end
+local servers = {
+  pyright = {},
+  tsserver = {},
+  html = { filetypes = { 'html', 'twig', 'hbs'} },
+}
+-- Ensure the servers above are installed
+local mason_lspconfig = require 'mason-lspconfig'
+
+mason_lspconfig.setup {
+  ensure_installed = vim.tbl_keys(servers),
+}
+
+mason_lspconfig.setup_handlers {
+  function(server_name)
+    require('lspconfig')[server_name].setup {
+      capabilities = capabilities,
+      on_attach = mason_lspconfig_on_attach,
+      settings = servers[server_name],
+      filetypes = (servers[server_name] or {}).filetypes,
+    }
+  end
+}
+
 local cmp = require 'cmp'
 local cmp_buffer = require('cmp_buffer')
 cmp.setup {
