@@ -73,6 +73,7 @@
         Plug 'hrsh7th/cmp-nvim-lsp'
         Plug 'hrsh7th/cmp-buffer'
         Plug 'github/copilot.vim', {'do': ':Copilot setup'}
+        Plug 'CopilotC-Nvim/CopilotChat.nvim', { 'branch': 'canary' }
     call plug#end()
 
 " Plugin Custom Configurations:
@@ -521,5 +522,6 @@ cmp.setup {
             -- The rest of your comparators...
         }
     }
+require("CopilotChat").setup {
 }
 EOF
