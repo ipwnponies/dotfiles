@@ -321,6 +321,70 @@
         }
       }
     },
+    "yq@latest": {
+      "last_modified": "2024-04-19T17:36:04-04:00",
+      "resolved": "github:NixOS/nixpkgs/92d295f588631b0db2da509f381b4fb1e74173c5#yq",
+      "source": "devbox-search",
+      "version": "3.4.1",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/l9ll6kz8a8jnszwkz93na4mnn10bagbk-python3.11-yq-3.4.1",
+              "default": true
+            },
+            {
+              "name": "dist",
+              "path": "/nix/store/4b199dgzjskcmcj92s5a66cc6s1dasrm-python3.11-yq-3.4.1-dist"
+            }
+          ],
+          "store_path": "/nix/store/l9ll6kz8a8jnszwkz93na4mnn10bagbk-python3.11-yq-3.4.1"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/lrws1dpc53pl4r2ryxj2plzfhg9zg7xq-python3.11-yq-3.4.1",
+              "default": true
+            },
+            {
+              "name": "dist",
+              "path": "/nix/store/liclk68jamrhjrmlx3rksx5qlhlj8hv7-python3.11-yq-3.4.1-dist"
+            }
+          ],
+          "store_path": "/nix/store/lrws1dpc53pl4r2ryxj2plzfhg9zg7xq-python3.11-yq-3.4.1"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/glhvym0yid4wrmc7ww7y6w1kglf154rw-python3.11-yq-3.4.1",
+              "default": true
+            },
+            {
+              "name": "dist",
+              "path": "/nix/store/jr39kjsd44v5agwhw9xsifxc42swdlnr-python3.11-yq-3.4.1-dist"
+            }
+          ],
+          "store_path": "/nix/store/glhvym0yid4wrmc7ww7y6w1kglf154rw-python3.11-yq-3.4.1"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/9ic6r325lik02jadw8qsynqah5h96b9y-python3.11-yq-3.4.1",
+              "default": true
+            },
+            {
+              "name": "dist",
+              "path": "/nix/store/9ki2dnhwl6bbzi9z1aqzpb590lpz85p5-python3.11-yq-3.4.1-dist"
+            }
+          ],
+          "store_path": "/nix/store/9ic6r325lik02jadw8qsynqah5h96b9y-python3.11-yq-3.4.1"
+        }
+      }
+    },
     "zoxide@latest": {
       "last_modified": "2024-02-01T15:59:28Z",
       "resolved": "github:NixOS/nixpkgs/f38bca1ca559974b36863d0ff4bb710b7bc12890#zoxide",
