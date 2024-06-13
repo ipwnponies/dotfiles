@@ -55,6 +55,7 @@
         Plug 'easymotion/vim-easymotion'
         Plug 'tpope/vim-unimpaired'
         Plug 'ipwnponies/vim-agriculture'
+        Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
 
         " Pretty
         Plug 'vim-airline/vim-airline'
@@ -441,6 +442,16 @@ mason_lspconfig_on_attach = function(client, bufnr)
     local illuminate = require 'illuminate'
       illuminate.on_attach(client)
 
+  local nmap = function(keys, func, desc)
+    if desc then
+      desc = 'LSP: ' .. desc
+    end
+
+    vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
+  end
+
+  nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+  nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
   nmap( ']d', function()
       require('illuminate').next_reference{wrap=true}
   end,'Next Reference' )
