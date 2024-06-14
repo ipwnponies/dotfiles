@@ -71,6 +71,7 @@
         Plug 'williamboman/mason.nvim'
         Plug 'williamboman/mason-lspconfig.nvim'
         Plug 'j-hui/fidget.nvim'
+        Plug 'folke/neodev.nvim' " Deprecated in favour of lazydev.nvim (requires neovim>=0.10)
         Plug 'hrsh7th/nvim-cmp'
         Plug 'hrsh7th/cmp-nvim-lsp'
         Plug 'hrsh7th/cmp-buffer'
@@ -473,6 +474,9 @@ local servers = {
   tsserver = {},
   html = { filetypes = { 'html', 'twig', 'hbs'} },
 }
+
+require('neodev').setup()
+
 -- Ensure the servers above are installed
 local mason_lspconfig = require 'mason-lspconfig'
 
