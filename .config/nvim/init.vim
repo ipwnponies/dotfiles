@@ -70,6 +70,7 @@
         Plug 'nvim-lua/plenary.nvim' " Dependency of fzf-lsp
         Plug 'williamboman/mason.nvim'
         Plug 'williamboman/mason-lspconfig.nvim'
+        Plug 'j-hui/fidget.nvim'
         Plug 'hrsh7th/nvim-cmp'
         Plug 'hrsh7th/cmp-nvim-lsp'
         Plug 'hrsh7th/cmp-buffer'
@@ -433,6 +434,10 @@ require'lspconfig'.html.setup {
 local bufopts = { noremap=true, silent=true, buffer=bufnr }
 
 require("mason").setup()
+require("fidget").setup {
+  -- options
+}
+
 mason_lspconfig_on_attach = function(client, bufnr)
     local illuminate = require 'illuminate'
       illuminate.on_attach(client)
