@@ -13,11 +13,12 @@
     "lazygit@latest",
     "litecli@latest",
     "navi@latest",
+    "neovim@latest",
     "tldr@latest",
     "tree@latest",
     "yarn@latest",
-    "zoxide@latest",
-    "yq@latest"
+    "yq@latest",
+    "zoxide@latest"
   ],
   "shell": {
     "init_hook": [
