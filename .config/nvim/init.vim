@@ -78,6 +78,9 @@
         Plug 'hrsh7th/cmp-cmdline'
         Plug 'hrsh7th/cmp-nvim-lsp-document-symbol'
         Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
+        Plug 'rafamadriz/friendly-snippets'
+        Plug 'L3MON4D3/LuaSnip'
+        Plug 'saadparwaiz1/cmp_luasnip'
         Plug 'github/copilot.vim', {'do': ':Copilot setup'}
         Plug 'CopilotC-Nvim/CopilotChat.nvim', { 'branch': 'canary' }
     call plug#end()
@@ -496,8 +499,18 @@ mason_lspconfig.setup_handlers {
 }
 
 local cmp = require 'cmp'
+
+local luasnip = require 'luasnip'
+require('luasnip.loaders.from_vscode').lazy_load()
+luasnip.config.setup {}
+
 local cmp_buffer = require('cmp_buffer')
 cmp.setup {
+  snippet = {
+    expand = function(args)
+      luasnip.lsp_expand(args.body)
+    end,
+  },
   mapping = cmp.mapping.preset.insert {
     ['<C-n>'] = cmp.mapping.select_next_item(),
     ['<C-p>'] = cmp.mapping.select_prev_item(),
@@ -510,6 +523,8 @@ cmp.setup {
     ['<Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
+      elseif luasnip.expand_or_locally_jumpable() then
+        luasnip.expand_or_jump()
       else
         fallback()
       end
@@ -517,6 +532,8 @@ cmp.setup {
     ['<S-Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
+      elseif luasnip.locally_jumpable(-1) then
+        luasnip.jump(-1)
       else
         fallback()
       end
@@ -542,6 +559,7 @@ cmp.setup {
                 end
             },
         },
+    { name = 'luasnip' },
     },
     sorting = {
         priority_weight = 2,
