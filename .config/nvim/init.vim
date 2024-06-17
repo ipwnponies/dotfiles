@@ -86,7 +86,6 @@
     call plug#end()
 
 " Plugin Custom Configurations:
-        inoremap <silent><expr> <CR>    pumvisible() ? (complete_info().selected == -1 ? "\<C-e><CR>" : "\<C-y>") : "\<CR>"
 
     " fzf-lsp.nvim
         nmap gl :LspAction<cr>
@@ -443,6 +442,7 @@ mason_lspconfig_on_attach = function(client, bufnr)
       require'illuminate'.next_reference{reverse=true,wrap=true}
   end, 'Previous Reference')
 end
+
 local servers = {
   pyright = {},
   tsserver = {},
@@ -479,7 +479,7 @@ local cmp_buffer = require('cmp_buffer')
 cmp.setup {
   snippet = {
     expand = function(args)
-      luasnip.lsp_expand(args.body)
+    luasnip.lsp_expand(args.body)
     end,
   },
   mapping = cmp.mapping.preset.insert {
@@ -510,35 +510,27 @@ cmp.setup {
       end
     end, { 'i', 's' }),
   },
-    sources = {
-        {
-            name = 'nvim_lsp',
-            priority = 10,
-        },
-    { name = 'nvim_lsp_signature_help' },
-        {
-            name = 'buffer',
-            keyword_length=3,
-            max_item_count=5,
-            option = {
-                get_bufnrs = function()
-                    local bufs = {}
-                    for _, win in ipairs(vim.api.nvim_list_wins()) do
-                        bufs[vim.api.nvim_win_get_buf(win)] = true
-                    end
-                    return vim.tbl_keys(bufs)
-                end
-            },
-        },
-    { name = 'luasnip' },
+  sources = {
+    {
+      name = 'nvim_lsp',
     },
-    sorting = {
-        priority_weight = 2,
-        comparators = {
-            function(...) return cmp_buffer:compare_locality(...) end,
-            -- The rest of your comparators...
-        }
-    }
+    { name = 'nvim_lsp_signature_help' },
+    {
+      name = 'buffer',
+      keyword_length=5,
+      max_item_count=5,
+      option = {
+        get_bufnrs = function()
+          local bufs = {}
+          for _, win in ipairs(vim.api.nvim_list_wins()) do
+            bufs[vim.api.nvim_win_get_buf(win)] = true
+          end
+          return vim.tbl_keys(bufs)
+        end
+      },
+    },
+    { name = 'luasnip' },
+  },
 }
 cmp.setup.cmdline({ '/', '?' }, {
   mapping = cmp.mapping.preset.cmdline(),
