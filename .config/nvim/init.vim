@@ -435,6 +435,11 @@ mason_lspconfig_on_attach = function(client, bufnr)
    nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
    nmap('<leader>k', vim.lsp.buf.signature_help, 'Signature Documentation')
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+
+  vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+    vim.lsp.buf.format()
+  end, { desc = 'Format current buffer with LSP' })
+
   nmap( ']d', function()
       require('illuminate').next_reference{wrap=true}
   end,'Next Reference' )
