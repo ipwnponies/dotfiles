@@ -542,6 +542,18 @@ cmp.setup {
     },
     { name = 'luasnip' },
   },
+  matching = {
+    -- The value without fuzziness is multi-word completion
+    disallow_fuzzy_matching = false,
+    disallow_fullfuzzy_matching = false,
+    -- Needs to match on prefix of components. Components are tokenized vim words
+    disallow_partial_fuzzy_matching = true,
+    -- Need to match prefix of first word. To search later, need to break prefix match and fuzzy on first word. Super weird behaviour.
+    disallow_partial_matching = false,
+    -- completion needs first letter to match: https://github.com/hrsh7th/nvim-cmp/blob/04e0ca376d6abdbfc8b52180f8ea236cbfddf782/lua/cmp/matcher.lua#L98
+    -- this is special case of partial fuzzy matching
+    disallow_prefix_unmatching = false,
+  },
 }
 cmp.setup.cmdline({ '/', '?' }, {
   mapping = cmp.mapping.preset.cmdline(),
