@@ -10,5 +10,5 @@ if status --is-interactive
         exit
     end
 
-    keychain --eval --quiet --quick | source
+    keychain --eval --quiet --quick id_rsa | source
 end
