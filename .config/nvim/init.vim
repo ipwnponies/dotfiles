@@ -309,6 +309,7 @@
     set wildmenu
     set wildignorecase
     set noinfercase
+    set completeopt=menuone,preview
 
     " Visuals
     set visualbell
