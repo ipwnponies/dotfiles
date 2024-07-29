@@ -5,6 +5,8 @@ gui:
   nerdFontsVersion: "3"
   skipRewordInEditorWarning: true
   filterMode: substring
+git:
+  branchLogCmd: "git hist {{branchName}} --max-count 40 --"
 promptToReturnFromSubprocess: false
 customCommands:
   - &push
