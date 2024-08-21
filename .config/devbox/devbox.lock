@@ -309,6 +309,54 @@
         }
       }
     },
+    "taskwarrior3@latest": {
+      "last_modified": "2024-08-18T12:44:29Z",
+      "resolved": "github:NixOS/nixpkgs/ff1c2669bbb4d0dd9e62cc94f0968cfa652ceec1#taskwarrior3",
+      "source": "devbox-search",
+      "version": "3.1.0",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/4nl18577s3ji5szs213jxp49mncgnd8z-taskwarrior-3.1.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/4nl18577s3ji5szs213jxp49mncgnd8z-taskwarrior-3.1.0"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/h3mr9jxxal7qwrbzv875fsdmkrs71rbc-taskwarrior-3.1.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/h3mr9jxxal7qwrbzv875fsdmkrs71rbc-taskwarrior-3.1.0"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/hfzmrlfy17m95gkqimxag2s7w5jsjdn4-taskwarrior-3.1.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/hfzmrlfy17m95gkqimxag2s7w5jsjdn4-taskwarrior-3.1.0"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/521d9cms6w9dy04d40bl6mmbv3c6z27i-taskwarrior-3.1.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/521d9cms6w9dy04d40bl6mmbv3c6z27i-taskwarrior-3.1.0"
+        }
+      }
+    },
     "tldr@latest": {
       "last_modified": "2023-11-17T14:14:56Z",
       "resolved": "github:NixOS/nixpkgs/a71323f68d4377d12c04a5410e214495ec598d4c#tldr",
