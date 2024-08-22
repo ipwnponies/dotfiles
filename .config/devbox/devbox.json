@@ -14,6 +14,7 @@
     "litecli@latest",
     "navi@latest",
     "neovim@latest",
+    "nodejs@latest",
     "taskwarrior3@latest",
     "tldr@latest",
     "tree@latest",
