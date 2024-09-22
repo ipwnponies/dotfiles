@@ -32,4 +32,7 @@ if type -q pyenv; and not set -q POETRY_ACTIVE; and begin
 
     # Auto-activates pyenv. This sets up env like normal virtualenv, sidestepping pyenv shim magic
     pyenv virtualenv-init - | source
+
+    # Set pyenv PATH through fish_user_paths, which has higher precedence than raw PATH
+    fish_add_path (pyenv root)/shims
 end

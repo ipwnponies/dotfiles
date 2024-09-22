@@ -15,6 +15,7 @@
     "navi@latest",
     "neovim@latest",
     "nodejs@latest",
+    "pyenv@latest",
     "taskwarrior3@latest",
     "tldr@latest",
     "tree@latest",

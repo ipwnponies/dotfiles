@@ -311,6 +311,7 @@
     },
     "nodejs@latest": {
       "last_modified": "2024-08-14T11:41:26Z",
+      "plugin_version": "0.0.2",
       "resolved": "github:NixOS/nixpkgs/0cb2fd7c59fed0cd82ef858cbcbdb552b9a33465#nodejs_22",
       "source": "devbox-search",
       "version": "22.5.1",
@@ -370,6 +371,54 @@
             }
           ],
           "store_path": "/nix/store/kxy4210mqs50ribr9dj2y6r03mbmjifj-nodejs-22.5.1"
+        }
+      }
+    },
+    "pyenv@latest": {
+      "last_modified": "2024-09-12T11:58:09Z",
+      "resolved": "github:NixOS/nixpkgs/280db3decab4cbeb22a4599bd472229ab74d25e1#pyenv",
+      "source": "devbox-search",
+      "version": "2.4.11",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/1c5dwzmdq3whhbd1qm5w7lg2nbskmmvn-pyenv-2.4.11",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/1c5dwzmdq3whhbd1qm5w7lg2nbskmmvn-pyenv-2.4.11"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/fld8vp482aiclx85s1pkpn460xpr7ncv-pyenv-2.4.11",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/fld8vp482aiclx85s1pkpn460xpr7ncv-pyenv-2.4.11"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/yzxl7ny1pjx8nwv7l2d817mzl8mg5xbd-pyenv-2.4.11",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/yzxl7ny1pjx8nwv7l2d817mzl8mg5xbd-pyenv-2.4.11"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/x471d8mij0155h4pxds1wxv1b3358ncd-pyenv-2.4.11",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/x471d8mij0155h4pxds1wxv1b3358ncd-pyenv-2.4.11"
         }
       }
     },
