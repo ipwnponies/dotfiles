@@ -52,6 +52,9 @@ task information uuid:<id>.parent
 # Edit clipboard contents
 pbpaste | vipe | pbcopy
 
+# URI encode clipboard content
+pbpaste | vipe | jq --raw-input --raw-output --slurp @uri | pbcopy
+
 % containerise plugin
 
 # Escape upper case in url with hex unicode escapes
