@@ -564,20 +564,19 @@ cmp.setup {
 cmp.setup.cmdline({ '/', '?' }, {
   mapping = cmp.mapping.preset.cmdline(),
   sources = {
-    { name = 'nvim_lsp_document_symbol' },
-    { name = 'buffer' },
+    { name = 'nvim_lsp_document_symbol', keyword_length = 2, max_item_count = 5 },
+    { name = 'buffer', keyword_length = 2, max_item_count = 5 },
   }
 })
   cmp.setup.cmdline(":", {
-  	mapping = cmp.mapping.preset.cmdline(),
-  	--window = { completion = cmp.config.window.bordered({ col_offset = 0 }) },
-  	--formatting = { fields = { "abbr" } },
-  	sources = cmp.config.sources({
-  		{ name = "buffer", keyword_length = 3, max_item_count = 10 },
---  	}, {
---  		{ name = "path" },
-  		{ name = "cmdline", keyword_length = 3, max_item_count = 10 },
-  	}),
+    mapping = cmp.mapping.preset.cmdline(),
+    --window = { completion = cmp.config.window.bordered({ col_offset = 0 }) },
+    --formatting = { fields = { "abbr" } },
+    sources = cmp.config.sources({
+      { name = "cmdline", keyword_length = 2, max_item_count = 3 },
+      { name = "path" },
+      { name = "buffer", keyword_length = 3, max_item_count = 3 },
+    }),
   })
 require("CopilotChat").setup {
 }
