@@ -17,5 +17,3 @@ customCommands:
     loadingText: Reticulating splines...
     stream: false
     showOutput: true
-  - <<: *push
-    context: commits
