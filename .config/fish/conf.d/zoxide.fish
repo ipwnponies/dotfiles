@@ -1,5 +1,5 @@
 if status --is-interactive
-    set --export _ZO_FZF_OPTS "$FZF_DEFAULT_OPTS --keep-right --border=rounded --no-sort"
+    set --export _ZO_FZF_OPTS "$FZF_DEFAULT_OPTS --keep-right --border=rounded"
 
     zoxide init fish --cmd cd | source
 
