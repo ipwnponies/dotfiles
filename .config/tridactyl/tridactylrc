@@ -71,6 +71,9 @@ unbindurl ^https://calendar.google.com/calendar/ --mode=normal k
 unbindurl ^https://calendar.google.com/calendar/ --mode=normal t
 unbindurl ^https://calendar.google.com/calendar/ --mode=normal g
 
+" Google Photos
+unbindurl ^https://photos.google.com/ --mode=normal <Esc>
+
 " Settings
 set smoothscroll true
 set hintfiltermode vimperator-reflow
