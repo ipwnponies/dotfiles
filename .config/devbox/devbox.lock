@@ -141,6 +141,134 @@
         }
       }
     },
+    "http-prompt@latest": {
+      "last_modified": "2025-01-13T08:04:02Z",
+      "resolved": "github:NixOS/nixpkgs/ef56e777fedaa4da8c66a150081523c5de1e0171#http-prompt",
+      "source": "devbox-search",
+      "version": "2.1.0",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/kgqjk5a5wxaqghl2nnas0sz6l9ywyxv7-http-prompt-2.1.0",
+              "default": true
+            },
+            {
+              "name": "dist",
+              "path": "/nix/store/qqfcyy52ylj3bbndrlix7zi4b8c3pk4f-http-prompt-2.1.0-dist"
+            }
+          ],
+          "store_path": "/nix/store/kgqjk5a5wxaqghl2nnas0sz6l9ywyxv7-http-prompt-2.1.0"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/j3hw0dcl6hjxw4mb4jl490gnswy4iywf-http-prompt-2.1.0",
+              "default": true
+            },
+            {
+              "name": "dist",
+              "path": "/nix/store/mbpjwlryv6k0r8yszx79cy2x71x1jbrp-http-prompt-2.1.0-dist"
+            }
+          ],
+          "store_path": "/nix/store/j3hw0dcl6hjxw4mb4jl490gnswy4iywf-http-prompt-2.1.0"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/b5ghirggzp6m7csq09azq6knkwbzz3zb-http-prompt-2.1.0",
+              "default": true
+            },
+            {
+              "name": "dist",
+              "path": "/nix/store/d320khmva3kq39886i6y91j7j50h2qna-http-prompt-2.1.0-dist"
+            }
+          ],
+          "store_path": "/nix/store/b5ghirggzp6m7csq09azq6knkwbzz3zb-http-prompt-2.1.0"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/a9r93zvmkys8y4l0bpmfpp0svsa7m4bl-http-prompt-2.1.0",
+              "default": true
+            },
+            {
+              "name": "dist",
+              "path": "/nix/store/11n409x9592dyb348y9rq793kp9qnqss-http-prompt-2.1.0-dist"
+            }
+          ],
+          "store_path": "/nix/store/a9r93zvmkys8y4l0bpmfpp0svsa7m4bl-http-prompt-2.1.0"
+        }
+      }
+    },
+    "httpie@latest": {
+      "last_modified": "2024-12-23T21:10:33Z",
+      "resolved": "github:NixOS/nixpkgs/de1864217bfa9b5845f465e771e0ecb48b30e02d#httpie",
+      "source": "devbox-search",
+      "version": "3.2.4",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/w2vfzcgv41lv0faz06ya2dwrnji0i5rp-python3.12-httpie-3.2.4",
+              "default": true
+            },
+            {
+              "name": "dist",
+              "path": "/nix/store/j9b83yi9j182ppbf4znh4fggcyah92a9-python3.12-httpie-3.2.4-dist"
+            }
+          ],
+          "store_path": "/nix/store/w2vfzcgv41lv0faz06ya2dwrnji0i5rp-python3.12-httpie-3.2.4"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/kcr50rzl5zkwyyjxa6qdxzaa87cg9hjs-python3.12-httpie-3.2.4",
+              "default": true
+            },
+            {
+              "name": "dist",
+              "path": "/nix/store/fs1m1lgng4h4wcbl99i7gcpvcf8f0k51-python3.12-httpie-3.2.4-dist"
+            }
+          ],
+          "store_path": "/nix/store/kcr50rzl5zkwyyjxa6qdxzaa87cg9hjs-python3.12-httpie-3.2.4"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/sw78zh04k3nwfd9i9bm3if1asc4s0w70-python3.12-httpie-3.2.4",
+              "default": true
+            },
+            {
+              "name": "dist",
+              "path": "/nix/store/jbcz5xi0ihai9rngl8zhzp6hj767inx6-python3.12-httpie-3.2.4-dist"
+            }
+          ],
+          "store_path": "/nix/store/sw78zh04k3nwfd9i9bm3if1asc4s0w70-python3.12-httpie-3.2.4"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/5y2gyx2bwkvjs9xcix1xq4a0gmz9jnmk-python3.12-httpie-3.2.4",
+              "default": true
+            },
+            {
+              "name": "dist",
+              "path": "/nix/store/p9l0qz14c10gprw2hzgly896w75hgyxf-python3.12-httpie-3.2.4-dist"
+            }
+          ],
+          "store_path": "/nix/store/5y2gyx2bwkvjs9xcix1xq4a0gmz9jnmk-python3.12-httpie-3.2.4"
+        }
+      }
+    },
     "jless@latest": {
       "last_modified": "2023-11-17T14:14:56Z",
       "resolved": "github:NixOS/nixpkgs/a71323f68d4377d12c04a5410e214495ec598d4c#jless",

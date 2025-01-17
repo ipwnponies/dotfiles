@@ -7,6 +7,8 @@
     "fd@latest",
     "go@latest",
     "gron@latest",
+    "http-prompt@latest",
+    "httpie@latest",
     "jless@latest",
     "lazydocker@latest",
     "lazygit@latest",
