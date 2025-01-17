@@ -182,22 +182,50 @@
       }
     },
     "lazygit@latest": {
-      "last_modified": "2023-11-17T14:14:56Z",
-      "resolved": "github:NixOS/nixpkgs/a71323f68d4377d12c04a5410e214495ec598d4c#lazygit",
+      "last_modified": "2025-01-12T04:53:46Z",
+      "resolved": "github:NixOS/nixpkgs/2f9e2f85cb14a46410a1399aa9ea7ecf433e422e#lazygit",
       "source": "devbox-search",
-      "version": "0.40.2",
+      "version": "0.45.0",
       "systems": {
         "aarch64-darwin": {
-          "store_path": "/nix/store/kzbwg61859ham64gmgnmgzxady1gjgbd-lazygit-0.40.2"
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/pks0kbda9dmqq1anhdfikx0fd766x0ln-lazygit-0.45.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/pks0kbda9dmqq1anhdfikx0fd766x0ln-lazygit-0.45.0"
         },
         "aarch64-linux": {
-          "store_path": "/nix/store/x1kf16m6d1baqpylhfnriv6j4j39bbc1-lazygit-0.40.2"
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/lq73a8zpvi21di66sxm8m2hffzxk9mf5-lazygit-0.45.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/lq73a8zpvi21di66sxm8m2hffzxk9mf5-lazygit-0.45.0"
         },
         "x86_64-darwin": {
-          "store_path": "/nix/store/cfw1hqanarvwlndjnbkmv7212b9mcd1b-lazygit-0.40.2"
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/z48fk1lkpq81fshpgfrabzpqdb4ff8xx-lazygit-0.45.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/z48fk1lkpq81fshpgfrabzpqdb4ff8xx-lazygit-0.45.0"
         },
         "x86_64-linux": {
-          "store_path": "/nix/store/ql64yx3wqb042savy6lindp69z0mv8c8-lazygit-0.40.2"
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/ka5fgxhni4ci3jj380mkc1q1mv24zhm6-lazygit-0.45.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/ka5fgxhni4ci3jj380mkc1q1mv24zhm6-lazygit-0.45.0"
         }
       }
     },
