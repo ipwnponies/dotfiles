@@ -22,7 +22,7 @@ $ caskinstalled: brew list --cask
 % git
 
 # Delete merged feature branch
-git rb; and git pull; and git home; and git brd
+git rb; and git pull; and git switch --detach @{u}; and git brd
 
 # Prune remote tracking branches
 git branch -rd (git branch -r | string trim); and git fetch --all
