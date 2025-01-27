@@ -22,7 +22,6 @@ repos:
     -   id: pretty-format-json
         args:
           - --autofix
-    -   id: requirements-txt-fixer
     -   id: sort-simple-yaml
     -   id: trailing-whitespace
 -   repo: https://github.com/asottile/reorder_python_imports
