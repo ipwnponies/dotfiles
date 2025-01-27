@@ -21,7 +21,7 @@ flake8 = "^5.0.0"
 neovim = "^0.3.1"
 powerline-status = "^2.7"
 pre-commit = "^2.20.0"
-pendulum = "^3.0.0"
+pendulum = "^2"
 addict = "^2.4.0"
 
 [build-system]
