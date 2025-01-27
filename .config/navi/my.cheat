@@ -47,6 +47,9 @@ git diff --ignore-all-space
 # get recurring task's parent
 task information uuid:<id>.parent
 
+# get annotation
+task _get <id>.annotations.1.description
+
 % clipboard
 
 # Edit clipboard contents
