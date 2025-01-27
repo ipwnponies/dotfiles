@@ -55,9 +55,6 @@ pbpaste | vipe | pbcopy
 # URI encode clipboard content
 pbpaste | vipe | jq --raw-input --raw-output --slurp @uri | pbcopy
 
-# URI encode clipboard content (only spaces and newlines)
-pbpaste | sed -e ':a;N;$!ba;s/\n/%0A/g' -e 's/ /+/g' | pbcopy
-
 % containerise plugin
 
 # Escape upper case in url with hex unicode escapes
