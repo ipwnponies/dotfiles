@@ -17,6 +17,7 @@
     "neovim@latest",
     "nodejs@latest",
     "pyenv@latest",
+    "ripgrep@latest",
     "taskwarrior3@latest",
     "tldr@latest",
     "tree@latest",
