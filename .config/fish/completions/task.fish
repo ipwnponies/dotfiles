@@ -1,14 +1,15 @@
-set -l completion_dir /usr/share/fish/completions/
-test -d $completion_dir; or set completion_dir /usr/local/share/fish/vendor_completions.d/
-# Brew installation has changed for apple silicon, now in /opt/homebrew
-test -d $completion_dir; or set completion_dir /opt/homebrew/share/fish/vendor_completions.d/
+for i in $fish_complete_path
+    if test $i = (dirname (realpath (status filename)))
+        # Ignore this file, no recursive sourcing
+        continue
+    end
 
-if test ! -d $completion_dir
-    echo "Could not find fish vendor completion dir"
-    exit
+    set -l task_completion $i/task.fish
+    if test -e $task_completion
+        source $task_completion
+        break
+    end
 end
-
-source $completion_dir/task.fish
 
 # Shadow upstream function. Add filter for recent or active projects
 function __fish.task.list.project
