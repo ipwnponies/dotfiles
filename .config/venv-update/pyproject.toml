@@ -24,6 +24,9 @@ pre-commit = "^2.20.0"
 pendulum = "^2"
 addict = "^2.4.0"
 
+[tool.poetry.requires-plugins]
+poetry-plugin-export = ">=1.8"
+
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
