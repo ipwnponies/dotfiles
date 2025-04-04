@@ -573,9 +573,9 @@ cmp.setup.cmdline({ '/', '?' }, {
     --window = { completion = cmp.config.window.bordered({ col_offset = 0 }) },
     --formatting = { fields = { "abbr" } },
     sources = cmp.config.sources({
-      { name = "cmdline", keyword_length = 2, max_item_count = 3 },
+      { name = "cmdline", keyword_length = 2, max_item_count = 8 },
       { name = "path" },
-      { name = "buffer", keyword_length = 3, max_item_count = 3 },
+      { name = "buffer", keyword_length = 3, max_item_count = 5 },
     }),
   })
 require("CopilotChat").setup {
