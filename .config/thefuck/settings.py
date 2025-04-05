@@ -12,7 +12,7 @@ from thefuck.const import DEFAULT_RULES
 
 rules = DEFAULT_RULES + ["git_push_force"]
 # exclude_rules = []
-wait_command = 5
+# wait_command = 3
 # require_confirmation = True
 # no_colors = False
 # debug = True
