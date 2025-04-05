@@ -1,2 +1,2 @@
-set filename (status dirname)/navi_local.fish
-test -e $filename; and source $filename
+completions_load_upstream (status filename)
+completions_extend_local (status filename)
