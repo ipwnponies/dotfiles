@@ -23,3 +23,5 @@ git diff --ignore-all-space
 
 % git documentation
 
+# revision, stash@{1}, @{u}. Might be misremembered as git refspec or reflog
+git help revisions
