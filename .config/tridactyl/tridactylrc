@@ -73,6 +73,7 @@ unbindurl ^https://calendar.google.com/calendar/ --mode=normal g
 
 " Google Photos
 unbindurl ^https://photos.google.com/ --mode=normal <Esc>
+unbindurl ^https://photos.google.com/ --mode=normal .
 
 " Settings
 set smoothscroll true
