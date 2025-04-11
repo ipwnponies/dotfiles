@@ -1,0 +1,25 @@
+% git operations
+
+# Delete merged feature branch
+git rb; and git pull; and git switch --detach @{u}; and git brd
+
+# Prune remote tracking branches
+git branch -rd (git branch -r | string trim); and git fetch --all
+
+# Search log by commit message
+git hist --grep '<input>'
+
+# Search log by diff content
+git hist -G '<regex>'
+
+# Search log by deleted file
+git hist --all --full-history -- '*<file>*'
+
+# Ignore extra whitespace (padding) when diffing
+git diff --ignore-space-change
+
+# Ignore all whitespace changes when diffing
+git diff --ignore-all-space
+
+% git documentation
+
