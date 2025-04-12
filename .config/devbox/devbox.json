@@ -16,6 +16,7 @@
     "navi@latest",
     "neovim@latest",
     "nodejs@latest",
+    "poetry@latest",
     "pyenv@latest",
     "ripgrep@latest",
     "taskwarrior3@latest",
