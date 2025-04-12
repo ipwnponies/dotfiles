@@ -10,19 +10,17 @@ function main
         set requirements_bootstrap "$XDG_CONFIG_HOME/venv-update/requirements-bootstrap.txt"
         set logfile "$XDG_CACHE_HOME/venv-update/log"
 
-        set system_python /usr/bin/python3
-
         mkdir -p (dirname $logfile)
 
         if not test -e $venv -a -d $venv
             echo "Creating virtualenv in $venv" >&2
-            $system_python -m venv $venv
-            $venv/bin/pip install -r $requirements_bootstrap
+            python3 -m venv $venv
+            $venv/bin/pip install --only-binary -r $requirements_bootstrap
         end
 
         # Run venv-update in background because most of the time, this is noop
         # When it does change something, we only need the side effects (new programs installed)
-        $venv/bin/pip-sync $requirements | ts >> $logfile
+        $venv/bin/pip-sync --verbose --pip-args '--prefer-binary' $requirements | ts >> $logfile
     end
 
     # Add pyenv shims if this system supports it

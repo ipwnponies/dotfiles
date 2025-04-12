@@ -20,13 +20,13 @@ ruff = "^0.11.2"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "^5.0.0"
-neovim = "^0.3.1"
 powerline-status = "^2.7"
 pre-commit = "^2.20.0"
-pendulum = "^2"
+pendulum = "^3.0.0"
 addict = "^2.4.0"
 rich = "^14.0.0"
 pip-tools = "^7.4.1"
+pynvim = "^0.5.2"
 
 [tool.poetry.requires-plugins]
 poetry-plugin-export = ">=1.8"
