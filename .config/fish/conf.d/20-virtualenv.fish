@@ -11,13 +11,17 @@ if status --is-login; and status --is-interactive; and type -q virtualenv;
 
     set system_python /usr/bin/python3
 
+    mkdir -p (dirname $logfile)
+
+    if not test -e $venv -a -d $venv
+        echo "Creating virtualenv in $venv" >&2
+        $system_python -m venv $venv
+        $venv/bin/pip install -r $requirements_bootstrap
+    end
+
     # Run venv-update in background because most of the time, this is noop
     # When it does change something, we only need the side effects (new programs installed)
-    fish -c "
-        mkdir -p (dirname $logfile)
-        $system_python -m venv $venv
-        $venv/bin/pip install -r $requirements -r $requirements_bootstrap
-    " | ts >> $logfile &
+    $venv/bin/pip-sync $requirements | ts >> $logfile
 end
 
 # Add pyenv shims if this system supports it
