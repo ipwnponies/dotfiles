@@ -1,42 +1,46 @@
 # Installation of local virtualenv
 
-set -l venv "$XDG_DATA_HOME/virtualenv"
-fish_add_path --global $venv/bin
+function main
+    set venv "$XDG_DATA_HOME/virtualenv"
+    fish_add_path --global $venv/bin
 
-if status --is-login; and status --is-interactive; and type -q virtualenv;
+    if status --is-login; and status --is-interactive; and type -q virtualenv;
 
-    set requirements "$XDG_CONFIG_HOME/venv-update/requirements.txt"
-    set requirements_bootstrap "$XDG_CONFIG_HOME/venv-update/requirements-bootstrap.txt"
-    set logfile "$XDG_CACHE_HOME/venv-update/log"
+        set requirements "$XDG_CONFIG_HOME/venv-update/requirements.txt"
+        set requirements_bootstrap "$XDG_CONFIG_HOME/venv-update/requirements-bootstrap.txt"
+        set logfile "$XDG_CACHE_HOME/venv-update/log"
 
-    set system_python /usr/bin/python3
+        set system_python /usr/bin/python3
 
-    mkdir -p (dirname $logfile)
+        mkdir -p (dirname $logfile)
 
-    if not test -e $venv -a -d $venv
-        echo "Creating virtualenv in $venv" >&2
-        $system_python -m venv $venv
-        $venv/bin/pip install -r $requirements_bootstrap
+        if not test -e $venv -a -d $venv
+            echo "Creating virtualenv in $venv" >&2
+            $system_python -m venv $venv
+            $venv/bin/pip install -r $requirements_bootstrap
+        end
+
+        # Run venv-update in background because most of the time, this is noop
+        # When it does change something, we only need the side effects (new programs installed)
+        $venv/bin/pip-sync $requirements | ts >> $logfile
     end
 
-    # Run venv-update in background because most of the time, this is noop
-    # When it does change something, we only need the side effects (new programs installed)
-    $venv/bin/pip-sync $requirements | ts >> $logfile
-end
-
-# Add pyenv shims if this system supports it
-if type -q pyenv; and not set -q POETRY_ACTIVE; and begin
+    # Add pyenv shims if this system supports it
+    if type -q pyenv; and not set -q POETRY_ACTIVE; and begin
         # Always use pyenv for interactive shells
         # Allow pyenv for non-interactive (shell scripts) but skip vim non-interactive, invoked frequently from vim plugins
         status --is-interactive; or not set -q VIMRUNTIME
+        end
+
+        # Adds pyenv command and autocompletion
+        pyenv init --no-rehash - | source
+
+        # Auto-activates pyenv. This sets up env like normal virtualenv, sidestepping pyenv shim magic
+        pyenv virtualenv-init - | source
+
+        # Set pyenv PATH through fish_user_paths, which has higher precedence than raw PATH
+        fish_add_path (pyenv root)/shims
     end
-
-    # Adds pyenv command and autocompletion
-    pyenv init --no-rehash - | source
-
-    # Auto-activates pyenv. This sets up env like normal virtualenv, sidestepping pyenv shim magic
-    pyenv virtualenv-init - | source
-
-    # Set pyenv PATH through fish_user_paths, which has higher precedence than raw PATH
-    fish_add_path (pyenv root)/shims
 end
+
+main
