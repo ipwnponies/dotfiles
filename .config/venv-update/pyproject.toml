@@ -6,22 +6,22 @@ authors = ["John Nguyen <ipwnponies@gmail.com>"]
 package-mode = false
 
 [tool.poetry.dependencies]
-python = "^3.9"
-ipython = "^8.4.0"
-mycli = "^1.25.0"
+python = "^3.11"
+ipython = "^9.1.0"
+mycli = "^1.29.2"
 thefuck = "^3.32"
-visidata = "^2.9.1"
-vit = "^2.2.0"
-yamllint = "^1.27.1"
-ptpython = "^3.0.20"
-pyright = "^1.1.264"
+visidata = "^3.1.1"
+vit = "^2.3.3"
+yamllint = "^1.37.0"
+ptpython = "^3.0.29"
+pyright = "^1.1.399"
 termdown = "^1.18.0"
-ruff = "^0.11.2"
+ruff = "^0.11.5"
 
 [tool.poetry.group.dev.dependencies]
-flake8 = "^5.0.0"
+flake8 = "^7.2.0"
 powerline-status = "^2.7"
-pre-commit = "^2.20.0"
+pre-commit = "^4.2.0"
 pendulum = "^3.0.0"
 addict = "^2.4.0"
 rich = "^14.0.0"
