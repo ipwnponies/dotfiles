@@ -5,22 +5,17 @@ function main
     fish_add_path --global $venv/bin
 
     if status --is-login; and status --is-interactive; and type -q virtualenv;
-
-        set root "$XDG_CONFIG_HOME/venv-update/"
-        set requirements_bootstrap "$root/requirements-bootstrap.txt"
-        set logfile "$XDG_CACHE_HOME/venv-update/log"
-
-        mkdir -p (dirname $logfile)
-
         if not test -e $venv -a -d $venv
             echo "Creating virtualenv in $venv" >&2
             python3 -m venv $venv
-            $venv/bin/pip install --only-binary -r $requirements_bootstrap
         end
+
+        set logfile "$XDG_CACHE_HOME/venv-update/log"
+        mkdir -p (dirname $logfile)
 
         # Poetry will install into activated virtualenv. No other way to tell poetry to target a directory
         set -x VIRTUAL_ENV $venv
-        poetry install --project $root | ts >> $logfile
+        poetry install --project $XDG_CONFIG_HOME/venv-update/ | ts >> $logfile
     end
 
     # Add pyenv shims if this system supports it
