@@ -25,7 +25,6 @@ pre-commit = "^2.20.0"
 pendulum = "^3.0.0"
 addict = "^2.4.0"
 rich = "^14.0.0"
-pip-tools = "^7.4.1"
 pynvim = "^0.5.2"
 
 [tool.poetry.requires-plugins]
