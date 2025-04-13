@@ -81,6 +81,54 @@
         }
       }
     },
+    "fac@latest": {
+      "last_modified": "2025-03-11T17:52:14Z",
+      "resolved": "github:NixOS/nixpkgs/0d534853a55b5d02a4ababa1d71921ce8f0aee4c#fac",
+      "source": "devbox-search",
+      "version": "2.0.0-unstable-2023-12-29",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/3znw4gn500nb01g7fi96pjjgzxsqc1nb-fac-2.0.0-unstable-2023-12-29",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/3znw4gn500nb01g7fi96pjjgzxsqc1nb-fac-2.0.0-unstable-2023-12-29"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/5wy13f04s9b656i5nw8xkjvwz6yqi96p-fac-2.0.0-unstable-2023-12-29",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/5wy13f04s9b656i5nw8xkjvwz6yqi96p-fac-2.0.0-unstable-2023-12-29"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/6214mxyn50xzcz9mpdk3dm5wxra6l38q-fac-2.0.0-unstable-2023-12-29",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/6214mxyn50xzcz9mpdk3dm5wxra6l38q-fac-2.0.0-unstable-2023-12-29"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/nih80dkp01lg1a3x8l78x96c9wrlnahj-fac-2.0.0-unstable-2023-12-29",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/nih80dkp01lg1a3x8l78x96c9wrlnahj-fac-2.0.0-unstable-2023-12-29"
+        }
+      }
+    },
     "fd@latest": {
       "last_modified": "2023-11-17T14:14:56Z",
       "resolved": "github:NixOS/nixpkgs/a71323f68d4377d12c04a5410e214495ec598d4c#fd",
