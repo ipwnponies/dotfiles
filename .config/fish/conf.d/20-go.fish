@@ -3,5 +3,4 @@ fish_add_path --global $GOPATH/bin
 
 if status --is-login; and status --is-interactive; and type -q go
     type -q fac; or go get github.com/mkchoi212/fac
-    type -q gron; or go get github.com/tomnomnom/gron
 end
