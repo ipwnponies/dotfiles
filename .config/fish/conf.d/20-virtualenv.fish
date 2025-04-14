@@ -33,6 +33,10 @@ function main
 
         # Set pyenv PATH through fish_user_paths, which has higher precedence than raw PATH
         fish_add_path (pyenv root)/shims
+
+
+        set pyenv_virtualenv_plugin (pyenv root)/plugins/pyenv-virtualenv
+        test -d $pyenv_virtualenv_plugin; or git clone https://github.com/pyenv/pyenv-virtualenv.git $pyenv_virtualenv_plugin
     end
 end
 
