@@ -1,0 +1,12 @@
+[[match_err]]
+pattern = [
+             "this module is not yet installed",
+             "initialization required",
+             "required plugins are not installed",
+             "plugins are not installed",
+    ]
+suggest = [
+'''
+terraform init; and {{command}}
+'''
+]
