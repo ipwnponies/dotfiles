@@ -83,6 +83,7 @@
         Plug 'saadparwaiz1/cmp_luasnip'
         Plug 'github/copilot.vim', {'do': ':Copilot setup'}
         Plug 'CopilotC-Nvim/CopilotChat.nvim', { 'branch': 'canary' }
+        Plug 'kdheepak/lazygit.nvim'
     call plug#end()
 
 " Plugin Custom Configurations:
@@ -228,6 +229,10 @@
     " Vim Agriculture:
         vmap <leader>* <Plug>RgRawVisualSelection
         nmap <leader>* <Plug>RgRawWordUnderCursor
+
+    " Lazygit
+        nnoremap <leader>ll : LazyGitCurrentFile<CR>
+        nnoremap <leader>lc :LazyGitFilterCurrentFile<CR>
 
 " Insert Map:
     inoremap jk <esc>
