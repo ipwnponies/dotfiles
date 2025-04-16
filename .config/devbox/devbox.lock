@@ -609,6 +609,54 @@
         }
       }
     },
+    "pay-respects@latest": {
+      "last_modified": "2025-04-07T13:23:10Z",
+      "resolved": "github:NixOS/nixpkgs/b0b4b5f8f621bfe213b8b21694bab52ecfcbf30b#pay-respects",
+      "source": "devbox-search",
+      "version": "0.7.0",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/v296cmrhk9ibifd4fkd7gm2nrps5qgjg-pay-respects-0.7.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/v296cmrhk9ibifd4fkd7gm2nrps5qgjg-pay-respects-0.7.0"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/z026vi3jar062n5zpwnwkznj2k914kbl-pay-respects-0.7.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/z026vi3jar062n5zpwnwkznj2k914kbl-pay-respects-0.7.0"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/755s2455k0qivv9gxwixa6a7pmywr9n7-pay-respects-0.7.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/755s2455k0qivv9gxwixa6a7pmywr9n7-pay-respects-0.7.0"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/59lwgrm9ahg816n98f5bfrlrws0m2qxn-pay-respects-0.7.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/59lwgrm9ahg816n98f5bfrlrws0m2qxn-pay-respects-0.7.0"
+        }
+      }
+    },
     "poetry@latest": {
       "last_modified": "2025-03-22T01:19:59Z",
       "plugin_version": "0.0.4",
