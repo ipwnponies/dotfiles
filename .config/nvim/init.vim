@@ -52,7 +52,7 @@
         Plug 'junegunn/fzf.vim'
         Plug 'junegunn/vim-peekaboo'
         Plug 'haya14busa/vim-asterisk'
-        Plug 'easymotion/vim-easymotion'
+        Plug 'smoka7/hop.nvim', {'tag': 'v2.7.2'}
         Plug 'tpope/vim-unimpaired'
         Plug 'ipwnponies/vim-agriculture'
         Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
@@ -198,18 +198,15 @@
         let g:undotree_DiffCommand = 'diff -u'
         let g:undotree_ShortIndicators = 1
         let g:undotree_WindowLayout=2
-    " EasyMotion:
-        let g:EasyMotion_use_upper = 1
-        let g:EasyMotion_use_smartsign_us = 1
-        let g:EasyMotion_smartcase = 1
-        let g:EasyMotion_do_shade = 0
-        let g:EasyMotion_enter_jump_first = 1
-        let g:EasyMotion_keys = 'ASDGHKLQWERTYUIOPZXCVBNMFJ;'
-        map ; <Plug>(easymotion-prefix)
-        map S <Plug>(easymotion-sn)
-        map <Plug>(easymotion-prefix)/ <Plug>(easymotion-sn)
-        map <Plug>(easymotion-prefix)w <Plug>(easymotion-bd-w)
-        map <Plug>(easymotion-prefix)W <Plug>(easymotion-bd-W)
+    " Hop (replaces EasyMotion):
+        map ; <Plug>(hop-prefix)
+        map <Plug>(hop-prefix)/ <Cmd>HopPatternMW<CR>
+        map <Plug>(hop-prefix)w <Cmd>HopWordAC<CR>
+        map <Plug>(hop-prefix)W <Cmd>HopWordBC<CR>
+        map <Plug>(hop-prefix)c <Cmd>HopCamelCaseAC<CR>
+        map <Plug>(hop-prefix)C <Cmd>HopCamelCaseBC<CR>
+        map <Plug>(hop-prefix)f <Cmd>HopChar1<CR>
+        map <Plug>(hop-prefix)j <Cmd>HopLineStartMW<CR>
     " Vim Asterisk:
         let g:asterisk#keeppos = 1
         map *  <Plug>(is-nohl)<Plug>(asterisk-z*)
@@ -580,4 +577,6 @@ cmp.setup.cmdline({ '/', '?' }, {
   })
 require("CopilotChat").setup {
 }
+
+require'hop'.setup({uppercase_labels=true })
 EOF
