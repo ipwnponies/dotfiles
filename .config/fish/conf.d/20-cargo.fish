@@ -3,7 +3,7 @@ function main
     set -x CARGO_TARGET_DIR $XDG_CACHE_HOME/cargo
 
     fish_add_path $CARGO_INSTALL_ROOT/bin
-    cargo install pay-respects-module-runtime-rules
+    not type --query _pay-respects-module-100-runtime-rules; and cargo install pay-respects-module-runtime-rules
 end
 
 status --is-login; and main
