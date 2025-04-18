@@ -1,6 +1,7 @@
 {
   "packages": [
     "angle-grinder@latest",
+    "cargo@latest",
     "choose@latest",
     "entr@latest",
     "eza@latest",
