@@ -197,6 +197,54 @@
         }
       }
     },
+    "fswatch@latest": {
+      "last_modified": "2025-03-11T17:52:14Z",
+      "resolved": "github:NixOS/nixpkgs/0d534853a55b5d02a4ababa1d71921ce8f0aee4c#fswatch",
+      "source": "devbox-search",
+      "version": "1.18.3",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/lsvqyc6q24vxjzkr4wyf6mnd5q9f1ks6-fswatch-1.18.3",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/lsvqyc6q24vxjzkr4wyf6mnd5q9f1ks6-fswatch-1.18.3"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/asyjj7yxjcmdkwlm6qh2ynbwxr37w9l4-fswatch-1.18.3",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/asyjj7yxjcmdkwlm6qh2ynbwxr37w9l4-fswatch-1.18.3"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/k7zz41gvqpb4hn8lq2n7w4pp4hql3m7d-fswatch-1.18.3",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/k7zz41gvqpb4hn8lq2n7w4pp4hql3m7d-fswatch-1.18.3"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/0v7rkygj3xjhd6qq2vnp5hjwrhr14mpw-fswatch-1.18.3",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/0v7rkygj3xjhd6qq2vnp5hjwrhr14mpw-fswatch-1.18.3"
+        }
+      }
+    },
     "github:NixOS/nixpkgs/nixpkgs-unstable": {
       "resolved": "github:NixOS/nixpkgs/632f04521e847173c54fa72973ec6c39a371211c?lastModified=1739863612&narHash=sha256-UbtgxplOhFcyjBcNbTVO8%2BHUHAl%2FWXFDOb6LvqShiZo%3D"
     },
