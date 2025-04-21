@@ -1,0 +1,13 @@
+# git br -d
+[[match_err]]
+pattern = [
+    "If you are sure you want to delete it",
+]
+suggest = [
+    '''
+    #[cmd_contains("br\b[^-]*-d")]
+    {{command}} -D
+    #[cmd_contains(git\s+br\s[^-]*-d)]
+    git br -D {{command[3:]}}
+    '''
+]
