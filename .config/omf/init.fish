@@ -3,7 +3,10 @@ set -gx _Z_DATA $XDG_CACHE_HOME/z_datafile
 
 # plugin-expand
 begin
-    expand-word -p '^!$' -e 'history'
+    # This gets eval by plugin-expand, so we need to add an additional layer of shell escaping
+    set -g commandline_multiword "(\\'|\")"
+
+    expand-word -p "^!$commandline_multiword?" --expander '_expand__history_multiword'
 
     # Bash's ^foo^bar^ substitution. Supports sed syntax command
     expand-word -p '^s(.)..*\1.*$' -e '_expand_sed_history'
@@ -16,6 +19,16 @@ begin
         test (count (string match --all $delimiter $sed_command) -gt 2); and set sed_command $sed_command$delimiter'g'
 
         history search --max 5 $search_term | sed -e $sed_command
+    end
+
+    function _expand__history_multiword
+        set query (commandline -t)
+        # Remove leading '!'
+        set query (string replace --regex '^!' '' $query)
+        # Remove optional leading quote for multiword query
+        set query (string replace --regex "^('|\")?(.*)\$" '$2' $query)
+
+        history $query
     end
 
     # Git merge expansion
