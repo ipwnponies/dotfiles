@@ -1,16 +1,12 @@
 function main
-    set omf_conf $XDG_DATA_HOME/omf/
-
-    if test -d $omf_conf
+    if test -d $OMF_PATH
         # Load Oh My Fish configuration.
-        source $omf_conf/init.fish
+        source $OMF_PATH/init.fish
     end
 
 end
 
 function install
-    set omf_conf $XDG_DATA_HOME/omf/
-
     function is_expired
         set file $argv[1]
         test -f $file; or return
@@ -23,7 +19,7 @@ function install
         test (math $current_time - $file_age) -gt $ttl
     end
 
-    if test -d $omf_conf
+    if test -d $OMF_PATH
         set bundle $XDG_CONFIG_HOME/omf/bundle
 
         # This can introduce issues wth newly installed packages They won't work correctly until the next shell
@@ -41,6 +37,8 @@ function install
         omf reload
     end
 end
+
+set OMF_PATH $XDG_DATA_HOME/omf/
 
 status --is-interactive; and main
 status --is-login; and status --is-interactive; and install
