@@ -12,7 +12,7 @@ function main
     end
 
     # Add devbox to PATH
-    set generated_config $XDG_CONFIG_HOME/fish/conf.d/10-devbox-generated_local.fish
+    set generated_config $XDG_CONFIG_HOME/fish/conf.d/11-devbox-generated_local.fish
 
     if is_expired $generated_config
         echo 'Regenerating devbox config'
