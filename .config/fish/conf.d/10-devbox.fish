@@ -1,14 +1,16 @@
 function main
 
     function is_expired
+        set file $argv[1]
+        test -f $file; or return
+
         # Expire dynamic generations after a week
         set ttl (math '60*60*24*7') # 1 week
-        set file $argv[1]
 
-        set file_age (stat -c %Y $file)
         set current_time (date +%s)
+        set file_age (stat -c %Y $file; or echo 0)
 
-        test ! -f $file; or test (math $current_time - $file_age) -gt $ttl
+        test (math $current_time - $file_age) -gt $ttl
     end
 
     # Add devbox to PATH

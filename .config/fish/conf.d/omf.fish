@@ -12,14 +12,15 @@ function install
     set omf_conf $XDG_DATA_HOME/omf/
 
     function is_expired
+        set file $argv[1]
+        test -f $file; or return
         # Expire dynamic generations after a week
         set ttl (math '60*60*24*7') # 1 week
-        set file $argv[1]
 
         set file_age (stat -c %Y $file)
         set current_time (date +%s)
 
-        test ! -f $file; or test (math $current_time - $file_age) -gt $ttl
+        test (math $current_time - $file_age) -gt $ttl
     end
 
     if test -d $omf_conf
