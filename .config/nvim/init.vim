@@ -115,7 +115,7 @@
 
     " GitGutter: Git status while editing files
         set updatetime=250
-        if exists('&signcolumn') | set signcolumn=yes | endif
+        set signcolumn=yes
     " Vim Fugitive: Git operations in vim
         nnoremap <leader>gs :Gstatus<CR>
         nnoremap <leader>gg :Ggrep! -iP <cword>
