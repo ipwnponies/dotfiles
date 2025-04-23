@@ -420,6 +420,9 @@ require("fidget").setup {
   -- options
 }
 
+local hop = require 'hop'
+hop.setup({uppercase_labels=true })
+
 mason_lspconfig_on_attach = function(client, bufnr)
     local illuminate = require 'illuminate'
       illuminate.on_attach(client)
