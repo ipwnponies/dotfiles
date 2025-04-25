@@ -13,12 +13,13 @@ function main
         test (math $current_time - $file_age) -gt $ttl
     end
 
-    # Add devbox to PATH
     set generated_config $XDG_CONFIG_HOME/fish/conf.d/11-devbox-generated_local.fish
+    # This should have high priority: it only sets variables and this allows later configs to update stale values
 
     if is_expired $generated_config
         echo 'Regenerating devbox config'
-        devbox global shellenv > $generated_config
+        # Pre-generates env vars that adds devbox to PATH
+        devbox global shellenv --pure > $generated_config
     end
 
     # Vendor completions
