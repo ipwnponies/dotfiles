@@ -26,7 +26,7 @@ if status --is-interactive
 
     if status --is-login
         if test -d ~/.git
-            fish -c '
+            fish --no-config -c '
                 cd $HOME
                 git fetch
 
