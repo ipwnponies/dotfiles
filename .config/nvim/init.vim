@@ -356,7 +356,6 @@
     " Misc
     set pastetoggle=<f2>
     set hidden
-    set backspace=2
     set modeline
     set mouse=a
 
