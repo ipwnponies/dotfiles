@@ -20,6 +20,7 @@ function main
         echo 'Regenerating devbox config'
         # Pre-generates env vars that adds devbox to PATH
         devbox global shellenv > $generated_config
+        exec fish
     end
 
     # Vendor completions
