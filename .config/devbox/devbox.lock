@@ -197,6 +197,54 @@
         }
       }
     },
+    "fish-lsp@latest": {
+      "last_modified": "2025-03-19T14:38:57Z",
+      "resolved": "github:NixOS/nixpkgs/2a725d40de138714db4872dc7405d86457aa17ad#fish-lsp",
+      "source": "devbox-search",
+      "version": "1.0.8-4",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/y62f786r45ddgcn0xsyb4vjwxps2048p-fish-lsp-1.0.8-4",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/y62f786r45ddgcn0xsyb4vjwxps2048p-fish-lsp-1.0.8-4"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/1zfiirs0b06ngvah5g3523jjb15nmkpx-fish-lsp-1.0.8-4",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/1zfiirs0b06ngvah5g3523jjb15nmkpx-fish-lsp-1.0.8-4"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/25i34xc1kb6wi5s18lcrbn2rljn5s3xh-fish-lsp-1.0.8-4",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/25i34xc1kb6wi5s18lcrbn2rljn5s3xh-fish-lsp-1.0.8-4"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/8158vna02caqdjbngnn47aakxsc2z1l5-fish-lsp-1.0.8-4",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/8158vna02caqdjbngnn47aakxsc2z1l5-fish-lsp-1.0.8-4"
+        }
+      }
+    },
     "fswatch@latest": {
       "last_modified": "2025-03-11T17:52:14Z",
       "resolved": "github:NixOS/nixpkgs/0d534853a55b5d02a4ababa1d71921ce8f0aee4c#fswatch",
