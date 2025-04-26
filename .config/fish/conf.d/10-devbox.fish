@@ -2,7 +2,7 @@ function main
 
     function is_expired
         set file $argv[1]
-        test -f $file; or return
+        test -f $file; or return 0
 
         # Expire dynamic generations after a week
         set ttl (math '60*60*24*7') # 1 week
