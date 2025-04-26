@@ -19,7 +19,7 @@ function main
     if is_expired $generated_config
         echo 'Regenerating devbox config'
         # Pre-generates env vars that adds devbox to PATH
-        devbox global shellenv --pure > $generated_config
+        devbox global shellenv > $generated_config
     end
 
     # Vendor completions
