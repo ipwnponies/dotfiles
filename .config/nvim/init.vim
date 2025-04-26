@@ -237,12 +237,16 @@
         nnoremap <leader>ll : LazyGitCurrentFile<CR>
         nnoremap <leader>lc :LazyGitFilterCurrentFile<CR>
 
+    " CopilotChat
+        " Github copilot suggestions
+        inoremap <silent><script><expr> <m-l> copilot#Accept("\<CR>")
+        map <leader>cc :CopilotChat<cr>
+        map <leader>cf :CopilotChatFix<cr>
+
 " Insert Map:
     inoremap jk <esc>
     " Auto-correct while typing
     inoremap <c-l> <c-g>u<esc>[s1z=`]a<c-g>u
-    " Github copilot suggestions
-    inoremap <silent><script><expr> <m-l> copilot#Accept("\<CR>")
 
     iabbrev todo: TODO(TICKET):
 
