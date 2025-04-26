@@ -84,6 +84,9 @@
         Plug 'github/copilot.vim', {'do': ':Copilot setup'}
         Plug 'CopilotC-Nvim/CopilotChat.nvim', { 'branch': 'canary' }
         Plug 'kdheepak/lazygit.nvim'
+
+        " Misc
+        Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } } " Firefox plugin to integrate neovim
     call plug#end()
 
 " Plugin Custom Configurations:
@@ -587,4 +590,60 @@ require("CopilotChat").setup {
 }
 
 require'hop'.setup({uppercase_labels=true })
+
+vim.g.firenvim_config = {
+    localSettings = {
+        [".*"] = {
+            selector = "textarea, input",
+            takeover = "never"
+        }
+    }
+}
+
+function SetupFirenvim()
+    -- Only for firenvim browser extension
+    -- This minimizes the UI due to limited real estate
+
+    if not vim.g.started_by_firenvim then
+      return
+    end
+
+    vim.opt.guifont = "FiraCode_Nerd_Font_Mono:h8"
+    vim.w.airline_disable_statusline = 1
+    vim.opt.laststatus = 0
+    vim.opt.showtabline = 0
+    vim.opt.number = false
+    vim.opt.cursorline = false
+    vim.opt.signcolumn = "no"
+
+    local id = vim.api.nvim_create_augroup("ExpandLinesOnTextChanged", { clear = true })
+    vim.api.nvim_create_autocmd({"TextChanged", "TextChangedI"}, {
+      group = id,
+      callback = function(ev)
+        local max_height = 40
+
+        -- To avoid constant jitters, we only contract when the content is much smaller than window
+        -- As we get to single-digit line count, this is effectively 1:1 between content and window
+        local shrink = {
+            threshold = 0.7, -- Avoids constant jitters
+            buffer = 0.9, -- Shrink such that content is 90% of height
+        }
+        local height = vim.api.nvim_win_text_height(0, {}).all
+
+        if height > vim.o.lines and height < max_height then
+          vim.o.lines = height
+        elseif height < vim.o.lines * shrink.threshold  then
+          -- Shrink with hysteresis
+          vim.o.lines = math.floor(height / shrink.buffer)
+        end
+      end
+    })
+end
+
+vim.api.nvim_create_autocmd({ "UIEnter", "FileType" }, {
+  pattern = "text",
+  callback = function()
+    SetupFirenvim()
+  end,
+})
 EOF

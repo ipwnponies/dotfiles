@@ -83,6 +83,10 @@ set hintnames numeric
 " Restore native find
 unbind <c-f>
 
+" Unbind editor command, will be used by firenvim extension
+unbind --mode=insert <c-i>
+unbind --mode=normal <c-i>
+
 " Allow space in hint filtering
 unbind --mode=hint <Space>
 
