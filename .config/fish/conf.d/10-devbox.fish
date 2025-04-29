@@ -13,8 +13,9 @@ function main
         test (math $current_time - $file_age) -gt $ttl
     end
 
-    set generated_config $XDG_CONFIG_HOME/fish/conf.d/11-devbox-generated_local.fish
-    # This should have high priority: it only sets variables and this allows later configs to update stale values
+    # This config only sets env vars and should be sourced first
+    # This allows later configs to update stale values
+    set generated_config $XDG_CONFIG_HOME/fish/conf.d/00-devbox-generated_local.fish
 
     if is_expired $generated_config
         echo 'Regenerating devbox config'
