@@ -9,17 +9,12 @@ set -x XDG_STATE_HOME $HOME/.local/state
 fish_add_path --prepend --global $HOME/bin
 
 set -x RIPGREP_CONFIG_PATH "$XDG_CONFIG_HOME/ripgrep/rc"
+set -x EDITOR nvim
 
 if status --is-interactive
 
     # Set less arguments so they will be applied when used as pager
     set -x LESS '--no-init --RAW-CONTROL-CHARS --ignore-case --LONG-PROMPT --hilite-unread --window=-4'
-
-    if type -q nvim
-        set -x EDITOR nvim
-    else
-        set -x EDITOR vim
-    end
 
     # Show entire dir name for pwd
     set -x fish_prompt_pwd_dir_length 0
