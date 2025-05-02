@@ -83,6 +83,7 @@
 [rebase]
     autoSquash = true
     autoStash = true
+    updateRefs = true
 [core]
     pager = delta
     autocrlf = input
