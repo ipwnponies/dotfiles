@@ -9,11 +9,22 @@ git:
   branchLogCmd: "git hist {{branchName}} --max-count 40 --"
 promptToReturnFromSubprocess: false
 customCommands:
-  - &push
-    description: Push (override)
+  - description: Push (override)
     key: 'P'
-    command: git pu --verbose
-    context: files
+    command: git {{.Form.push}} --verbose
+    context: files, commits
     loadingText: Reticulating splines...
     stream: false
     showOutput: true
+    prompts:
+      - type: 'menu'
+        title: 'How to push?'
+        key: push
+        options:
+          - value: 'push'
+          - value: 'push --force-with-lease'
+            description: Who needs history anyways?
+          - value: 'push --no-verify'
+            description: Pre-commit hooks slow as shit? No worries, i got you
+          - value: 'push --no-verify --force-with-lease'
+            description: just do it
