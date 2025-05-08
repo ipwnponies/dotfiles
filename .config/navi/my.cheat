@@ -40,6 +40,8 @@ pbpaste | vipe | jq --raw-input --raw-output --slurp @uri | pbcopy
 # Escape upper case in url with hex unicode escapes
 python -c "print(''.join(fr'\x{i.encode().hex()}' if i.isupper() else i for i in '<url>'))"
 
+$ url: pbpaste --- --fzf-overrides "--no-select-1"
+
 % ffmpeg
 
 # Trim start of video
