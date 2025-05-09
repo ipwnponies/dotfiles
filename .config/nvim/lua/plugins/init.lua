@@ -1,2 +1,69 @@
 return {
+  -- Git plugins
+    { "junegunn/gv.vim" },
+    {'airblade/vim-gitgutter'},
+    {'tpope/vim-fugitive'},
+    {'ruanyl/vim-gh-line'},
+
+    -- Lang-specific
+    { 'w0rp/ale' },
+    { 'sheerun/vim-polyglot' },
+    { 'voithos/vim-python-matchit' },
+
+    -- Editing
+    { 'tpope/vim-commentary' },
+    { 'machakann/vim-sandwich' },
+    { 'tpope/vim-sensible' },
+    { 'tpope/vim-endwise' },
+    { 'Yggdroot/indentLine' },
+    { 'junegunn/vim-easy-align' },
+    { 'AndrewRadev/sideways.vim' },
+    { 'AndrewRadev/splitjoin.vim' },
+    { 'michaeljsmith/vim-indent-object' },
+    { 'jeetsukumaran/vim-indentwise' },
+    { 'mattn/vim-xxdcursor' },
+    { 'tpope/vim-sleuth' },
+
+    -- Usability
+    { 'scrooloose/nerdtree', cmd = { 'NERDTree', 'NERDTreeFind' } },
+    { 'mbbill/undotree', cmd = 'UndotreeToggle' },
+    { 'junegunn/fzf', build = './install --all', dir = vim.fn.expand('~/.local/share/fzf') },
+    { 'junegunn/fzf.vim' },
+    { 'junegunn/vim-peekaboo' },
+    { 'haya14busa/vim-asterisk' },
+    { 'smoka7/hop.nvim', version = 'v2.7.2' },
+    { 'tpope/vim-unimpaired' },
+    { 'ipwnponies/vim-agriculture' },
+    { 'nvim-telescope/telescope.nvim', branch = '0.1.x' },
+
+    -- Pretty
+    { 'vim-airline/vim-airline' },
+    { 'sainnhe/sonokai' },
+    { 'haya14busa/is.vim' },
+    { 'RRethy/vim-illuminate' },
+    { 'ryanoasis/vim-devicons' },
+
+    -- IDE
+    { 'neovim/nvim-lspconfig' },
+    { 'gfanto/fzf-lsp.nvim' },
+    { 'nvim-lua/plenary.nvim' }, -- Dependency of fzf-lsp
+    { 'williamboman/mason.nvim' },
+    { 'williamboman/mason-lspconfig.nvim' },
+    { 'j-hui/fidget.nvim' },
+    { 'folke/neodev.nvim' }, -- Deprecated in favor of lazydev.nvim (requires neovim>=0.10)
+    { 'hrsh7th/nvim-cmp' },
+    { 'hrsh7th/cmp-nvim-lsp' },
+    { 'hrsh7th/cmp-buffer' },
+    { 'hrsh7th/cmp-cmdline' },
+    { 'hrsh7th/cmp-nvim-lsp-document-symbol' },
+    { 'hrsh7th/cmp-nvim-lsp-signature-help' },
+    { 'rafamadriz/friendly-snippets' },
+    { 'L3MON4D3/LuaSnip' },
+    { 'saadparwaiz1/cmp_luasnip' },
+    { 'github/copilot.vim', build = ':Copilot setup' },
+    { 'CopilotC-Nvim/CopilotChat.nvim', branch = 'canary' },
+    { 'kdheepak/lazygit.nvim' },
+
+    -- Misc
+    { 'glacambre/firenvim', build = function() vim.fn['firenvim#install'](0) end }, -- Firefox plugin to integrate Neovim
 }
