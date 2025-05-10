@@ -98,6 +98,7 @@
                     \ 'markdown': ['prettier' ],
                     \ 'python': ['black', 'isort', 'ruff', 'ruff_format'],
                     \ 'terraform': ['terraform'],
+                    \ 'lua': ['stylua'],
                     \ '*': ['remove_trailing_lines', 'trim_whitespace']
                     \ }
         let g:ale_linters_ignore = {'python': ['bar'], 'javascript': [ 'tsserver'], '*': ['remove_trailing_lines', 'trim_whitespace']}
