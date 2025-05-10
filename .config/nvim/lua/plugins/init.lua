@@ -47,8 +47,6 @@ return {
     { 'neovim/nvim-lspconfig' },
     { 'gfanto/fzf-lsp.nvim' },
     { 'nvim-lua/plenary.nvim' }, -- Dependency of fzf-lsp
-    { 'williamboman/mason.nvim' },
-    { 'williamboman/mason-lspconfig.nvim' },
     { 'j-hui/fidget.nvim' },
     { 'folke/neodev.nvim' }, -- Deprecated in favor of lazydev.nvim (requires neovim>=0.10)
     { 'hrsh7th/nvim-cmp' },
