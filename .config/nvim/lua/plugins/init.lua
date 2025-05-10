@@ -60,8 +60,6 @@ return {
     { 'rafamadriz/friendly-snippets' },
     { 'L3MON4D3/LuaSnip' },
     { 'saadparwaiz1/cmp_luasnip' },
-    { 'github/copilot.vim', build = ':Copilot setup' },
-    { 'CopilotC-Nvim/CopilotChat.nvim', branch = 'canary' },
     { 'kdheepak/lazygit.nvim' },
 
     -- Misc

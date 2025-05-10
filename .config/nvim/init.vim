@@ -503,9 +503,6 @@ cmp.setup.cmdline({ '/', '?' }, {
       { name = "buffer", keyword_length = 3, max_item_count = 5 },
     }),
   })
-require("CopilotChat").setup {
-}
-
 require'hop'.setup({uppercase_labels=true })
 
 vim.g.firenvim_config = {
