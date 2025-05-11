@@ -49,6 +49,10 @@ return {
 			nmap({ keys = "gt", func = "<cmd>Telescope lsp_type_definitions<CR>", desc = "[G]oto [T]ype Definitions" })
 
 
+			vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
+				vim.lsp.buf.format()
+			end, { desc = "Format current buffer with LSP" })
+
 			nmap({
 				keys = "]d",
 				func = function()
