@@ -44,13 +44,10 @@ return {
     { 'ryanoasis/vim-devicons' },
 
     -- IDE
-    { 'neovim/nvim-lspconfig' },
     { 'gfanto/fzf-lsp.nvim' },
     { 'nvim-lua/plenary.nvim' }, -- Dependency of fzf-lsp
     { 'j-hui/fidget.nvim' },
-    { 'folke/neodev.nvim' }, -- Deprecated in favor of lazydev.nvim (requires neovim>=0.10)
     { 'hrsh7th/nvim-cmp' },
-    { 'hrsh7th/cmp-nvim-lsp' },
     { 'hrsh7th/cmp-buffer' },
     { 'hrsh7th/cmp-cmdline' },
     { 'hrsh7th/cmp-nvim-lsp-document-symbol' },
