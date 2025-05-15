@@ -88,5 +88,9 @@ return {
 				})
 			end,
 		})
+
+		lspconfig.fish_lsp.setup({
+			on_attach = mason_lspconfig_on_attach,
+		})
 	end,
 }
