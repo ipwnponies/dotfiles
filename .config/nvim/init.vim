@@ -157,6 +157,7 @@
         " Github copilot suggestions
         inoremap <silent><script><expr> <m-l> copilot#Accept("\<CR>")
         map <leader>cc :CopilotChat<cr>
+        map <leader>ce :CopilotChatExplain<cr>
         map <leader>cf :CopilotChatFix<cr>
 
 " Insert Map:
