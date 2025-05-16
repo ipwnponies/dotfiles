@@ -48,6 +48,27 @@ return {
 			nmap({ keys = "gI", func = vim.lsp.buf.implementation, desc = "[G]oto [I]mplementation" })
 			nmap({ keys = "gt", func = "<cmd>Telescope lsp_type_definitions<CR>", desc = "[G]oto [T]ype Definitions" })
 
+			nmap({
+				keys = "<leader>D",
+				func = "<cmd>Telescope diagnostics bufnr=0<CR>",
+				desc = "Show Buffer [D]iagnostics",
+			})
+			nmap({ keys = "<leader>d", func = vim.diagnostic.open_float, desc = "Show Line [D]iagnostics" })
+			nmap({ keys = "[D", func = vim.diagnostic.goto_prev, desc = "Go to previous [d]iagnostic" })
+			nmap({ keys = "]D", func = vim.diagnostic.goto_next, desc = "Go to next [d]diagnostic" })
+
+			nmap({
+				keys = "<leader>ds",
+				func = require("telescope.builtin").lsp_document_symbols,
+				desc = "[D]ocument [S]ymbols",
+			})
+			nmap({
+				keys = "<leader>ws",
+				func = require("telescope.builtin").lsp_dynamic_workspace_symbols,
+				desc = "[W]orkspace [S]ymbols",
+			})
+			nmap({ keys = "K", func = vim.lsp.buf.hover, desc = "Hover Documentation" })
+			nmap({ keys = "<leader>k", func = vim.lsp.buf.signature_help, desc = "Signature Documentation" })
 
 			vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
 				vim.lsp.buf.format()
