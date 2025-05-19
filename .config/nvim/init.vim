@@ -6,31 +6,6 @@
 
 " Plugin Custom Configurations:
 
-    " fzf-lsp.nvim
-        nmap gl :LspAction<cr>
-
-        " Add missing LSP command to fzf-lsp
-        command Rename lua vim.lsp.buf.rename()
-        command LspAction call s:LspAction()
-
-        function s:LspAction()
-            call fzf#run( fzf#wrap( {
-                        \ 'source': ['Definition', 'References', 'Declaration', 'TypeDefinition', 'Implementation', 'hover', 'signature_help', 'code_action', 'formatting', 'execute_command', 'workspace_symbol', 'document_symbol', 'rename'],
-                        \ 'sink': {i -> s:executeLua(i)},
-                        \ }))
-        endfunction
-
-        function s:executeLua(action)
-            " Feed certain actions to fzf-lsp.vim
-            let fzf_lsp_action = ['Definition', 'References', 'Declaration', 'TypeDefinition', 'Implementation']
-
-            if fzf_lsp_action->index(a:action) >= 0
-                execute a:action
-            else
-                execute 'lua vim.lsp.buf.' . a:action . '()'
-            endif
-        endfunction
-
     " GitGutter: Git status while editing files
         set updatetime=250
         set signcolumn=yes

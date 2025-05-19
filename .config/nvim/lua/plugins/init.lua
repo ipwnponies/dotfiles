@@ -43,8 +43,6 @@ return {
 	{ "ryanoasis/vim-devicons" },
 
 	-- IDE
-	{ "gfanto/fzf-lsp.nvim" },
-	{ "nvim-lua/plenary.nvim" }, -- Dependency of fzf-lsp
 	{ "j-hui/fidget.nvim" },
 	{ "hrsh7th/nvim-cmp" },
 	{ "hrsh7th/cmp-buffer" },

@@ -1,4 +1,5 @@
 return {
+	{
 	"neovim/nvim-lspconfig",
 	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
@@ -114,4 +115,52 @@ return {
 			on_attach = mason_lspconfig_on_attach,
 		})
 	end,
+	},
+	{
+		"gfanto/fzf-lsp.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		event = "LspAttach",
+		config = function()
+			local function executeLua(action)
+				local fzf_lsp_action = {
+					Definition = true,
+					References = true,
+					Declaration = true,
+					TypeDefinition = true,
+					Implementation = true,
+				}
+				if fzf_lsp_action[action] then
+					vim.cmd(action)
+				else
+					local ok, _ = pcall(vim.lsp.buf[action])
+					if not ok then
+						vim.api.nvim_err_writeln("Invalid LSP action: " .. action)
+					end
+				end
+			end
+			function LspAction()
+				local actions = {
+					"Definitio",
+					"References",
+					"Declaration",
+					"TypeDefinition",
+					"Implementation",
+					"hover",
+					"signature_help",
+					"code_action",
+					"formatting",
+					"execute_command",
+					"workspace_symbol",
+					"document_symbol",
+					"rename",
+				}
+				vim.fn["fzf#run"](vim.fn["fzf#wrap"]({
+					source = actions,
+					sink = executeLua,
+				}))
+			end
+			vim.api.nvim_buf_create_user_command(0, "LspAction", LspAction, {})
+			vim.keymap.set("n", "gl", LspAction, { noremap = true, silent = true })
+		end,
+	},
 }
