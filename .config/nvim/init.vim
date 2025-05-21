@@ -24,17 +24,9 @@
         let g:indentLine_concealcursor='c'
     " VimAirline:
         let g:airline#extensions#tabline#enabled = 1
-    " NerdTree:
-        nnoremap <leader>n :NERDTree<CR>
-        nnoremap <leader>nf :NERDTreeFind<CR>
-        let NERDTreeMapOpenVSplit='v'
-        let NERDTreeMapOpenSplit='s'
-        let NERDTreeQuitOnOpen=1
     " Fzf:
-        nnoremap <leader>fb :Buffers<CR>
         nnoremap <leader>ff :FZF<CR>
         nnoremap <leader>fg :GFiles<CR>
-        nnoremap <leader>fG :GFiles?<CR>
         nnoremap <leader>fl :Lines<CR>
         nnoremap <leader>/ :BLines<CR>
         nnoremap <leader>fc :Commands<CR>

@@ -25,7 +25,6 @@ return {
 	{ "tpope/vim-sleuth" },
 
 	-- Usability
-	{ "scrooloose/nerdtree", cmd = { "NERDTree", "NERDTreeFind" } },
 	{ "mbbill/undotree", cmd = "UndotreeToggle" },
 	{ "junegunn/fzf", build = "./install --all", dir = vim.fn.expand("~/.local/share/fzf") },
 	{ "junegunn/fzf.vim" },
@@ -40,7 +39,6 @@ return {
 	{ "vim-airline/vim-airline" },
 	{ "sainnhe/sonokai" },
 	{ "haya14busa/is.vim" },
-	{ "ryanoasis/vim-devicons" },
 
 	-- IDE
 	{ "j-hui/fidget.nvim" },
