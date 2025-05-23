@@ -85,8 +85,6 @@ return {
 					desc = "Show Buffer [D]iagnostics",
 				})
 				nmap({ keys = "<leader>d", func = vim.diagnostic.open_float, desc = "Show Line [D]iagnostics" })
-				nmap({ keys = "[D", func = vim.diagnostic.goto_prev, desc = "Go to previous [d]iagnostic" })
-				nmap({ keys = "]D", func = vim.diagnostic.goto_next, desc = "Go to next [d]diagnostic" })
 
 				nmap({
 					keys = "<leader>ds",
