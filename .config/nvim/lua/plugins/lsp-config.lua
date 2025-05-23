@@ -1,12 +1,36 @@
 return {
 	{
+		"RRethy/vim-illuminate",
+		event = "LspAttach",
+		keys = {
+			{
+				"[r",
+				function()
+					require("illuminate").goto_prev_reference(false)
+				end,
+				desc = "Previous Reference",
+			},
+			{
+				"]r",
+				function()
+					require("illuminate").goto_next_reference(false)
+				end,
+				desc = "Next Reference",
+			},
+		},
+		config = function()
+			vim.api.nvim_set_hl(0, "IlluminatedWordText", { underline = true })
+			vim.api.nvim_set_hl(0, "IlluminatedWordRead", { underline = true, bg = "#2c4070" })
+			vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { underline = true, bg = "salmon" })
+		end,
+	},
+	{
 		"neovim/nvim-lspconfig",
 		event = { "BufReadPre", "BufNewFile" },
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
-			"RRethy/vim-illuminate",
 			{ "antosha417/nvim-lsp-file-operations", config = true },
-			{ "folke/neodev.nvim",                   opts = {} }, -- deprecated for lazydev
+			{ "folke/neodev.nvim", opts = {} }, -- deprecated for lazydev
 		},
 		config = function()
 			-- import lspconfig plugin
@@ -19,9 +43,6 @@ return {
 			local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
 			local mason_lspconfig_on_attach = function(client, bufnr)
-				local illuminate = require("illuminate")
-				illuminate.on_attach(client)
-
 				local nmap = function(opts)
 					opts = opts or {}
 					local keys = opts.keys
@@ -91,21 +112,6 @@ return {
 					local taco = jump_regex.regex_by_case_searching(regex, false, hop.opts)
 					hop.hint_with_regex(taco, hop.opts)
 				end, { desc = "Hop python" })
-
-				nmap({
-					keys = "]d",
-					func = function()
-						require("illuminate").next_reference({ wrap = true })
-					end,
-					desc = "Next Reference",
-				})
-				nmap({
-					keys = "[d",
-					func = function()
-						require("illuminate").next_reference({ reverse = true, wrap = true })
-					end,
-					desc = "Previous Reference",
-				})
 			end
 
 			-- used to enable autocompletion (assign to every lsp server config)
