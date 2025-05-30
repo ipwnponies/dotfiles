@@ -18,6 +18,7 @@
     "lazydocker@latest",
     "lazygit@latest",
     "litecli@latest",
+    "moreutils@latest",
     "navi@latest",
     "neovim@latest",
     "nodejs@latest",
