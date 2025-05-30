@@ -9,6 +9,7 @@
     "fd@latest",
     "fish-lsp@latest",
     "fswatch@latest",
+    "fzf@latest",
     "go@latest",
     "gron@latest",
     "http-prompt@latest",

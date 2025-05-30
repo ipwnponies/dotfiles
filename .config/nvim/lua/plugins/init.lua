@@ -25,8 +25,12 @@ return {
 
 	-- Usability
 	{ "mbbill/undotree", cmd = "UndotreeToggle" },
-	{ "junegunn/fzf", build = "./install --all", dir = vim.fn.expand("~/.local/share/fzf") },
-	{ "junegunn/fzf.vim" },
+	{
+		"junegunn/fzf.vim",
+		dependencies = {
+			"junegunn/fzf",
+		},
+	},
 	{ "junegunn/vim-peekaboo" },
 	{ "haya14busa/vim-asterisk" },
 	{ "smoka7/hop.nvim", version = "v2.7.2" },
