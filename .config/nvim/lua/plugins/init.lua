@@ -7,7 +7,6 @@ return {
 
 	-- Lang-specific
 	{ "w0rp/ale" },
-	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
 	{ "voithos/vim-python-matchit" },
 
 	-- Editing
