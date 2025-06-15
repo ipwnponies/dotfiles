@@ -12,7 +12,8 @@
     " Vim Fugitive: Git operations in vim
         nnoremap <leader>gs :Gstatus<CR>
         nnoremap <leader>gg :Ggrep! -iP <cword>
-        nnoremap <leader>gB :Git blame<cr>
+        noremap <leader>gb :Git blame<cr>
+        noremap  <leader>gB <Plug>(gh-line-blame)
         cabbrev Glgrep Glgrep -i
         cabbrev Ggrep Ggrep -i
         cabbrev Gdiffsplit Gdiffsplit @{u}...
