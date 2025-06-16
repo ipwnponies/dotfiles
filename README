@@ -1,11 +1,8 @@
 Quick setup: (copy-paste to terminal)
 
-    tmp_dir=$(mktemp -d)
-    git clone --no-checkout https://github.com/ipwnponies/dotfiles.git ${tmp_dir}
-    mv ${tmp_dir}/.git .
-    git checkout  -f
-    git submodule update --init
-
-
-Install a vim plugin:
-    Use vim-plug and add via .vimrc
+```
+git init
+git remote add origin https://github.com/ipwnponies/dotfiles.git
+git fetch origin
+git switch --create main
+```
