@@ -16,6 +16,7 @@ return {
 			"nvim-lua/plenary.nvim",
 			"nvim-tree/nvim-web-devicons",
 			"MunifTanjim/nui.nvim",
+			"stevearc/oil.nvim",
 			{
 				"s1n7ax/nvim-window-picker", -- for open_with_window_picker keymaps
 				version = "2.*",
@@ -37,7 +38,8 @@ return {
 			},
 		},
 		lazy = false,
-		opts = {
+		config = function()
+			require("neo-tree").setup({
 			close_if_last_window = false,
 			popup_border_style = "NC",
 			enable_git_status = true,
@@ -180,7 +182,12 @@ return {
 					["<"] = "prev_source",
 					[">"] = "next_source",
 					["i"] = "show_file_details",
-				},
+					["O"] = {
+						'open_with_oil',
+						config = {
+						title = "Open with Oil",
+						}
+					},
 			},
 			nesting_rules = {},
 			filesystem = {
@@ -281,7 +288,13 @@ return {
 				},
 			},
 		},
-		config = function()
+		commands = {
+			open_with_oil = function(state)
+				local path = state.path
+				require("oil").open(path)
+			end,
+		},
+		})
 			vim.diagnostic.config({
 				signs = {
 					text = {
