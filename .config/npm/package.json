@@ -6,7 +6,6 @@
     "eslint": "^9.24.0",
     "markdownlint-cli": "^0.44.0",
     "textlint": "^14.6.0",
-    "typescript-language-server": "^4.3.4",
     "vscode-langservers-extracted": "^4.4.0",
     "yaml-language-server": "^1.9.0"
   },
