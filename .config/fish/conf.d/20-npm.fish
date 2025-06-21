@@ -1,8 +1,7 @@
 # Installation of local npm library
 
 function install
-    set venv "$XDG_CONFIG_HOME/npm"
-    fish_add_path --global $venv/node_modules/.bin
+    set venv $argv[1]
 
     set logfile "$XDG_CACHE_HOME/npm"
     fish --no-config -c "
@@ -13,4 +12,11 @@ function install
     " &
 end
 
-status --is-login; and install
+function main
+    set venv "$XDG_CONFIG_HOME/npm"
+    fish_add_path --global $venv/node_modules/.bin
+
+    status --is-login; and install $venv
+end
+
+main
