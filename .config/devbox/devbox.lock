@@ -137,6 +137,54 @@
         }
       }
     },
+    "diff-so-fancy@latest": {
+      "last_modified": "2025-06-20T02:24:11Z",
+      "resolved": "github:NixOS/nixpkgs/076e8c6678d8c54204abcb4b1b14c366835a58bb#diff-so-fancy",
+      "source": "devbox-search",
+      "version": "1.4.4",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/2nj2934d9hdn3frcb0f7zb2j964psdp9-diff-so-fancy-1.4.4",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/2nj2934d9hdn3frcb0f7zb2j964psdp9-diff-so-fancy-1.4.4"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/mh5abmnaa18j1gllcskidnhwhrynkwab-diff-so-fancy-1.4.4",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/mh5abmnaa18j1gllcskidnhwhrynkwab-diff-so-fancy-1.4.4"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/q5dgrb897q12xz6f1si37lvx8m86bcis-diff-so-fancy-1.4.4",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/q5dgrb897q12xz6f1si37lvx8m86bcis-diff-so-fancy-1.4.4"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/cbzml6avv4a6avp4apx5hj25b0qc4h6v-diff-so-fancy-1.4.4",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/cbzml6avv4a6avp4apx5hj25b0qc4h6v-diff-so-fancy-1.4.4"
+        }
+      }
+    },
     "entr@latest": {
       "last_modified": "2023-11-19T00:55:35Z",
       "resolved": "github:NixOS/nixpkgs/9ea24fc7e02b65c150c88e1412400b70087bd382#entr",
