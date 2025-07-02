@@ -1,7 +1,4 @@
 {
-  "dependencies": {
-    "markdownlint-cli": "^0.44.0"
-  },
   "description": "Install npm tools for development environment",
   "name": "dotfile_install",
   "version": "0.0.0"
