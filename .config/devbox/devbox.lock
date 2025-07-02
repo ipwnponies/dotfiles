@@ -1270,6 +1270,54 @@
         }
       }
     },
+    "textlint@latest": {
+      "last_modified": "2025-06-20T02:24:11Z",
+      "resolved": "github:NixOS/nixpkgs/076e8c6678d8c54204abcb4b1b14c366835a58bb#textlint",
+      "source": "devbox-search",
+      "version": "14.3.0",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/97lnn1mjda6n692xb0d8d3b1j14sglr3-textlint-14.3.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/97lnn1mjda6n692xb0d8d3b1j14sglr3-textlint-14.3.0"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/a174a6anyjn0mnwg7gw8ycqyganqpz6v-textlint-14.3.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/a174a6anyjn0mnwg7gw8ycqyganqpz6v-textlint-14.3.0"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/fzrhr2p1mhjh14wwjjg43rdx8d60ldrr-textlint-14.3.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/fzrhr2p1mhjh14wwjjg43rdx8d60ldrr-textlint-14.3.0"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/rp09ndafxkrglxw5gam52n284ah4p2cg-textlint-14.3.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/rp09ndafxkrglxw5gam52n284ah4p2cg-textlint-14.3.0"
+        }
+      }
+    },
     "tldr@latest": {
       "last_modified": "2023-11-17T14:14:56Z",
       "resolved": "github:NixOS/nixpkgs/a71323f68d4377d12c04a5410e214495ec598d4c#tldr",

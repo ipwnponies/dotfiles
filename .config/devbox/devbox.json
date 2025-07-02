@@ -31,6 +31,7 @@
     "pyenv@latest",
     "ripgrep@latest",
     "taskwarrior3@latest",
+    "textlint@latest",
     "tldr@latest",
     "tree@latest",
     "yarn@latest",
