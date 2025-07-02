@@ -205,6 +205,54 @@
         }
       }
     },
+    "eslint@latest": {
+      "last_modified": "2025-06-20T02:24:11Z",
+      "resolved": "github:NixOS/nixpkgs/076e8c6678d8c54204abcb4b1b14c366835a58bb#eslint",
+      "source": "devbox-search",
+      "version": "9.20.0",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/8in056d2amazch21amzppk38vkawnchb-eslint-9.20.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/8in056d2amazch21amzppk38vkawnchb-eslint-9.20.0"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/iy9dwr3bd7n4fzpg4d5frfcbsm5kmnrz-eslint-9.20.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/iy9dwr3bd7n4fzpg4d5frfcbsm5kmnrz-eslint-9.20.0"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/7a2fdrll36ssb1g3snrm1f8xc74802zk-eslint-9.20.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/7a2fdrll36ssb1g3snrm1f8xc74802zk-eslint-9.20.0"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/i2lnpac8azp77d2jcr5iixzgvazq18lz-eslint-9.20.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/i2lnpac8azp77d2jcr5iixzgvazq18lz-eslint-9.20.0"
+        }
+      }
+    },
     "eza@latest": {
       "last_modified": "2023-12-14T07:33:05Z",
       "resolved": "github:NixOS/nixpkgs/aa9d4729cbc99dabacb50e3994dcefb3ea0f7447#eza",
