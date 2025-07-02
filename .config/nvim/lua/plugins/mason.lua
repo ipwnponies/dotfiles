@@ -28,6 +28,7 @@ return {
 			ensure_installed = {
 				"bashls",
 				"cssls",
+				"dockerls",
 				"gopls",
 				"html",
 				"jsonls",
