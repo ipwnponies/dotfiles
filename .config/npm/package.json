@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "bash-language-server": "^5.4.3",
     "diff-so-fancy": "^1.4.3",
     "dockerfile-language-server-nodejs": "^0.14.0",
     "eslint": "^9.24.0",
