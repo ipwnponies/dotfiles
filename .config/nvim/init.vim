@@ -23,8 +23,6 @@
         let g:Gitv_DoNotMapCtrlKey = 1
     " IndentLine: Disable Yggdroot/indentLine overrides
         let g:indentLine_concealcursor='c'
-    " VimAirline:
-        let g:airline#extensions#tabline#enabled = 1
     " Fzf:
         nnoremap <leader>ff :FZF<CR>
         nnoremap <leader>fg :GFiles<CR>
@@ -248,7 +246,6 @@
 
 " Colors:
     set termguicolors
-    colorscheme sonokai
     highlight Pmenu ctermbg=26
     highlight PmenuSel ctermfg=214
     highlight Visual ctermbg=237 guibg=#535D7E
