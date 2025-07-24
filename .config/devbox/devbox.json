@@ -5,6 +5,7 @@
     "cargo@latest",
     "choose@latest",
     "diff-so-fancy@latest",
+    "direnv@latest",
     "entr@latest",
     "eslint@latest",
     "eza@latest",
