@@ -56,3 +56,20 @@ ffmpeg -i <input> -map_metadata 0 -c copy -ss <start> -to <end> foo.mp4
 
 $input: ls | string escape
 $ output: echo output.mp4 --- --fzf-overrides "--no-select-1"
+
+% misc
+
+# Produce random file
+python -c "
+import random
+import sys
+import subprocess
+
+if sys.stdout.isatty():
+    sys.stderr.write('Refusing to write binary data to a terminal.\\n')
+    sys.exit(1)
+
+seed = subprocess.check_output(['date', '-I']).decode().strip()
+random.seed(seed)
+sys.stdout.buffer.write(bytearray(random.getrandbits(8) for _ in range(2**20)))
+"
