@@ -1109,6 +1109,90 @@
         }
       }
     },
+    "parallel@latest": {
+      "last_modified": "2025-06-24T02:18:21Z",
+      "resolved": "github:NixOS/nixpkgs/69dfebb3d175bde602f612915c5576a41b18486b#parallel",
+      "source": "devbox-search",
+      "version": "20250622",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/vzgyza2xhcw0qhpr03dz8l7q062k3ihi-parallel-20250622",
+              "default": true
+            },
+            {
+              "name": "man",
+              "path": "/nix/store/l5hipdgybqy5i6nfgwdyaw3ga3hv2p6r-parallel-20250622-man",
+              "default": true
+            },
+            {
+              "name": "doc",
+              "path": "/nix/store/1b00mrb96k1067ki97cr45jvvv4gp57n-parallel-20250622-doc"
+            }
+          ],
+          "store_path": "/nix/store/vzgyza2xhcw0qhpr03dz8l7q062k3ihi-parallel-20250622"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/nnwh99f1l10anw0aml5dv3kaans1sslg-parallel-20250622",
+              "default": true
+            },
+            {
+              "name": "man",
+              "path": "/nix/store/4cfh2jwxvpp6pswbjc21q6yqhp64m4gn-parallel-20250622-man",
+              "default": true
+            },
+            {
+              "name": "doc",
+              "path": "/nix/store/pqxb18ragwy7ywj2l5nra0iz5aw2afph-parallel-20250622-doc"
+            }
+          ],
+          "store_path": "/nix/store/nnwh99f1l10anw0aml5dv3kaans1sslg-parallel-20250622"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/mln47b5794h28wm25gg0gzsra7lp8snf-parallel-20250622",
+              "default": true
+            },
+            {
+              "name": "man",
+              "path": "/nix/store/hpm7syygjwjjv7bnwlnxhv6kd315r82v-parallel-20250622-man",
+              "default": true
+            },
+            {
+              "name": "doc",
+              "path": "/nix/store/9yjz5lzlhg6js06r5j3403w6zhpqkvsl-parallel-20250622-doc"
+            }
+          ],
+          "store_path": "/nix/store/mln47b5794h28wm25gg0gzsra7lp8snf-parallel-20250622"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/dydpmkl6ns1fwj3i9yimzkzj8cidgvna-parallel-20250622",
+              "default": true
+            },
+            {
+              "name": "man",
+              "path": "/nix/store/b0f53cpq7r58l01qyqxq6n120inyxp9s-parallel-20250622-man",
+              "default": true
+            },
+            {
+              "name": "doc",
+              "path": "/nix/store/s1hxzc6m8q7lnakf213wchck303fpl01-parallel-20250622-doc"
+            }
+          ],
+          "store_path": "/nix/store/dydpmkl6ns1fwj3i9yimzkzj8cidgvna-parallel-20250622"
+        }
+      }
+    },
     "pay-respects@latest": {
       "last_modified": "2025-04-07T13:23:10Z",
       "resolved": "github:NixOS/nixpkgs/b0b4b5f8f621bfe213b8b21694bab52ecfcbf30b#pay-respects",

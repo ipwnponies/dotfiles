@@ -28,6 +28,7 @@
     "navi@latest",
     "neovim@latest",
     "nodejs@latest",
+    "parallel@latest",
     "pay-respects@latest",
     "poetry@latest",
     "pyenv@latest",
