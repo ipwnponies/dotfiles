@@ -91,7 +91,7 @@
         map <Plug>(hop-prefix)W <Cmd>HopWordBC<CR>
         map <Plug>(hop-prefix)c <Cmd>HopCamelCaseAC<CR>
         map <Plug>(hop-prefix)C <Cmd>HopCamelCaseBC<CR>
-        map <Plug>(hop-prefix)f <Cmd>HopChar1<CR>
+        map <Plug>(hop-prefix)f <Cmd>HopChar1CurrentLine<CR>
         map <Plug>(hop-prefix)j <Cmd>HopLineStartMW<CR>
     " Vim Asterisk:
         let g:asterisk#keeppos = 1
