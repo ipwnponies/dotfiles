@@ -304,8 +304,6 @@ require("fidget").setup {
 local hop = require 'hop'
 hop.setup({uppercase_labels=true })
 
-require('neodev').setup()
-
 local cmp = require 'cmp'
 
 local luasnip = require 'luasnip'
