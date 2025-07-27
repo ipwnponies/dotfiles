@@ -32,6 +32,7 @@ return {
 		dependencies = {
 			"junegunn/fzf",
 		},
+		cmd = { "Files", "GFiles", "Lines", "BLines", "History", "Filetypes", "Jumps", "HelpTags" },
 	},
 	{ "junegunn/vim-peekaboo" },
 	{ "haya14busa/vim-asterisk" },
