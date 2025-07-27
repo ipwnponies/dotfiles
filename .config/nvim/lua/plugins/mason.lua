@@ -1,3 +1,5 @@
+---@module 'lazy'
+---@type LazyPluginSpec | LazyPluginSpec[]
 return {
 	"williamboman/mason.nvim",
 	dependencies = {
