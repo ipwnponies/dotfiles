@@ -115,10 +115,6 @@
         vmap <leader>* <Plug>RgRawVisualSelection
         nmap <leader>* <Plug>RgRawWordUnderCursor
 
-    " Lazygit
-        nnoremap <leader>ll : LazyGitCurrentFile<CR>
-        nnoremap <leader>lc :LazyGitFilterCurrentFile<CR>
-
     " CopilotChat
         " Github copilot suggestions
         inoremap <silent><script><expr> <m-l> copilot#Accept("\<CR>")
