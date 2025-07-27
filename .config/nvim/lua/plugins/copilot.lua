@@ -1,11 +1,21 @@
 ---@module 'lazy'
 ---@type LazyPluginSpec | LazyPluginSpec[]
 return {
-	{ "github/copilot.vim", build = ":Copilot setup" },
 	{
 		"CopilotC-Nvim/CopilotChat.nvim",
+		cmd = vim.tbl_map(function(name)
+			return "CopilotChat" .. name
+		end, {
+			"",
+			"Docs",
+			"Explain",
+			"Fix",
+			"Optimize",
+			"Review",
+			"Tests",
+		}),
 		dependencies = {
-			{ "github/copilot.vim" }, -- or zbirenbaum/copilot.lua
+			{ "github/copilot.vim", build = ":Copilot setup" }, -- or zbirenbaum/copilot.lua
 			{ "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
 		},
 		config = function()
