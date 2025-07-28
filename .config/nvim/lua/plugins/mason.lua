@@ -1,11 +1,22 @@
 ---@module 'lazy'
 ---@type LazyPluginSpec | LazyPluginSpec[]
 return {
-	"williamboman/mason.nvim",
+	"mason-org/mason-lspconfig.nvim",
+	version = "^1.0.0",
 	dependencies = {
-		"williamboman/mason-lspconfig.nvim",
-		{ "mason-org/mason.nvim", version = "^1.0.0" },
-		{ "mason-org/mason-lspconfig.nvim", version = "^1.0.0" },
+		{
+			"mason-org/mason.nvim",
+			version = "^1.0.0",
+			opts = {
+				ui = {
+					icons = {
+						package_installed = "✓",
+						package_pending = "➜",
+						package_uninstalled = "✗",
+					},
+				},
+			},
+		},
 	},
 	opts = {
 		ensure_installed = {
