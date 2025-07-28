@@ -2,16 +2,6 @@
 ---@type LazyPluginSpec | LazyPluginSpec[]
 return {
 	{
-		"antosha417/nvim-lsp-file-operations",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-neo-tree/neo-tree.nvim",
-		},
-		config = function()
-			require("lsp-file-operations").setup()
-		end,
-	},
-	{
 		"nvim-neo-tree/neo-tree.nvim",
 		branch = "v3.x",
 		dependencies = {
@@ -38,8 +28,21 @@ return {
 					})
 				end,
 			},
+			{
+				"antosha417/nvim-lsp-file-operations",
+				dependencies = {
+					"nvim-lua/plenary.nvim",
+				},
+				config = function()
+					require("lsp-file-operations").setup()
+				end,
+			},
 		},
-		lazy = false,
+		keys = {
+			{ "<leader>e", "<Cmd>Neotree reveal<CR>", desc = "Explorer: Reveal" },
+			{ "<leader>fb", "<Cmd>Neotree float buffers<CR>", desc = "Explorer: Buffers (float)" },
+			{ "<leader>fG", "<Cmd>Neotree float git_status<CR>", desc = "Explorer: Git Status (float)" },
+		},
 		config = function()
 			--- @type neotree.Config
 			local neotree_config = {
@@ -311,10 +314,6 @@ return {
 					},
 				},
 			})
-
-			vim.keymap.set("n", "<leader>e", "<Cmd>Neotree reveal<CR>")
-			vim.keymap.set("n", "<leader>fb", "<Cmd>Neotree float buffers<CR>")
-			vim.keymap.set("n", "<leader>fG", "<Cmd>Neotree float git_status<CR>")
 		end,
 	},
 }
