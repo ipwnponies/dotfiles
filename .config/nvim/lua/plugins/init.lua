@@ -47,7 +47,7 @@ return {
 	{ "haya14busa/is.vim" },
 
 	-- IDE
-	{ "j-hui/fidget.nvim" },
+	{ "j-hui/fidget.nvim", tag = "v1.6.1" },
 	{ "hrsh7th/nvim-cmp" },
 	{ "hrsh7th/cmp-buffer" },
 	{ "hrsh7th/cmp-cmdline" },
@@ -56,7 +56,7 @@ return {
 	{ "rafamadriz/friendly-snippets" },
 	{ "L3MON4D3/LuaSnip" },
 	{ "saadparwaiz1/cmp_luasnip" },
-	{ "kdheepak/lazygit.nvim" },
+	{ "kdheepak/lazygit.nvim", commit = "b9eae3badab982e71abab96d3ee1d258f0c07961" },
 
 	-- Misc
 	{
