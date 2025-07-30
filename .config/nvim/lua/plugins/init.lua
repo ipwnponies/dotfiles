@@ -38,7 +38,6 @@ return {
 	{ "haya14busa/vim-asterisk" },
 	{ "smoka7/hop.nvim", version = "v2.7.2" },
 	{ "tpope/vim-unimpaired" },
-	{ "ipwnponies/vim-agriculture" },
 	{ "nvim-telescope/telescope.nvim", branch = "0.1.x" },
 
 	-- Pretty
