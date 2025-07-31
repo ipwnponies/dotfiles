@@ -39,8 +39,21 @@ return {
 	},
 	{
 		"gfanto/fzf-lsp.nvim",
-		dependencies = { "nvim-lua/plenary.nvim" },
+		dependencies = { "nvim-lua/plenary.nvim", "junegunn/fzf.vim" },
 		event = "LspAttach",
+		keys = {
+			{
+				"gl",
+				function()
+					LspAction()
+				end,
+				mode = "n",
+				noremap = true,
+				silent = true,
+				desc = "LSP Action",
+			},
+		},
+
 		config = function()
 			local function executeLua(action)
 				local fzf_lsp_action = {
@@ -84,7 +97,6 @@ return {
 			end
 
 			vim.api.nvim_buf_create_user_command(0, "LspAction", LspAction, {})
-			vim.keymap.set("n", "gl", LspAction, { noremap = true, silent = true })
 		end,
 	},
 }
