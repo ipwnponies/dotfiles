@@ -1,3 +1,38 @@
+local lsp_filetypes = {
+	bashls = { "sh", "bash" },
+	cssls = { "css", "scss", "less" },
+	dockerls = { "dockerfile" },
+	EXTERNAL_LSP = { "fish" },
+	gopls = { "go" },
+	html = { "html" },
+	jsonls = { "json" },
+	lua_ls = { "lua" },
+	pyright = { "python" },
+	rust_analyzer = { "rust" },
+	ts_ls = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+	vimls = { "vim" },
+	yamlls = { "yaml", "yml" },
+}
+
+-- For lazy.nvim:
+local ft = {}
+local ensure_installed = {}
+
+for lsp, types in pairs(lsp_filetypes) do
+	if lsp ~= "EXTERNAL_LSP" then
+		ensure_installed[#ensure_installed + 1] = lsp
+	end
+	for _, t in ipairs(types) do
+		ft[t] = true
+	end
+end
+
+-- Convert ft table to array
+local ft_array = {}
+for t, _ in pairs(ft) do
+	table.insert(ft_array, t)
+end
+
 ---@module 'lazy'
 ---@type LazyPluginSpec | LazyPluginSpec[]
 return {
@@ -22,23 +57,9 @@ return {
 		"hrsh7th/cmp-nvim-lsp-document-symbol",
 		"hrsh7th/cmp-nvim-lsp-signature-help",
 	},
+	ft = ft_array,
 	opts = {
-		ensure_installed = {
-			"bashls",
-			"cssls",
-			"dockerls",
-			"gopls",
-			"html",
-			"jsonls",
-			"lua_ls",
-			"pyright",
-			-- 'ruff',
-			"rust_analyzer",
-			-- 'stylua' ,
-			"ts_ls",
-			"vimls",
-			"yamlls",
-		},
+		ensure_installed = ensure_installed,
 	},
 	config = function(_, opts)
 		-- import lspconfig plugin
