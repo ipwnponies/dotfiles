@@ -38,13 +38,6 @@ return {
 		},
 	},
 	{
-		"neovim/nvim-lspconfig",
-		event = { "BufReadPre", "BufNewFile" },
-		dependencies = {
-			"hrsh7th/cmp-nvim-lsp",
-		},
-	},
-	{
 		"gfanto/fzf-lsp.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		event = "LspAttach",
