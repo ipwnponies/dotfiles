@@ -42,21 +42,6 @@ python -c "print(''.join(fr'\x{i.encode().hex()}' if i.isupper() else i for i in
 
 $ url: pbpaste --- --fzf-overrides "--no-select-1"
 
-% ffmpeg
-
-# Trim start of video
-ffmpeg -i <input> -map_metadata 0 -c copy -ss <start> <output>
-
-
-# Trim end of video
-ffmpeg -i <input> -map_metadata 0 -c copy -to <end> foo.mp4
-
-# Trim video
-ffmpeg -i <input> -map_metadata 0 -c copy -ss <start> -to <end> foo.mp4
-
-$input: ls | string escape
-$ output: echo output.mp4 --- --fzf-overrides "--no-select-1"
-
 % misc
 
 # Produce random file
