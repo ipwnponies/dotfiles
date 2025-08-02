@@ -54,12 +54,4 @@ return {
 	{ "L3MON4D3/LuaSnip" },
 	{ "saadparwaiz1/cmp_luasnip" },
 	{ "kdheepak/lazygit.nvim", commit = "b9eae3badab982e71abab96d3ee1d258f0c07961" },
-
-	-- Misc
-	{
-		"glacambre/firenvim",
-		build = function()
-			vim.fn["firenvim#install"](0)
-		end,
-	}, -- Firefox plugin to integrate Neovim
 }
