@@ -12,3 +12,19 @@ ffmpeg -i <input> -map_metadata 0 -c copy -ss <start> -to <end> foo.mp4
 
 $input: ls | string escape
 $ output: echo output.mp4 --- --fzf-overrides "--no-select-1"
+
+% pdf, ocr
+
+# Convert scans to compressed PDF
+docker run --rm -i jbarlow83/ocrmypdf-alpine --optimize 3 --jpeg-quality 40 --output-type pdfa --jbig2-lossy - - <<input> >(path change-extension '' <input>).out.pdf
+$input: ls | string escape
+
+# Convert multiple images to PDF
+for i in <input>; input=(string escape $i) navi --query 'Convert scans to compressed PDF' --best-match; end
+
+# Combine PDFs
+qpdf --empty --pages <input> -- <out>
+$input: ls | string escape --- --multi --expand
+$out: echo out.pdf --- --fzf-overrides "--no-select-1"
+
+# vim: filetype=fish

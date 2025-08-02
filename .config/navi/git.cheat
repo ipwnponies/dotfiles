@@ -25,3 +25,5 @@ git diff --ignore-all-space
 
 # revision, stash@{1}, @{u}. Might be misremembered as git refspec or reflog
 git help revisions
+
+# vim: filetype=fish
