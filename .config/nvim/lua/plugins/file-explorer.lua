@@ -40,8 +40,6 @@ return {
 		},
 		keys = {
 			{ "<leader>e", "<Cmd>Neotree reveal<CR>", desc = "Explorer: Reveal" },
-			{ "<leader>fb", "<Cmd>Neotree float buffers<CR>", desc = "Explorer: Buffers (float)" },
-			{ "<leader>fG", "<Cmd>Neotree float git_status<CR>", desc = "Explorer: Git Status (float)" },
 		},
 		config = function()
 			--- @type neotree.Config

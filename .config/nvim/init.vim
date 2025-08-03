@@ -23,14 +23,6 @@
         let g:Gitv_DoNotMapCtrlKey = 1
     " IndentLine: Disable Yggdroot/indentLine overrides
         let g:indentLine_concealcursor='c'
-    " Fzf:
-        nnoremap <leader>ff :FZF<CR>
-        nnoremap <leader>fg :GFiles<CR>
-        nnoremap <leader>fl :Lines<CR>
-        nnoremap <leader>/ :BLines<CR>
-        nnoremap <leader>fc :Commands<CR>
-        nnoremap <leader>fh :Helptags<CR>
-        nnoremap <leader>fC :BCommits<CR>
 
         " Certain fzf.vim commands do not work with fish shell
         set shell=sh
