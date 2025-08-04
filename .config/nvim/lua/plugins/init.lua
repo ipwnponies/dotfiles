@@ -46,7 +46,6 @@ return {
 	{ "haya14busa/is.vim" },
 
 	-- IDE
-	{ "j-hui/fidget.nvim", tag = "v1.6.1" },
 	{ "hrsh7th/nvim-cmp" },
 	{ "hrsh7th/cmp-buffer" },
 	{ "hrsh7th/cmp-cmdline" },

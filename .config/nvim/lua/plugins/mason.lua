@@ -52,6 +52,7 @@ return {
 				},
 			},
 		},
+		{ "j-hui/fidget.nvim", tag = "v1.6.1" },
 		"neovim/nvim-lspconfig",
 		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/cmp-nvim-lsp-document-symbol",

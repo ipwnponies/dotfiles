@@ -286,10 +286,6 @@ highlight LspReferenceText guibg=#53575c
 
 lua <<EOF
 
-require("fidget").setup {
-  -- options
-}
-
 local hop = require 'hop'
 hop.setup({uppercase_labels=true })
 
