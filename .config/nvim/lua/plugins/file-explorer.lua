@@ -300,9 +300,19 @@ return {
 					},
 				},
 				commands = {
+					---@param state NeotreeState
 					open_with_oil = function(state)
 						local node = state.tree:get_node()
-						require("oil").open(node.path)
+						local path
+						if node.type == "directory" then
+							path = node.path
+						elseif node.type == "file" then
+							path = node:get_parent_id()
+						else
+							error("unknown neotree node type")
+						end
+
+						require("oil").open(path)
 					end,
 				},
 			}
