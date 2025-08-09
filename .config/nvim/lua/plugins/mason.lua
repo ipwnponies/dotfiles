@@ -133,14 +133,6 @@ return {
 			vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
 				vim.lsp.buf.format()
 			end, { desc = "Format current buffer with LSP" })
-
-			vim.api.nvim_buf_create_user_command(bufnr, "HopPythonParamsBye", function(_)
-				local hop = require("hop")
-				local regex = [[\v(def\s+\w+\s*\(.*)@<=\s*(\zs[^,)]+,?\ze).*\)]]
-				local jump_regex = require("hop.jump_regex")
-				local taco = jump_regex.regex_by_case_searching(regex, false, hop.opts)
-				hop.hint_with_regex(taco, hop.opts)
-			end, { desc = "Hop python" })
 		end
 
 		-- used to enable autocompletion (assign to every lsp server config)

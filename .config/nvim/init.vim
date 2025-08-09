@@ -76,15 +76,6 @@
         let g:undotree_DiffCommand = 'diff -u'
         let g:undotree_ShortIndicators = 1
         let g:undotree_WindowLayout=2
-    " Hop (replaces EasyMotion):
-        map ; <Plug>(hop-prefix)
-        map <Plug>(hop-prefix)/ <Cmd>HopPatternMW<CR>
-        map <Plug>(hop-prefix)w <Cmd>HopWordAC<CR>
-        map <Plug>(hop-prefix)W <Cmd>HopWordBC<CR>
-        map <Plug>(hop-prefix)c <Cmd>HopCamelCaseAC<CR>
-        map <Plug>(hop-prefix)C <Cmd>HopCamelCaseBC<CR>
-        map <Plug>(hop-prefix)f <Cmd>HopChar1CurrentLine<CR>
-        map <Plug>(hop-prefix)j <Cmd>HopLineStartMW<CR>
     " Vim Asterisk:
         let g:asterisk#keeppos = 1
         map *  <Plug>(is-nohl)<Plug>(asterisk-z*)
@@ -286,9 +277,6 @@ highlight LspReferenceText guibg=#53575c
 
 lua <<EOF
 
-local hop = require 'hop'
-hop.setup({uppercase_labels=true })
-
 local cmp = require 'cmp'
 
 local luasnip = require 'luasnip'
@@ -384,6 +372,4 @@ cmp.setup.cmdline({ '/', '?' }, {
       { name = "buffer", keyword_length = 3, max_item_count = 5 },
     }),
   })
-require'hop'.setup({uppercase_labels=true })
-
 EOF
