@@ -43,12 +43,4 @@ return {
 	{ "vim-airline/vim-airline" },
 	{ "sainnhe/sonokai" },
 	{ "haya14busa/is.vim" },
-
-	-- IDE
-	{ "hrsh7th/nvim-cmp" },
-	{ "hrsh7th/cmp-buffer" },
-	{ "hrsh7th/cmp-cmdline" },
-	{ "rafamadriz/friendly-snippets" },
-	{ "L3MON4D3/LuaSnip" },
-	{ "saadparwaiz1/cmp_luasnip" },
 }
