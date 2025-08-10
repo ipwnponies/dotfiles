@@ -72,6 +72,13 @@ return {
 				end,
 				desc = "Helptags",
 			},
+			{
+				"<leader>fj",
+				function()
+					require("fzf-lua").jumps({ resume = true })
+				end,
+				desc = "Jumps",
+			},
 		},
 		config = function(_, opts)
 			require("fzf-lua").setup(opts)
