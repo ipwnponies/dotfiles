@@ -271,9 +271,6 @@ if filereadable(s:init_local)
     execute 'source ' . s:init_local
 endif
 
-highlight LspReferenceRead  ctermbg=237 guibg=Green
-highlight LspReferenceWrite ctermbg=237 guibg=Brown
-highlight LspReferenceText guibg=#53575c
 
 lua <<EOF
 EOF
