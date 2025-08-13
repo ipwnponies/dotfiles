@@ -17,6 +17,29 @@ return {
 			{ "<Plug>(hop-prefix)/", "<Cmd>HopPatternMW<CR>", mode = "" },
 			{ "<Plug>(hop-prefix)w", "<Cmd>HopWordAC<CR>", mode = "" },
 			{ "<Plug>(hop-prefix)W", "<Cmd>HopWordBC<CR>", mode = "" },
+			{
+				"<Plug>(hop-prefix)e",
+				function()
+					local hop = require("hop")
+					local hint = require("hop.hint")
+					hop.hint_words({
+						hint_position = hint.HintPosition.END,
+						direction = hint.HintDirection.AFTER_CURSOR,
+					})
+				end,
+			},
+			{
+				"<Plug>(hop-prefix)E",
+				function()
+					local hop = require("hop")
+					local hint = require("hop.hint")
+
+					hop.hint_words({
+						hint_position = hint.HintPosition.END,
+						direction = hint.HintDirection.BEFORE_CURSOR,
+					})
+				end,
+			},
 			{ "<Plug>(hop-prefix)c", "<Cmd>HopCamelCaseAC<CR>", mode = "" },
 			{ "<Plug>(hop-prefix)C", "<Cmd>HopCamelCaseBC<CR>", mode = "" },
 			{ "<Plug>(hop-prefix)f", "<Cmd>HopChar1CurrentLine<CR>", mode = "" },
