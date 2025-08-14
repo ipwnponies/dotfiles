@@ -3,6 +3,7 @@ require("settings") -- basic options
 require("keymaps") -- key mappings
 require("config.lazy") -- plugin manager and plugins
 require("config.settings") -- plugin manager and plugins
+require("binary-editing") -- binary file editing utilities
 
 local xdg_config_home = os.getenv("XDG_CONFIG_HOME") or "~/.config"
 -- Fallthrough to loading original vimscript
