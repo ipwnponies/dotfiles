@@ -231,14 +231,5 @@
     autocmd! TermOpen * setlocal nonumber
     autocmd! BufRead,BufNewfile *.tmpl set filetype=htmlcheetah
 
-    " Diffs use diff foldmethod
-    if !&diff
-        " These files, when properly formatted, can use the indent method for folding
-        autocmd BufNewFile,BufRead,FileType *.cs set foldmethod=indent
-        autocmd BufNewFile,BufRead,FileType *.xml set foldmethod=indent
-        " Python is a perfect candidate for indent foldmethod because it is whitespace significant
-        autocmd BufNewFile,BufRead,FileType *.py set foldmethod=indent
-    endif
-
 lua <<EOF
 EOF
