@@ -221,15 +221,5 @@
     highlight Visual ctermbg=237 guibg=#535D7E
     highlight Search cterm=bold gui=bold gui=reverse guifg=None guibg=#53575c
 
-" Autocmd:
-    autocmd! FileType sql set expandtab
-    autocmd! BufReadPost quickfix nnoremap <buffer> <cr> <cr>
-    autocmd! Filetype gitcommit setlocal spell textwidth=72 nocursorline
-    autocmd! QuickFixCmdPost [^l]* nested cwindow
-    autocmd! QuickFixCmdPost l* nested lwindow
-    autocmd! BufNewFile,BufRead *.avsc set filetype=json
-    autocmd! TermOpen * setlocal nonumber
-    autocmd! BufRead,BufNewfile *.tmpl set filetype=htmlcheetah
-
 lua <<EOF
 EOF
