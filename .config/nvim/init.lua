@@ -7,3 +7,9 @@ require("config.settings") -- plugin manager and plugins
 local xdg_config_home = os.getenv("XDG_CONFIG_HOME") or "~/.config"
 -- Fallthrough to loading original vimscript
 vim.cmd("source " .. xdg_config_home .. "/nvim/init.vim")
+
+-- Load host-specific configurations
+local init_local = vim.fn.fnamemodify(vim.fn.expand("$MYVIMRC"), ":h") .. "/init_local.lua"
+if vim.fn.filereadable(init_local) == 1 then
+    dofile(init_local)
+end

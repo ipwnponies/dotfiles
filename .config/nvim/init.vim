@@ -265,11 +265,6 @@
         return hex =~ '\x\{2\}' ? '0x' + str2nr(hex, 16) : ''
     endfunction
 
-" Emulate exrc. Host-specific configurations
-let s:init_local = fnamemodify($MYVIMRC, ':h') . '/init_local.vim'
-if filereadable(s:init_local)
-    execute 'source ' . s:init_local
-endif
 
 
 lua <<EOF
