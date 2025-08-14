@@ -1,3 +1,122 @@
+-- Function to get visual selection
+local function get_visual_selection()
+	local start_pos = vim.fn.getpos("'<")
+	local end_pos = vim.fn.getpos("'>")
+
+	-- Ensure we're dealing with a visual selection
+	if start_pos[2] == 0 or end_pos[2] == 0 then
+		return nil
+	end
+
+	local line_start = start_pos[2]
+	local line_end = end_pos[2]
+
+	-- Get the filename to provide context
+	local filename = vim.fn.expand("%:p")
+
+	-- Return selection information
+	return {
+		filename = filename,
+		line_start = line_start,
+		line_end = line_end,
+	}
+end
+
+-- Function to find existing Claude buffer
+local function find_claude_buffer()
+	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+		if vim.api.nvim_buf_is_loaded(buf) then
+			-- Claude has BufPostFile autocmd that updates the buffer name, so we can't set explicit name
+			if string.find(vim.api.nvim_buf_get_name(buf), "term://~//%d+:claude .*", 1, false) then
+				return buf
+			end
+		end
+	end
+	return nil
+end
+
+-- Function to find window containing a buffer
+local function find_buffer_window(bufnr)
+	for _, win in ipairs(vim.api.nvim_list_wins()) do
+		if vim.api.nvim_win_get_buf(win) == bufnr then
+			return win
+		end
+	end
+	return nil
+end
+
+-- Function to create or focus a Claude window
+local function create_or_focus_claude_window(bufnr)
+	if not bufnr then
+		-- Create a new buffer and window
+		vim.cmd("vnew")
+		return nil
+	else
+		-- Try to find existing window with this buffer
+		local winid = find_buffer_window(bufnr)
+
+		if winid then
+			-- Switch to the window
+			vim.api.nvim_set_current_win(winid)
+		else
+			-- Open window with the buffer
+			vim.cmd("vsplit")
+			vim.api.nvim_win_set_buf(0, bufnr)
+		end
+
+		return vim.b[bufnr].terminal_job_id
+	end
+end
+
+-- Function to send selected text to Claude with a prompt
+local function send_selection_to_claude(prompt)
+	local selection = get_visual_selection()
+	if not selection then
+		vim.notify("No visual selection detected", vim.log.levels.ERROR)
+		return
+	end
+
+	local text_with_context =
+		string.format("From file %s (lines %d-%d)", selection.filename, selection.line_start, selection.line_end)
+
+	local claude_bufnr = find_claude_buffer()
+	local job_id = create_or_focus_claude_window(claude_bufnr)
+
+	if job_id then
+		-- Send to existing terminal, type into claude TUI prompt
+		vim.api.nvim_chan_send(job_id, prompt .. text_with_context)
+	else
+		-- Start the terminal with Claude command
+		local escaped_text = vim.fn.shellescape(text_with_context)
+
+		local claude_command = string.format('claude "%s %s"', prompt, vim.fn.shellescape(escaped_text))
+		vim.fn.termopen(claude_command)
+	end
+
+	vim.cmd("startinsert")
+end
+
+-- Function to validate visual selection and execute Claude command
+local function execute_claude_command(prompt, opts)
+	-- Check mode to ensure we have a visual selection
+	if not (opts.range > 0) then
+		vim.notify("This command requires a visual selection", vim.log.levels.WARN)
+		return
+	end
+
+	-- Sanitize prompt if provided
+	if prompt and type(prompt) == "string" then
+		-- Ensure prompt ends with a space for better formatting
+		if not prompt:match("s$") then
+			prompt = prompt .. " "
+		end
+		-- Execute with validated prompt
+		pcall(send_selection_to_claude, prompt)
+	else
+		vim.notify("Invalid prompt format", vim.log.levels.ERROR)
+	end
+end
+
 ---@module 'lazy'
 ---@type LazyPluginSpec | LazyPluginSpec[]
 return {
@@ -66,6 +185,31 @@ return {
 		},
 		config = function()
 			require("claude-code").setup()
+
+			-- Command to send selection to Claude with a prompt
+			vim.api.nvim_create_user_command("ClaudeRefactor", function(opts)
+				execute_claude_command("Please refactor this code:", opts)
+			end, {
+				range = true,
+				desc = "Send selection to Claude for refactoring",
+			})
+
+			-- Command with custom prompt
+			vim.api.nvim_create_user_command("ClaudeAsk", function(opts)
+				local prompt = (opts.args ~= "" and opts.args) or "Please analyze this code: "
+				execute_claude_command(prompt, opts)
+			end, {
+				range = true,
+				nargs = "?",
+				desc = "Send selection to Claude with custom prompt",
+			})
+
+			vim.keymap.set(
+				"v",
+				"<leader>ck",
+				":ClaudeAsk<CR>",
+				{ desc = "Send selection to Claude with custom prompt" }
+			)
 		end,
 	},
 }
