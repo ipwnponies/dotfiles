@@ -91,8 +91,20 @@ return {
 						end
 					end, { "i", "s" }),
 
-					["<C-b>"] = cmp.mapping.scroll_docs(-4),
-					["<C-f>"] = cmp.mapping.scroll_docs(4),
+					["<C-b>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.mapping.scroll_docs(-4)()
+						else
+							fallback()
+						end
+					end),
+					["<C-f>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.mapping.scroll_docs(4)()
+						else
+							fallback()
+						end
+					end),
 					["<C-g>"] = cmp.mapping(function()
 						vim.api.nvim_feedkeys(
 							vim.fn["copilot#Accept"](vim.api.nvim_replace_termcodes("<Tab>", true, true, true)),
