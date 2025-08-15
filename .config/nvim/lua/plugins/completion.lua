@@ -64,14 +64,10 @@ return {
 				mapping = cmp.mapping.preset.insert({
 					["<C-Space>"] = cmp.mapping.complete({}),
 					["<CR>"] = cmp.mapping(function(fallback)
-						if cmp.visible() then
-							if luasnip.expandable() then
-								luasnip.expand()
-							else
-								cmp.confirm({
-									behavior = cmp.ConfirmBehavior.Replace,
-								})
-							end
+						if luasnip.expandable() then
+							luasnip.expand()
+						elseif cmp.get_selected_entry() then
+							cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace })
 						else
 							fallback()
 						end
