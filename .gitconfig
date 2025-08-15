@@ -122,3 +122,7 @@
     date = iso
 [include]
 	path = .gitconfig_local
+[blame]
+	markIgnoredLines = true
+	markUnblamableLines = true
+	ignoreRevsFile = .git-blame-ignore-revs
