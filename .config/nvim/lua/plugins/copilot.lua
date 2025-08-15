@@ -84,7 +84,7 @@ local function send_selection_to_claude(prompt)
 
 	if job_id then
 		-- Send to existing terminal, type into claude TUI prompt
-		vim.api.nvim_chan_send(job_id, prompt .. text_with_context)
+		vim.api.nvim_chan_send(job_id, text_with_context .. prompt)
 	else
 		-- Start the terminal with Claude command
 		local escaped_text = vim.fn.shellescape(text_with_context)
@@ -197,8 +197,20 @@ return {
 
 			-- Command with custom prompt
 			vim.api.nvim_create_user_command("ClaudeAsk", function(opts)
-				local prompt = (opts.args ~= "" and opts.args) or "Please analyze this code: "
-				execute_claude_command(prompt, opts)
+				if opts.args ~= "" then
+					-- Use the provided argument as prompt
+					execute_claude_command(opts.args, opts)
+				else
+					-- Prompt user interactively for input
+					vim.ui.input({
+						prompt = "Enter prompt for Claude: ",
+						default = "Please analyze this code: ",
+					}, function(input)
+						if input then
+							execute_claude_command(input, opts)
+						end
+					end)
+				end
 			end, {
 				range = true,
 				nargs = "?",
