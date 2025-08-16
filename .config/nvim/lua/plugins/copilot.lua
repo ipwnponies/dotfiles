@@ -48,8 +48,22 @@ end
 -- Function to create or focus a Claude window
 local function create_or_focus_claude_window(bufnr)
 	if not bufnr then
-		-- Create a new buffer and window
-		vim.cmd("vnew")
+		-- Create a new scratch buffer
+		bufnr = vim.api.nvim_create_buf(false, true)
+		vim.cmd("vsplit")
+		vim.api.nvim_win_set_buf(0, bufnr)
+
+		vim.api.nvim_create_autocmd("WinEnter", {
+			buffer = bufnr,
+			callback = function(opts)
+				local map_opts = { noremap = true, silent = true, buffer = opts.buf }
+				vim.keymap.set("t", "<C-h>", [[<C-\><C-n><C-w>h]], map_opts)
+				vim.keymap.set("t", "<C-j>", [[<C-\><C-n><C-w>j]], map_opts)
+				vim.keymap.set("t", "<C-k>", [[<C-\><C-n><C-w>k]], map_opts)
+				vim.keymap.set("t", "<C-l>", [[<C-\><C-n><C-w>l]], map_opts)
+				vim.cmd("startinsert")
+			end,
+		})
 		return nil
 	else
 		-- Try to find existing window with this buffer
