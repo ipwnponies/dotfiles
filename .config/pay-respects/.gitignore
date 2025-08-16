@@ -1,1 +1,4 @@
-/rules/task.toml
+# Ignore all rules by default
+# This is to support local rules, since pay-respects is rigid in matching command name
+# to toml
+/rules/*.toml
