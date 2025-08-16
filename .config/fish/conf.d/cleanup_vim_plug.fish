@@ -2,16 +2,14 @@
 # This will check for vim-plug and clean it up if it's no longer needed
 
 function cleanup_vim_plug --description "Detect and clean up vim-plug"
-    set detected false
-
     # Check if plug.vim is installed
     if test -f ~/.vim/autoload/plug.vim
         echo "Found plug.vim at ~/.vim/autoload/plug.vim"
-        set detected true
+        set detected
     end
 
     # If vim-plug was detected, provide cleanup instructions
-    if test "$detected" = true
+    if set --query detected
         echo "vim-plug appears to be deprecated in your setup."
         echo "To clean up vim-plug:"
         echo "1. Delete ~/.vim/autoload/plug.vim if it exists"
@@ -19,6 +17,12 @@ function cleanup_vim_plug --description "Detect and clean up vim-plug"
         echo "Run cleanup_vim_plug --remove to automatically clean up"
     else
         echo "✓ No vim-plug remnants detected"
+
+        set deprecation_date (date --date '2026-02-16' '+%s')
+        set current_date (date '+%s')
+        if test $current_date -gt $deprecation_date
+            echo 'This cleanup script is over 6 months old. Please delete' (status current-filename)
+        end
     end
 
     argparse 'r/remove' -- $argv
