@@ -214,12 +214,5 @@
     syntax enable
     filetype plugin on
 
-" Colors:
-    set termguicolors
-    highlight Pmenu ctermbg=26
-    highlight PmenuSel ctermfg=214
-    highlight Visual ctermbg=237 guibg=#535D7E
-    highlight Search cterm=bold gui=bold gui=reverse guifg=None guibg=#53575c
-
 lua <<EOF
 EOF
