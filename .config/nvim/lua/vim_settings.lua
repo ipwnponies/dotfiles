@@ -40,3 +40,6 @@ ensure_dir(directory)
 vim.opt.undodir = undodir --     directory for persistent undo files
 vim.opt.directory = directory -- directory for swap files
 vim.opt.undofile = true --       enable persistent undo across sessions
+
+-- Local overrides
+vim.opt.exrc = true -- allow per-project .nvim.lua or .exrc config (potential security risk)

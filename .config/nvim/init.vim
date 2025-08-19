@@ -161,9 +161,6 @@
     set splitright
     set switchbuf=useopen
 
-    " Local overrides
-    set exrc
-
     " Misc
     set hidden
     set modeline
