@@ -161,16 +161,6 @@
     set splitright
     set switchbuf=useopen
 
-    " Temp file directories
-    let &undodir = expand('~/.cache/vim/undo//')
-    let &directory = expand('~/.cache/vim/swp//')
-    if !isdirectory(&undodir) || !isdirectory(&directory)
-        execute 'silent !mkdir -p ' . &undodir . ' ' . &directory
-    endif
-
-    " Persistent Undo
-    set undofile
-
     " Local overrides
     set exrc
 

@@ -23,3 +23,20 @@ vim.opt.tabstop = 4 --       Tabs are 4 spaces
 vim.opt.softtabstop = 0 --   When editing, 4 spaces are treated as tabs
 vim.opt.shiftwidth = 0 --    Match tabstop for shift operation (>>)
 vim.opt.autoindent = true -- Copy indent from current line when starting a new line
+
+-- Temp file directories
+local undodir = vim.fn.expand("~/.cache/vim/undo")
+local directory = vim.fn.expand("~/.cache/vim/swp")
+
+local function ensure_dir(dir)
+	if not vim.loop.fs_stat(dir) == nil then
+		vim.loop.fs_mkdir(dir, 448) -- 448 = 0700 in decimal
+	end
+end
+
+ensure_dir(undodir)
+ensure_dir(directory)
+
+vim.opt.undodir = undodir --     directory for persistent undo files
+vim.opt.directory = directory -- directory for swap files
+vim.opt.undofile = true --       enable persistent undo across sessions
