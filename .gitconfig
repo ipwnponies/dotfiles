@@ -125,4 +125,3 @@
 [blame]
 	markIgnoredLines = true
 	markUnblamableLines = true
-	ignoreRevsFile = .git-blame-ignore-revs
