@@ -7,3 +7,11 @@ vim.opt.formatoptions:append("j") -- Remove comment leader when joining lines
 vim.opt.formatoptions:append("c") -- Insert comment leader when wrapping lines
 vim.opt.formatoptions:append("r") -- Insert comment leader in insert mode when <CR>
 vim.opt.formatoptions:append("q") -- Allow gq for comments
+
+-- Search and substitute
+vim.opt.hlsearch = true --      Highlight all search matches
+vim.opt.incsearch = true --     Show search matches as you type (incremental search)
+vim.opt.ignorecase = true --    Searches ignore case by default
+vim.opt.smartcase = true --     If search contains uppercase, make it case-sensitive
+vim.opt.gdefault = true --      :substitute operates globally on each line by default
+vim.opt.inccommand = "split" -- Show live preview of :substitute in a split window

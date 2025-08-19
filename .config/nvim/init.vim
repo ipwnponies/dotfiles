@@ -128,16 +128,6 @@
     tnoremap <C-Space> <C-\><C-n>
 
 " Settings:
-    " Search
-    set hlsearch
-    set incsearch
-    set ignorecase
-    set smartcase
-    set gdefault
-    if exists('&inccommand')
-        set inccommand=split
-    endif
-
     " Spaces, tabs, indents
     set expandtab
     set tabstop=4
