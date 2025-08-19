@@ -10,8 +10,6 @@
         cabbrev Gdiffsplit Gdiffsplit @{u}...
         command! Gdifftool Git difftool --name-only @{u}...
 
-    " Gitv: Expand Vim-Fugitive git log operations
-        let g:Gitv_DoNotMapCtrlKey = 1
     " IndentLine: Disable Yggdroot/indentLine overrides
         let g:indentLine_concealcursor='c'
 
