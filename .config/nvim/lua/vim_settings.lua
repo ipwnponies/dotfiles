@@ -15,3 +15,11 @@ vim.opt.ignorecase = true --    Searches ignore case by default
 vim.opt.smartcase = true --     If search contains uppercase, make it case-sensitive
 vim.opt.gdefault = true --      :substitute operates globally on each line by default
 vim.opt.inccommand = "split" -- Show live preview of :substitute in a split window
+
+-- Spaces, Tabs, and Indents
+
+vim.opt.expandtab = true --  Use spaces instead of tabs
+vim.opt.tabstop = 4 --       Tabs are 4 spaces
+vim.opt.softtabstop = 0 --   When editing, 4 spaces are treated as tabs
+vim.opt.shiftwidth = 0 --    Match tabstop for shift operation (>>)
+vim.opt.autoindent = true -- Copy indent from current line when starting a new line

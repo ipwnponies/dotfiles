@@ -128,13 +128,6 @@
     tnoremap <C-Space> <C-\><C-n>
 
 " Settings:
-    " Spaces, tabs, indents
-    set expandtab
-    set tabstop=4
-    set softtabstop=0
-    set shiftwidth=0
-    set autoindent
-
     " Diff and folds
     set foldmethod=syntax
     set nofoldenable
