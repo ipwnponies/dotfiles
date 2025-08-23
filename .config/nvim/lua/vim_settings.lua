@@ -30,6 +30,10 @@ vim.opt.foldenable = false -- Disable folding by default
 vim.opt.diffopt:append("vertical") -- Show diffs in vertical splits
 vim.opt.diffopt:append("context:2") -- Show 2 lines of context around diffs
 
+-- Completion
+vim.opt.wildignorecase = true -- Ignore case when completing file names and directories
+vim.opt.completeopt = { "menuone", "popup" } -- Show menu even for one match, use popup menu for completion
+
 -- Temp file directories
 local undodir = vim.fn.expand("~/.cache/vim/undo")
 local directory = vim.fn.expand("~/.cache/vim/swp")

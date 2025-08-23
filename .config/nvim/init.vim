@@ -128,10 +128,6 @@
     tnoremap <C-Space> <C-\><C-n>
 
 " Settings:
-    " Completion
-    set wildignorecase
-    set completeopt=menuone,preview
-
     " Visuals
     set visualbell
     set cursorline
