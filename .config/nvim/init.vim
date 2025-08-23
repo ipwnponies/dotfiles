@@ -128,12 +128,6 @@
     tnoremap <C-Space> <C-\><C-n>
 
 " Settings:
-    " Diff and folds
-    set foldmethod=syntax
-    set nofoldenable
-    set diffopt+=vertical
-    set diffopt+=context:2
-
     " Completion
     set wildignorecase
     set completeopt=menuone,preview

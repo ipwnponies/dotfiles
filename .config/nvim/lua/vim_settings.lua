@@ -24,6 +24,12 @@ vim.opt.softtabstop = 0 --   When editing, 4 spaces are treated as tabs
 vim.opt.shiftwidth = 0 --    Match tabstop for shift operation (>>)
 vim.opt.autoindent = true -- Copy indent from current line when starting a new line
 
+-- Diff and folds
+vim.opt.foldmethod = "syntax" -- Use syntax-based folding
+vim.opt.foldenable = false -- Disable folding by default
+vim.opt.diffopt:append("vertical") -- Show diffs in vertical splits
+vim.opt.diffopt:append("context:2") -- Show 2 lines of context around diffs
+
 -- Temp file directories
 local undodir = vim.fn.expand("~/.cache/vim/undo")
 local directory = vim.fn.expand("~/.cache/vim/swp")
