@@ -103,7 +103,7 @@ local function send_selection_to_claude(prompt)
 		-- Start the terminal with Claude command
 		local escaped_text = vim.fn.shellescape(text_with_context)
 
-		local claude_command = string.format('claude "%s %s"', prompt, vim.fn.shellescape(escaped_text))
+		local claude_command = string.format('claude "%s %s"', vim.fn.shellescape(escaped_text), prompt)
 		vim.fn.termopen(claude_command)
 	end
 
