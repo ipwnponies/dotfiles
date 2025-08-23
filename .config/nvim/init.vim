@@ -135,10 +135,7 @@
     set diffopt+=context:2
 
     " Completion
-    set wildmode=full
-    set wildmenu
     set wildignorecase
-    set noinfercase
     set completeopt=menuone,preview
 
     " Visuals
@@ -147,7 +144,6 @@
     set number
     set scrolloff=3
     set showmatch
-    set showcmd
     set showbreak=>>
     set linebreak   " Break at word boundary
     set breakindent " Indent hanging continued lines
@@ -159,15 +155,9 @@
     set textwidth=120
     set splitbelow
     set splitright
-    set switchbuf=useopen
 
     " Misc
-    set hidden
-    set modeline
     set mouse=a
-
-    syntax enable
-    filetype plugin on
 
 lua <<EOF
 EOF
