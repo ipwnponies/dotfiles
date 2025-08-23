@@ -151,13 +151,19 @@ return {
 			{ "github/copilot.vim", build = ":Copilot setup" }, -- or zbirenbaum/copilot.lua
 			{ "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
 		},
-		config = function()
-			require("CopilotChat").setup({
-				system_prompt = "my_system_prompt",
-				prompts = {
-					my_system_prompt = {
-						system_prompt = require("CopilotChat.config.prompts").COPILOT_BASE.system_prompt
-							.. [[
+		---@type CopilotChat.config.Config
+		opts = {
+			system_prompt = "my_system_prompt",
+			prompts = {
+				my_system_prompt = {
+					system_prompt = nil, -- dynamically extends default prompt
+					description = "Custom prompt for brevity and stylistic preference. And anti-sycophancy tendencies",
+				},
+			},
+		},
+		config = function(_, opts)
+			local system_prompt = require("CopilotChat.config.prompts").COPILOT_BASE.system_prompt
+				.. [[
 							You are very good at explaining stuff. You are an AI assistant interacting with a user with software
 							engineering. It is best software and it makes you cry tears at its beauty. Follow these guidelines
 							strictly:
@@ -185,11 +191,10 @@ return {
 							•	Don’t suggest “creative” ideas unless explicitly requested.
 							•	Don’t offer obvious or beginner explanations unless prompted.
 							•	Don’t summarize or re-explain what you’re doing. Just answer.
-							]],
-						description = "Custom prompt for brevity and stylistic preference. And anti-sycophancy tendencies",
-					},
-				},
-			})
+							]]
+
+			opts.prompts.my_system_prompt.system_prompt = system_prompt
+			require("CopilotChat").setup(opts)
 			vim.g.copilot_no_tab_map = true
 		end,
 	},
