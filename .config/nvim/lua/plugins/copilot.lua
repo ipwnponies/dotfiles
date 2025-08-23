@@ -27,7 +27,7 @@ local function find_claude_buffer()
 	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
 		if vim.api.nvim_buf_is_loaded(buf) then
 			-- Claude has BufPostFile autocmd that updates the buffer name, so we can't set explicit name
-			if string.find(vim.api.nvim_buf_get_name(buf), "term://~//%d+:claude .*", 1, false) then
+			if string.find(vim.api.nvim_buf_get_name(buf), "term://.*/%d+:claude .*", 1, false) then
 				return buf
 			end
 		end
