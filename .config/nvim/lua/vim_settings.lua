@@ -34,6 +34,21 @@ vim.opt.diffopt:append("context:2") -- Show 2 lines of context around diffs
 vim.opt.wildignorecase = true -- Ignore case when completing file names and directories
 vim.opt.completeopt = { "menuone", "popup" } -- Show menu even for one match, use popup menu for completion
 
+-- Visuals
+vim.opt.visualbell = true -- Enable visual bell instead of beeping
+vim.opt.cursorline = true -- Highlight the current line
+vim.opt.number = true -- Show absolute line numbers
+vim.opt.scrolloff = 3 -- Keep 3 lines visible above/below cursor
+vim.opt.showmatch = true -- Briefly jump to matching bracket
+vim.opt.showbreak = ">>" -- String to show at start of wrapped lines
+vim.opt.linebreak = true -- Break lines at word boundaries
+vim.opt.breakindent = true -- Indent wrapped lines to match parent line
+-- Configure break indent options:
+-- - Show showbreak character at far left
+-- - Shift by 4
+-- - Keep hanging indents at least 60 columns wide
+vim.opt.breakindentopt = { "sbr", "shift:4", "min:60" }
+
 -- Temp file directories
 local undodir = vim.fn.expand("~/.cache/vim/undo")
 local directory = vim.fn.expand("~/.cache/vim/swp")

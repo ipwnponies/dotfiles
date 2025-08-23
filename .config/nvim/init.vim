@@ -128,19 +128,6 @@
     tnoremap <C-Space> <C-\><C-n>
 
 " Settings:
-    " Visuals
-    set visualbell
-    set cursorline
-    set number
-    set scrolloff=3
-    set showmatch
-    set showbreak=>>
-    set linebreak   " Break at word boundary
-    set breakindent " Indent hanging continued lines
-    " Show showbreak character at far left, shift by 4, and keep hanging indents
-    " at least minimum 60 width (for overly indented long lines)
-    set breakindentopt=sbr,shift:4,min:60
-
     " Layout
     set textwidth=120
     set splitbelow
