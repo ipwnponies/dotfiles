@@ -128,11 +128,6 @@
     tnoremap <C-Space> <C-\><C-n>
 
 " Settings:
-    " Layout
-    set textwidth=120
-    set splitbelow
-    set splitright
-
     " Misc
     set mouse=a
 
