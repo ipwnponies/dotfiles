@@ -127,9 +127,5 @@
 " Terminal Mode Map:
     tnoremap <C-Space> <C-\><C-n>
 
-" Settings:
-    " Misc
-    set mouse=a
-
 lua <<EOF
 EOF

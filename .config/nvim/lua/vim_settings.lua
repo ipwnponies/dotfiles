@@ -73,3 +73,6 @@ vim.opt.undofile = true --       enable persistent undo across sessions
 
 -- Local overrides
 vim.opt.exrc = true -- allow per-project .nvim.lua or .exrc config (potential security risk)
+
+-- Mouse handling
+vim.opt.mouse =  "a"  -- Enable mouse support in all modes (normal, visual, insert, command-line)
