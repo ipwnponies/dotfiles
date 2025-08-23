@@ -160,6 +160,10 @@ return {
 					description = "Custom prompt for brevity and stylistic preference. And anti-sycophancy tendencies",
 				},
 			},
+			-- Use visual selection, fallback to current line
+			selection = function(source)
+				return require("CopilotChat.select").visual(source) or require("CopilotChat.select").buffer(source)
+			end,
 		},
 		config = function(_, opts)
 			local system_prompt = require("CopilotChat.config.prompts").COPILOT_BASE.system_prompt
