@@ -10,8 +10,6 @@
         cabbrev Gdiffsplit Gdiffsplit @{u}...
         command! Gdifftool Git difftool --name-only @{u}...
 
-    " IndentLine: Disable Yggdroot/indentLine overrides
-        let g:indentLine_concealcursor='c'
 
         " Certain fzf.vim commands do not work with fish shell
         set shell=sh

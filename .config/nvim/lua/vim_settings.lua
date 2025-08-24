@@ -1,6 +1,9 @@
 vim.opt.updatetime = 250
 vim.opt.signcolumn = "yes"
 
+-- Set conceal cursor to always show
+vim.opt.concealcursor = "incv"
+
 -- Format Option:
 vim.opt.formatoptions:append("b") -- Break at blank. No autowrapping if line is >textwidth before insert or no blank
 vim.opt.formatoptions:append("j") -- Remove comment leader when joining lines

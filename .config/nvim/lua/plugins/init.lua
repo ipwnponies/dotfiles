@@ -16,7 +16,6 @@ return {
 	{ "machakann/vim-sandwich" },
 	{ "tpope/vim-sensible" },
 	{ "tpope/vim-endwise" },
-	{ "Yggdroot/indentLine" },
 	{ "junegunn/vim-easy-align" },
 	{ "AndrewRadev/sideways.vim" },
 	{ "AndrewRadev/splitjoin.vim" },
