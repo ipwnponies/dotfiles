@@ -11,7 +11,6 @@ return {
 	{ "tpope/vim-endwise" },
 	{ "junegunn/vim-easy-align" },
 	{ "AndrewRadev/sideways.vim" },
-	{ "AndrewRadev/splitjoin.vim" },
 	{ "michaeljsmith/vim-indent-object" },
 	{ "jeetsukumaran/vim-indentwise" },
 	{ "mattn/vim-xxdcursor" },

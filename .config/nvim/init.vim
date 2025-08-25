@@ -1,7 +1,4 @@
 " Plugin Custom Configurations:
-    " SplitJoin:
-        let g:splitjoin_python_brackets_on_separate_lines = 1
-        let g:splitjoin_trailing_comma = 1
     " " CleverF:
     "     let g:clever_f_chars_match_any_signs = ';'
     " Sideways:
