@@ -1,4 +1,3 @@
----@module 'lazy'
 ---@type LazyPluginSpec | LazyPluginSpec[]
 return {
 	-- Lang-specific
@@ -23,7 +22,5 @@ return {
 	{ "nvim-telescope/telescope.nvim", branch = "0.1.x" },
 
 	-- Pretty
-	{ "vim-airline/vim-airline" },
-	{ "sainnhe/sonokai" },
 	{ "haya14busa/is.vim" },
 }
