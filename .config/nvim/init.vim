@@ -1,9 +1,4 @@
 " Plugin Custom Configurations:
-    " " CleverF:
-    "     let g:clever_f_chars_match_any_signs = ';'
-    " Sideways:
-        nnoremap <leader><c-h> :SidewaysLeft<cr>
-        nnoremap <leader><c-l> :SidewaysRight<cr>
     " Undotree:
         let g:undotree_SetFocusWhenToggle = 1
         let g:undotree_DiffCommand = 'diff -u'

@@ -9,4 +9,11 @@ return {
 			vim.g.splitjoin_trailing_comma = 1
 		end,
 	},
+	{
+		"AndrewRadev/sideways.vim",
+		keys = {
+			{ "<leader><c-h>", "<cmd>SidewaysLeft<cr>", mode = "n", silent = true },
+			{ "<leader><c-l>", "<cmd>SidewaysRight<cr>", mode = "n", silent = true },
+		},
+	},
 }

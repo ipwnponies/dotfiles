@@ -10,7 +10,6 @@ return {
 	{ "tpope/vim-sensible" },
 	{ "tpope/vim-endwise" },
 	{ "junegunn/vim-easy-align" },
-	{ "AndrewRadev/sideways.vim" },
 	{ "michaeljsmith/vim-indent-object" },
 	{ "jeetsukumaran/vim-indentwise" },
 	{ "mattn/vim-xxdcursor" },
