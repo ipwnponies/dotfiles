@@ -20,13 +20,6 @@ return {
 
 	-- Usability
 	{ "mbbill/undotree", cmd = "UndotreeToggle" },
-	{
-		"junegunn/fzf.vim",
-		dependencies = {
-			"junegunn/fzf",
-		},
-		cmd = { "Files", "GFiles", "Lines", "BLines", "History", "Filetypes", "Jumps", "HelpTags" },
-	},
 	{ "junegunn/vim-peekaboo" },
 	{ "haya14busa/vim-asterisk" },
 	{ "tpope/vim-unimpaired" },

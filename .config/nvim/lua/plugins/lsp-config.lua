@@ -39,7 +39,7 @@ return {
 	},
 	{
 		"gfanto/fzf-lsp.nvim",
-		dependencies = { "nvim-lua/plenary.nvim", "junegunn/fzf.vim" },
+		dependencies = { "nvim-lua/plenary.nvim", "junegunn/fzf" },
 		event = "LspAttach",
 		keys = {
 			{

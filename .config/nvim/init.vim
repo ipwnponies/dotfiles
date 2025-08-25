@@ -1,9 +1,4 @@
 " Plugin Custom Configurations:
-        " Certain fzf.vim commands do not work with fish shell
-        set shell=sh
-
-        let g:fzf_preview_window = ['up:60%:+{2}/4', 'ctrl-/']
-
     " Ale:
         let g:ale_echo_msg_format = '[%linter%] %code: %%s'
         let g:ale_lint_on_insert_leave = 1
