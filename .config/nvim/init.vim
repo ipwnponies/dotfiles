@@ -1,7 +1,4 @@
 " Plugin Custom Configurations:
-    " Vim Peeakboo:
-        let g:peekaboo_window = "botright 30new"
-        let g:peekaboo_delay = 300
     " SplitJoin:
         let g:splitjoin_python_brackets_on_separate_lines = 1
         let g:splitjoin_trailing_comma = 1
