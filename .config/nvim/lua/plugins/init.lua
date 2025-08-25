@@ -1,12 +1,6 @@
 ---@module 'lazy'
 ---@type LazyPluginSpec | LazyPluginSpec[]
 return {
-	-- Git plugins
-	{ "junegunn/gv.vim" },
-	{ "airblade/vim-gitgutter" },
-	{ "tpope/vim-fugitive" },
-	{ "ruanyl/vim-gh-line" },
-
 	-- Lang-specific
 	{ "w0rp/ale" },
 	{ "voithos/vim-python-matchit" },
