@@ -2,7 +2,6 @@
 ---@type LazyPluginSpec | LazyPluginSpec[]
 return {
 	-- Lang-specific
-	{ "w0rp/ale" },
 	{ "voithos/vim-python-matchit" },
 
 	-- Editing
