@@ -3,6 +3,7 @@ return {
 	{
 		"ibhagwan/fzf-lua",
 		dependencies = { "echasnovski/mini.icons" },
+		---@type fzf-lua.config.Defaults  | table<any, any>
 		opts = {
 			keymap = {
 				fzf = {
@@ -30,21 +31,21 @@ return {
 			{
 				"<leader>fb",
 				function()
-					require("fzf-lua").buffers({ resume = true })
+					require("fzf-lua").buffers()
 				end,
 				desc = "Buffers",
 			},
 			{
 				"<leader>fG",
 				function()
-					require("fzf-lua").git_status({ resume = true })
+					require("fzf-lua").git_status()
 				end,
 				desc = "Git Status",
 			},
 			{
 				"<leader>fg",
 				function()
-					require("fzf-lua").git_files({ resume = true })
+					require("fzf-lua").git_files()
 				end,
 				desc = "Git Files",
 			},
@@ -59,7 +60,7 @@ return {
 			{
 				"<leader>/",
 				function()
-					require("fzf-lua").blines({ resume = true })
+					require("fzf-lua").blines()
 				end,
 				desc = "Buffer Lines",
 			},
@@ -67,7 +68,7 @@ return {
 			{
 				"<leader>fh",
 				function()
-					require("fzf-lua").help_tags({ resume = true })
+					require("fzf-lua").help_tags()
 				end,
 				desc = "Helptags",
 			},
