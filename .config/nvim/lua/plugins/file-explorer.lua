@@ -313,6 +313,15 @@ return {
 					require("oil").open(path)
 				end,
 			},
+			event_handlers = {
+				{
+					event = "file_opened",
+					handler = function(_)
+						--auto close
+						require("neo-tree.command").execute({ action = "close" })
+					end,
+				},
+			},
 		},
 
 		config = function(_, opts)
