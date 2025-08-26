@@ -2,7 +2,6 @@
 require("settings") -- basic options
 require("keymaps") -- key mappings
 require("config.lazy") -- plugin manager and plugins
-require("config.settings") -- plugin manager and plugins
 require("binary-editing") -- binary file editing utilities
 require("autocmds")
 
