@@ -57,25 +57,8 @@ vim.opt.textwidth = 120 -- Set maximum text width to 120 characters
 vim.opt.splitbelow = true -- New horizontal splits open below
 vim.opt.splitright = true -- New vertical splits open to the right
 
--- Temp file directories
-local undodir = vim.fn.expand("~/.cache/vim/undo")
-local directory = vim.fn.expand("~/.cache/vim/swp")
-
-local function ensure_dir(dir)
-	if not vim.loop.fs_stat(dir) == nil then
-		vim.loop.fs_mkdir(dir, 448) -- 448 = 0700 in decimal
-	end
-end
-
-ensure_dir(undodir)
-ensure_dir(directory)
-
-vim.opt.undodir = undodir --     directory for persistent undo files
-vim.opt.directory = directory -- directory for swap files
-vim.opt.undofile = true --       enable persistent undo across sessions
-
 -- Local overrides
 vim.opt.exrc = true -- allow per-project .nvim.lua or .exrc config (potential security risk)
 
 -- Mouse handling
-vim.opt.mouse =  "a"  -- Enable mouse support in all modes (normal, visual, insert, command-line)
+vim.opt.mouse = "a" -- Enable mouse support in all modes (normal, visual, insert, command-line)

@@ -1,9 +1,4 @@
 " Plugin Custom Configurations:
-    " Undotree:
-        let g:undotree_SetFocusWhenToggle = 1
-        let g:undotree_DiffCommand = 'diff -u'
-        let g:undotree_ShortIndicators = 1
-        let g:undotree_WindowLayout=2
     " Vim Asterisk:
         let g:asterisk#keeppos = 1
         map *  <Plug>(is-nohl)<Plug>(asterisk-z*)

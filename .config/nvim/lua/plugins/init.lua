@@ -15,7 +15,6 @@ return {
 	{ "tpope/vim-sleuth" },
 
 	-- Usability
-	{ "mbbill/undotree", cmd = "UndotreeToggle" },
 	{ "junegunn/vim-peekaboo" },
 	{ "haya14busa/vim-asterisk" },
 	{ "tpope/vim-unimpaired" },
