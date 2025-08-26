@@ -131,7 +131,6 @@ local function execute_claude_command(prompt, opts)
 	end
 end
 
----@module 'lazy'
 ---@type LazyPluginSpec | LazyPluginSpec[]
 return {
 	{

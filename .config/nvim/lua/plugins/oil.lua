@@ -1,4 +1,3 @@
----@module 'lazy'
 ---@type LazyPluginSpec | LazyPluginSpec[]
 return {
 	"stevearc/oil.nvim",

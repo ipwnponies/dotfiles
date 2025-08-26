@@ -33,7 +33,6 @@ for t, _ in pairs(ft) do
 	table.insert(ft_array, t)
 end
 
----@module 'lazy'
 ---@type LazyPluginSpec | LazyPluginSpec[]
 return {
 	"mason-org/mason-lspconfig.nvim",

@@ -1,6 +1,5 @@
 --- Plugins for integrating Neovim with external programs (e.g., browser extensions).
 -- Firenvim embeds Neovim in browser textareas.
----@module 'lazy'
 ---@type LazyPluginSpec | LazyPluginSpec[]
 return {
 	{
