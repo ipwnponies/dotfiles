@@ -152,6 +152,25 @@ return {
 					on_attach = mason_lspconfig_on_attach,
 				})
 			end,
+			["pyright"] = function()
+				lspconfig.pyright.setup({
+					capabilities = capabilities,
+					on_attach = mason_lspconfig_on_attach,
+					root_dir = function(fname)
+						---@type fun(fname: string): table|nil
+						vim.g.project_pyright_root = vim.g.project_pyright_root
+
+						if vim.g.project_pyright_root then
+							local patterns = vim.g.project_pyright_root(fname)
+							if patterns ~= nil then
+								return lspconfig.util.root_pattern(unpack(patterns))(fname)
+							end
+						end
+
+						return lspconfig.pyright.document_config.default_config.root_dir(fname)
+					end,
+				})
+			end,
 		})
 
 		-- Fish LSP is not managed by mason, it's external
