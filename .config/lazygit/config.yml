@@ -7,6 +7,8 @@ gui:
   filterMode: substring
 git:
   branchLogCmd: "git hist {{branchName}} --max-count 40 --"
+  paging:
+    pager: 'delta --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"'
 promptToReturnFromSubprocess: false
 customCommands:
   - description: Push (override)
