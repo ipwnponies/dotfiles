@@ -1,13 +1,4 @@
 " Plugin Custom Configurations:
-    " Vim Illuminate:
-        let g:Illuminate_delay = 100
-        hi link illuminatedWord Search
-        let g:Illuminate_ftHighlightGroups = {
-                    \ 'qf': [''],
-                    \ 'javascript.jsx:blacklist': ['jsImport', 'jsExport', 'jsExportDefault', 'jsStorageClass', 'jsGlobalNodeObjects',
-                    \       'jsClassKeyword', 'jsOperatorKeyword', 'jsExtendsKeyword', 'jsFrom', 'jsConditional', 'jsReturn'],
-                    \ 'python': ['', 'pythonString', 'pythonFunction', 'pythonDottedName', 'pythonNone', 'pythonComment'],
-                    \ }
     " Vim QF:
         let g:qf_mapping_ack_style = 1
         let g:qf_shorten_path = 0
