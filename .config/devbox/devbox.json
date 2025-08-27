@@ -39,7 +39,8 @@
     "tree@latest",
     "yarn@latest",
     "yq@latest",
-    "zoxide@latest"
+    "zoxide@latest",
+    "difftastic@latest"
   ],
   "shell": {
     "init_hook": [
