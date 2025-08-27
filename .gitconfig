@@ -90,12 +90,18 @@
 [diff]
     colorMoved = dimmed-zebra
     colorMovedWS = allow-indentation-change
+    tool = difftastic
+[difftool]
+    prompt = false
+[difftool "difftastic"]
+    cmd = difft "$MERGED" "$LOCAL" "abcdef1" "100644" "$REMOTE" "abcdef2" "100644"
 [delta]
     features = line-numbers side-by-side navigate
 [delta "interactive"]
     keep-plus-minus-markers = false
 [pager]
     branch = cat
+    difftool = true
 [color]
     ui = true
 [color "diff-highlight"]
