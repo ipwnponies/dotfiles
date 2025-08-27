@@ -1,10 +1,4 @@
 " Plugin Custom Configurations:
-    " Vim Asterisk:
-        let g:asterisk#keeppos = 1
-        map *  <Plug>(is-nohl)<Plug>(asterisk-z*)
-        map #  <Plug>(is-nohl)<Plug>(asterisk-z#)
-        map g* <Plug>(is-nohl)<Plug>(asterisk-gz*)
-        map g# <Plug>(is-nohl)<Plug>(asterisk-gz#)
     " Vim Illuminate:
         let g:Illuminate_delay = 100
         hi link illuminatedWord Search

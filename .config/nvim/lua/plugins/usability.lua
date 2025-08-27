@@ -41,4 +41,17 @@ return {
 			vim.g.undotree_WindowLayout = 2 -- Set diff to horizontal wide split
 		end,
 	},
+	{
+		-- Search without moving the cursor. Keep offset position when searching with *
+		"haya14busa/vim-asterisk",
+		keys = {
+			{ "*", "<Plug>(is-nohl)<Plug>(asterisk-z*)", mode = { "v", "n" } },
+			{ "#", "<Plug>(is-nohl)<Plug>(asterisk-z#)", mode = { "v", "n" } },
+			{ "g*", "<Plug>(is-nohl)<Plug>(asterisk-gz*)", mode = { "v", "n" } },
+			{ "g#", "<Plug>(is-nohl)<Plug>(asterisk-gz#)", mode = { "v", "n" } },
+		},
+		config = function()
+			vim.g["asterisk#keeppos"] = 1
+		end,
+	},
 }
