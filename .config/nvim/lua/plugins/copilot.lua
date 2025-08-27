@@ -150,6 +150,21 @@ return {
 			{ "github/copilot.vim", build = ":Copilot setup" }, -- or zbirenbaum/copilot.lua
 			{ "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
 		},
+		keys = {
+			{
+				"<M-l>",
+				function()
+					return vim.fn["copilot#Accept"]("\\<CR>")
+				end,
+				mode = "i",
+				expr = true,
+				silent = true,
+				replace_keycodes = false,
+			},
+			{ "<leader>cc", "<cmd>CopilotChat<cr>", mode = { "n", "v" }, silent = true },
+			{ "<leader>ce", "<cmd>CopilotChatExplain<cr>", mode = { "n", "v" }, silent = true },
+			{ "<leader>cf", "<cmd>CopilotChatFix<cr>", mode = { "n", "v" }, silent = true },
+		},
 		---@type CopilotChat.config.Config
 		opts = {
 			system_prompt = "my_system_prompt",
@@ -198,6 +213,7 @@ return {
 
 			opts.prompts.my_system_prompt.system_prompt = system_prompt
 			require("CopilotChat").setup(opts)
+
 			vim.g.copilot_no_tab_map = true
 		end,
 	},

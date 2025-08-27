@@ -3,13 +3,6 @@
         let g:qf_mapping_ack_style = 1
         let g:qf_shorten_path = 0
 
-    " CopilotChat
-        " Github copilot suggestions
-        inoremap <silent><script><expr> <m-l> copilot#Accept("\<CR>")
-        map <leader>cc :CopilotChat<cr>
-        map <leader>ce :CopilotChatExplain<cr>
-        map <leader>cf :CopilotChatFix<cr>
-
 " Insert Map:
     inoremap jk <esc>
     " Auto-correct while typing
