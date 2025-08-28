@@ -49,6 +49,7 @@ return {
 					require("hop").hint_char1({ hint_offset = -1, current_line_only = true })
 				end,
 			},
+			mode = "",
 		},
 		config = function(_, opts)
 			local hop = require("hop")
