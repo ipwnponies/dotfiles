@@ -29,3 +29,5 @@ require("lazy").setup({
 		notify = false,
 	},
 })
+
+require("config.plugin_settings")
