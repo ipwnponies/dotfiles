@@ -93,7 +93,7 @@ local function send_selection_to_claude(prompt)
 	end
 
 	local text_with_context =
-		string.format("From file %s (lines %d-%d)", selection.filename, selection.line_start, selection.line_end)
+		string.format("@%s:%d-%d\n%s", selection.filename, selection.line_start, selection.line_end, prompt)
 
 	local claude_bufnr = find_claude_buffer()
 	local job_id = create_or_focus_claude_window(claude_bufnr)
