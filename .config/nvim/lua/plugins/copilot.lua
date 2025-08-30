@@ -107,6 +107,15 @@ local function send_selection_to_claude(prompt)
 	end, is_created and 1000 or 0) -- No delay for existing terminal, 500ms for new one
 end
 
+local preset_prompts = {
+	{ name = "explain", prompt = "Please explain how this code works in detail." },
+	{ name = "refactor", prompt = "Please refactor this code." },
+	{ name = "bugs", prompt = "Please identify any bugs or issues in this code." },
+	{ name = "test", prompt = "Please write tests for this code." },
+	{ name = "analyze", prompt = "Please analyze this code." },
+	{ name = "optimize", prompt = "Please optimize this code for performance." },
+}
+
 -- Function to validate visual selection and execute Claude command
 local function execute_claude_command(prompt, opts)
 	-- Check mode to ensure we have a visual selection
@@ -221,6 +230,16 @@ return {
 		},
 		config = function()
 			require("claude-code").setup()
+
+			-- Register command to list available Claude presets
+			vim.api.nvim_create_user_command("ClaudeListPresets", function()
+				local lines = { "Available Claude Presets:" }
+				table.insert(lines, string.rep("-", 25))
+				for _, preset in ipairs(preset_prompts) do
+					table.insert(lines, string.format("%-12s %s", preset.name .. ":", preset.prompt))
+				end
+				vim.notify(table.concat(lines, "\n"), vim.log.levels.INFO)
+			end, {})
 
 			-- Command to send selection to Claude with a prompt
 			vim.api.nvim_create_user_command("ClaudeRefactor", function(opts)
