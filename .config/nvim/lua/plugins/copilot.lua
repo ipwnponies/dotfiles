@@ -1,27 +1,3 @@
--- Function to get visual selection
-local function get_visual_selection()
-	local start_pos = vim.fn.getpos("'<")
-	local end_pos = vim.fn.getpos("'>")
-
-	-- Ensure we're dealing with a visual selection
-	if start_pos[2] == 0 or end_pos[2] == 0 then
-		return nil
-	end
-
-	local line_start = start_pos[2]
-	local line_end = end_pos[2]
-
-	-- Get the filename to provide context
-	local filename = vim.fn.expand("%:p")
-
-	-- Return selection information
-	return {
-		filename = filename,
-		line_start = line_start,
-		line_end = line_end,
-	}
-end
-
 -- Function to find existing Claude buffer
 local function find_claude_buffer()
 	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
@@ -85,15 +61,10 @@ local function create_or_focus_claude_window(bufnr)
 end
 
 -- Function to send selected text to Claude with a prompt
-local function send_selection_to_claude(prompt)
-	local selection = get_visual_selection()
-	if not selection then
-		vim.notify("No visual selection detected", vim.log.levels.ERROR)
-		return
-	end
-
-	local final_prompt =
-		string.format("@%s:%d-%d\n%s", selection.filename, selection.line_start, selection.line_end, prompt)
+local function send_selection_to_claude(prompt, range)
+	local filename = vim.fn.expand("%:p")
+	local line_number = range and string.format(":%d-%d", range.start, range.line_end) or ""
+	local final_prompt = string.format("@%s%s\n%s", filename, line_number, prompt)
 
 	-- Find existing Claude buffer or create new one
 	local claude_bufnr = find_claude_buffer()
@@ -117,24 +88,22 @@ local preset_prompts = {
 }
 
 -- Function to validate visual selection and execute Claude command
-local function execute_claude_command(prompt, opts)
-	-- Check mode to ensure we have a visual selection
-	if not (opts.range > 0) then
-		vim.notify("This command requires a visual selection", vim.log.levels.WARN)
-		return
+local function execute_claude_command(prompt, range)
+	-- Expand abbreviated prompt if it's a preset name
+	local prompt_text = prompt
+	for _, preset_entry in ipairs(preset_prompts) do
+		if preset_entry.name == prompt then
+			prompt_text = preset_entry.prompt
+			break
+		end
 	end
 
-	-- Sanitize prompt if provided
-	if prompt and type(prompt) == "string" then
-		-- Ensure prompt ends with a space for better formatting
-		if not prompt:match("s$") then
-			prompt = prompt .. " "
-		end
-		-- Execute with validated prompt
-		pcall(send_selection_to_claude, prompt)
-	else
-		vim.notify("Invalid prompt format", vim.log.levels.ERROR)
+	-- Ensure prompt ends with a space for better formatting
+	if not prompt_text:match("s$") then
+		prompt_text = prompt_text .. " "
 	end
+
+	pcall(send_selection_to_claude, prompt_text, range)
 end
 
 ---@type LazyPluginSpec | LazyPluginSpec[]
@@ -232,7 +201,13 @@ return {
 			{
 				"<leader>ck",
 				"<cmd>ClaudeAsk<CR>",
-				mode = { "v", "n" },
+				mode = "n",
+				desc = "Send selection to Claude with custom prompt",
+			},
+			{
+				"<leader>ck",
+				":'<,'>ClaudeAsk<CR>",
+				mode = "v",
 				desc = "Send selection to Claude with custom prompt",
 			},
 		},
@@ -249,42 +224,61 @@ return {
 				vim.notify(table.concat(lines, "\n"), vim.log.levels.INFO)
 			end, {})
 
-			-- Command to send selection to Claude with a prompt
-			vim.api.nvim_create_user_command("ClaudeRefactor", function(opts)
-				execute_claude_command("Please refactor this code:", opts)
-			end, {
-				range = true,
-				desc = "Send selection to Claude for refactoring",
-			})
+			-- Helper function to register Claude commands
+			local function register_claude_command(name, preset, config)
+				config = config or {}
+				local nargs = config.nargs or "?"
 
-			-- Command with custom prompt
-			vim.api.nvim_create_user_command("ClaudeAsk", function(opts)
-				if opts.args ~= "" then
-					-- Use the provided argument as prompt
-					execute_claude_command(opts.args, opts)
-				else
-					-- Prompt user interactively for input
-					vim.ui.input({
-						prompt = "Enter prompt for Claude: ",
-						default = "Please analyze this code: ",
-					}, function(input)
-						if input then
-							execute_claude_command(input, opts)
+				vim.api.nvim_create_user_command("Claude" .. name, function(opts)
+					local range
+					-- Only applicable for range Command
+					if opts.range == 2 then
+						range = { start = opts.line1, line_end = opts.line2 }
+					end
+					-- Handle custom prompt input for ClaudeAsk
+					if name == "Ask" then
+						if opts.args ~= "" then
+							execute_claude_command(opts.args, range)
+						else
+							local preset_keys = {}
+							for _, preset in ipairs(preset_prompts) do
+								table.insert(preset_keys, preset.name)
+							end
+							table.insert(preset_keys, "custom")
+
+							-- Noop if no prompt
+							local execute_claude_command_callback = function(prompt)
+								if prompt then
+									execute_claude_command(prompt, range)
+								end
+							end
+							vim.ui.select(preset_keys, {
+								prompt = "Select a preset prompt or enter custom:",
+							}, function(choice)
+								if choice == "custom" then
+									vim.ui.input({
+										prompt = "Enter prompt for Claude: ",
+									}, execute_claude_command_callback)
+								else
+									execute_claude_command_callback(choice)
+								end
+							end)
 						end
-					end)
-				end
-			end, {
-				range = true,
-				nargs = "?",
-				desc = "Send selection to Claude with custom prompt",
-			})
+					else
+						-- For preset commands, just execute with the preset
+						execute_claude_command(preset, range)
+					end
+				end, { range = 0, nargs = nargs })
+			end
 
-			vim.keymap.set(
-				"v",
-				"<leader>ck",
-				":ClaudeAsk<CR>",
-				{ desc = "Send selection to Claude with custom prompt" }
-			)
+			-- Register all Claude commands with consistent configuration
+			register_claude_command("Ask", nil, { nargs = "?" })
+			register_claude_command("Refactor", "refactor")
+			register_claude_command("Analyze", "analyze")
+			register_claude_command("Optimize", "optimize")
+			register_claude_command("Explain", "explain")
+			register_claude_command("Bugs", "bugs")
+			register_claude_command("Test", "test")
 		end,
 	},
 }
