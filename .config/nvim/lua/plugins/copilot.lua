@@ -228,6 +228,14 @@ return {
 		dependencies = {
 			"nvim-lua/plenary.nvim", -- Required for git operations
 		},
+		keys = {
+			{
+				"<leader>ck",
+				"<cmd>ClaudeAsk<CR>",
+				mode = { "v", "n" },
+				desc = "Send selection to Claude with custom prompt",
+			},
+		},
 		config = function()
 			require("claude-code").setup()
 
