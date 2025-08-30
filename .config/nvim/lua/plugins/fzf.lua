@@ -82,8 +82,6 @@ return {
 		},
 		config = function(_, opts)
 			require("fzf-lua").setup(opts)
-			vim.opt.shell = "sh"
-			-- Disable FZF_DEFAULT_OPTS to avoid conflicts with fzf-lua
 			vim.env.FZF_DEFAULT_OPTS = ""
 		end,
 	},
