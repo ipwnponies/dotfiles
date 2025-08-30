@@ -92,24 +92,19 @@ local function send_selection_to_claude(prompt)
 		return
 	end
 
-	local text_with_context =
+	local final_prompt =
 		string.format("@%s:%d-%d\n%s", selection.filename, selection.line_start, selection.line_end, prompt)
 
+	-- Find existing Claude buffer or create new one
 	local claude_bufnr = find_claude_buffer()
-	local job_id = create_or_focus_claude_window(claude_bufnr)
+	local job_id, is_created = create_or_focus_claude_window(claude_bufnr)
 
-	if job_id then
-		-- Send to existing terminal, type into claude TUI prompt
-		vim.api.nvim_chan_send(job_id, text_with_context .. prompt)
-	else
-		-- Start the terminal with Claude command
-		local escaped_text = vim.fn.shellescape(text_with_context)
-
-		local claude_command = string.format('claude "%s %s"', vim.fn.shellescape(escaped_text), prompt)
-		vim.fn.termopen(claude_command)
-	end
-
+	-- Ensure we're in insert mode for terminal interaction
 	vim.cmd("startinsert")
+
+	vim.defer_fn(function()
+		vim.api.nvim_chan_send(job_id, final_prompt)
+	end, is_created and 1000 or 0) -- No delay for existing terminal, 500ms for new one
 end
 
 -- Function to validate visual selection and execute Claude command
