@@ -48,3 +48,10 @@ customCommands:
             description: Pre-commit hooks slow as shit? No worries, i got you
           - value: 'push --no-verify --force-with-lease'
             description: just do it
+  - description: Set upstream to selected local branch
+    key: 'U'
+    command: git branch --set-upstream-to={{.SelectedLocalBranch.Name}}
+    context: localBranches
+    loadingText: Setting upstream...
+    stream: false
+    showOutput: true
