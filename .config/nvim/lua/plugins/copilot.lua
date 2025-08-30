@@ -49,6 +49,9 @@ local function create_or_focus_claude_window(bufnr)
 
 		if winid then
 			-- Switch to the window
+
+			-- Leave visual mode and enter terminal mode in new window
+			vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
 			vim.api.nvim_set_current_win(winid)
 		else
 			-- Open window with the buffer
