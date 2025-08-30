@@ -66,7 +66,7 @@ local function create_or_focus_claude_window(bufnr)
 				vim.cmd("startinsert")
 			end,
 		})
-		return nil
+		return vim.fn.termopen("claude"), true
 	else
 		-- Try to find existing window with this buffer
 		local winid = find_buffer_window(bufnr)
