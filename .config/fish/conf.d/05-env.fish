@@ -6,7 +6,7 @@ set -x XDG_CONFIG_HOME $HOME/.config
 set -x XDG_CACHE_HOME $HOME/.cache
 set -x XDG_STATE_HOME $HOME/.local/state
 
-fish_add_path --prepend --global $HOME/bin
+fish_add_path --prepend --move --global $HOME/bin
 
 set -x RIPGREP_CONFIG_PATH "$XDG_CONFIG_HOME/ripgrep/rc"
 set -x EDITOR nvim
