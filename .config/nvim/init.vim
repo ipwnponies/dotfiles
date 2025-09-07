@@ -4,8 +4,6 @@
         let g:qf_shorten_path = 0
 
 " Normal Map:
-    nnoremap <C-e> 5<C-e>
-    nnoremap <C-y> 5<C-y>
     noremap <m-o> <C-I>
     nnoremap <leader>bd :b#<cr>:bd #<cr>
 
