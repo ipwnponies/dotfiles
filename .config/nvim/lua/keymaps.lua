@@ -69,3 +69,6 @@ vim.keymap.set("n", "<c-h>", "<c-w><c-h>", { silent = true }) -- Move to window 
 vim.keymap.set("c", "<c-p>", "<up>", { silent = false }) -- Previous selection in completion menu
 vim.keymap.set("c", "<c-n>", "<down>", { silent = false }) -- Next selection in completion menu
 vim.keymap.set("c", "<c-a>", "<c-b>", { silent = false }) -- Move to beginning of line
+
+-- Terminal mode: <C-Space> to normal mode
+vim.keymap.set("t", "<C-Space>", "<C-\\><C-n>", { silent = true })
