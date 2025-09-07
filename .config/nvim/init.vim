@@ -6,7 +6,6 @@
 " Normal Map:
     nnoremap <C-e> 5<C-e>
     nnoremap <C-y> 5<C-y>
-    nnoremap Y y$
     noremap <m-o> <C-I>
     nnoremap <leader>bd :b#<cr>:bd #<cr>
 
