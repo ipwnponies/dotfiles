@@ -6,11 +6,6 @@
 " Normal Map:
     noremap <m-o> <C-I>
 
-    " Quickfix/Location List
-    nmap <leader><F5> :cwindow<CR>
-    nmap <leader><F6> :lwindow<CR>
-
-
     " Window Movement:
     nnoremap <c-j> <c-w><c-j>
     nnoremap <c-k> <c-w><c-k>
