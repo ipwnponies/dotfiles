@@ -20,3 +20,25 @@ local scroll = function(key)
 end
 vim.keymap.set({ "n", "v" }, "<C-e>", scroll("<c-e>"), { noremap = true, silent = true, expr = true }) -- Scroll down
 vim.keymap.set({ "n", "v" }, "<C-y>", scroll("<c-y>"), { noremap = true, silent = true, expr = true }) -- Scroll up
+
+-- Buffer delete but without closing window
+vim.keymap.set("n", "<leader>bd", function()
+	---Deletes current buffer and switches to alternate or next listed buffer.
+	local target = vim.fn.bufnr("%")
+	local alt = vim.fn.bufnr("#")
+	if alt == -1 then
+		local bufs = vim.fn.getbufinfo({ buflisted = 1, bufloaded = 1 })
+
+		for _, buf in ipairs(bufs) do
+			if buf.bufnr ~= target then
+				alt = buf.bufnr
+				break
+			end
+		end
+	end
+
+	if alt then
+		vim.api.nvim_win_set_buf(0, alt)
+		vim.api.nvim_buf_delete(target, {})
+	end
+end, { silent = true })

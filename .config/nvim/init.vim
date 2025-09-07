@@ -5,8 +5,6 @@
 
 " Normal Map:
     noremap <m-o> <C-I>
-    nnoremap <leader>bd :b#<cr>:bd #<cr>
-
 
     " Quickfix/Location List
     nmap <leader><F5> :cwindow<CR>
