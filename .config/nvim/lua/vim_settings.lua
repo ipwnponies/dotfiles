@@ -1,5 +1,6 @@
 vim.opt.updatetime = 250
 vim.opt.signcolumn = "yes"
+vim.opt.spell = true
 
 -- Set conceal cursor to always show
 vim.opt.concealcursor = "incv"
