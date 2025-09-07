@@ -3,11 +3,6 @@
         let g:qf_mapping_ack_style = 1
         let g:qf_shorten_path = 0
 
-" Insert Map:
-    inoremap jk <esc>
-    " Auto-correct while typing
-    inoremap <c-l> <c-g>u<esc>[s1z=`]a<c-g>u
-
 " Normal Map:
     nnoremap <C-e> 5<C-e>
     nnoremap <C-y> 5<C-y>
