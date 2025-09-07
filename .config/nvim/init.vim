@@ -8,8 +8,6 @@
     " Auto-correct while typing
     inoremap <c-l> <c-g>u<esc>[s1z=`]a<c-g>u
 
-    iabbrev todo: TODO(TICKET):
-
 " Normal Map:
     nnoremap <C-e> 5<C-e>
     nnoremap <C-y> 5<C-y>
@@ -34,7 +32,6 @@
     cnoremap <c-n> <down>
     " Unsure why vim decided to deviate from readline here, it's not like this was already mapped
     cnoremap <c-a> <c-b>
-    cmap w!! w !sudo tee >/dev/null %
 
 " Terminal Mode Map:
     tnoremap <C-Space> <C-\><C-n>
