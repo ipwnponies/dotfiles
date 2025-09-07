@@ -6,12 +6,6 @@
 " Normal Map:
     noremap <m-o> <C-I>
 
-    " Window Movement:
-    nnoremap <c-j> <c-w><c-j>
-    nnoremap <c-k> <c-w><c-k>
-    nnoremap <c-l> <c-w><c-l>
-    nnoremap <c-h> <c-w><c-h>
-
 " Commandline Map:
     cnoremap <c-p> <up>
     cnoremap <c-n> <down>

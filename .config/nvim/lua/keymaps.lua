@@ -58,3 +58,9 @@ end
 
 vim.keymap.set("n", "<leader><F5>", toggle_qf(true), { silent = true })
 vim.keymap.set("n", "<leader><F6>", toggle_qf(false), { silent = true })
+
+-- Window movement remaps
+vim.keymap.set("n", "<c-j>", "<c-w><c-j>", { silent = true }) -- Move to window below
+vim.keymap.set("n", "<c-k>", "<c-w><c-k>", { silent = true }) -- Move to window above
+vim.keymap.set("n", "<c-l>", "<c-w><c-l>", { silent = true }) -- Move to window right
+vim.keymap.set("n", "<c-h>", "<c-w><c-h>", { silent = true }) -- Move to window left
