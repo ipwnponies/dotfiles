@@ -64,3 +64,8 @@ vim.keymap.set("n", "<c-j>", "<c-w><c-j>", { silent = true }) -- Move to window 
 vim.keymap.set("n", "<c-k>", "<c-w><c-k>", { silent = true }) -- Move to window above
 vim.keymap.set("n", "<c-l>", "<c-w><c-l>", { silent = true }) -- Move to window right
 vim.keymap.set("n", "<c-h>", "<c-w><c-h>", { silent = true }) -- Move to window left
+
+-- Command-line
+vim.keymap.set("c", "<c-p>", "<up>", { silent = false }) -- Previous selection in completion menu
+vim.keymap.set("c", "<c-n>", "<down>", { silent = false }) -- Next selection in completion menu
+vim.keymap.set("c", "<c-a>", "<c-b>", { silent = false }) -- Move to beginning of line
