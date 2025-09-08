@@ -156,6 +156,11 @@ return {
 			selection = function(source)
 				return require("CopilotChat.select").visual(source) or require("CopilotChat.select").buffer(source)
 			end,
+			window = {
+				layout = "float",
+				width = 0.5,
+				relative = "win",
+			},
 		},
 		config = function(_, opts)
 			local system_prompt = require("CopilotChat.config.prompts").COPILOT_BASE.system_prompt
