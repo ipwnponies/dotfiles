@@ -15,7 +15,6 @@ yamllint = "^1.37.0"
 ptpython = "^3.0.29"
 pyright = "^1.1.399"
 termdown = "^1.18.0"
-ruff = "^0.11.5"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "^7.2.0"
