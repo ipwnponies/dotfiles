@@ -13,7 +13,6 @@ visidata = "^3.1.1"
 vit = "^2.3.3"
 yamllint = "^1.37.0"
 ptpython = "^3.0.29"
-pyright = "^1.1.399"
 termdown = "^1.18.0"
 
 [tool.poetry.group.dev.dependencies]
