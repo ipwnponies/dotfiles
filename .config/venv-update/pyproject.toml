@@ -11,7 +11,6 @@ ipython = "^9.1.0"
 thefuck = "^3.32"
 visidata = "^3.1.1"
 vit = "^2.3.3"
-yamllint = "^1.37.0"
 ptpython = "^3.0.29"
 termdown = "^1.18.0"
 
