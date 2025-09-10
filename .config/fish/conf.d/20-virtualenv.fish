@@ -63,7 +63,7 @@ function install
 
     # Poetry will install into activated virtualenv. No other way to tell poetry to target a directory
     set -x VIRTUAL_ENV $venv
-    poetry install --project $XDG_CONFIG_HOME/venv-update/ | ts >> $logfile &
+    poetry sync --project $XDG_CONFIG_HOME/venv-update/ | ts >> $logfile &
 
     # Set pyenv PATH through fish_user_paths, which has higher precedence than raw PATH
     fish_add_path (pyenv root)/shims
