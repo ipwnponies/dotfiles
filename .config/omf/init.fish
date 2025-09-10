@@ -6,10 +6,10 @@ begin
     # This gets eval by plugin-expand, so we need to add an additional layer of shell escaping
     set -g commandline_multiword "(\\'|\")"
 
-    expand-word -p "^!$commandline_multiword?" --expander _expand__history_multiword
+    expand-word --pattern "^!$commandline_multiword?" --expander _expand__history_multiword
 
     # Bash's ^foo^bar^ substitution. Supports sed syntax command
-    expand-word -p '^s(.)..*\1.*$' -e _expand_sed_history
+    expand-word --pattern '^s(.)..*\1.*$' --expander _expand_sed_history
     function _expand_sed_history
         set sed_command (commandline -t)
         set delimiter (string sub --start 2 --length 1 $sed_command)
@@ -32,7 +32,7 @@ begin
     end
 
     # Git merge expansion
-    expand-word -p '^gitmer$' -e _expand_gitmer
+    expand-word --pattern '^gitmer$' --expander _expand_gitmer
     function _expand_gitmer
         # Suggest previous branch as default first candidate, then the rest of existing branches
         set -l branches (git rev-parse --abbrev-ref '@{-1}') (git for-each-ref --format '%(refname:short)' refs/heads/)
