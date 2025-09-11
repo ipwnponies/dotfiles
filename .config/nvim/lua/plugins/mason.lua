@@ -177,7 +177,6 @@ return {
 			-- Fish LSP is not managed by mason, it's external
 			lspconfig.fish_lsp.setup({
 				on_attach = mason_lspconfig_on_attach,
-				cmd = { "fish-lsp" }, -- I guess this makes it non-interactive. Yay
 			})
 		end,
 	},
