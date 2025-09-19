@@ -1,3 +1,42 @@
+local copilotchat_source = {
+	is_available = function()
+		return true
+	end,
+
+	get_trigger_characters = function()
+		return { "#" }
+	end,
+	get_debug_name = function()
+		return "copilotchat_functions"
+	end,
+
+	complete = function(_, params, callback)
+		-- From the docs, predefined functions
+		local copilotchat_functions = {
+			"#buffer", -- Retrieves content from a specific buffer
+			"#buffers:visible", -- Fetches content from multiple buffers
+			"#diagnostics:current", -- Collects code diagnostics (errors, warnings)
+			"#file:", -- Reads content from a specified file path
+			"#gitdiff:staged", -- Retrieves git diff information
+			"#gitstatus", -- Retrieves git status information
+			"#glob:**/*.lua", -- Lists filenames matching a pattern in workspace
+			"#grep:TODO", -- Searches for a pattern across files in workspace
+			"#quickfix", -- Includes content of files in quickfix list
+			"#register:+", -- Provides access to specified Vim register
+			"#selection", -- Includes the current visual selection
+			"#url:", -- Fetches content from a specified URL
+		}
+		local input = params.context.cursor_before_line
+		local matches = {}
+		if input:find("#") then
+			for _, func in ipairs(copilotchat_functions) do
+				table.insert(matches, { label = func })
+			end
+		end
+		callback(matches)
+	end,
+}
+
 ---@type LazyPluginSpec | LazyPluginSpec[]
 return {
 	{
@@ -132,6 +171,14 @@ return {
 			})
 
 			require("luasnip.loaders.from_vscode").lazy_load()
+
+			cmp.register_source("copilotchat_functions", copilotchat_source)
+
+			cmp.setup.filetype("copilot-chat", {
+				sources = cmp.config.sources({
+					{ name = "copilotchat_functions", keyword_length = 1, max_item_count = 5 },
+				}, sources),
+			})
 		end,
 	},
 }
