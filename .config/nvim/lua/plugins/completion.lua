@@ -9,7 +9,6 @@ return {
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-nvim-lsp-document-symbol",
 			"hrsh7th/cmp-nvim-lsp-signature-help",
-			"hrsh7th/cmp-emoji",
 			"hrsh7th/cmp-calc",
 			"f3fora/cmp-spell",
 			{
@@ -36,14 +35,11 @@ return {
 			local sources = {
 				{ name = "nvim_lsp" },
 				{ name = "nvim_lsp_signature_help" },
-				{ name = "nvim_lsp_document_symbol" },
 				{ name = "buffer", keyword_length = 5, max_item_count = 5, option = { get_bufnrs = get_bufnrs } },
 				{ name = "path" },
 				{ name = "nvim_lua" },
 				{ name = "spell", keyword_length = 5, max_item_count = 5 },
-				{ name = "emoji", keyword_length = 2, max_item_count = 5 },
 				{ name = "calc", keyword_length = 2, max_item_count = 5 },
-				{ name = "copilot", keyword_length = 2, max_item_count = 5 },
 				{ name = "luasnip" },
 			}
 
@@ -119,10 +115,11 @@ return {
 			cmp.setup.cmdline({ "/", "?" }, {
 				mapping = cmp.mapping.preset.cmdline(),
 				window = { completion = cmp.config.window.bordered({ col_offset = 0 }) },
-				sources = {
+				sources = cmp.config.sources({
 					{ name = "nvim_lsp_document_symbol", keyword_length = 2, max_item_count = 5 },
+				}, {
 					{ name = "buffer", keyword_length = 2, max_item_count = 5 },
-				},
+				}),
 			})
 			cmp.setup.cmdline(":", {
 				mapping = cmp.mapping.preset.cmdline(),
