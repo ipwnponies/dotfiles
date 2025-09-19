@@ -112,6 +112,13 @@ end
 ---@type LazyPluginSpec | LazyPluginSpec[]
 return {
 	{
+		"github/copilot.vim",
+		build = ":Copilot setup",
+		config = function()
+			vim.g.copilot_no_tab_map = true
+		end,
+	}, -- or zbirenbaum/copilot.lua
+	{
 		"CopilotC-Nvim/CopilotChat.nvim",
 		cmd = vim.tbl_map(function(name)
 			return "CopilotChat" .. name
@@ -125,7 +132,6 @@ return {
 			"Tests",
 		}),
 		dependencies = {
-			{ "github/copilot.vim", build = ":Copilot setup" }, -- or zbirenbaum/copilot.lua
 			{ "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
 		},
 		keys = {
@@ -196,8 +202,6 @@ return {
 
 			opts.prompts.my_system_prompt.system_prompt = system_prompt
 			require("CopilotChat").setup(opts)
-
-			vim.g.copilot_no_tab_map = true
 		end,
 	},
 	{
