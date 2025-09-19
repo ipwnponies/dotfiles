@@ -5,6 +5,13 @@ return {
 		dependencies = {
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-cmdline",
+			"hrsh7th/cmp-path",
+			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-nvim-lsp-document-symbol",
+			"hrsh7th/cmp-nvim-lsp-signature-help",
+			"hrsh7th/cmp-emoji",
+			"hrsh7th/cmp-calc",
+			"f3fora/cmp-spell",
 			{
 				"saadparwaiz1/cmp_luasnip",
 				dependencies = {
@@ -29,6 +36,7 @@ return {
 			local sources = {
 				{ name = "nvim_lsp" },
 				{ name = "nvim_lsp_signature_help" },
+				{ name = "nvim_lsp_document_symbol" },
 				{ name = "buffer", keyword_length = 5, max_item_count = 5, option = { get_bufnrs = get_bufnrs } },
 				{ name = "path" },
 				{ name = "nvim_lua" },
