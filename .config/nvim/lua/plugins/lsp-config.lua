@@ -95,7 +95,7 @@ return {
 
 			function LspAction()
 				local actions = {
-					"Definitio",
+					"Definition",
 					"References",
 					"Declaration",
 					"TypeDefinition",
@@ -103,7 +103,7 @@ return {
 					"hover",
 					"signature_help",
 					"code_action",
-					"formatting",
+					"format",
 					"execute_command",
 					"workspace_symbol",
 					"document_symbol",
