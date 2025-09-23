@@ -20,8 +20,9 @@ function pyenv-init --description 'Stripped down, lightweight pyenv init'
     while set index (contains -i -- "/Users/jnguyen/.pyenv/plugins/pyenv-virtualenv/shims" $PATH)
         set -eg PATH[$index]
     end
-    set -gx PATH '/Users/jnguyen/.pyenv/plugins/pyenv-virtualenv/shims' $PATH;
-    set -gx PYENV_VIRTUALENV_INIT 1;
+    set -gx PATH '/Users/jnguyen/.pyenv/plugins/pyenv-virtualenv/shims' $PATH
+
+    set -gx PYENV_VIRTUALENV_INIT 1
 
     function pyenv
         set command $argv[1]
@@ -35,7 +36,8 @@ function pyenv-init --description 'Stripped down, lightweight pyenv init'
         end
     end
 
-    function _pyenv_virtualenv_hook --on-event fish_prompt;
+    function _pyenv_virtualenv_hook --on-event fish_prompt
+
         set -l ret $status
         if [ -n "$VIRTUAL_ENV" ]
             pyenv activate --quiet; or pyenv deactivate --quiet; or true
@@ -63,7 +65,7 @@ function install
 
     # Poetry will install into activated virtualenv. No other way to tell poetry to target a directory
     set -x VIRTUAL_ENV $venv
-    poetry sync --project $XDG_CONFIG_HOME/venv-update/ | ts >> $logfile &
+    poetry sync --project $XDG_CONFIG_HOME/venv-update/ | ts >>$logfile &
 
     # Set pyenv PATH through fish_user_paths, which has higher precedence than raw PATH
     fish_add_path (pyenv root)/shims
