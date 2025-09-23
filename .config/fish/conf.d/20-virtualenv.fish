@@ -49,6 +49,7 @@ function pyenv-init --description 'Stripped down, lightweight pyenv init'
 end
 
 function main
+    pyenv-init
 end
 
 function install
@@ -72,8 +73,6 @@ function install
 
     set pyenv_virtualenv_plugin (pyenv root)/plugins/pyenv-virtualenv
     test -d $pyenv_virtualenv_plugin; or git clone https://github.com/pyenv/pyenv-virtualenv.git $pyenv_virtualenv_plugin
-
-    pyenv-init
 end
 
 status --is-login; and install
