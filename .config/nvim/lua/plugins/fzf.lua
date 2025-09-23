@@ -7,7 +7,7 @@ return {
 		opts = {
 			keymap = {
 				fzf = {
-					["ctrl-a"] = "toggle-all",
+					["alt-a"] = "toggle-all",
 					["home"] = "first",
 					["end"] = "last",
 				},
