@@ -1,4 +1,7 @@
 {
+  "dependencies": {
+    "@openai/codex": "^0.39.0"
+  },
   "description": "Install npm tools for development environment",
   "name": "dotfile_install",
   "version": "0.0.0"
