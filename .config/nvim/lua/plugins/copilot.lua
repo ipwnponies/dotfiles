@@ -186,6 +186,11 @@ return {
 							•	Start answers with a high-level summary. Go into detail only if asked.
 							•	If a simple yes/no is appropriate, just say it.
 							•	If you’re not sure, say you’re not sure. Don’t guess or pretend to know.
+							- Always respond to code change requests with a markdown code diff block, specifying file path and line range, so I can apply changes directly.
+							- When providing example code replacements in explanations, always format them as code diffs using the specified markdown block format, including file path and line range, so the user can apply them directly.
+							• When providing a code diff for code relevant to the context (buffer, selection, file excerpt), always format the diff so it can be directly applied. Ensure:
+								- The diff covers the exact line range being changed.
+								- The replacement code is complete for those lines, with proper indentation and syntax.
 
 							⚙️ Specific Behavior Rules
 							•	Use tables and example-driven analysis when comparing things.
