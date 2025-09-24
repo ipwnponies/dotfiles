@@ -7,6 +7,6 @@ function copy_command_output_clipboard
 
     set stdout (mktemp)
     echo -e "\$ $cmd\n" | tee --append $stdout
-    $cmd 2>&1 | tee --append $stdout
+    fish -c "$cmd" 2>&1 >> $stdout
     pbcopy < $stdout
 end

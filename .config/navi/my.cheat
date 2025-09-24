@@ -32,6 +32,9 @@ task _get <id>.annotations.1.description
 # Edit clipboard contents
 pbpaste | vipe | pbcopy
 
+# Run last command and copy both the command and its output to clipboard
+copy_command_output_clipboard
+
 # URI encode clipboard content
 pbpaste | vipe | jq --raw-input --raw-output --slurp @uri | pbcopy
 
