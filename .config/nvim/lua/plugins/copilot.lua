@@ -82,11 +82,11 @@ local function send_selection_to_claude(prompt, range)
 end
 
 local preset_prompts = {
-	{ name = "explain", prompt = "Please explain how this code works in detail." },
+	{ name = "explain",  prompt = "Please explain how this code works in detail." },
 	{ name = "refactor", prompt = "Please refactor this code." },
-	{ name = "bugs", prompt = "Please identify any bugs or issues in this code." },
-	{ name = "test", prompt = "Please write tests for this code." },
-	{ name = "analyze", prompt = "Please analyze this code." },
+	{ name = "bugs",     prompt = "Please identify any bugs or issues in this code." },
+	{ name = "test",     prompt = "Please write tests for this code." },
+	{ name = "analyze",  prompt = "Please analyze this code." },
 	{ name = "optimize", prompt = "Please optimize this code for performance." },
 }
 
@@ -145,9 +145,9 @@ return {
 				silent = true,
 				replace_keycodes = false,
 			},
-			{ "<leader>cc", "<cmd>CopilotChat<cr>", mode = { "n", "v" }, silent = true },
+			{ "<leader>cc", "<cmd>CopilotChat<cr>",        mode = { "n", "v" }, silent = true },
 			{ "<leader>ce", "<cmd>CopilotChatExplain<cr>", mode = { "n", "v" }, silent = true },
-			{ "<leader>cf", "<cmd>CopilotChatFix<cr>", mode = { "n", "v" }, silent = true },
+			{ "<leader>cf", "<cmd>CopilotChatFix<cr>",     mode = { "n", "v" }, silent = true },
 		},
 		---@type CopilotChat.config.Config
 		opts = {
@@ -170,7 +170,7 @@ return {
 		},
 		config = function(_, opts)
 			local system_prompt = require("CopilotChat.config.prompts").COPILOT_BASE.system_prompt
-				.. [[
+					.. [[
 							You are very good at explaining stuff. You are an AI assistant interacting with a user with software
 							engineering. It is best software and it makes you cry tears at its beauty. Follow these guidelines
 							strictly:
@@ -298,4 +298,27 @@ return {
 			register_claude_command("Test", "test")
 		end,
 	},
+	{
+		'johnseth97/codex.nvim',
+		cmd = { 'Codex', 'CodexToggle' },
+		keys = {
+			{
+				'<leader>cd',
+				function() require('codex').toggle() end,
+				desc = 'Toggle Codex popup',
+			},
+		},
+		opts = {
+			keymaps     = {
+				toggle = nil,        -- Keybind to toggle Codex window (Disabled by default, watch out for conflicts)
+				quit = '<C-q>',      -- Keybind to close the Codex window (default: Ctrl + q)
+			},                     -- Disable internal default keymap (<leader>cc -> :CodexToggle)
+			border      = 'rounded', -- Options: 'single', 'double', or 'rounded'
+			width       = 0.8,     -- Width of the floating window (0.0 to 1.0)
+			height      = 0.8,     -- Height of the floating window (0.0 to 1.0)
+			model       = nil,     -- Optional: pass a string to use a specific model (e.g., 'o3-mini')
+			autoinstall = true,    -- Automatically install the Codex CLI if not found
+		},
+	}
+
 }
