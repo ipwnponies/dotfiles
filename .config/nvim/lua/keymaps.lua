@@ -46,7 +46,9 @@ end, { silent = true })
 --- Quickfix/Location List toggles
 ---@param is_quickfix boolean true for quickfix, false for location list
 local function toggle_qf(is_quickfix)
-	local list_getter = is_quickfix and vim.fn.getqflist or vim.fn.getloclist
+	local list_getter = is_quickfix and vim.fn.getqflist or function(what)
+		return vim.fn.getloclist(0, what)
+	end
 	return function()
 		if list_getter({ winid = true }) ~= 0 then
 			vim.cmd("cclose")
