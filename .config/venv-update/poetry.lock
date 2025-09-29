@@ -947,17 +947,6 @@ pure-eval = "*"
 tests = ["cython", "littleutils", "pygments", "pytest", "typeguard"]
 
 [[package]]
-name = "tasklib"
-version = "2.5.1"
-description = "Official Taskwarrior library for Python"
-optional = false
-python-versions = "*"
-groups = ["main"]
-files = [
-    {file = "tasklib-2.5.1.tar.gz", hash = "sha256:5ccd731b52636dd10457a8b8d858cb0d026ffaab1e3e751baf791bf803e37d7b"},
-]
-
-[[package]]
 name = "termdown"
 version = "1.18.0"
 description = "Countdown timer for your terminal"
@@ -998,11 +987,11 @@ description = "Backported and Experimental Type Hints for Python 3.8+"
 optional = false
 python-versions = ">=3.8"
 groups = ["main", "dev"]
+markers = "python_version < \"3.12\""
 files = [
     {file = "typing_extensions-4.13.2-py3-none-any.whl", hash = "sha256:a439e7c04b49fec3e5d3e2beaa21755cadbbdc391694e28ccdd36ca4a1408f8c"},
     {file = "typing_extensions-4.13.2.tar.gz", hash = "sha256:e6c81219bd689f51865d9e372991c540bda33a0379d5573cddb9a3a23f7caaef"},
 ]
-markers = {dev = "python_version < \"3.12\""}
 
 [[package]]
 name = "tzdata"
@@ -1015,32 +1004,6 @@ files = [
     {file = "tzdata-2025.2-py2.py3-none-any.whl", hash = "sha256:1a403fada01ff9221ca8044d701868fa132215d84beb92242d9acd2147f667a8"},
     {file = "tzdata-2025.2.tar.gz", hash = "sha256:b60a638fcc0daffadf82fe0f57e53d06bdec2f36c4df66280ae79bce6bd6f2b9"},
 ]
-
-[[package]]
-name = "urwid"
-version = "2.6.16"
-description = "A full-featured console (xterm et al.) user interface library"
-optional = false
-python-versions = ">3.7"
-groups = ["main"]
-files = [
-    {file = "urwid-2.6.16-py3-none-any.whl", hash = "sha256:de14896c6df9eb759ed1fd93e0384a5279e51e0dde8f621e4083f7a8368c0797"},
-    {file = "urwid-2.6.16.tar.gz", hash = "sha256:93ad239939e44c385e64aa00027878b9e5c486d59e855ec8ab5b1e1adcdb32a2"},
-]
-
-[package.dependencies]
-typing-extensions = "*"
-wcwidth = "*"
-
-[package.extras]
-curses = ["windows-curses ; sys_platform == \"win32\""]
-glib = ["PyGObject"]
-lcd = ["pyserial"]
-serial = ["pyserial"]
-tornado = ["tornado (>=5.0)"]
-trio = ["exceptiongroup", "trio (>=0.22.0)"]
-twisted = ["twisted"]
-zmq = ["zmq"]
 
 [[package]]
 name = "virtualenv"
@@ -1082,22 +1045,6 @@ windows-curses = {version = "!=2.3.1", markers = "platform_system == \"Windows\"
 
 [package.extras]
 test = ["Faker", "PyYAML (>=5.1)", "brotli", "dnslib", "dpkt", "fecfile", "h5py", "lxml", "msgpack", "odfpy", "openpyxl", "pandas (>=1.5.3)", "pyarrow", "pyconll", "pypng", "pytest", "tabulate", "tomli", "wcwidth", "xport (>=3.0)"]
-
-[[package]]
-name = "vit"
-version = "2.3.3"
-description = "Visual Interactive Taskwarrior full-screen terminal interface"
-optional = false
-python-versions = ">=3.7"
-groups = ["main"]
-files = [
-    {file = "vit-2.3.3-py3-none-any.whl", hash = "sha256:28e13404b1975ed81380f9e47679f9a299cd69512ebace28809fb77618510c62"},
-    {file = "vit-2.3.3.tar.gz", hash = "sha256:fa5ad719f868078cf92169094d73089b718654f7cd18ef65501dee153c7c8436"},
-]
-
-[package.dependencies]
-tasklib = ">=2.4.3"
-urwid = ">=2.1.2"
 
 [[package]]
 name = "wcwidth"
@@ -1161,4 +1108,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.11"
-content-hash = "ddfc40d003d6b13468a2e81289dc9d6ad3d9e15f7c89f89d493a54c80f04de71"
+content-hash = "fb6958456a0608d92d319873e5c392504edecb18b549f07551a54c2f2aaaf7de"
