@@ -3,14 +3,33 @@ local copilotchat_source = {
 		return true
 	end,
 
+	-- Allow : to be part of completion
+	get_keyword_pattern = function()
+		return [[\(\k\|:\)\+]]
+	end,
+
 	get_trigger_characters = function()
 		return { "#" }
 	end,
 	get_debug_name = function()
 		return "copilotchat_functions"
 	end,
-
-	complete = function(_, params, callback)
+	add_open_buffer = function(_, matches)
+		for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+			if vim.api.nvim_get_option_value("buflisted", { buf = bufnr }) then
+				local bufname = vim.api.nvim_buf_get_name(bufnr)
+				local relpath = vim.split(vim.fn.fnamemodify(bufname, ":."), "/")
+				-- Get parent_dir/basename
+				local display_path = (relpath[#relpath - 1] or "") .. "/" .. relpath[#relpath]
+				table.insert(matches, {
+					label = "#buffer:" .. display_path,
+					insertText = "#buffer:" .. bufname,
+					priority = 1, -- lower priority because it's noisy
+				})
+			end
+		end
+	end,
+	complete = function(self, params, callback)
 		-- From the docs, predefined functions
 		local copilotchat_functions = {
 			"#buffer", -- Retrieves content from a specific buffer
@@ -28,11 +47,10 @@ local copilotchat_source = {
 		}
 		local input = params.context.cursor_before_line
 		local matches = {}
-		if input:find("#") then
-			for _, func in ipairs(copilotchat_functions) do
-				table.insert(matches, { label = func })
-			end
+		for _, func in ipairs(copilotchat_functions) do
+			table.insert(matches, { label = func })
 		end
+		self:add_open_buffer(matches)
 		callback(matches)
 	end,
 }
