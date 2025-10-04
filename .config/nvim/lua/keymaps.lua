@@ -8,6 +8,7 @@ vim.api.nvim_set_keymap("n", "<S-TAB>", "<Cmd>bprevious<CR>", { noremap = true, 
 vim.keymap.set("i", "jk", "<esc>", { silent = true }) -- Exit insert mode by typing 'jk'
 vim.keymap.set("i", "<c-l>", "<c-g>u<esc>1z=`]a<c-g>u", { silent = true }) -- Fix last spelling error and return to insert mode
 vim.keymap.set("n", "Y", "y$", { silent = true }) -- Yank to end of line
+vim.keymap.set("n", "<m-o>", "<c-i>", { silent = true }) -- Yank to end of line
 
 -- Faster scroll remaps
 ---@param key string Scroll direction key ('<c-e>' or '<c-y>')
