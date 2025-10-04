@@ -130,6 +130,7 @@ return {
 			"Optimize",
 			"Review",
 			"Tests",
+			"Prompts",
 		}),
 		dependencies = {
 			{ "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
@@ -156,6 +157,10 @@ return {
 				my_system_prompt = {
 					system_prompt = nil, -- dynamically extends default prompt
 					description = "Custom prompt for brevity and stylistic preference. And anti-sycophancy tendencies",
+				},
+				Fish = {
+					prompt = "fish-ify 🐟",
+					system_prompt = "Convert the shell script to target the fish shell. Don't explain, just convert.",
 				},
 			},
 			-- Use visual selection, fallback to current line
