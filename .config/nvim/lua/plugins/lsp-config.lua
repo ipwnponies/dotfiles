@@ -48,6 +48,8 @@ return {
 	{
 		"folke/lazydev.nvim",
 		ft = "lua", -- only load on lua files
+		---@class (partial) opts : lazydev.Config
+		---@type opts
 		opts = {
 			library = {
 				-- See the configuration section for more details

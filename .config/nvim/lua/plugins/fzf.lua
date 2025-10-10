@@ -3,7 +3,8 @@ return {
 	{
 		"ibhagwan/fzf-lua",
 		dependencies = { "echasnovski/mini.icons" },
-		---@type fzf-lua.config.Defaults  | table<any, any>
+		---@class (partial) opts : fzf-lua.config.Defaults
+		---@type opts
 		opts = {
 			keymap = {
 				fzf = {

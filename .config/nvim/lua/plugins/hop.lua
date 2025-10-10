@@ -6,8 +6,8 @@ return {
 		-- This is useful in all editing situations.
 		-- Also allows for FileType autocommands to be set up
 		lazy = false,
-		---@module 'hop'
-		---@type Options | table<any>
+		---@class (partial) _Options : Options
+		---@type _Options
 		opts = {
 			uppercase_labels = true,
 		},
