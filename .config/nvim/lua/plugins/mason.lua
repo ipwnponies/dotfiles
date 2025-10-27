@@ -55,6 +55,7 @@ return {
 			},
 			{ "j-hui/fidget.nvim", tag = "v1.6.1" },
 			"neovim/nvim-lspconfig",
+			{ "saghen/blink.cmp" },
 		},
 		ft = ft_array,
 		opts = {
@@ -67,9 +68,6 @@ return {
 			-- import mason_lspconfig plugin
 			local mason_lspconfig = require("mason-lspconfig")
 			mason_lspconfig.setup(opts)
-
-			-- import cmp-nvim-lsp plugin
-			local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
 			local mason_lspconfig_on_attach = function(client, bufnr)
 				local nmap = function(opts)
@@ -134,7 +132,11 @@ return {
 			end
 
 			-- used to enable autocompletion (assign to every lsp server config)
-			local capabilities = cmp_nvim_lsp.default_capabilities()
+			local capabilities = require("lazy.core.config").plugins["blink.cmp"]
+					and require("blink.cmp").get_lsp_capabilities({
+						textDocument = { completion = { completionItem = { snippetSupport = false } } },
+					})
+				or require("cmp_nvim_lsp").default_capabilities()
 
 			-- Change the Diagnostic symbols in the sign column (gutter)
 			local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
@@ -175,6 +177,7 @@ return {
 			-- Fish LSP is not managed by mason, it's external
 			lspconfig.fish_lsp.setup({
 				on_attach = mason_lspconfig_on_attach,
+				capabilities = capabilities,
 			})
 		end,
 	},

@@ -54,6 +54,8 @@ local copilotchat_source = {
 		callback(matches)
 	end,
 }
+-- Pick which engine runs where
+vim.g.cmp_engine = "blink" -- "cmp" | "blink"
 
 ---@type LazyPluginSpec | LazyPluginSpec[]
 return {
@@ -77,6 +79,7 @@ return {
 				},
 			},
 		},
+		enabled = vim.g.cmp_engine == "cmp",
 		config = function()
 			local luasnip = require("luasnip")
 			local cmp = require("cmp")
@@ -198,5 +201,56 @@ return {
 				}, sources),
 			})
 		end,
+	},
+	{
+		"Saghen/blink.cmp",
+		version = "1.*",
+		enabled = vim.g.cmp_engine == "blink",
+		dependencies = {
+			{
+				"saghen/blink.compat",
+				version = "2.*",
+			},
+			"rafamadriz/friendly-snippets",
+		},
+		---@module 'blink.cmp'
+		---@type blink.cmp.Config
+		opts = {
+			signature = { enabled = true },
+			keymap = {
+				preset = "enter",
+				["<Tab>"] = { "select_next", "snippet_forward" },
+				["<S-Tab>"] = { "select_prev", "snippet_backward" },
+			},
+
+			completion = {
+				menu = {
+					auto_show = true,
+					draw = {
+						columns = {
+							{ "kind_icon", "kind", gap = 2 },
+							{ "label", "label_description", gap = 2 },
+							{ "source_name" },
+						},
+					},
+				},
+				documentation = { auto_show = true, auto_show_delay_ms = 00 },
+			},
+
+				providers = {
+					lsp = {
+						min_keyword_length = 0,
+						fallbacks = {},
+						score_offset = 10, -- the higher the number, the higher the priority
+					},
+					buffer = {
+						min_keyword_length = 3,
+						score_offset = -10, -- the higher the number, the higher the priority
+					},
+				},
+			},
+
+			fuzzy = { implementation = "prefer_rust_with_warning" },
+		},
 	},
 }
