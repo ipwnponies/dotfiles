@@ -219,8 +219,9 @@ return {
 			signature = { enabled = true },
 			keymap = {
 				preset = "enter",
-				["<Tab>"] = { "select_next", "snippet_forward" },
-				["<S-Tab>"] = { "select_prev", "snippet_backward" },
+				["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
+				["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
+				["<esc>"] = { "cancel", "fallback" },
 			},
 
 			completion = {
