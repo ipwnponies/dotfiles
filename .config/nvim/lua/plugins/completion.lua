@@ -202,6 +202,7 @@ return {
 						min_keyword_length = 0,
 						fallbacks = {},
 						score_offset = 10, -- the higher the number, the higher the priority
+						max_items = 6,
 					},
 					buffer = {
 						min_keyword_length = 3,
