@@ -172,6 +172,7 @@ return {
 				width = 0.5,
 				relative = "win",
 			},
+			chat_autocomplete = false,
 		},
 		config = function(_, opts)
 			local system_prompt = require("CopilotChat.config.prompts").COPILOT_BASE.system_prompt
