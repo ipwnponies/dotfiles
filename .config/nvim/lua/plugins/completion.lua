@@ -161,6 +161,9 @@ return {
 			"hrsh7th/cmp-nvim-lsp-signature-help",
 			"rafamadriz/friendly-snippets",
 			{
+			{
+				"fang2hou/blink-copilot",
+			},
 		},
 		---@module 'blink.cmp'
 		---@type blink.cmp.Config
@@ -207,6 +210,12 @@ return {
 					buffer = {
 						min_keyword_length = 3,
 						score_offset = -10, -- the higher the number, the higher the priority
+					},
+					copilot = {
+						name = "copilot",
+						module = "blink-copilot",
+						score_offset = 100,
+						async = true,
 					},
 					["copilotchat_functions"] = {
 						name = "copilotchat-functions",
