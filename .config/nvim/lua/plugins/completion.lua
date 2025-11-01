@@ -1,59 +1,3 @@
-local copilotchat_source = {
-	is_available = function()
-		return true
-	end,
-
-	-- Allow : to be part of completion
-	get_keyword_pattern = function()
-		return [[\(\k\|:\)\+]]
-	end,
-
-	get_trigger_characters = function()
-		return { "#" }
-	end,
-	get_debug_name = function()
-		return "copilotchat_functions"
-	end,
-	add_open_buffer = function(_, matches)
-		for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
-			if vim.api.nvim_get_option_value("buflisted", { buf = bufnr }) then
-				local bufname = vim.api.nvim_buf_get_name(bufnr)
-				local relpath = vim.split(vim.fn.fnamemodify(bufname, ":."), "/")
-				-- Get parent_dir/basename
-				local display_path = (relpath[#relpath - 1] or "") .. "/" .. relpath[#relpath]
-				table.insert(matches, {
-					label = "#buffer:" .. display_path,
-					insertText = "#buffer:" .. bufname,
-					priority = 1, -- lower priority because it's noisy
-				})
-			end
-		end
-	end,
-	complete = function(self, params, callback)
-		-- From the docs, predefined functions
-		local copilotchat_functions = {
-			"#buffer", -- Retrieves content from a specific buffer
-			"#buffers:visible", -- Fetches content from multiple buffers
-			"#diagnostics:current", -- Collects code diagnostics (errors, warnings)
-			"#file:", -- Reads content from a specified file path
-			"#gitdiff:staged", -- Retrieves git diff information
-			"#gitstatus", -- Retrieves git status information
-			"#glob:**/*.lua", -- Lists filenames matching a pattern in workspace
-			"#grep:TODO", -- Searches for a pattern across files in workspace
-			"#quickfix", -- Includes content of files in quickfix list
-			"#register:+", -- Provides access to specified Vim register
-			"#selection", -- Includes the current visual selection
-			"#url:", -- Fetches content from a specified URL
-		}
-		local input = params.context.cursor_before_line
-		local matches = {}
-		for _, func in ipairs(copilotchat_functions) do
-			table.insert(matches, { label = func })
-		end
-		self:add_open_buffer(matches)
-		callback(matches)
-	end,
-}
 -- Pick which engine runs where
 vim.g.cmp_engine = "blink" -- "cmp" | "blink"
 
@@ -193,8 +137,8 @@ return {
 
 			require("luasnip.loaders.from_vscode").lazy_load()
 
+			local copilotchat_source = require("completions.copilotchat_functions")
 			cmp.register_source("copilotchat_functions", copilotchat_source)
-
 			cmp.setup.filetype("copilot-chat", {
 				sources = cmp.config.sources({
 					{ name = "copilotchat_functions", keyword_length = 1, max_item_count = 5 },
@@ -211,7 +155,12 @@ return {
 				"saghen/blink.compat",
 				version = "2.*",
 			},
+			"hrsh7th/cmp-emoji",
+			"ray-x/cmp-treesitter",
+			"uga-rosa/cmp-dictionary",
+			"hrsh7th/cmp-nvim-lsp-signature-help",
 			"rafamadriz/friendly-snippets",
+			{
 		},
 		---@module 'blink.cmp'
 		---@type blink.cmp.Config
@@ -238,6 +187,16 @@ return {
 				documentation = { auto_show = true, auto_show_delay_ms = 00 },
 			},
 
+			sources = {
+				default = {
+					"lazydev",
+					"lsp",
+					"path",
+					"snippets",
+					"copilot",
+					"buffer",
+					"copilotchat_functions",
+				},
 				providers = {
 					lsp = {
 						min_keyword_length = 0,
@@ -247,6 +206,13 @@ return {
 					buffer = {
 						min_keyword_length = 3,
 						score_offset = -10, -- the higher the number, the higher the priority
+					},
+					["copilotchat_functions"] = {
+						name = "copilotchat-functions",
+						module = "completions.copilotchat_functions",
+						opts = { some_option = "some value" },
+						min_keyword_length = 0,
+						score_offset = 1000, -- the higher the number, the higher the priority
 					},
 				},
 			},
