@@ -20,14 +20,13 @@ local ensure_installed = {}
 
 for lsp, types in pairs(lsp_filetypes) do
 	if lsp ~= "EXTERNAL_LSP" then
-		ensure_installed[#ensure_installed + 1] = lsp
+		table.insert(ensure_installed, lsp)
 	end
 	for _, t in ipairs(types) do
 		ft[t] = true
 	end
 end
 
--- Convert ft table to array
 local ft_array = {}
 for t, _ in pairs(ft) do
 	table.insert(ft_array, t)
@@ -62,10 +61,6 @@ return {
 			ensure_installed = ensure_installed,
 		},
 		config = function(_, opts)
-			-- import lspconfig plugin
-			local lspconfig = require("lspconfig")
-
-			-- import mason_lspconfig plugin
 			local mason_lspconfig = require("mason-lspconfig")
 			mason_lspconfig.setup(opts)
 
@@ -145,16 +140,18 @@ return {
 				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 			end
 
+			local lspconfig = require("lspconfig")
 			mason_lspconfig.setup_handlers({
 				-- default handler for installed servers
 				function(server_name)
-					lspconfig[server_name].setup({
+					vim.lsp.config(server_name, {
 						capabilities = capabilities,
 						on_attach = mason_lspconfig_on_attach,
 					})
+					vim.lsp.enable(server_name)
 				end,
 				["pyright"] = function()
-					lspconfig.pyright.setup({
+					vim.lsp.config("pyright", {
 						capabilities = capabilities,
 						on_attach = mason_lspconfig_on_attach,
 						root_dir = function(fname)
@@ -167,18 +164,19 @@ return {
 									return lspconfig.util.root_pattern(unpack(patterns))(fname)
 								end
 							end
-
-							return lspconfig.pyright.document_config.default_config.root_dir(fname)
+							return vim.lsp.config("pyright").document_config.default_config.root_dir(fname)
 						end,
 					})
+					vim.lsp.enable("pyright")
 				end,
 			})
 
 			-- Fish LSP is not managed by mason, it's external
-			lspconfig.fish_lsp.setup({
-				on_attach = mason_lspconfig_on_attach,
+			vim.lsp.config("fish_lsp", {
+				on_attach = on_attach,
 				capabilities = capabilities,
 			})
+			vim.lsp.enable("fish_lsp")
 		end,
 	},
 	{
