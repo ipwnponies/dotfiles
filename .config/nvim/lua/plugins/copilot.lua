@@ -114,10 +114,39 @@ return {
 	{
 		"github/copilot.vim",
 		build = ":Copilot setup",
+		enabled = false,
 		config = function()
 			vim.g.copilot_no_tab_map = true
 		end,
-	}, -- or zbirenbaum/copilot.lua
+	},
+	{
+		"zbirenbaum/copilot.lua",
+		cmd = "Copilot",
+		event = "InsertEnter",
+		opts = {
+			panel = { enabled = false },
+			filetypes = {
+				markdown = true,
+				help = true,
+			},
+		},
+		config = function()
+			require("copilot").setup({})
+			vim.api.nvim_create_autocmd("User", {
+				pattern = "BlinkCmpMenuOpen",
+				callback = function()
+					vim.b.copilot_suggestion_hidden = true
+				end,
+			})
+
+			vim.api.nvim_create_autocmd("User", {
+				pattern = "BlinkCmpMenuClose",
+				callback = function()
+					vim.b.copilot_suggestion_hidden = false
+				end,
+			})
+		end,
+	},
 	{
 		"CopilotC-Nvim/CopilotChat.nvim",
 		cmd = vim.tbl_map(function(name)

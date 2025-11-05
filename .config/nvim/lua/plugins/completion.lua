@@ -161,8 +161,8 @@ return {
 			"hrsh7th/cmp-nvim-lsp-signature-help",
 			"rafamadriz/friendly-snippets",
 			{
-			{
 				"fang2hou/blink-copilot",
+				dependencies = { "zbirenbaum/copilot.lua" },
 			},
 		},
 		---@module 'blink.cmp'
@@ -175,7 +175,6 @@ return {
 				["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
 				["<esc>"] = { "cancel", "fallback" },
 			},
-
 			completion = {
 				menu = {
 					auto_show = true,
