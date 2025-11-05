@@ -155,11 +155,11 @@ return {
 				"saghen/blink.compat",
 				version = "2.*",
 			},
-			"hrsh7th/cmp-emoji",
 			"ray-x/cmp-treesitter",
 			"uga-rosa/cmp-dictionary",
 			"hrsh7th/cmp-nvim-lsp-signature-help",
 			"rafamadriz/friendly-snippets",
+			"moyiz/blink-emoji.nvim",
 			{
 				"fang2hou/blink-copilot",
 				dependencies = { "zbirenbaum/copilot.lua" },
@@ -196,6 +196,7 @@ return {
 					"copilot",
 					"buffer",
 					"copilotchat_functions",
+					"emoji",
 				},
 				providers = {
 					lsp = {
@@ -220,6 +221,18 @@ return {
 						opts = { some_option = "some value" },
 						min_keyword_length = 0,
 						score_offset = 1000, -- the higher the number, the higher the priority
+					},
+					emoji = {
+						module = "blink-emoji",
+						name = "Emoji",
+						score_offset = 15, -- Tune by preference
+						opts = {
+							insert = true, -- Insert emoji (default) or complete its name
+							---@type string|table|fun():table
+							trigger = function()
+								return { ":" }
+							end,
+						},
 					},
 				},
 			},
