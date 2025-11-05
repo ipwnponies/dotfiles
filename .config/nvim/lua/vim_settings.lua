@@ -45,7 +45,8 @@ vim.opt.completeopt = { "menuone", "popup" } -- Show menu even for one match, us
 -- Visuals
 vim.opt.visualbell = true -- Enable visual bell instead of beeping
 vim.opt.cursorline = true -- Highlight the current line
-vim.opt.number = true -- Show absolute line numbers
+vim.opt.number = true -- Show absolute line number for cursor line
+vim.opt.relativenumber = true -- Show relative line numbers, to assist in relative motion
 vim.opt.scrolloff = 3 -- Keep 3 lines visible above/below cursor
 vim.opt.showmatch = true -- Briefly jump to matching bracket
 vim.opt.showbreak = ">>" -- String to show at start of wrapped lines
