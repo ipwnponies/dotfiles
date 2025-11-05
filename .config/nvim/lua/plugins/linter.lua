@@ -23,6 +23,7 @@ return {
 			}
 			vim.g.ale_linters_ignore = {
 				javascript = { "tsserver" },
+				lua = { "lua_language_server" },
 				["*"] = { "remove_trailing_lines", "trim_whitespace" },
 			}
 		end,

@@ -165,7 +165,6 @@ return {
 				dependencies = { "zbirenbaum/copilot.lua" },
 			},
 		},
-		---@module 'blink.cmp'
 		---@type blink.cmp.Config
 		opts = {
 			signature = { enabled = true },
@@ -191,7 +190,6 @@ return {
 
 			sources = {
 				default = {
-					"lazydev",
 					"lsp",
 					"path",
 					"snippets",

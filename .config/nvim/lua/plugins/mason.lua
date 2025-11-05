@@ -107,6 +107,19 @@ return {
 			{ "j-hui/fidget.nvim", tag = "v1.6.1" },
 			"neovim/nvim-lspconfig",
 			{ "saghen/blink.cmp" },
+			{
+				"folke/lazydev.nvim",
+				ft = { "lua" },
+				---@class (partial) opts : lazydev.Config
+				---@type opts
+				opts = {
+					library = {
+						-- See the configuration section for more details
+						-- Load luvit types when the `vim.uv` word is found
+						{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
+					},
+				},
+			},
 		},
 		ft = ft_array,
 		opts = {
