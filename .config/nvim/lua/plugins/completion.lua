@@ -165,6 +165,7 @@ return {
 				dependencies = { "zbirenbaum/copilot.lua" },
 			},
 			"xieyonn/blink-cmp-dat-word",
+			"hrsh7th/cmp-calc",
 		},
 		---@type blink.cmp.Config
 		opts = {
@@ -199,6 +200,7 @@ return {
 					"copilotchat_functions",
 					"emoji",
 					"datword",
+					"calc",
 				},
 				providers = {
 					lsp = {
@@ -245,6 +247,11 @@ return {
 								"/usr/share/dict/words",
 							},
 						},
+					},
+					calc = {
+						name = "calc",
+						module = "blink.compat.source",
+						score_offset = 20,
 					},
 				},
 			},
