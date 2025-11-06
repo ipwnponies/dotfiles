@@ -155,9 +155,6 @@ return {
 				"saghen/blink.compat",
 				version = "2.*",
 			},
-			"ray-x/cmp-treesitter",
-			"uga-rosa/cmp-dictionary",
-			"hrsh7th/cmp-nvim-lsp-signature-help",
 			"rafamadriz/friendly-snippets",
 			"moyiz/blink-emoji.nvim",
 			{
