@@ -21,6 +21,10 @@ return {
 				lua = { "stylua" },
 				["*"] = { "remove_trailing_lines", "trim_whitespace" },
 			}
+
+			vim.g.ale_linters = {
+				python = {},
+			}
 			vim.g.ale_linters_ignore = {
 				javascript = { "tsserver" },
 				lua = { "lua_language_server" },
