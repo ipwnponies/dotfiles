@@ -164,10 +164,7 @@ return {
 				"fang2hou/blink-copilot",
 				dependencies = { "zbirenbaum/copilot.lua" },
 			},
-			{
-				"Kaiser-Yang/blink-cmp-dictionary",
-				dependencies = { "nvim-lua/plenary.nvim" },
-			},
+			"xieyonn/blink-cmp-dat-word",
 		},
 		---@type blink.cmp.Config
 		opts = {
@@ -201,7 +198,7 @@ return {
 					"buffer",
 					"copilotchat_functions",
 					"emoji",
-					"dictionary",
+					"datword",
 				},
 				providers = {
 					lsp = {
@@ -239,15 +236,14 @@ return {
 							end,
 						},
 					},
-					dictionary = {
-						module = "blink-cmp-dictionary",
-						name = "Dict",
-						-- Make sure this is at least 2.
-						-- 3 is recommended
-						min_keyword_length = 3,
+					datword = {
+						name = "Word",
+						module = "blink-cmp-dat-word",
 						opts = {
-							-- options for blink-cmp-dictionary
-							dictionary_files = { "/usr/share/dict/words" },
+							spellsuggest = true,
+							paths = {
+								"/usr/share/dict/words",
+							},
 						},
 					},
 				},
