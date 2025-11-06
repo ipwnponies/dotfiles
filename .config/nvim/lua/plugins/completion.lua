@@ -203,12 +203,12 @@ return {
 					lsp = {
 						min_keyword_length = 0,
 						fallbacks = {},
-						score_offset = 10, -- the higher the number, the higher the priority
+						score_offset = 20, -- the higher the number, the higher the priority
 						max_items = 6,
 					},
 					buffer = {
 						min_keyword_length = 3,
-						score_offset = -10, -- the higher the number, the higher the priority
+						score_offset = -5, -- the higher the number, the higher the priority
 					},
 					copilot = {
 						name = "copilot",
@@ -244,11 +244,14 @@ return {
 								"/usr/share/dict/words",
 							},
 						},
+						min_keyword_length = 5,
+						score_offset = -50,
 					},
 					calc = {
 						name = "calc",
 						module = "blink.compat.source",
 						score_offset = 20,
+						min_keyword_length = 3,
 					},
 				},
 			},
