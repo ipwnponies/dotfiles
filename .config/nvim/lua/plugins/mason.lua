@@ -151,6 +151,7 @@ return {
 			end
 
 			local lspconfig = require("lspconfig")
+
 			mason_lspconfig.setup_handlers({
 				function(server_name)
 					vim.lsp.config(server_name, {
@@ -163,14 +164,13 @@ return {
 					vim.lsp.config("pyright", {
 						capabilities = capabilities,
 						on_attach = on_attach,
-						root_dir = function(fname)
-							if vim.g.project_pyright_root then
-								local patterns = vim.g.project_pyright_root(fname)
-								if patterns ~= nil then
-									return lspconfig.util.root_pattern(unpack(patterns))(fname)
-								end
-							end
-							return vim.lsp.config("pyright").document_config.default_config.root_dir(fname)
+						root_dir = function(bufnr, on_dir)
+							local fname = vim.api.nvim_buf_get_name(bufnr)
+							local ok, patterns = pcall(vim.g.project_pyright_root, fname)
+
+							local root_dir_func = ok and lspconfig.util.root_pattern(unpack(patterns))
+								or require("lspconfig.configs.pyright").default_config.root_dir
+							on_dir(root_dir_func(fname))
 						end,
 					})
 					vim.lsp.enable("pyright")
