@@ -3,6 +3,7 @@ return {
 	-- TODO: replace ale with lua native replacement. treesitter?
 	{
 		"w0rp/ale",
+		enabled = false,
 		config = function()
 			vim.g.ale_echo_msg_format = "[%linter%] %code: %%s"
 			vim.g.ale_lint_on_insert_leave = 1
