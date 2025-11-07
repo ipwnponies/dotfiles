@@ -196,6 +196,7 @@ return {
 				ensure_installed = {
 					"fish",
 					"ruff",
+					"shellcheck",
 					"stylua",
 				},
 			})
