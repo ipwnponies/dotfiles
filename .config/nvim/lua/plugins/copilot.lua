@@ -1,10 +1,26 @@
 -- Function to find existing Claude buffer
-local function find_claude_buffer()
+local preset_prompts = {
+	{ name = "explain", prompt = "Please explain how this code works in detail." },
+	{ name = "refactor", prompt = "Please refactor this code." },
+	{ name = "bugs", prompt = "Please identify any bugs or issues in this code." },
+	{ name = "test", prompt = "Please write tests for this line of code." },
+	{ name = "analyze", prompt = "Please analyze this code." },
+	{ name = "optimize", prompt = "Please optimize this code for performance." },
+}
+
+local AIController = {}
+AIController.__index = AIController
+
+function AIController.new(executable)
+	return setmetatable({ executable = executable }, AIController)
+end
+
+function AIController:find_ai_buffer()
 	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
 		if vim.api.nvim_buf_is_loaded(buf) then
 			-- Claude has BufPostFile autocmd that updates the buffer name, so we can't set explicit name
 			local buf_name = vim.api.nvim_buf_get_name(buf)
-			local pattern = "term://.*/%d+:claude"
+			local pattern = string.format("term://.*/%%d+:%s", self.executable)
 			if string.find(buf_name, pattern .. "$") or string.find(buf_name, pattern .. "%W") then
 				return buf
 			end
@@ -24,7 +40,7 @@ local function find_buffer_window(bufnr)
 end
 
 -- Function to create or focus a Claude window
-local function create_or_focus_claude_window(bufnr)
+function AIController:create_or_focus_ai_window(bufnr)
 	if not bufnr then
 		-- Create a new scratch buffer
 		bufnr = vim.api.nvim_create_buf(false, true)
@@ -35,43 +51,41 @@ local function create_or_focus_claude_window(bufnr)
 			buffer = bufnr,
 			callback = function(opts)
 				local map_opts = { noremap = true, silent = true, buffer = opts.buf }
-				vim.keymap.set("t", "<C-h>", [[<C-\><C-n><C-w>h]], map_opts)
-				vim.keymap.set("t", "<C-j>", [[<C-\><C-n><C-w>j]], map_opts)
-				vim.keymap.set("t", "<C-k>", [[<C-\><C-n><C-w>k]], map_opts)
-				vim.keymap.set("t", "<C-l>", [[<C-\><C-n><C-w>l]], map_opts)
+				vim.keymap.set("t", "<C-h>", [[<C-\\><C-n><C-w>h]], map_opts)
+				vim.keymap.set("t", "<C-j>", [[<C-\\><C-n><C-w>j]], map_opts)
+				vim.keymap.set("t", "<C-k>", [[<C-\\><C-n><C-w>k]], map_opts)
+				vim.keymap.set("t", "<C-l>", [[<C-\\><C-n><C-w>l]], map_opts)
 				vim.cmd("startinsert")
 			end,
 		})
-		return vim.fn.termopen("claude"), true
-	else
-		-- Try to find existing window with this buffer
-		local winid = find_buffer_window(bufnr)
-
-		if winid then
-			-- Switch to the window
-
-			-- Leave visual mode and enter terminal mode in new window
-			vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
-			vim.api.nvim_set_current_win(winid)
-		else
-			-- Open window with the buffer
-			vim.cmd("vsplit")
-			vim.api.nvim_win_set_buf(0, bufnr)
-		end
-
-		return vim.b[bufnr].terminal_job_id
+		-- Open window with the buffer
+		return vim.fn.termopen(self.executable), true
 	end
+
+	-- Try to find existing window with this buffer
+	local winid = find_buffer_window(bufnr)
+	if winid then
+		-- Switch to the window
+		-- Leave visual mode and enter terminal mode in new window
+		vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
+		vim.api.nvim_set_current_win(winid)
+	else
+		vim.cmd("vsplit")
+		vim.api.nvim_win_set_buf(0, bufnr)
+	end
+
+	return vim.b[bufnr].terminal_job_id
 end
 
 -- Function to send selected text to Claude with a prompt
-local function send_selection_to_claude(prompt, range)
+function AIController:send_selection_to_ai(prompt, range)
 	local filename = vim.fn.expand("%:p")
 	local line_number = range and string.format(":%d-%d", range.start, range.line_end) or ""
 	local final_prompt = string.format("@%s%s\n%s", filename, line_number, prompt)
 
 	-- Find existing Claude buffer or create new one
-	local claude_bufnr = find_claude_buffer()
-	local job_id, is_created = create_or_focus_claude_window(claude_bufnr)
+	local assistant_bufnr = self:find_ai_buffer()
+	local job_id, is_created = self:create_or_focus_ai_window(assistant_bufnr)
 
 	-- Ensure we're in insert mode for terminal interaction
 	vim.cmd("startinsert")
@@ -81,18 +95,9 @@ local function send_selection_to_claude(prompt, range)
 	end, is_created and 1000 or 0) -- No delay for existing terminal, 500ms for new one
 end
 
-local preset_prompts = {
-	{ name = "explain", prompt = "Please explain how this code works in detail." },
-	{ name = "refactor", prompt = "Please refactor this code." },
-	{ name = "bugs", prompt = "Please identify any bugs or issues in this code." },
-	{ name = "test", prompt = "Please write tests for this line of code." },
-	{ name = "analyze", prompt = "Please analyze this code." },
-	{ name = "optimize", prompt = "Please optimize this code for performance." },
-}
-
 -- Function to validate visual selection and execute Claude command
-local function execute_claude_command(prompt, range)
-	-- Expand abbreviated prompt if it's a preset name
+-- Expand abbreviated prompt if it's a preset name
+function AIController:execute(prompt, range)
 	local prompt_text = prompt
 	for _, preset_entry in ipairs(preset_prompts) do
 		if preset_entry.name == prompt then
@@ -106,7 +111,79 @@ local function execute_claude_command(prompt, range)
 		prompt_text = prompt_text .. " "
 	end
 
-	pcall(send_selection_to_claude, prompt_text, range)
+	pcall(function()
+		self:send_selection_to_ai(prompt_text, range)
+	end)
+end
+
+-- Helper to register commands and preset tooling for a terminal-based AI assistant
+local function register_ai_provider(provider)
+	local prefix = provider.prefix
+	local executable = provider.executable
+	local list_header = provider.list_header or string.format("Available %s Presets:", prefix)
+	local select_prompt = provider.select_prompt or "Select a preset prompt or enter custom:"
+	local input_prompt = provider.input_prompt or string.format("Enter prompt for %s: ", prefix)
+	local notify_level = provider.notify_level or vim.log.levels.INFO
+	local ai = AIController.new(executable, provider.window)
+
+	vim.api.nvim_create_user_command(prefix .. "ListPresets", function()
+		local lines = { list_header }
+		table.insert(lines, string.rep("-", 25))
+		for _, preset in ipairs(preset_prompts) do
+			table.insert(lines, string.format("%-12s %s", preset.name .. ":", preset.prompt))
+		end
+	end, {})
+
+	local function register_command(name, preset, command_opts)
+		command_opts = command_opts or {}
+		local nargs = command_opts.nargs or "?"
+
+		vim.api.nvim_create_user_command(prefix .. name, function(opts)
+			local range
+			if opts.range == 2 then
+				range = { start = opts.line1, line_end = opts.line2 }
+			end
+
+			if name == "Ask" then
+				if opts.args ~= "" then
+					ai:execute(opts.args, range)
+				else
+					local preset_keys = {}
+					for _, preset_entry in ipairs(preset_prompts) do
+						table.insert(preset_keys, preset_entry.name)
+					end
+					table.insert(preset_keys, "custom")
+
+					local function run_prompt(choice)
+						if not choice then
+							return
+						end
+						if choice == "custom" then
+							vim.ui.input({ prompt = input_prompt }, function(input)
+								if input and input ~= "" then
+									ai:execute(input, range)
+								end
+							end)
+						else
+							ai:execute(choice, range)
+						end
+					end
+
+					vim.ui.select(preset_keys, { prompt = select_prompt }, run_prompt)
+				end
+			else
+				ai:execute(preset, range)
+			end
+		end, { range = 0, nargs = nargs })
+	end
+
+	register_command("Ask", nil, { nargs = "?" })
+	register_command("Refactor", "refactor")
+	register_command("Analyze", "analyze")
+	register_command("Optimize", "optimize")
+	register_command("Explain", "explain")
+	register_command("Bugs", "bugs")
+	register_command("Test", "test")
 end
 
 ---@type LazyPluginSpec | LazyPluginSpec[]
@@ -263,79 +340,31 @@ return {
 				desc = "Send selection to Claude with custom prompt",
 			},
 		},
-		config = function()
-			require("claude-code").setup()
-
-			-- Register command to list available Claude presets
-			vim.api.nvim_create_user_command("ClaudeListPresets", function()
-				local lines = { "Available Claude Presets:" }
-				table.insert(lines, string.rep("-", 25))
-				for _, preset in ipairs(preset_prompts) do
-					table.insert(lines, string.format("%-12s %s", preset.name .. ":", preset.prompt))
-				end
-				vim.notify(table.concat(lines, "\n"), vim.log.levels.INFO)
-			end, {})
-
-			-- Helper function to register Claude commands
-			local function register_claude_command(name, preset, config)
-				config = config or {}
-				local nargs = config.nargs or "?"
-
-				vim.api.nvim_create_user_command("Claude" .. name, function(opts)
-					local range
-					-- Only applicable for range Command
-					if opts.range == 2 then
-						range = { start = opts.line1, line_end = opts.line2 }
-					end
-					-- Handle custom prompt input for ClaudeAsk
-					if name == "Ask" then
-						if opts.args ~= "" then
-							execute_claude_command(opts.args, range)
-						else
-							local preset_keys = {}
-							for _, preset in ipairs(preset_prompts) do
-								table.insert(preset_keys, preset.name)
-							end
-							table.insert(preset_keys, "custom")
-
-							-- Noop if no prompt
-							local execute_claude_command_callback = function(prompt)
-								if prompt then
-									execute_claude_command(prompt, range)
-								end
-							end
-							vim.ui.select(preset_keys, {
-								prompt = "Select a preset prompt or enter custom:",
-							}, function(choice)
-								if choice == "custom" then
-									vim.ui.input({
-										prompt = "Enter prompt for Claude: ",
-									}, execute_claude_command_callback)
-								else
-									execute_claude_command_callback(choice)
-								end
-							end)
-						end
-					else
-						-- For preset commands, just execute with the preset
-						execute_claude_command(preset, range)
-					end
-				end, { range = 0, nargs = nargs })
-			end
-
-			-- Register all Claude commands with consistent configuration
-			register_claude_command("Ask", nil, { nargs = "?" })
-			register_claude_command("Refactor", "refactor")
-			register_claude_command("Analyze", "analyze")
-			register_claude_command("Optimize", "optimize")
-			register_claude_command("Explain", "explain")
-			register_claude_command("Bugs", "bugs")
-			register_claude_command("Test", "test")
+		config = function(_, opts)
+			require("claude-code").setup(opts)
+			register_ai_provider({
+				prefix = "Claude",
+				executable = "claude",
+				list_header = "Available Claude Presets:",
+				select_prompt = "Select a preset prompt or enter custom (Claude):",
+				input_prompt = "Enter prompt for Claude: ",
+			})
 		end,
 	},
 	{
 		"johnseth97/codex.nvim",
-		cmd = { "Codex", "CodexToggle" },
+		cmd = {
+			"Codex",
+			"CodexToggle",
+			"CodexAsk",
+			"CodexRefactor",
+			"CodexAnalyze",
+			"CodexOptimize",
+			"CodexExplain",
+			"CodexBugs",
+			"CodexTest",
+			"CodexListPresets",
+		},
 		keys = {
 			{
 				"<leader>cd",
@@ -343,6 +372,18 @@ return {
 					require("codex").toggle()
 				end,
 				desc = "Toggle Codex popup",
+			},
+			{
+				"<leader>cx",
+				"<cmd>CodexAsk<CR>",
+				mode = "n",
+				desc = "Send selection to Codex with custom prompt",
+			},
+			{
+				"<leader>cx",
+				":'<,'>CodexAsk<CR>",
+				mode = "v",
+				desc = "Send selection to Codex with custom prompt",
 			},
 		},
 		opts = {
@@ -356,5 +397,16 @@ return {
 			model = nil, -- Optional: pass a string to use a specific model (e.g., 'o3-mini')
 			autoinstall = true, -- Automatically install the Codex CLI if not found
 		},
+		config = function(_, opts)
+			require("codex").setup(opts)
+
+			register_ai_provider({
+				prefix = "Codex",
+				executable = "codex",
+				list_header = "Available Codex Presets:",
+				select_prompt = "Select a preset prompt or enter custom (Codex):",
+				input_prompt = "Enter prompt for Codex: ",
+			})
+		end,
 	},
 }
