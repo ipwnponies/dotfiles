@@ -8,6 +8,15 @@ local preset_prompts = {
 	{ name = "optimize", prompt = "Please optimize this code for performance." },
 }
 
+local plugin_window_openers = {
+	claude = function()
+		require("claude-code").toggle()
+	end,
+	codex = function()
+		require("codex").toggle()
+	end,
+}
+
 local AIController = {}
 AIController.__index = AIController
 
@@ -16,13 +25,20 @@ function AIController.new(executable)
 end
 
 function AIController:find_ai_buffer()
-	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-		if vim.api.nvim_buf_is_loaded(buf) then
-			-- Claude has BufPostFile autocmd that updates the buffer name, so we can't set explicit name
-			local buf_name = vim.api.nvim_buf_get_name(buf)
-			local pattern = string.format("term://.*/%%d+:%s", self.executable)
-			if string.find(buf_name, pattern .. "$") or string.find(buf_name, pattern .. "%W") then
-				return buf
+	if self.executable == "claude" then
+		local claude = require("claude-code").claude_code
+
+		return claude.instances[claude.current_instance]
+	elseif self.executable == "codex" then
+		for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+			if vim.api.nvim_buf_is_loaded(buf) then
+				local buftype = vim.api.nvim_get_option_value("buftype", { buf = buf })
+				if buftype == "terminal" then
+					local filetype = vim.api.nvim_get_option_value("filetype", { buf = buf })
+					if self.executable == "codex" and filetype == "codex" then
+						return buf
+					end
+				end
 			end
 		end
 	end
@@ -31,50 +47,51 @@ end
 
 -- Function to find window containing a buffer
 local function find_buffer_window(bufnr)
-	for _, win in ipairs(vim.api.nvim_list_wins()) do
-		if vim.api.nvim_win_get_buf(win) == bufnr then
+	-- win_findbuf also reports floating windows so popups like Codex/Claude are detected
+	local wins = vim.fn.win_findbuf(bufnr)
+	for _, win in ipairs(wins) do
+		if vim.api.nvim_win_is_valid(win) then
 			return win
 		end
 	end
+
 	return nil
 end
 
 -- Function to create or focus a Claude window
 function AIController:create_or_focus_ai_window(bufnr)
+	local created_new_instance = false
+	local launcher = plugin_window_openers[self.executable]
+
+	if not launcher then
+		error("No launcher defined for executable: " .. self.executable)
+	end
+
+	-- Create buffer if not exist
 	if not bufnr then
-		-- Create a new scratch buffer
-		bufnr = vim.api.nvim_create_buf(false, true)
-		vim.cmd("vsplit")
-		vim.api.nvim_win_set_buf(0, bufnr)
+		launcher()
+		bufnr = self:find_ai_buffer()
+		created_new_instance = true
 
 		vim.api.nvim_create_autocmd("WinEnter", {
 			buffer = bufnr,
-			callback = function(opts)
-				local map_opts = { noremap = true, silent = true, buffer = opts.buf }
-				vim.keymap.set("t", "<C-h>", [[<C-\\><C-n><C-w>h]], map_opts)
-				vim.keymap.set("t", "<C-j>", [[<C-\\><C-n><C-w>j]], map_opts)
-				vim.keymap.set("t", "<C-k>", [[<C-\\><C-n><C-w>k]], map_opts)
-				vim.keymap.set("t", "<C-l>", [[<C-\\><C-n><C-w>l]], map_opts)
+			callback = function()
 				vim.cmd("startinsert")
 			end,
 		})
-		-- Open window with the buffer
-		return vim.fn.termopen(self.executable), true
 	end
 
-	-- Try to find existing window with this buffer
 	local winid = find_buffer_window(bufnr)
-	if winid then
-		-- Switch to the window
-		-- Leave visual mode and enter terminal mode in new window
-		vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
-		vim.api.nvim_set_current_win(winid)
-	else
-		vim.cmd("vsplit")
-		vim.api.nvim_win_set_buf(0, bufnr)
+
+	-- Buffer is not currently displayed
+	if not winid then
+		launcher()
+		winid = find_buffer_window(bufnr)
 	end
 
-	return vim.b[bufnr].terminal_job_id
+	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
+	vim.api.nvim_set_current_win(winid)
+	return vim.b[bufnr].terminal_job_id, created_new_instance
 end
 
 -- Function to send selected text to Claude with a prompt
