@@ -91,7 +91,7 @@ return {
 		version = "^1.0.0",
 		dependencies = {
 			{
-				"mason-org/mason.nvim",
+				"williamboman/mason.nvim",
 				version = "^1.0.0",
 				---@type MasonSettings
 				opts = {
@@ -186,16 +186,17 @@ return {
 		end,
 	},
 	{
-		"WhoIsSethDaniel/mason-tool-installer.nvim",
+		"jay-babu/mason-null-ls.nvim",
 		dependencies = {
-			"mason-org/mason.nvim",
+			"williamboman/mason.nvim",
+			"nvimtools/none-ls.nvim",
 		},
 		config = function()
-			require("mason-tool-installer").setup({
+			require("mason-null-ls").setup({
 				ensure_installed = {
-					"stylua",
+					"fish",
 					"ruff",
-					"fish-lsp",
+					"stylua",
 				},
 			})
 		end,
