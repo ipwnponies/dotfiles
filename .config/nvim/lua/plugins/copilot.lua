@@ -340,6 +340,12 @@ return {
 				desc = "Send selection to Claude with custom prompt",
 			},
 		},
+		---@type ClaudeCode.Config
+		opts = {
+			window = {
+				position = "float",
+			},
+		},
 		config = function(_, opts)
 			require("claude-code").setup(opts)
 			register_ai_provider({
