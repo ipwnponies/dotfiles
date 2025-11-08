@@ -80,6 +80,20 @@ return {
 				end,
 				desc = "Jumps",
 			},
+			{
+				"<leader>fc",
+				function()
+					require("fzf-lua").commands({ resume = true })
+				end,
+				desc = "Commands",
+			},
+			{
+				"<leader>fC",
+				function()
+					require("fzf-lua").command_history({ resume = true })
+				end,
+				desc = "Command History",
+			},
 		},
 		config = function(_, opts)
 			require("fzf-lua").setup(opts)
