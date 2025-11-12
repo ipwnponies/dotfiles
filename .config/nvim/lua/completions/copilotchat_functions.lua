@@ -17,6 +17,18 @@ function source:get_trigger_characters()
 	return { "#" }
 end
 
+function source:should_show_items(ctx)
+	local cursor = ctx.bounds.start_col
+	local start_of_completion = ctx.line:sub(cursor - 2, cursor - 1)
+	if #start_of_completion > 1 then
+		-- Check word boundary. We only want completion for #.* standalone
+		return start_of_completion:match("%W#")
+	else
+		-- Special edge case, start of line
+		return start_of_completion == "#"
+	end
+end
+
 local function add_open_buffer()
 	local bufs = vim.api.nvim_list_bufs()
 	local i = 0

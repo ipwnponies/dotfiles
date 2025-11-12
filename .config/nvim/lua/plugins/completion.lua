@@ -217,9 +217,8 @@ return {
 						async = true,
 					},
 					["copilotchat_functions"] = {
-						name = "copilotchat-functions",
+						name = "CopilotChat functions",
 						module = "completions.copilotchat_functions",
-						opts = { some_option = "some value" },
 						min_keyword_length = 0,
 						score_offset = 1000, -- the higher the number, the higher the priority
 					},
