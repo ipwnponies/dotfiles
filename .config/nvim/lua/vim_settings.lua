@@ -46,7 +46,20 @@ vim.opt.completeopt = { "menuone", "popup" } -- Show menu even for one match, us
 vim.opt.visualbell = true -- Enable visual bell instead of beeping
 vim.opt.cursorline = true -- Highlight the current line
 vim.opt.number = true -- Show absolute line number for cursor line
-vim.opt.relativenumber = true -- Show relative line numbers, to assist in relative motion
+vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
+	callback = function()
+		-- relative line number is only to be used if line number is displayed
+		if vim.wo.number then
+			vim.wo.relativenumber = true
+		end
+	end,
+})
+
+vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
+	callback = function()
+		vim.wo.relativenumber = false
+	end,
+})
 vim.opt.scrolloff = 3 -- Keep 3 lines visible above/below cursor
 vim.opt.showmatch = true -- Briefly jump to matching bracket
 vim.opt.showbreak = ">>" -- String to show at start of wrapped lines
@@ -57,7 +70,6 @@ vim.opt.breakindent = true -- Indent wrapped lines to match parent line
 -- - Shift by 4
 -- - Keep hanging indents at least 60 columns wide
 vim.opt.breakindentopt = { "sbr", "shift:4", "min:60" }
-
 -- Layout
 vim.opt.textwidth = 120 -- Set maximum text width to 120 characters
 vim.opt.splitbelow = true -- New horizontal splits open below
