@@ -166,9 +166,9 @@ return {
 						on_attach = on_attach,
 						root_dir = function(bufnr, on_dir)
 							local fname = vim.api.nvim_buf_get_name(bufnr)
-							local ok, patterns = pcall(vim.g.project_pyright_root, fname)
+							local patterns = vim.g.project_pyright_root(fname)
 
-							local root_dir_func = ok and lspconfig.util.root_pattern(unpack(patterns))
+							local root_dir_func = patterns and lspconfig.util.root_pattern(unpack(patterns))
 								or require("lspconfig.configs.pyright").default_config.root_dir
 							on_dir(root_dir_func(fname))
 						end,
