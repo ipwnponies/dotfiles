@@ -380,6 +380,7 @@ return {
 				"<leader>cd",
 				function()
 					require("codex").toggle()
+					vim.cmd("startinsert")
 				end,
 				desc = "Toggle Codex popup",
 			},
