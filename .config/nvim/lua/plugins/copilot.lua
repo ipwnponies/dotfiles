@@ -1,11 +1,12 @@
 -- Function to find existing Claude buffer
 local preset_prompts = {
-	{ name = "explain", prompt = "Please explain how this code works in detail." },
-	{ name = "refactor", prompt = "Please refactor this code." },
-	{ name = "bugs", prompt = "Please identify any bugs or issues in this code." },
-	{ name = "test", prompt = "Please write tests for this line of code." },
-	{ name = "analyze", prompt = "Please analyze this code." },
-	{ name = "optimize", prompt = "Please optimize this code for performance." },
+	{ name = "Custom", prompt = "" },
+	{ name = "Explain", prompt = "Explain in detail how this code works, step by step." },
+	{ name = "Refactor", prompt = "Refactor this code to improve readability or structure." },
+	{ name = "Bugs", prompt = "Identify any bugs or issues in this code." },
+	{ name = "Test", prompt = "Write tests for this code." },
+	{ name = "Analyze", prompt = "Analyze this code for quality, design, and potential improvements." },
+	{ name = "Optimize", prompt = "Optimize this code for better performance." },
 }
 
 local plugin_window_openers = {
@@ -58,7 +59,7 @@ local function find_buffer_window(bufnr)
 	return nil
 end
 
--- Function to create or focus a Claude window
+-- Function to create or focus a coding agent window
 function AIController:create_or_focus_ai_window(bufnr)
 	local created_new_instance = false
 	local launcher = plugin_window_openers[self.executable]
@@ -94,13 +95,13 @@ function AIController:create_or_focus_ai_window(bufnr)
 	return vim.b[bufnr].terminal_job_id, created_new_instance
 end
 
--- Function to send selected text to Claude with a prompt
+-- Function to send selected text to coding agent with a prompt
 function AIController:send_selection_to_ai(prompt, range)
 	local filename = vim.fn.expand("%:p")
 	local line_number = range and string.format(":%d-%d", range.start, range.line_end) or ""
 	local final_prompt = string.format("@%s%s\n%s", filename, line_number, prompt)
 
-	-- Find existing Claude buffer or create new one
+	-- Find existing coding agent buffer or create new one
 	local assistant_bufnr = self:find_ai_buffer()
 	local job_id, is_created = self:create_or_focus_ai_window(assistant_bufnr)
 
@@ -112,7 +113,7 @@ function AIController:send_selection_to_ai(prompt, range)
 	end, is_created and 1000 or 0) -- No delay for existing terminal, 500ms for new one
 end
 
--- Function to validate visual selection and execute Claude command
+-- Function to validate visual selection and execute coding agent command
 -- Expand abbreviated prompt if it's a preset name
 function AIController:execute(prompt, range)
 	local prompt_text = prompt
