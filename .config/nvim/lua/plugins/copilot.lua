@@ -68,18 +68,25 @@ function AIController:create_or_focus_ai_window(bufnr)
 		error("No launcher defined for executable: " .. self.executable)
 	end
 
+	local always_insert_mode_autocmd = function()
+		vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+			group = vim.api.nvim_create_augroup("AgentTerminalAutoInsertGroup", { clear = true }),
+			buffer = bufnr,
+			callback = function()
+				vim.defer_fn(function()
+					vim.cmd("startinsert")
+				end, 5)
+			end,
+		})
+	end
+
 	-- Create buffer if not exist
 	if not bufnr then
 		launcher()
 		bufnr = self:find_ai_buffer()
 		created_new_instance = true
 
-		vim.api.nvim_create_autocmd("WinEnter", {
-			buffer = bufnr,
-			callback = function()
-				vim.cmd("startinsert")
-			end,
-		})
+		always_insert_mode_autocmd()
 	end
 
 	local winid = find_buffer_window(bufnr)
@@ -88,6 +95,7 @@ function AIController:create_or_focus_ai_window(bufnr)
 	if not winid then
 		launcher()
 		winid = find_buffer_window(bufnr)
+		always_insert_mode_autocmd()
 	end
 
 	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
@@ -104,9 +112,6 @@ function AIController:send_selection_to_ai(prompt, range)
 	-- Find existing coding agent buffer or create new one
 	local assistant_bufnr = self:find_ai_buffer()
 	local job_id, is_created = self:create_or_focus_ai_window(assistant_bufnr)
-
-	-- Ensure we're in insert mode for terminal interaction
-	vim.cmd("startinsert")
 
 	vim.defer_fn(function()
 		vim.api.nvim_chan_send(job_id, final_prompt)
