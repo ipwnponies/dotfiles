@@ -145,8 +145,6 @@ local function register_ai_provider(provider)
 	local executable = provider.executable
 	local list_header = provider.list_header or string.format("Available %s Presets:", prefix)
 	local select_prompt = provider.select_prompt or "Select a preset prompt or enter custom:"
-	local input_prompt = provider.input_prompt or string.format("Enter prompt for %s: ", prefix)
-	local notify_level = provider.notify_level or vim.log.levels.INFO
 	local ai = AIController.new(executable, provider.window)
 
 	vim.api.nvim_create_user_command(prefix .. "ListPresets", function()
@@ -175,24 +173,15 @@ local function register_ai_provider(provider)
 					for _, preset_entry in ipairs(preset_prompts) do
 						table.insert(preset_keys, preset_entry.name)
 					end
-					table.insert(preset_keys, "custom")
 
-					local function run_prompt(choice)
-						if not choice then
-							return
-						end
-						if choice == "custom" then
-							vim.ui.input({ prompt = input_prompt }, function(input)
-								if input and input ~= "" then
-									ai:execute(input, range)
-								end
-							end)
-						else
-							ai:execute(choice, range)
-						end
-					end
-
-					vim.ui.select(preset_keys, { prompt = select_prompt }, run_prompt)
+					require("fzf-lua").fzf_exec(preset_keys, {
+						prompt = select_prompt,
+						actions = {
+							["default"] = function(selected)
+								ai:execute(selected[1], range)
+							end,
+						},
+					})
 				end
 			else
 				ai:execute(preset, range)
@@ -336,6 +325,17 @@ return {
 		dependencies = {
 			"nvim-lua/plenary.nvim", -- Required for git operations
 		},
+		cmd = {
+			"ClaudeCode",
+			"ClaudeToggle",
+			"ClaudeAsk",
+			"ClaudeRefactor",
+			"ClaudeAnalyze",
+			"ClaudeOptimize",
+			"ClaudeExplain",
+			"ClaudeBugs",
+			"ClaudeTest",
+		},
 		keys = {
 			{
 				"<leader>ck",
@@ -363,7 +363,6 @@ return {
 				executable = "claude",
 				list_header = "Available Claude Presets:",
 				select_prompt = "Select a preset prompt or enter custom (Claude):",
-				input_prompt = "Enter prompt for Claude: ",
 			})
 		end,
 	},
@@ -379,7 +378,6 @@ return {
 			"CodexExplain",
 			"CodexBugs",
 			"CodexTest",
-			"CodexListPresets",
 		},
 		keys = {
 			{
@@ -422,7 +420,6 @@ return {
 				executable = "codex",
 				list_header = "Available Codex Presets:",
 				select_prompt = "Select a preset prompt or enter custom (Codex):",
-				input_prompt = "Enter prompt for Codex: ",
 			})
 		end,
 	},
