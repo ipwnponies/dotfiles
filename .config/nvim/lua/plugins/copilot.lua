@@ -403,9 +403,8 @@ return {
 		},
 		opts = {
 			keymaps = {
-				toggle = nil, -- Keybind to toggle Codex window (Disabled by default, watch out for conflicts)
-				quit = "<C-q>", -- Keybind to close the Codex window (default: Ctrl + q)
-			}, -- Disable internal default keymap (<leader>cc -> :CodexToggle)
+				toggle = "<C-q>",
+			},
 			border = "rounded",
 			width = 0.8,
 			height = 0.8,
