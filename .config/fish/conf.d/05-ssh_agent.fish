@@ -1,6 +1,6 @@
 # Load ssh keys
 if status --is-interactive
-    if test (uname -o) = 'Darwin'
+    if test (uname -o) = Darwin
         # macos ssh can use OS keychain, no need for ssh-agent
         exit
     end
@@ -10,5 +10,5 @@ if status --is-interactive
         exit
     end
 
-    keychain --eval --quiet --quick id_rsa | source
+    keychain --eval --quiet --quick id_ed25519 | source
 end
