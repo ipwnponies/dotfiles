@@ -133,7 +133,7 @@ return {
 					and require("blink.cmp").get_lsp_capabilities({
 						textDocument = { completion = { completionItem = { snippetSupport = false } } },
 					})
-					or require("cmp_nvim_lsp").default_capabilities()
+				or require("cmp_nvim_lsp").default_capabilities()
 
 			-- Change the Diagnostic symbols in the sign column (gutter)
 			local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
@@ -166,10 +166,15 @@ return {
 						on_attach = on_attach,
 						root_dir = function(bufnr, on_dir)
 							local fname = vim.api.nvim_buf_get_name(bufnr)
-							local patterns = vim.g.project_pyright_root(fname)
+							local patterns
+							local project_root = vim.g.project_pyright_root
+
+							if project_root ~= nil then
+								patterns = project_root(fname)
+							end
 
 							local root_dir_func = patterns and lspconfig.util.root_pattern(unpack(patterns))
-									or require("lspconfig.configs.pyright").default_config.root_dir
+								or require("lspconfig.configs.pyright").default_config.root_dir
 							on_dir(root_dir_func(fname))
 						end,
 					})
