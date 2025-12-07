@@ -19,13 +19,18 @@ return {
 				desc = "Next Reference",
 			},
 		},
-		config = function()
+		---@type illuminate.Config
+		opts = {
+			large_file_overrides = {
+				providers = { "lsp" }, -- default disables providers; prefer LSP-only instead
+			},
+		},
+		config = function(_, opts)
 			vim.api.nvim_set_hl(0, "IlluminatedWordText", { underline = true })
 			vim.api.nvim_set_hl(0, "IlluminatedWordRead", { underline = true, bg = "#2c4070" })
 			vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { underline = true, bg = "salmon" })
 			vim.api.nvim_set_hl(0, "illuminatedWord", { link = "Search" })
 
-			vim.g.Illuminate_delay = 100
 			vim.g.Illuminate_ftHighlightGroups = {
 				qf = { "" },
 				["javascript.jsx:blacklist"] = {
@@ -43,6 +48,8 @@ return {
 				},
 				python = { "", "pythonString", "pythonFunction", "pythonDottedName", "pythonNone", "pythonComment" },
 			}
+
+			require("illuminate").configure(opts)
 		end,
 	},
 	{
