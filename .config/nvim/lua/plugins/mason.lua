@@ -133,7 +133,7 @@ return {
 					and require("blink.cmp").get_lsp_capabilities({
 						textDocument = { completion = { completionItem = { snippetSupport = false } } },
 					})
-				or require("cmp_nvim_lsp").default_capabilities()
+					or require("cmp_nvim_lsp").default_capabilities()
 
 			-- Change the Diagnostic symbols in the sign column (gutter)
 			local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
@@ -169,7 +169,7 @@ return {
 							local patterns = vim.g.project_pyright_root(fname)
 
 							local root_dir_func = patterns and lspconfig.util.root_pattern(unpack(patterns))
-								or require("lspconfig.configs.pyright").default_config.root_dir
+									or require("lspconfig.configs.pyright").default_config.root_dir
 							on_dir(root_dir_func(fname))
 						end,
 					})
@@ -194,7 +194,7 @@ return {
 		config = function()
 			require("mason-null-ls").setup({
 				ensure_installed = {
-					"fish",
+					"fish_lsp",
 					"ruff",
 					"shellcheck",
 					"stylua",
