@@ -1,0 +1,46 @@
+---@type LazyPluginSpec[]
+return {
+	{
+		"nvim-treesitter/nvim-treesitter",
+		branch = "main",
+		lazy = false, -- plugin documented to not support lazy loading
+		build = ":TSUpdate",
+		event = { "BufReadPost", "BufNewFile" },
+		cmd = { "TSUpdateSync", "TSInstall" },
+		dependencies = {},
+		---@type nvim-treesitter.Configs.setup.Opts
+		opts = {
+			ensure_installed = {
+				"bash",
+				"comment",
+				"diff",
+				"gitignore",
+				"html",
+				"javascript",
+				"jsdoc",
+				"json",
+				"jsonc",
+				"lua",
+				"luadoc",
+				"luap",
+				"markdown",
+				"markdown_inline",
+				"printf",
+				"python",
+				"query",
+				"regex",
+				"toml",
+				"tsx",
+				"typescript",
+				"vim",
+				"vimdoc",
+				"xml",
+				"yaml",
+			},
+			indent = { enable = true },
+			highlight = { enable = true },
+			folds = { enable = true },
+		},
+	},
+	{ "nvim-treesitter/nvim-treesitter-textobjects" },
+}
