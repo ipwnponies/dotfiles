@@ -18,6 +18,42 @@ local plugin_window_openers = {
 	end,
 }
 
+local claude_enabled = vim.g["claude_agent_enabled"] ~= nil
+
+local function ai_keymaps(command_prefix)
+	local ask_desc = "Send selection to coding agent with custom prompt"
+	local toggle_mapping
+	if command_prefix == "Codex" then
+		toggle_mapping = {
+			"<m-,>",
+			function()
+				require("codex").toggle()
+				vim.cmd("startinsert")
+			end,
+			mode = { "n", "t" },
+			desc = "Toggle coding agent popup",
+		}
+	else
+		-- Claude already has keymap for toggling
+	end
+
+	return {
+		toggle_mapping,
+		{
+			"<leader>ck",
+			string.format("<cmd>%sAsk<CR>", command_prefix),
+			mode = "n",
+			desc = ask_desc,
+		},
+		{
+			"<leader>ck",
+			string.format(":'<,'>%sAsk<CR>", command_prefix),
+			mode = "v",
+			desc = ask_desc,
+		},
+	}
+end
+
 local AIController = {}
 AIController.__index = AIController
 
@@ -322,6 +358,7 @@ return {
 	},
 	{
 		"greggh/claude-code.nvim",
+		enabled = claude_enabled,
 		dependencies = {
 			"nvim-lua/plenary.nvim", -- Required for git operations
 		},
@@ -336,20 +373,7 @@ return {
 			"ClaudeBugs",
 			"ClaudeTest",
 		},
-		keys = {
-			{
-				"<leader>ck",
-				"<cmd>ClaudeAsk<CR>",
-				mode = "n",
-				desc = "Send selection to Claude with custom prompt",
-			},
-			{
-				"<leader>ck",
-				":'<,'>ClaudeAsk<CR>",
-				mode = "v",
-				desc = "Send selection to Claude with custom prompt",
-			},
-		},
+		keys = ai_keymaps("Claude"),
 		---@type ClaudeCode.Config
 		opts = {
 			window = {
@@ -368,6 +392,7 @@ return {
 	},
 	{
 		"johnseth97/codex.nvim",
+		enabled = not claude_enabled,
 		cmd = {
 			"Codex",
 			"CodexToggle",
@@ -379,28 +404,7 @@ return {
 			"CodexBugs",
 			"CodexTest",
 		},
-		keys = {
-			{
-				"<leader>cd",
-				function()
-					require("codex").toggle()
-					vim.cmd("startinsert")
-				end,
-				desc = "Toggle Codex popup",
-			},
-			{
-				"<leader>cx",
-				"<cmd>CodexAsk<CR>",
-				mode = "n",
-				desc = "Send selection to Codex with custom prompt",
-			},
-			{
-				"<leader>cx",
-				":'<,'>CodexAsk<CR>",
-				mode = "v",
-				desc = "Send selection to Codex with custom prompt",
-			},
-		},
+		keys = ai_keymaps("Codex"),
 		opts = {
 			keymaps = {
 				toggle = "<C-q>",
