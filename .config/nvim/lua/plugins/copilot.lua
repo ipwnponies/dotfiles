@@ -27,19 +27,23 @@ local coding_agent = vim.g.coding_agent_preference or vim.env.CODING_AGENT_PREFE
 local function ai_keymaps(command_prefix)
 	local ask_desc = "Send selection to coding agent with custom prompt"
 	local toggle_mapping
-	if command_prefix == "Codex" then
-		toggle_mapping = {
-			"<m-,>",
-			function()
-				require("codex").toggle()
-				vim.cmd("startinsert")
-			end,
-			mode = { "n", "t" },
-			desc = "Toggle coding agent popup",
-		}
-	else
-		-- Claude already has keymap for toggling
-	end
+	toggle_mapping = {
+		"<m-,>",
+		function()
+			if command_prefix == "Codex" then
+				plugin_window_openers.codex()
+				local win = require("codex.state").win
+				-- Only enter insert model if window is open
+				if win ~= nil and vim.api.nvim_win_is_valid(win) then
+					vim.cmd("startinsert")
+				end
+			else
+				-- Claude has toggle with insert mode already
+			end
+		end,
+		mode = { "n", "t" },
+		desc = "Toggle coding agent popup",
+	}
 
 	return {
 		toggle_mapping,
@@ -383,6 +387,12 @@ return {
 			window = {
 				position = "float",
 			},
+			keymaps = {
+				toggle = {
+					normal = "<M-,>",
+					terminal = "<M-,>",
+				},
+			},
 		},
 		config = function(_, opts)
 			require("claude-code").setup(opts)
@@ -410,9 +420,6 @@ return {
 		},
 		keys = ai_keymaps("Codex"),
 		opts = {
-			keymaps = {
-				toggle = "<C-q>",
-			},
 			border = "rounded",
 			width = 0.8,
 			height = 0.8,
