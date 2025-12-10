@@ -70,50 +70,50 @@
       }
     },
     "cargo@latest": {
-      "last_modified": "2025-03-11T17:52:14Z",
-      "resolved": "github:NixOS/nixpkgs/0d534853a55b5d02a4ababa1d71921ce8f0aee4c#cargo",
+      "last_modified": "2025-11-23T21:50:36Z",
+      "resolved": "github:NixOS/nixpkgs/ee09932cedcef15aaf476f9343d1dea2cb77e261#cargo",
       "source": "devbox-search",
-      "version": "1.85.0",
+      "version": "1.91.1",
       "systems": {
         "aarch64-darwin": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/cmiczpf80qdp9vnbckpk6cp8yclbni6y-cargo-1.85.0",
+              "path": "/nix/store/45b258b3av4kwr5pljhaghpkn2b076gp-cargo-1.91.1",
               "default": true
             }
           ],
-          "store_path": "/nix/store/cmiczpf80qdp9vnbckpk6cp8yclbni6y-cargo-1.85.0"
+          "store_path": "/nix/store/45b258b3av4kwr5pljhaghpkn2b076gp-cargo-1.91.1"
         },
         "aarch64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/qzkb9zmyccr38rdv8glk6i9l2wc761cw-cargo-1.85.0",
+              "path": "/nix/store/0dc8isk49j5nixxswvl8kdsvz8wvzah8-cargo-1.91.1",
               "default": true
             }
           ],
-          "store_path": "/nix/store/qzkb9zmyccr38rdv8glk6i9l2wc761cw-cargo-1.85.0"
+          "store_path": "/nix/store/0dc8isk49j5nixxswvl8kdsvz8wvzah8-cargo-1.91.1"
         },
         "x86_64-darwin": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/bpv800il54d82d67ibfi3l4kgxcpw0w9-cargo-1.85.0",
+              "path": "/nix/store/vc9ij5iq2ga02875g3i8dxz7mpa11ygf-cargo-1.91.1",
               "default": true
             }
           ],
-          "store_path": "/nix/store/bpv800il54d82d67ibfi3l4kgxcpw0w9-cargo-1.85.0"
+          "store_path": "/nix/store/vc9ij5iq2ga02875g3i8dxz7mpa11ygf-cargo-1.91.1"
         },
         "x86_64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/wvcl683adl5vsc2873rdcs255zq3j7yk-cargo-1.85.0",
+              "path": "/nix/store/742kq790y4nd92s4l4arg7ij8h7is5ar-cargo-1.91.1",
               "default": true
             }
           ],
-          "store_path": "/nix/store/wvcl683adl5vsc2873rdcs255zq3j7yk-cargo-1.85.0"
+          "store_path": "/nix/store/742kq790y4nd92s4l4arg7ij8h7is5ar-cargo-1.91.1"
         }
       }
     },
