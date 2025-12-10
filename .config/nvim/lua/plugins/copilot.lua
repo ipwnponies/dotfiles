@@ -18,7 +18,11 @@ local plugin_window_openers = {
 	end,
 }
 
-local claude_enabled = vim.g["claude_agent_enabled"] ~= nil
+-- Override coding agent by environment
+-- top priority is .nvim.lua (exrc)
+-- then env var
+-- then fallback to codex
+local coding_agent = vim.g.coding_agent_preference or vim.env.CODING_AGENT_PREFERENCE or "codex"
 
 local function ai_keymaps(command_prefix)
 	local ask_desc = "Send selection to coding agent with custom prompt"
@@ -358,7 +362,7 @@ return {
 	},
 	{
 		"greggh/claude-code.nvim",
-		enabled = claude_enabled,
+		enabled = coding_agent == "claude",
 		dependencies = {
 			"nvim-lua/plenary.nvim", -- Required for git operations
 		},
@@ -392,7 +396,7 @@ return {
 	},
 	{
 		"johnseth97/codex.nvim",
-		enabled = not claude_enabled,
+		enabled = coding_agent == "codex",
 		cmd = {
 			"Codex",
 			"CodexToggle",
