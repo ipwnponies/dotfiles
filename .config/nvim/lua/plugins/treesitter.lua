@@ -89,6 +89,29 @@ return {
 		},
 		config = function(_, opts)
 			require("nvim-treesitter-textobjects").setup(opts)
+
+			-- Select by syntax
+			local select = require("nvim-treesitter-textobjects.move")
+
+			vim.keymap.set({ "x", "o" }, "af", function()
+				select.select_textobject("@function.outer", "textobjects")
+			end, { desc = "Treesitter select outer function" })
+			vim.keymap.set({ "x", "o" }, "if", function()
+				select.select_textobject("@function.inner", "textobjects")
+			end, { desc = "Treesitter select inner function" })
+			vim.keymap.set({ "x", "o" }, "ac", function()
+				select.select_textobject("@class.outer", "textobjects")
+			end, { desc = "Treesitter select outer class" })
+			vim.keymap.set({ "x", "o" }, "ic", function()
+				select.select_textobject("@class.inner", "textobjects")
+			end, { desc = "Treesitter select inner class" })
+			vim.keymap.set({ "x", "o" }, "aa", function()
+				select.select_textobject("@parameter.outer", "textobjects")
+			end, { desc = "Treesitter select outer parameter" })
+			vim.keymap.set({ "x", "o" }, "ia", function()
+				select.select_textobject("@parameter.inner", "textobjects")
+			end, { desc = "Treesitter select inner parameter" })
+
 		end,
 	},
 }
