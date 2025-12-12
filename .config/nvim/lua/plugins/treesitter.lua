@@ -7,10 +7,11 @@ return {
 		build = ":TSUpdate",
 		event = { "BufReadPost", "BufNewFile" },
 		cmd = { "TSUpdateSync", "TSInstall" },
-		dependencies = {},
-		---@type nvim-treesitter.Configs.setup.Opts
-		opts = {
-			ensure_installed = {
+		dependencies = {
+			-- tree-sitter-cli is required, managed by devbox
+		},
+		config = function()
+			local languages = {
 				"bash",
 				"comment",
 				"diff",
@@ -36,11 +37,43 @@ return {
 				"vimdoc",
 				"xml",
 				"yaml",
-			},
-			indent = { enable = true },
-			highlight = { enable = true },
-			folds = { enable = true },
-		},
+			}
+
+			local treesitter = require("nvim-treesitter")
+			local install_parsers = function()
+				local missing = vim.tbl_filter(function(lang)
+					return not vim.list_contains(treesitter.get_installed(), lang)
+				end, languages)
+
+				if #missing > 0 then
+					treesitter.install(missing)
+				end
+			end
+
+			install_parsers()
+
+			local group = vim.api.nvim_create_augroup("treesitter-core", { clear = true })
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = languages,
+				group = group,
+				-- enable treesitter-powered highlight/folds/indent only for the selected buffers
+				callback = function(args)
+					vim.treesitter.start(args.buf)
+
+					vim.api.nvim_set_option_value("foldmethod", "expr", { scope = "local", win = 0 })
+					vim.api.nvim_set_option_value(
+						"foldexpr",
+						"v:lua.vim.treesitter.foldexpr()",
+						{ scope = "local", win = 0 }
+					)
+					vim.api.nvim_set_option_value(
+						"indentexpr",
+						"v:lua.require'nvim-treesitter'.indentexpr()",
+						{ buf = 0 }
+					)
+				end,
+			})
+		end,
 	},
 	{
 		"nvim-treesitter/nvim-treesitter-textobjects",
