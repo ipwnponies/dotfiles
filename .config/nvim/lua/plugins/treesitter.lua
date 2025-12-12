@@ -139,6 +139,16 @@ return {
 			vim.keymap.set({ "n", "x", "o" }, "]B", function()
 				move.goto_next_end("@class.outer", "textobjects")
 			end, { desc = "Treesitter next class end" })
+
+			-- swap parameters around
+			local swap = require("nvim-treesitter-textobjects.swap")
+
+			vim.keymap.set("n", "<leader><c-l>", function()
+				swap.swap_next("@parameter.inner")
+			end, { desc = "Treesitter swap parameter with next" })
+			vim.keymap.set("n", "<leader><c-h>", function()
+				swap.swap_previous("@parameter.inner")
+			end, { desc = "Treesitter swap parameter with previous" })
 		end,
 	},
 }
