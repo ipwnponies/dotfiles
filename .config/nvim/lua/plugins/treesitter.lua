@@ -77,6 +77,18 @@ return {
 	},
 	{
 		"nvim-treesitter/nvim-treesitter-textobjects",
-		branch = 'main',
+		branch = "main",
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		---@type TSTextObjects.UserConfig
+		opts = {
+			-- restore the previous select/move behavior with the new standalone API
+			select = {
+				lookahead = true,
+				include_surrounding_whitespace = true,
+			},
+		},
+		config = function(_, opts)
+			require("nvim-treesitter-textobjects").setup(opts)
+		end,
 	},
 }
