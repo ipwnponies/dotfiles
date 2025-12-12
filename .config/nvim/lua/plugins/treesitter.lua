@@ -112,6 +112,33 @@ return {
 				select.select_textobject("@parameter.inner", "textobjects")
 			end, { desc = "Treesitter select inner parameter" })
 
+			-- Motions
+			local move = require("nvim-treesitter-textobjects.select")
+
+			vim.keymap.set({ "n", "x", "o" }, "[m", function()
+				move.goto_previous_start("@function.outer", "textobjects")
+			end, { desc = "Treesitter previous function start" })
+			vim.keymap.set({ "n", "x", "o" }, "]m", function()
+				move.goto_next_start("@function.outer", "textobjects")
+			end, { desc = "Treesitter next function start" })
+			vim.keymap.set({ "n", "x", "o" }, "[M", function()
+				move.goto_previous_end("@function.outer", "textobjects")
+			end, { desc = "Treesitter previous function end" })
+			vim.keymap.set({ "n", "x", "o" }, "]M", function()
+				move.goto_next_end("@function.outer", "textobjects")
+			end, { desc = "Treesitter next function end" })
+			vim.keymap.set({ "n", "x", "o" }, "[b", function() -- Sorry, ]c is taken by gitgutter to move by 'changes'
+				move.goto_previous_start("@class.outer", "textobjects")
+			end, { desc = "Treesitter previous class start" })
+			vim.keymap.set({ "n", "x", "o" }, "]b", function()
+				move.goto_next_start("@class.outer", "textobjects")
+			end, { desc = "Treesitter next class start" })
+			vim.keymap.set({ "n", "x", "o" }, "[B", function()
+				move.goto_previous_end("@class.outer", "textobjects")
+			end, { desc = "Treesitter previous class end" })
+			vim.keymap.set({ "n", "x", "o" }, "]B", function()
+				move.goto_next_end("@class.outer", "textobjects")
+			end, { desc = "Treesitter next class end" })
 		end,
 	},
 }
