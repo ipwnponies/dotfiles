@@ -7,6 +7,7 @@ local preset_prompts = {
 	{ name = "Test", prompt = "Write tests for this code." },
 	{ name = "Analyze", prompt = "Analyze this code for quality, design, and potential improvements." },
 	{ name = "Optimize", prompt = "Optimize this code for better performance." },
+	{ name = "Feature", prompt = "Add an awesome new feature, which" },
 }
 
 local function get_codex_config_ref()
