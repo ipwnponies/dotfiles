@@ -75,3 +75,12 @@ vim.keymap.set("c", "<c-a>", "<c-b>", { silent = false }) -- Move to beginning o
 
 -- Terminal mode: <C-Space> to normal mode
 vim.keymap.set("t", "<C-Space>", "<C-\\><C-n>", { silent = true })
+
+-- Copy file:line to clipboard
+vim.keymap.set("n", "<leader>.", function()
+	local filepath = vim.fn.expand("%")
+	local line = vim.fn.line(".")
+	local location = string.format("%s:%d", filepath, line)
+	vim.fn.setreg("+", location)
+	vim.fn.setreg('"', location)
+end, { desc = "Copy file:line to clipboard" })
