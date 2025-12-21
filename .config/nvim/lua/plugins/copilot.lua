@@ -10,49 +10,6 @@ local preset_prompts = {
 	{ name = "Feature", prompt = "Add an awesome new feature, which" },
 }
 
-local function get_codex_config_ref()
-	-- This function finds the local `codex.config` variable
-	-- This is gross and dirty and for monkey patching
-	local codex = require("codex")
-	local inspect_targets = { codex.open }
-	for _, fn in ipairs(inspect_targets) do
-		if type(fn) == "function" then
-			local idx = 1
-			while true do
-				local name, value = debug.getupvalue(fn, idx)
-				if not name then
-					break
-				end
-				if name == "config" then
-					return value
-				end
-				idx = idx + 1
-			end
-		end
-	end
-
-	return nil
-end
-
-local function open_codex_resume()
-	local config_ref = get_codex_config_ref()
-
-	local original_cmd = config_ref.cmd
-
-	-- temporarily monkeypatch
-	config_ref.cmd = { original_cmd, "resume" }
-	local open_ok, err = pcall(function()
-		require("codex").open()
-		always_insert_mode_autocmd(0)
-		vim.cmd("startinsert")
-	end)
-
-	config_ref.cmd = original_cmd
-	if not open_ok then
-		vim.notify("[codex] Failed to resume session: " .. err, vim.log.levels.ERROR)
-	end
-end
-
 local plugin_window_openers = {
 	claude = function()
 		require("claude-code").toggle()
@@ -147,18 +104,6 @@ local function find_buffer_window(bufnr)
 	return nil
 end
 
-function always_insert_mode_autocmd(bufnr)
-	vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
-		group = vim.api.nvim_create_augroup("AgentTerminalAutoInsertGroup", { clear = true }),
-		buffer = bufnr,
-		callback = function()
-			vim.defer_fn(function()
-				vim.cmd("startinsert")
-			end, 5)
-		end,
-	})
-end
-
 -- Function to create or focus a coding agent window
 function AIController:create_or_focus_ai_window(bufnr)
 	local created_new_instance = false
@@ -168,13 +113,25 @@ function AIController:create_or_focus_ai_window(bufnr)
 		error("No launcher defined for executable: " .. self.executable)
 	end
 
+	local always_insert_mode_autocmd = function()
+		vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+			group = vim.api.nvim_create_augroup("AgentTerminalAutoInsertGroup", { clear = true }),
+			buffer = bufnr,
+			callback = function()
+				vim.defer_fn(function()
+					vim.cmd("startinsert")
+				end, 5)
+			end,
+		})
+	end
+
 	-- Create buffer if not exist
 	if not bufnr then
 		launcher()
 		bufnr = self:find_ai_buffer()
 		created_new_instance = true
 
-		always_insert_mode_autocmd(bufnr)
+		always_insert_mode_autocmd()
 	end
 
 	local winid = find_buffer_window(bufnr)
@@ -454,7 +411,6 @@ return {
 		cmd = {
 			"Codex",
 			"CodexToggle",
-			"CodexResume",
 			"CodexAsk",
 			"CodexRefactor",
 			"CodexAnalyze",
@@ -479,11 +435,6 @@ return {
 				executable = "codex",
 				list_header = "Available Codex Presets:",
 				select_prompt = "Select a preset prompt or enter custom (Codex):",
-			})
-
-			vim.api.nvim_create_user_command("CodexResume", open_codex_resume, {
-				desc = "Open Codex and resume the previous session",
-				force = true,
 			})
 		end,
 	},
