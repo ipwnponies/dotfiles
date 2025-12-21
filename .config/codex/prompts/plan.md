@@ -1,6 +1,9 @@
 ---
 description: Plan before doing work
+argument-hint: [PROMPT=append instructions so that it plans first]
 ---
+
+$PROMPT
 
 Before you do work, plan the steps you will take to complete the task. Consider the following:
 - Identify the main goal or objective of the task.
@@ -13,4 +16,4 @@ Before you do work, plan the steps you will take to complete the task. Consider 
 - When you are ready, present the plan for review before executing it.
 - After receiving feedback, make any necessary adjustments to the plan before proceeding with the work.
 - Once the plan is finalized, follow the steps methodically, keeping track of progress and making adjustments as needed.
-needed.
+
