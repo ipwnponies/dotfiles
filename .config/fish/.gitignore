@@ -5,11 +5,6 @@
 /completions/*_local.fish
 /conf.d/*_local.fish
 
-# nvm, kinda rude to install into user configs
-/conf.d/nvm.fish
-/functions/nvm.fish
-/completions/nvm.fish
-
 # typer makes it easy to install completions, we don't need to vendor it
 /completions/typer.fish
 
