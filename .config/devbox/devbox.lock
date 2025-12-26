@@ -137,6 +137,54 @@
         }
       }
     },
+    "delta@latest": {
+      "last_modified": "2025-11-25T14:41:04Z",
+      "resolved": "github:NixOS/nixpkgs/dc205f7b4fdb04c8b7877b43edb7b73be7730081#delta",
+      "source": "devbox-search",
+      "version": "0.18.2",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/19fm5asrcyr50yqv7c989s8ybnf91j34-delta-0.18.2",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/19fm5asrcyr50yqv7c989s8ybnf91j34-delta-0.18.2"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/jmzycv096b7xf8z4b5fk9k9wk40hgc11-delta-0.18.2",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/jmzycv096b7xf8z4b5fk9k9wk40hgc11-delta-0.18.2"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/dsir2h8lkj48ksnhhyx2f1xvgyl336ap-delta-0.18.2",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/dsir2h8lkj48ksnhhyx2f1xvgyl336ap-delta-0.18.2"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/hfsr8bqqa9gaqwcsq5sjdfiqix7m8kqh-delta-0.18.2",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/hfsr8bqqa9gaqwcsq5sjdfiqix7m8kqh-delta-0.18.2"
+        }
+      }
+    },
     "diff-so-fancy@latest": {
       "last_modified": "2025-06-20T02:24:11Z",
       "resolved": "github:NixOS/nixpkgs/076e8c6678d8c54204abcb4b1b14c366835a58bb#diff-so-fancy",

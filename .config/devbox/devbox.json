@@ -4,7 +4,9 @@
     "bat@latest",
     "cargo@latest",
     "choose@latest",
+    "delta@latest",
     "diff-so-fancy@latest",
+    "difftastic@latest",
     "direnv@latest",
     "entr@latest",
     "eslint@latest",
@@ -38,8 +40,7 @@
     "tree@latest",
     "yarn@latest",
     "yq@latest",
-    "zoxide@latest",
-    "difftastic@latest"
+    "zoxide@latest"
   ],
   "shell": {
     "init_hook": [
