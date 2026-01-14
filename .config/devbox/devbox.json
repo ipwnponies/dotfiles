@@ -34,6 +34,7 @@
     "poetry@latest",
     "pyenv@latest",
     "ripgrep@latest",
+    "sops@latest",
     "taskwarrior3@latest",
     "textlint@latest",
     "tldr@latest",
