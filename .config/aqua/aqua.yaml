@@ -11,4 +11,4 @@ registries:
 - type: standard
   ref: v4.454.0 # renovate: depName=aquaproj/aqua-registry
 packages:
-- name: steveyegge/beads@v0.46.0
+- name: steveyegge/beads@v0.47.1
