@@ -11,6 +11,7 @@ ipython = "^9.1.0"
 visidata = "^3.1.1"
 ptpython = "^3.0.29"
 termdown = "^1.18.0"
+beads-mcp = "^0.47.0"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "^7.2.0"
