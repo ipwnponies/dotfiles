@@ -15,3 +15,6 @@
 /completions/devbox.fish
 !/conf.d/*devbox-generated_local.fish
 /conf.d/00-devbox-generated_local.fish
+
+# beads task
+/completions/bd.fish
