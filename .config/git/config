@@ -1,5 +1,5 @@
 [user]
-    # This is set in ~/.config/git/config
+    # This is set in ~/.gitconfig
 [alias]
     addp = add -p
 
@@ -126,8 +126,6 @@
     autoCorrect = 10
 [log]
     date = iso
-[include]
-	path = .gitconfig_local
 [blame]
 	markIgnoredLines = true
 	markUnblamableLines = true
