@@ -2,5 +2,12 @@
 
 !/AGENTS.md
 !/prompts/
+
+# Skills. .system/ are agent's skills, no need to vendor them
 !/skills/
 /skills/.system/
+
+# Approval rules
+# default.rules are where the tool adds it automatically, ignore so that it doesn't mess with version control
+!/rules/
+/rules/default.rules
