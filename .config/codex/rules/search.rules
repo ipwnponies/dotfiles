@@ -1,0 +1,15 @@
+# No prompt with search tools
+prefix_rule(
+    pattern = ["fd", '.'],
+    decision = "allow",
+    justification = "Allow fd searches scoped to the current working directory",
+    match = [
+        "fd .",
+    ],
+    not_match = [
+        "fd /",
+        "fd ~",
+        "fd ..",
+        "fd ../",
+    ],
+)
