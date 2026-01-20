@@ -91,7 +91,7 @@ return {
 			require("nvim-treesitter-textobjects").setup(opts)
 
 			-- Select by syntax
-			local select = require("nvim-treesitter-textobjects.move")
+			local select = require("nvim-treesitter-textobjects.select")
 
 			vim.keymap.set({ "x", "o" }, "af", function()
 				select.select_textobject("@function.outer", "textobjects")
@@ -113,7 +113,7 @@ return {
 			end, { desc = "Treesitter select inner parameter" })
 
 			-- Motions
-			local move = require("nvim-treesitter-textobjects.select")
+			local move = require("nvim-treesitter-textobjects.move")
 
 			vim.keymap.set({ "n", "x", "o" }, "[m", function()
 				move.goto_previous_start("@function.outer", "textobjects")
