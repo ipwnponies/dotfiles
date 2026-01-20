@@ -16,6 +16,8 @@ bind l forward
 bind gi focusinput
 
 " Ignore mappings blacklist
+" When bindurl, set the mode you want it to apply to. This must use --mode=, because there is not sophisticated cli arg handling, this is actually converted to js
+" When unbindurl, --mode=normal is implied because it's the only mode with keymaps that we want to unset.
 
 " Google Docs
 autocmd DocStart docs.google.com mode ignore
@@ -91,5 +93,7 @@ unbind --mode=normal <c-i>
 unbind --mode=hint <Space>
 
 source ~/.config/tridactyl/tridactylrc_local
+
+js alert("Loaded tridactyl config")
 
 " vim: set filetype=vim:
