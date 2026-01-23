@@ -39,6 +39,7 @@
     "textlint@latest",
     "tldr@latest",
     "tree@latest",
+    "uv@latest",
     "yarn@latest",
     "yq@latest",
     "zoxide@latest"
