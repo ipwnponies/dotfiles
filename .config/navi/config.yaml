@@ -16,15 +16,14 @@ style:
 
 finder:
   command: fzf # equivalent to the --finder option
-  overrides: --no-exact
+  overrides: --no-exact --sort
   # overrides: --tac # equivalent to the --fzf-overrides option
   # overrides_var: --tac # equivalent to the --fzf-overrides-var option
 
 cheats:
   paths:
-  - $XDG_CONFIG_HOME/navi/
-  - $HOME/Library/Application Support/navi/cheats/
-
+    - $XDG_CONFIG_HOME/navi/
+    - $HOME/Library/Application Support/navi/cheats/
 
 # search:
 # tags: git,!checkout # equivalent to the --tag-rules option
