@@ -130,3 +130,116 @@ regurgitate the git diff contents.
   - If a dep truly seems required, pitch the exact change, why it's needed, and any alternatives before touching code.
 - Skip any network access or destructive actions (mass deletes, history rewrites, force pushes, etc.) unless you have explicit approval first.
 - Stay inside the repo—do not touch files outside the current workspace.
+
+# Beads Tool
+Beads (bd) is a tool for agents to manage work.
+
+
+# Beads Workflow Context
+
+> **Context Recovery**: Run `bd prime` after compaction, clear, or new session
+> Hooks auto-call this in Claude Code when .beads/ detected
+
+# 🚨 SESSION CLOSE PROTOCOL 🚨
+
+**CRITICAL**: Before saying "done" or "complete", you MUST run this checklist:
+
+```
+[ ] bd sync --flush-only    (export beads to JSONL only)
+```
+
+
+
+## Core Rules
+- Track strategic work in beads (multi-session, dependencies, discovered work)
+- Use `bd create` for issues, TodoWrite for simple single-session execution
+- When in doubt, prefer bd—persistence you don't need beats lost context
+- Git workflow: stealth mode (no git ops)
+- Session management: check `bd ready` for available work
+
+## Essential Commands
+
+### Finding Work
+- `bd ready` - Show issues ready to work (no blockers)
+- `bd list --status=open` - All open issues
+- `bd list --status=in_progress` - Your active work
+- `bd show <id>` - Detailed issue view with dependencies
+
+### Creating & Updating
+- `bd create --title="..." --type=task|bug|feature --priority=2` - New issue
+  - Priority: 0-4 or P0-P4 (0=critical, 2=medium, 4=backlog). NOT "high"/"medium"/"low"
+- `bd update <id> --status=in_progress` - Claim work
+- `bd update <id> --assignee=username` - Assign to someone
+- `bd close <id>` - Mark complete
+- `bd close <id1> <id2> ...` - Close multiple issues at once (more efficient)
+- `bd close <id> --reason="explanation"` - Close with reason
+- **Tip**: When creating multiple issues/tasks/epics, use parallel subagents for efficiency
+
+When tasks are ordered, always add beads dependencies immediately after create.
+Create tasks with acceptance criteria detailed enough to be fully verifiable, using the template below as the default structure (omit sections only if clearly not applicable).
+Ensure each task includes concrete, testable proofs and clear guardrails; avoid vague or subjective criteria.
+
+#### Task Acceptance Criteria Template
+```
+TASK: <one sentence>
+
+ACCEPTANCE (Behavior)
+- When I do: <X>
+- I should see: <Y>
+
+PROOF (Executable checks)
+- Run: <command 1>
+  - Pass condition: <exact success signal>
+- Run: <command 2> (optional)
+  - Pass condition: <exact success signal>
+
+EDGE CASE (Must also work)
+- Case: <edge case>
+- Verify by: <command or steps + expected>
+
+GUARDRAILS (Do not)
+- Do not refactor unrelated code.
+- Do not change config/build/dependencies.
+- Do not change public APIs/contracts.
+- Do not modify existing tests except those directly affected by this change.
+- Touch only: <files/dirs allowed>
+
+STOPPING RULE
+- Stop when PROOF passes and guardrails are satisfied.
+- If you get stuck after 2 attempts, stop and report what you tried + what you need.
+```
+
+### Dependencies & Blocking
+- `bd dep add <issue> <depends-on>` - Add dependency (issue depends on depends-on)
+- `bd blocked` - Show all blocked issues
+- `bd show <id>` - See what's blocking/blocked by this issue
+
+### Sync & Collaboration
+- `bd sync --flush-only` - Export to JSONL
+
+### Project Health
+- `bd stats` - Project statistics (open/closed/blocked counts)
+- `bd doctor` - Check for issues (sync problems, missing hooks)
+
+## Common Workflows
+
+**Starting work:**
+```bash
+bd ready           # Find available work
+bd show <id>       # Review issue details
+bd update <id> --status=in_progress  # Claim it
+```
+
+**Completing work:**
+```bash
+bd close <id1> <id2> ...    # Close all completed issues at once
+bd sync --flush-only        # Export to JSONL
+```
+
+**Creating dependent work:**
+```bash
+# Run bd create commands in parallel (use subagents for many items)
+bd create --title="Implement feature X" --type=feature
+bd create --title="Write tests for X" --type=task
+bd dep add beads-yyy beads-xxx  # Tests depend on Feature (Feature blocks tests)
+```
