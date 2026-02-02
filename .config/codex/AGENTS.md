@@ -178,6 +178,11 @@ Beads (bd) is a tool for agents to manage work.
 When tasks are ordered, always add beads dependencies immediately after create.
 Create tasks with acceptance criteria detailed enough to be fully verifiable, using the template below as the default structure (omit sections only if clearly not applicable).
 Ensure each task includes concrete, testable proofs and clear guardrails; avoid vague or subjective criteria.
+When using `bd create`, keep `--description` to a brief summary only and put the acceptance criteria template content in `--acceptance`.
+Add ongoing notes and implementation details in `--notes`.
+Description will remain focused on the problem statement and motivation.
+Keep `--title` concise and high-level; capture specific policy values or parameters in `--description` instead of the title.
+Acceptance criteria should verify the intended outcome without overfitting to one exact implementation; avoid hardcoding incidental details.
 
 #### Task Acceptance Criteria Template
 ```
