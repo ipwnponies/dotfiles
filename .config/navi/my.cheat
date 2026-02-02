@@ -24,6 +24,9 @@ $ caskinstalled: brew list --cask
 # get recurring task's parent
 task information uuid:<id>.parent
 
+# get recurring task's siblings
+task waiting parent:<id>.parent
+
 # get annotation
 task _get <id>.annotations.1.description
 
