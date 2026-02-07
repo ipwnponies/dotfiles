@@ -1,7 +1,7 @@
 {
   "CopilotChat.nvim": {
     "branch": "main",
-    "commit": "df5376c132382dd47e3e552612940cbf25b3580c"
+    "commit": "69199d46b56f67a226789da256264c6291c4e63d"
   },
   "ale": {
     "branch": "master",
@@ -9,7 +9,7 @@
   },
   "blink-cmp-dat-word": {
     "branch": "main",
-    "commit": "c2aa03acb61dbdd97c5f2f7004cb6e2aacaccf44"
+    "commit": "f5623cb7a353d849dbb8904facea5cf7f04a64bd"
   },
   "blink-copilot": {
     "branch": "main",
@@ -21,7 +21,7 @@
   },
   "blink.cmp": {
     "branch": "main",
-    "commit": "b19413d214068f316c78978b08264ed1c41830ec"
+    "commit": "4b18c32adef2898f95cdef6192cbd5796c1a332d"
   },
   "blink.compat": {
     "branch": "main",
@@ -41,11 +41,11 @@
   },
   "conform.nvim": {
     "branch": "master",
-    "commit": "ffe26e8df8115c9665d24231f8a49fadb2d611ce"
+    "commit": "c2526f1cde528a66e086ab1668e996d162c75f4f"
   },
   "copilot.lua": {
     "branch": "master",
-    "commit": "a064570939f23ef155698654c98c81e0fc2dc54a"
+    "commit": "3faffefbd6ddeb52578535ec6b730e0b72d7fd1a"
   },
   "copilot.vim": {
     "branch": "release",
@@ -61,11 +61,11 @@
   },
   "friendly-snippets": {
     "branch": "main",
-    "commit": "572f5660cf05f8cd8834e096d7b4c921ba18e175"
+    "commit": "6cd7280adead7f586db6fccbd15d2cac7e2188b9"
   },
   "fzf": {
     "branch": "master",
-    "commit": "c8cf0992c18799e7a6e986e536cc0e890ea7e05a"
+    "commit": "7e62b34087a71aba4950e70d921a2476f05fb966"
   },
   "fzf-lsp.nvim": {
     "branch": "main",
@@ -73,11 +73,11 @@
   },
   "fzf-lua": {
     "branch": "main",
-    "commit": "de0fd4a21ee29cf6532d0c3bcae08a0b25d99b6a"
+    "commit": "ec3fe3d9587005a995a00d55ea424bfc924eaf3e"
   },
   "fzf.vim": {
     "branch": "master",
-    "commit": "ddc14a6a5471147e2a38e6b32a7268282f669b0a"
+    "commit": "34a564c81f36047f50e593c1656f4580ff75ccca"
   },
   "gv.vim": {
     "branch": "master",
@@ -97,7 +97,7 @@
   },
   "lazy.nvim": {
     "branch": "main",
-    "commit": "85c7ff3711b730b4030d03144f6db6375044ae82"
+    "commit": "306a05526ada86a7b30af95c5cc81ffba93fef97"
   },
   "lazydev.nvim": {
     "branch": "main",
@@ -121,7 +121,7 @@
   },
   "mini.icons": {
     "branch": "main",
-    "commit": "ff2e4f1d29f659cc2bad0f9256f2f6195c6b2428"
+    "commit": "efc85e42262cd0c9e1fdbf806c25cb0be6de115c"
   },
   "neo-tree.nvim": {
     "branch": "v3.x",
@@ -129,7 +129,7 @@
   },
   "none-ls.nvim": {
     "branch": "main",
-    "commit": "5abf61927023ea83031753504adb19630ba80eef"
+    "commit": "68ed8b9bf5dfdae4d579fcd19723926f84d7b6cb"
   },
   "nui.nvim": {
     "branch": "main",
@@ -141,23 +141,23 @@
   },
   "nvim-lint": {
     "branch": "master",
-    "commit": "54c5f839f8b3e3e69afbf2e074be8ac7e5b793b9"
+    "commit": "bcd1a44edbea8cd473af7e7582d3f7ffc60d8e81"
   },
   "nvim-lsp-file-operations": {
     "branch": "master",
-    "commit": "9744b738183a5adca0f916527922078a965515ed"
+    "commit": "b9c795d3973e8eec22706af14959bc60c579e771"
   },
   "nvim-lspconfig": {
     "branch": "master",
-    "commit": "a2bd1cf7b0446a7414aaf373cea5e4ca804c9c69"
+    "commit": "66fd02ad1c7ea31616d3ca678fa04e6d0b360824"
   },
   "nvim-treesitter": {
     "branch": "main",
-    "commit": "b6271b678e035a5cbf62d637364f3eeca0890171"
+    "commit": "45a07f869b0cffba342276f2c77ba7c116d35db8"
   },
   "nvim-treesitter-textobjects": {
     "branch": "main",
-    "commit": "4d55f63252e04c5212daed958e4e940915ff16ce"
+    "commit": "a0e182ae21fda68c59d1f36c9ed45600aef50311"
   },
   "nvim-window-picker": {
     "branch": "main",
@@ -165,7 +165,7 @@
   },
   "oil.nvim": {
     "branch": "master",
-    "commit": "cbcb3f997f6f261c577b943ec94e4ef55108dd95"
+    "commit": "f55b25e493a7df76371cfadd0ded5004cb9cd48a"
   },
   "plenary.nvim": {
     "branch": "master",
@@ -173,7 +173,7 @@
   },
   "sonokai": {
     "branch": "master",
-    "commit": "a796676c1347ef2316c9b9d209ad52af6b6bbb51"
+    "commit": "b023c5280b16fe2366f5e779d8d2756b3e5ee9c3"
   },
   "splitjoin.vim": {
     "branch": "main",
@@ -189,7 +189,7 @@
   },
   "undotree": {
     "branch": "master",
-    "commit": "0f1c9816975b5d7f87d5003a19c53c6fd2ff6f7f"
+    "commit": "fc28931fbfba66ab75d9af23fe46ffbbb9de6e8c"
   },
   "vim-agriculture": {
     "branch": "master",
@@ -197,7 +197,7 @@
   },
   "vim-airline": {
     "branch": "master",
-    "commit": "499ae85357db811108ba1c52aa161fb09c462572"
+    "commit": "b03fdc542f5155b54959102a2aecaf6c792dce01"
   },
   "vim-asterisk": {
     "branch": "master",
