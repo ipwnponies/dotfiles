@@ -2,6 +2,9 @@
 return {
 	{
 		"Yggdroot/indentLine",
+		init = function()
+			vim.g.indentLine_fileTypeExclude = { "markdown", "json" }
+		end,
 		config = function()
 			-- Set conceal cursor to always show
 			-- Need to set indentline plugin because it rudely clobbers concealcursor for reasons
