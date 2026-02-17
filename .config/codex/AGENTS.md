@@ -168,7 +168,7 @@ Beads (bd) is a tool for agents to manage work.
 ### Creating & Updating
 - `bd create --title="..." --type=task|bug|feature --priority=2` - New issue
   - Priority: 0-4 or P0-P4 (0=critical, 2=medium, 4=backlog). NOT "high"/"medium"/"low"
-- `bd update <id> --status=in_progress` - Claim work
+- `bd update <id> --claim` - Claim work
 - `bd update <id> --assignee=username` - Assign to someone
 - `bd close <id>` - Mark complete
 - `bd close <id1> <id2> ...` - Close multiple issues at once (more efficient)
@@ -232,7 +232,7 @@ STOPPING RULE
 ```bash
 bd ready           # Find available work
 bd show <id>       # Review issue details
-bd update <id> --status=in_progress  # Claim it
+bd update <id> --claim  # Claim it
 ```
 
 **Completing work:**
