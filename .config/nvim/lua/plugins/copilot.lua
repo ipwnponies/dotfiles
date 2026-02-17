@@ -263,6 +263,23 @@ return {
 				markdown = true,
 				help = true,
 			},
+			suggestion = {
+				enabled = false, -- Blink is the only suggestion UI/trigger path; avoid duplicate inline suggestion engine work.
+			},
+			-- Disable attaching to massive files
+			should_attach = function(_, bufname)
+				local uv = vim.uv or vim.loop
+				local ok, stat = pcall(uv.fs_stat, bufname)
+				if ok and stat and stat.size and stat.size > 200 * 1024 then
+					return false -- Skip large files that tend to amplify request and diff costs.
+				end
+
+				if bufname:match("/dist/") or bufname:match("/build/") or bufname:match("%.min%.") then
+					return false -- Skip generated/minified artifacts where suggestions are typically low value and high cost.
+				end
+
+				return true
+			end,
 		},
 		config = function(_, opts)
 			require("copilot").setup(opts)

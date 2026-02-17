@@ -220,6 +220,15 @@ return {
 						module = "blink-copilot",
 						score_offset = 5,
 						async = true,
+						opts = {
+							max_completions = 1,
+							max_attempts = 1,
+							debounce = 2000,
+							auto_refresh = {
+								forward = false,
+								backward = false,
+							},
+						},
 					},
 					["copilotchat_functions"] = {
 						name = "CopilotChat functions",
