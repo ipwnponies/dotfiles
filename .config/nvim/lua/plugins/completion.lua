@@ -218,6 +218,9 @@ return {
 					copilot = {
 						name = "copilot",
 						module = "blink-copilot",
+						enabled = function()
+							return vim.bo.buftype ~= "terminal"
+						end,
 						score_offset = 5,
 						async = true,
 						opts = {

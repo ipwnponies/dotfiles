@@ -266,8 +266,13 @@ return {
 			suggestion = {
 				enabled = false, -- Blink is the only suggestion UI/trigger path; avoid duplicate inline suggestion engine work.
 			},
-			-- Disable attaching to massive files
-			should_attach = function(_, bufname)
+			-- Disable attaching to terminal and massive/generated buffers
+			should_attach = function(bufnr, bufname)
+				local bo = vim.bo[bufnr]
+				if bo.buftype == "terminal" or bo.filetype == "terminal" then
+					return false
+				end
+
 				local uv = vim.uv or vim.loop
 				local ok, stat = pcall(uv.fs_stat, bufname)
 				if ok and stat and stat.size and stat.size > 200 * 1024 then
