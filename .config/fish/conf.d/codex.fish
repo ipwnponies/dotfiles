@@ -1,1 +1,1 @@
-set --export CODEX_HOME $XDG_CONFIG_HOME/codex
+set --export CODEX_HOME $XDG_CONFIG_HOME/opencode

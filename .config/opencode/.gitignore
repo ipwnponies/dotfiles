@@ -2,6 +2,7 @@
 
 !/AGENTS.md
 !/prompts/
+!/agents/
 
 # Skills. .system/ are agent's skills, no need to vendor them
 !/skills/
