@@ -17,7 +17,7 @@ return {
 	-- Usability
 	{ "junegunn/vim-peekaboo" },
 	{ "tpope/vim-unimpaired" },
-	{ "nvim-telescope/telescope.nvim", branch = "0.1.x" },
+	{ "nvim-telescope/telescope.nvim", branch = "master" },
 
 	-- Pretty
 	{ "haya14busa/is.vim" },
