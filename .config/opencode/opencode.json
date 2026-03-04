@@ -1,0 +1,39 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "agent": {
+    "build": {
+      "permission": {
+        "bash": {
+          "bd show": "allow",
+          "fd *": "allow",
+          "fd .": "allow",
+          "git branch*": "allow",
+          "git diff*": "allow",
+          "git log*": "allow",
+          "git rev-parse --abbrev-ref HEAD": "allow",
+          "git rev-parse --is-inside-work-tree": "allow",
+          "git rev-parse --show-toplevel": "allow",
+          "git rev-parse HEAD": "allow",
+          "git show*": "allow",
+          "git status": "allow",
+          "git status --short": "allow",
+          "go test": "allow",
+          "rg *": "allow"
+        },
+        "glob": "allow",
+        "grep": "allow",
+        "read": "allow",
+        "task": {
+          "permtest": "allow"
+        }
+      }
+    }
+  },
+  "permission": {
+    "*": "ask",
+    "glob": {
+      "AGENTS.md": "allow",
+      "README.md": "allow"
+    }
+  }
+}
