@@ -248,3 +248,38 @@ bd create --title="Implement feature X" --type=feature
 bd create --title="Write tests for X" --type=task
 bd dep add beads-yyy beads-xxx  # Tests depend on Feature (Feature blocks tests)
 ```
+
+## OpenCode Agent Team (Global)
+
+- Agent team definitions live in `~/.config/opencode/agents/`.
+- Team roles:
+  - `orchestrator` (canonical coordinator)
+  - `intern`
+  - `researcher`
+  - `implementer`
+  - `reviewer`
+  - `qa`
+- Alias rule: if user says "intern", route to coordinator behavior (`orchestrator`).
+- Role boundaries:
+  - `researcher`: read-only exploration and planning (including acceptance criteria + verification plan)
+  - `implementer`: code implementation and dev-tool execution based on researcher handoff
+  - `reviewer`: read-only adversarial review of correctness, quality, and design decisions
+  - `qa`: test-focused validation; may edit tests only, never source implementation
+- Required handoff format for role-to-role transitions:
+
+```text
+ROLE: <orchestrator|researcher|implementer|reviewer|qa>
+STATUS: <in_progress|blocked|ready_for_review|ready_for_qa|ready_to_close>
+DONE:
+- ...
+NEXT:
+- ...
+BLOCKERS:
+- none
+ARTIFACTS:
+- <paths/logs/links>
+```
+
+- Orchestrator is the coordinator and the only role that can close work.
+- Reviewer must explicitly approve before QA can finalize.
+- QA must provide executable command proof with an explicit pass signal.
