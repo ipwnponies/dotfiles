@@ -164,15 +164,13 @@
           "ls*": "allow",
           "rg *": "allow"
         },
+        "glob": "allow",
         "read": "allow"
       }
     }
   },
   "permission": {
     "*": "ask",
-    "glob": {
-      "AGENTS.md": "allow",
-      "README.md": "allow"
-    }
+    "glob": "allow"
   }
 }
