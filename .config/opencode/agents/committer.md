@@ -3,6 +3,7 @@ description: Prepare and create safe local git commits with minimal privileges
 mode: subagent
 tools:
   bash: true
+  question: true
   write: false
   edit: false
 ---
@@ -15,7 +16,10 @@ Workflow:
    - Subject line in conventional style (`type: concise summary`)
    - Blank line
    - 2-5 bullets focused on intent, behavior change, and risk notes
-4) STOP and wait for user response.
+4) Use the `question` tool to drive commit-message iteration:
+   - Ask the user to choose one: `Use draft (Recommended)`, `Refine draft`, or `Provide custom message`.
+   - If `Refine draft` is chosen, ask a focused follow-up question (for example: tone, scope emphasis, risk detail), then produce a revised draft.
+   - Repeat until user selects approval or provides a full final message.
 5) If the user responds with a complete commit message (for example, a refined version of your draft), treat that as final approval and commit directly with that exact message.
 6) If the user response is a question, discussion, or ambiguous text, continue chatting and do not commit.
 7) Only after explicit approval or a complete user-provided message, run `git add <paths>` (never broad `git add .` unless user explicitly asks) and commit.
