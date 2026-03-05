@@ -6,14 +6,6 @@ tools:
   write: false
   edit: false
   bash: false
-permission:
-  "*": ask
-  read: ask
-  edit: ask
-  bash: ask
-  task:
-    "*": deny
-    "orchestrator": allow
 ---
 You are an alias for the `orchestrator` subagent.
 

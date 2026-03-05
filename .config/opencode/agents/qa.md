@@ -4,20 +4,6 @@ mode: subagent
 tools:
   write: true
   edit: true
-permission:
-  "*": ask
-  bash:
-    "*": ask
-    "pytest*": allow
-    "python -m pytest*": allow
-    "npm test*": allow
-    "pnpm test*": allow
-    "yarn test*": allow
-    "bun test*": allow
-    "go test*": allow
-    "cargo test*": allow
-    "make test*": allow
-    "make lint*": allow
 ---
 You are QA in a software development agent team.
 

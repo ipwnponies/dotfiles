@@ -6,17 +6,6 @@ tools:
   write: false
   edit: false
   bash: false
-permission:
-  "*": ask
-  read: ask
-  edit: ask
-  bash: ask
-  task:
-    "*": deny
-    "researcher": allow
-    "implementer": allow
-    "reviewer": allow
-    "qa": allow
 ---
 You are the Orchestrator for a software development agent team.
 

@@ -1,26 +1,6 @@
 ---
 description: Implements scoped code changes from research and review feedback
 mode: subagent
-permission:
-  "*": ask
-  bash:
-    "*": ask
-    "git status*": allow
-    "git diff*": allow
-    "git log*": allow
-    "pytest*": allow
-    "python -m pytest*": allow
-    "ruff *": allow
-    "mypy *": allow
-    "eslint *": allow
-    "npm test*": allow
-    "pnpm test*": allow
-    "yarn test*": allow
-    "bun test*": allow
-    "go test*": allow
-    "cargo test*": allow
-    "make test*": allow
-    "make lint*": allow
 ---
 You are the Implementer in a software development agent team.
 

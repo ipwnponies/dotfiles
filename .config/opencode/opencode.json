@@ -27,6 +27,145 @@
           "permtest": "allow"
         }
       }
+    },
+    "committer": {
+      "permission": {
+        "bash": {
+          "git add *": "allow",
+          "git commit --amend -m *": "ask",
+          "git commit -F *": "allow",
+          "git commit -m *": "allow",
+          "git diff": "allow",
+          "git diff *": "allow",
+          "git diff --cached": "allow",
+          "git diff --cached *": "allow",
+          "git log --oneline": "allow",
+          "git log --oneline *": "allow",
+          "git restore --staged *": "ask",
+          "git status": "allow",
+          "git status *": "allow"
+        },
+        "edit": "deny",
+        "webfetch": "deny"
+      }
+    },
+    "implementer": {
+      "permission": {
+        "bash": {
+          "bun test*": "allow",
+          "cargo test*": "allow",
+          "eslint *": "allow",
+          "git diff*": "allow",
+          "git log*": "allow",
+          "git status*": "allow",
+          "go test*": "allow",
+          "make lint*": "allow",
+          "make test*": "allow",
+          "mypy *": "allow",
+          "npm test*": "allow",
+          "pnpm test*": "allow",
+          "pytest*": "allow",
+          "python -m pytest*": "allow",
+          "ruff *": "allow",
+          "yarn test*": "allow"
+        }
+      }
+    },
+    "intern": {
+      "permission": {
+        "*": "deny",
+        "task": {
+          "*": "deny",
+          "orchestrator": "allow"
+        }
+      }
+    },
+    "orchestrator": {
+      "permission": {
+        "*": "deny",
+        "task": {
+          "*": "deny",
+          "implementer": "allow",
+          "qa": "allow",
+          "researcher": "allow",
+          "reviewer": "allow"
+        }
+      }
+    },
+    "qa": {
+      "permission": {
+        "bash": {
+          "bun test*": "allow",
+          "cargo test*": "allow",
+          "go test*": "allow",
+          "make lint*": "allow",
+          "make test*": "allow",
+          "npm test*": "allow",
+          "pnpm test*": "allow",
+          "pytest*": "allow",
+          "python -m pytest*": "allow",
+          "yarn test*": "allow"
+        }
+      }
+    },
+    "researcher": {
+      "permission": {
+        "bash": {
+          "ansible *": "deny",
+          "aws *": "allow",
+          "bun add*": "deny",
+          "chmod *": "deny",
+          "chown *": "deny",
+          "cp *": "deny",
+          "docker *": "deny",
+          "du *": "allow",
+          "fd *": "allow",
+          "find *": "allow",
+          "git add*": "deny",
+          "git branch*": "allow",
+          "git checkout*": "deny",
+          "git commit*": "deny",
+          "git diff*": "allow",
+          "git log*": "allow",
+          "git merge*": "deny",
+          "git pull*": "deny",
+          "git push*": "deny",
+          "git rebase*": "deny",
+          "git reset*": "deny",
+          "git rev-parse*": "allow",
+          "git show*": "allow",
+          "git status*": "allow",
+          "jq *": "allow",
+          "kubectl *": "deny",
+          "ls*": "allow",
+          "mv *": "deny",
+          "npm install*": "deny",
+          "pip install*": "deny",
+          "pnpm install*": "deny",
+          "rg *": "allow",
+          "rm *": "deny",
+          "terraform *": "deny",
+          "uv pip install*": "deny",
+          "wc *": "allow",
+          "yarn add*": "deny",
+          "yq *": "allow"
+        },
+        "edit": "deny"
+      }
+    },
+    "reviewer": {
+      "permission": {
+        "bash": {
+          "fd *": "allow",
+          "git diff*": "allow",
+          "git log*": "allow",
+          "git show *": "allow",
+          "git status*": "allow",
+          "ls*": "allow",
+          "rg *": "allow"
+        },
+        "read": "allow"
+      }
     }
   },
   "permission": {

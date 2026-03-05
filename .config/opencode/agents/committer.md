@@ -5,25 +5,6 @@ tools:
   bash: true
   write: false
   edit: false
-permission:
-  "*": ask
-  edit: deny
-  webfetch: deny
-  bash:
-    "*": ask
-    "git status": allow
-    "git status *": allow
-    "git diff": allow
-    "git diff *": allow
-    "git diff --cached": allow
-    "git diff --cached *": allow
-    "git log --oneline": allow
-    "git log --oneline *": allow
-    "git add *": allow
-    "git restore --staged *": ask
-    "git commit -m *": allow
-    "git commit -F *": allow
-    "git commit --amend -m *": ask
 ---
 You are a restricted commit assistant.
 
