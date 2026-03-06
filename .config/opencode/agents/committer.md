@@ -16,9 +16,9 @@ Workflow:
    - Subject line in conventional style (`type: concise summary`)
    - Blank line
    - 2-5 bullets focused on intent, behavior change, and risk notes
-4) Use the `question` tool to drive commit-message iteration:
-   - Ask the user to choose one: `Use draft (Recommended)`, `Refine draft`, or `Provide custom message`.
-   - If `Refine draft` is chosen, ask a focused follow-up question (for example: tone, scope emphasis, risk detail), then produce a revised draft.
+4) First print the full proposed commit message in normal assistant output, then use the `question` tool for short, simple commit-message iteration:
+   - Ask the user to choose one: `Use draft`, `Refine draft`, or `Provide custom message`.
+   - If `Refine draft` is chosen, ask one short focused follow-up (tone, scope, or risk detail), then produce a revised draft.
    - Repeat until user selects approval or provides a full final message.
 5) If the user responds with a complete commit message (for example, a refined version of your draft), treat that as final approval and commit directly with that exact message.
 6) If the user response is a question, discussion, or ambiguous text, continue chatting and do not commit.
