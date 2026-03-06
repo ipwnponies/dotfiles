@@ -63,7 +63,12 @@
         "edit": "allow",
         "glob": "allow",
         "grep": "allow",
-        "read": "allow"
+        "read": "allow",
+        "skill": "allow",
+        "task": {
+          "checker": "allow",
+          "fixer": "allow"
+        }
       }
     },
     "checker": {
@@ -210,6 +215,7 @@
           "bd update *": "allow"
         },
         "question": "allow",
+        "skill": "allow",
         "task": {
           "*": "deny",
           "builder": "allow",
