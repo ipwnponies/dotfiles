@@ -44,6 +44,9 @@
           "git diff --cached *": "allow",
           "git log --oneline": "allow",
           "git log --oneline *": "allow",
+          "git push*": "deny",
+          "git rebase*": "deny",
+          "git reset*": "deny",
           "git restore --staged *": "ask",
           "git status": "allow",
           "git status *": "allow"
@@ -63,8 +66,12 @@
           "bun test*": "allow",
           "cargo test*": "allow",
           "eslint *": "allow",
+          "git checkout *": "deny",
           "git diff*": "allow",
           "git log*": "allow",
+          "git push*": "deny",
+          "git rebase*": "deny",
+          "git reset*": "deny",
           "git status*": "allow",
           "go test*": "allow",
           "make lint*": "allow",
@@ -76,7 +83,11 @@
           "python -m pytest*": "allow",
           "ruff *": "allow",
           "yarn test*": "allow"
-        }
+        },
+        "edit": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "read": "allow"
       }
     },
     "intern": {
@@ -129,14 +140,14 @@
           "pytest*": "allow",
           "python -m pytest*": "allow",
           "yarn test*": "allow"
-        }
+        },
+        "edit": "deny"
       }
     },
     "researcher": {
       "permission": {
         "bash": {
           "ansible *": "deny",
-          "aws *": "allow",
           "bd blocked": "allow",
           "bd create *": "allow",
           "bd dep add *": "allow",
@@ -184,7 +195,10 @@
           "yarn add*": "deny",
           "yq *": "allow"
         },
-        "edit": "deny"
+        "edit": "deny",
+        "glob": "allow",
+        "grep": "allow",
+        "read": "allow"
       }
     },
     "reviewer": {
@@ -198,6 +212,7 @@
           "ls*": "allow",
           "rg *": "allow"
         },
+        "edit": "deny",
         "glob": "allow",
         "read": "allow"
       }
