@@ -209,6 +209,7 @@
           "bd sync --flush-only": "allow",
           "bd update *": "allow"
         },
+        "question": "allow",
         "task": {
           "*": "deny",
           "builder": "allow",
