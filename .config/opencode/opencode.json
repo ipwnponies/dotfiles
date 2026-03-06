@@ -4,7 +4,10 @@
     "build": {
       "permission": {
         "bash": {
+          "bd list*": "allow",
+          "bd ready": "allow",
           "bd show": "allow",
+          "bd show *": "allow",
           "fd *": "allow",
           "fd .": "allow",
           "git branch*": "allow",
@@ -52,6 +55,11 @@
     "implementer": {
       "permission": {
         "bash": {
+          "bd list*": "allow",
+          "bd ready": "allow",
+          "bd show *": "allow",
+          "bd sync --flush-only": "allow",
+          "bd update *": "allow",
           "bun test*": "allow",
           "cargo test*": "allow",
           "eslint *": "allow",
@@ -83,6 +91,19 @@
     "orchestrator": {
       "permission": {
         "*": "deny",
+        "bash": {
+          "bd blocked": "allow",
+          "bd close *": "allow",
+          "bd create *": "allow",
+          "bd dep add *": "allow",
+          "bd doctor": "allow",
+          "bd list*": "allow",
+          "bd ready": "allow",
+          "bd show *": "allow",
+          "bd stats": "allow",
+          "bd sync --flush-only": "allow",
+          "bd update *": "allow"
+        },
         "task": {
           "*": "deny",
           "implementer": "allow",
@@ -95,6 +116,9 @@
     "qa": {
       "permission": {
         "bash": {
+          "bd list*": "allow",
+          "bd ready": "allow",
+          "bd show *": "allow",
           "bun test*": "allow",
           "cargo test*": "allow",
           "go test*": "allow",
@@ -113,6 +137,16 @@
         "bash": {
           "ansible *": "deny",
           "aws *": "allow",
+          "bd blocked": "allow",
+          "bd create *": "allow",
+          "bd dep add *": "allow",
+          "bd doctor": "allow",
+          "bd list*": "allow",
+          "bd ready": "allow",
+          "bd show *": "allow",
+          "bd stats": "allow",
+          "bd sync --flush-only": "allow",
+          "bd update *": "allow",
           "bun add*": "deny",
           "chmod *": "deny",
           "chown *": "deny",
