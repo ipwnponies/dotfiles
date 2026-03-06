@@ -31,6 +31,71 @@
         }
       }
     },
+    "builder": {
+      "permission": {
+        "bash": {
+          "bd list*": "allow",
+          "bd ready": "allow",
+          "bd show *": "allow",
+          "bd sync --flush-only": "allow",
+          "bd update *": "allow",
+          "bun test*": "allow",
+          "cargo test*": "allow",
+          "eslint *": "allow",
+          "git checkout *": "deny",
+          "git diff*": "allow",
+          "git log*": "allow",
+          "git push*": "deny",
+          "git rebase*": "deny",
+          "git reset*": "deny",
+          "git status*": "allow",
+          "go test*": "allow",
+          "make lint*": "allow",
+          "make test*": "allow",
+          "mypy *": "allow",
+          "npm test*": "allow",
+          "pnpm test*": "allow",
+          "pytest*": "allow",
+          "python -m pytest*": "allow",
+          "ruff *": "allow",
+          "yarn test*": "allow"
+        },
+        "edit": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "read": "allow"
+      }
+    },
+    "checker": {
+      "permission": {
+        "bash": {
+          "bd list*": "allow",
+          "bd ready": "allow",
+          "bd show *": "allow",
+          "bun test*": "allow",
+          "cargo test*": "allow",
+          "fd *": "allow",
+          "git diff*": "allow",
+          "git log*": "allow",
+          "git show *": "allow",
+          "git status*": "allow",
+          "go test*": "allow",
+          "ls*": "allow",
+          "make lint*": "allow",
+          "make test*": "allow",
+          "npm test*": "allow",
+          "pnpm test*": "allow",
+          "pytest*": "allow",
+          "python -m pytest*": "allow",
+          "rg *": "allow",
+          "yarn test*": "allow"
+        },
+        "edit": "deny",
+        "glob": "allow",
+        "grep": "allow",
+        "read": "allow"
+      }
+    },
     "committer": {
       "permission": {
         "bash": {
@@ -53,6 +118,42 @@
         },
         "edit": "deny",
         "webfetch": "deny"
+      }
+    },
+    "fixer": {
+      "permission": {
+        "bash": {
+          "bd list*": "allow",
+          "bd ready": "allow",
+          "bd show *": "allow",
+          "bd sync --flush-only": "allow",
+          "bd update *": "allow",
+          "bun test*": "allow",
+          "cargo test*": "allow",
+          "eslint *": "allow",
+          "git checkout *": "deny",
+          "git diff*": "allow",
+          "git log*": "allow",
+          "git push*": "deny",
+          "git rebase*": "deny",
+          "git reset*": "deny",
+          "git status*": "allow",
+          "go test*": "allow",
+          "make lint*": "allow",
+          "make test*": "allow",
+          "mypy *": "allow",
+          "npm test*": "allow",
+          "pnpm test*": "allow",
+          "pytest*": "allow",
+          "python -m pytest*": "allow",
+          "ruff *": "allow",
+          "yarn test*": "allow"
+        },
+        "edit": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "read": "allow",
+        "write": "deny"
       }
     },
     "implementer": {
@@ -90,15 +191,6 @@
         "read": "allow"
       }
     },
-    "intern": {
-      "permission": {
-        "*": "deny",
-        "task": {
-          "*": "deny",
-          "orchestrator": "allow"
-        }
-      }
-    },
     "orchestrator": {
       "permission": {
         "*": "deny",
@@ -117,6 +209,9 @@
         },
         "task": {
           "*": "deny",
+          "builder": "allow",
+          "checker": "allow",
+          "fixer": "allow",
           "implementer": "allow",
           "qa": "allow",
           "researcher": "allow",
