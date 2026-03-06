@@ -99,6 +99,7 @@
     "committer": {
       "permission": {
         "bash": {
+          "git add": "allow",
           "git add *": "allow",
           "git commit --amend -m *": "ask",
           "git commit -F *": "allow",
@@ -109,6 +110,7 @@
           "git diff --cached *": "allow",
           "git log --oneline": "allow",
           "git log --oneline *": "allow",
+          "git log --oneline -10": "allow",
           "git push*": "deny",
           "git rebase*": "deny",
           "git reset*": "deny",
