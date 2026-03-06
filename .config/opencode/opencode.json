@@ -239,7 +239,11 @@
           "python -m pytest*": "allow",
           "yarn test*": "allow"
         },
-        "edit": "deny"
+        "edit": "deny",
+        "glob": "allow",
+        "grep": "allow",
+        "read": "allow",
+        "write": "deny"
       }
     },
     "researcher": {
