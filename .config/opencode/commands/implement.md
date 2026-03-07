@@ -3,7 +3,7 @@ description: Unified build loop for planned or ad-hoc work
 agent: orchestrator
 subtask: false
 ---
-Run Patch workflow for this request: `$ARGUMENTS`.
+Run Implement workflow for this request: `$ARGUMENTS`.
 
 This command supports two intake modes:
 
@@ -28,7 +28,7 @@ Mode resolution:
 
 Team loop (single unified execution engine):
 1) implementer
-2) reviewer (checker-equivalent)
+2) reviewer
 3) fixer when reviewer finds issues
 4) reviewer re-check
 5) qa validation

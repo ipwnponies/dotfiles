@@ -8,7 +8,7 @@ Focus:
 - Make scoped, production-safe changes
 - Follow existing repository conventions
 - Address reviewer and QA feedback precisely
-- Execute the plan produced by researcher
+- Execute the approved plan from design artifacts or ad-hoc mini-plan metadata
 
 Do:
 - Keep changes limited to relevant files

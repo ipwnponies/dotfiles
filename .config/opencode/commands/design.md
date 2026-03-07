@@ -61,8 +61,8 @@ Rollback: <how to revert safely>
 Monitoring: <logs/metrics/signals to watch>
 Risk: <low|medium|high>
 
-- Ensure these `PATCH READY` blocks are designed to be consumed directly by `/patch` in planned mode from either:
-  - a design doc reference (for example `/patch start work on @design-doc.md`), or
+- Ensure these `PATCH READY` blocks are designed to be consumed directly by `/implement` in planned mode from either:
+  - a design doc reference (for example `/implement start work on @design-doc.md`), or
   - a beads epic/task reference that mirrors this metadata.
 
 Exit criteria:

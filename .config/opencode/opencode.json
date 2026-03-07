@@ -9,98 +9,30 @@
           "bd show": "allow",
           "bd show *": "allow",
           "fd *": "allow",
-          "fd .": "allow",
-          "git branch*": "allow",
-          "git diff*": "allow",
-          "git log*": "allow",
-          "git rev-parse --abbrev-ref HEAD": "allow",
-          "git rev-parse --is-inside-work-tree": "allow",
-          "git rev-parse --show-toplevel": "allow",
-          "git rev-parse HEAD": "allow",
-          "git show*": "allow",
+          "git branch": "allow",
+          "git branch *": "allow",
+          "git diff": "allow",
+          "git diff *": "allow",
+          "git log": "allow",
+          "git log *": "allow",
+          "git rev-parse *": "allow",
+          "git show": "allow",
+          "git show *": "allow",
           "git status": "allow",
-          "git status --short": "allow",
-          "go test": "allow",
+          "git status *": "allow",
           "rg *": "allow"
         },
         "glob": "allow",
         "grep": "allow",
         "read": "allow",
         "task": {
-          "permtest": "allow"
+          "*": "deny",
+          "committer": "allow",
+          "orchestrator": "allow",
+          "reviewer": "allow"
         },
         "todoread": "allow",
         "todowrite": "allow"
-      }
-    },
-    "builder": {
-      "permission": {
-        "bash": {
-          "bd list*": "allow",
-          "bd ready": "allow",
-          "bd show *": "allow",
-          "bd sync --flush-only": "allow",
-          "bd update *": "allow",
-          "bun test*": "allow",
-          "cargo test*": "allow",
-          "eslint *": "allow",
-          "git checkout *": "deny",
-          "git diff*": "allow",
-          "git log*": "allow",
-          "git push*": "deny",
-          "git rebase*": "deny",
-          "git reset*": "deny",
-          "git status*": "allow",
-          "go test*": "allow",
-          "make lint*": "allow",
-          "make test*": "allow",
-          "mypy *": "allow",
-          "npm test*": "allow",
-          "pnpm test*": "allow",
-          "pytest*": "allow",
-          "python -m pytest*": "allow",
-          "ruff *": "allow",
-          "yarn test*": "allow"
-        },
-        "edit": "allow",
-        "glob": "allow",
-        "grep": "allow",
-        "read": "allow",
-        "skill": "allow",
-        "task": {
-          "checker": "allow",
-          "fixer": "allow"
-        }
-      }
-    },
-    "checker": {
-      "permission": {
-        "bash": {
-          "bd list*": "allow",
-          "bd ready": "allow",
-          "bd show *": "allow",
-          "bun test*": "allow",
-          "cargo test*": "allow",
-          "fd *": "allow",
-          "git diff*": "allow",
-          "git log*": "allow",
-          "git show *": "allow",
-          "git status*": "allow",
-          "go test*": "allow",
-          "ls*": "allow",
-          "make lint*": "allow",
-          "make test*": "allow",
-          "npm test*": "allow",
-          "pnpm test*": "allow",
-          "pytest*": "allow",
-          "python -m pytest*": "allow",
-          "rg *": "allow",
-          "yarn test*": "allow"
-        },
-        "edit": "deny",
-        "glob": "allow",
-        "grep": "allow",
-        "read": "allow"
       }
     },
     "committer": {
@@ -162,6 +94,10 @@
         "glob": "allow",
         "grep": "allow",
         "read": "allow",
+        "task": {
+          "*": "deny",
+          "reviewer": "allow"
+        },
         "write": "deny"
       }
     },
@@ -220,8 +156,6 @@
         "skill": "allow",
         "task": {
           "*": "deny",
-          "builder": "allow",
-          "checker": "allow",
           "fixer": "allow",
           "implementer": "allow",
           "qa": "allow",
@@ -316,7 +250,11 @@
         "edit": "deny",
         "glob": "allow",
         "grep": "allow",
-        "read": "allow"
+        "read": "allow",
+        "task": {
+          "*": "deny",
+          "reviewer": "allow"
+        }
       }
     },
     "reviewer": {
@@ -332,7 +270,12 @@
         },
         "edit": "deny",
         "glob": "allow",
-        "read": "allow"
+        "read": "allow",
+        "task": {
+          "*": "deny",
+          "fixer": "allow",
+          "researcher": "allow"
+        }
       }
     }
   },

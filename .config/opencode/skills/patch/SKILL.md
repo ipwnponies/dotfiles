@@ -1,6 +1,6 @@
 ---
 name: patch
-description: Lightweight patch loop for scoped changes (builder -> checker -> fixer, repeat checker/fixer until approved).
+description: Unified patch loop for planned and ad-hoc implementation work.
 ---
 
 # Patch Workflow
@@ -17,31 +17,36 @@ description: Lightweight patch loop for scoped changes (builder -> checker -> fi
 
 ## Role flow
 
-1) builder (initial scoped change)
-2) checker (review + validation)
+1) implementer (initial scoped change)
+2) reviewer (review + validation)
 3) fixer (targeted remediation)
-4) checker <-> fixer repeat until checker approves
+4) reviewer <-> fixer repeat until reviewer approves
+5) qa validation
 
 ## Agent wiring
 
-- Primary runner: `builder`
-- Delegated roles: `checker`, `fixer`
-- The runner should invoke delegated roles using the task tool and include the exact handoff format in each prompt.
+- Primary runner: `orchestrator`
+- Implementation role: `implementer` (no delegation)
+- Delegation model:
+  - Orchestrator routes implementer -> reviewer -> qa across major phases.
+  - Reviewer and fixer can delegate to each other during the remediation loop.
+  - Researcher and reviewer can delegate to each other during design-phase review loops.
+- Include the exact handoff format in each delegated prompt.
 
 ## Rules
 
 - Keep scope focused on existing behavior/code paths unless explicitly expanded.
 - Fixer is remediation-only: local/mechanical fixes, no high-level redesign.
-- If checker finds a functional gap that needs net-new implementation, route back to builder.
-- Require checker to provide concrete findings with file paths and pass/fail evidence.
+- If reviewer finds a functional gap that needs net-new implementation, route back to implementer.
+- Require reviewer and qa to provide concrete findings with file paths and pass/fail evidence.
 - Keep updates concise and show current phase + next role.
 
 ## Required handoff format
 
 Use this exact structure for each role handoff:
 
-ROLE: <builder|checker|fixer>
-STATUS: <in_progress|blocked|ready_for_review|approved>
+ROLE: <implementer|reviewer|fixer|qa>
+STATUS: <in_progress|blocked|ready_for_review|ready_for_qa|approved>
 DONE:
 - ...
 NEXT:
@@ -53,8 +58,8 @@ ARTIFACTS:
 
 ## Completion criteria
 
-- Checker reports no remaining blocking findings.
-- Validation evidence is explicit (pass/fail, with commands or reason non-runnable).
+- Reviewer reports no remaining blocking findings.
+- QA reports explicit pass evidence (commands + pass signal).
 - Scope remains within the user request.
 
 ## Guardrails
