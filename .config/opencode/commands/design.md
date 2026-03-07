@@ -17,6 +17,7 @@ Execution model:
 - Use direct researcher <-> reviewer collaboration for fast iteration.
 - Use orchestrator as a lightweight finalizer only (entrypoint, conflict resolution, final artifact packaging).
 - Keep every handoff explicit using ROLE/STATUS/DONE/NEXT/BLOCKERS/ARTIFACTS.
+- Before writing the design doc, ensure `.opencode/design/` directory exists (relative to project root).
 
 Permissions:
 - Researcher and reviewer are read-only against the local workspace.
@@ -32,7 +33,8 @@ Permissions:
 - Do not create or update bd issues in this command.
 
 Required output artifact:
-- Produce one design doc artifact with:
+- Produce one design doc artifact in `.opencode/design/` with:
+  - Filename format: `YYYYMMDD-HHMMSS-<slug>.md`
   - problem statement,
   - scope and non-goals,
   - chosen approach and rejected alternatives,
