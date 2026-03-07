@@ -41,7 +41,29 @@ Required output artifact:
   - verification plan with executable checks and pass signals,
   - rollback strategy,
   - monitoring/observability plan,
-  - bd-ready section with near-copy/paste instructions to create corresponding bd issues later (default type `feature`, priority `P2`).
+  - bd-ready section with near-copy/paste instructions to create corresponding bd issues later (default type `feature`, priority `P2`),
+  - one `PATCH READY` block per implementation slice using this format:
+
+PATCH READY
+Design source: <path-or-id>
+Epic: <bd-epic-id-or-placeholder>
+Slice ID: <unique-slice-id>
+Task: <one-sentence implementable ask>
+Scope: <allowed files/dirs>
+Non-goals: <what not to change>
+Acceptance:
+- <criteria>
+Proof commands:
+- Run: <command>
+  Pass: <explicit pass signal>
+Dependencies: <slice ids or none>
+Rollback: <how to revert safely>
+Monitoring: <logs/metrics/signals to watch>
+Risk: <low|medium|high>
+
+- Ensure these `PATCH READY` blocks are designed to be consumed directly by `/patch` in planned mode from either:
+  - a design doc reference (for example `/patch start work on @design-doc.md`), or
+  - a beads epic/task reference that mirrors this metadata.
 
 Exit criteria:
 - End at STATUS: ready_for_user.
