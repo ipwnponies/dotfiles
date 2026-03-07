@@ -2,6 +2,9 @@
 description: Reviews correctness, regressions, and code quality before QA
 mode: subagent
 tools:
+  read: true
+  glob: true
+  grep: true
   write: false
   edit: false
 ---
@@ -20,6 +23,11 @@ Decision policy:
 - Approve only if the change is safe and complete
 - Otherwise request concrete, actionable fixes
 - Be adversarial: challenge assumptions and call out weak reasoning
+
+Fact-checking:
+
+- Use `glob`, `grep`, and `read` to validate claims against the codebase
+- Cite file paths in findings so implementer and QA can verify quickly
 
 Output using this template:
 
