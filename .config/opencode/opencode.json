@@ -28,7 +28,9 @@
         "read": "allow",
         "task": {
           "permtest": "allow"
-        }
+        },
+        "todoread": "allow",
+        "todowrite": "allow"
       }
     },
     "builder": {
@@ -225,7 +227,15 @@
           "qa": "allow",
           "researcher": "allow",
           "reviewer": "allow"
-        }
+        },
+        "todoread": "allow",
+        "todowrite": "allow"
+      }
+    },
+    "plan": {
+      "permission": {
+        "todoread": "allow",
+        "todowrite": "allow"
       }
     },
     "qa": {
