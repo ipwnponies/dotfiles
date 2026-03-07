@@ -17,11 +17,11 @@ description: Unified patch loop for planned and ad-hoc implementation work.
 
 ## Role flow
 
-1) implementer (initial scoped change)
-2) reviewer (review + validation)
-3) fixer (targeted remediation)
-4) reviewer <-> fixer repeat until reviewer approves
-5) qa validation
+1. implementer (initial scoped change)
+2. reviewer (review + validation)
+3. fixer (targeted remediation)
+4. reviewer <-> fixer repeat until reviewer approves
+5. qa validation
 
 ## Agent wiring
 
@@ -37,8 +37,9 @@ description: Unified patch loop for planned and ad-hoc implementation work.
 
 - Keep scope focused on existing behavior/code paths unless explicitly expanded.
 - Fixer is remediation-only: local/mechanical fixes, no high-level redesign.
-- If reviewer finds a functional gap that needs net-new implementation, route back to implementer.
-- Require reviewer and qa to provide concrete findings with file paths and pass/fail evidence.
+- Reviewer can delegate only to fixer, and fixer can delegate only to reviewer.
+- If reviewer finds a functional gap that needs net-new implementation, mark blocked and hand off to orchestrator for mediation/replanning.
+- Require reviewer to provide concrete findings with file paths and pass/fail evidence.
 - Keep updates concise and show current phase + next role.
 
 ## Required handoff format
@@ -48,12 +49,13 @@ Use this exact structure for each role handoff:
 ROLE: <implementer|reviewer|fixer|qa>
 STATUS: <in_progress|blocked|ready_for_review|ready_for_qa|approved>
 DONE:
+
 - ...
-NEXT:
+  NEXT:
 - ...
-BLOCKERS:
+  BLOCKERS:
 - none
-ARTIFACTS:
+  ARTIFACTS:
 - <paths/logs/commands>
 
 ## Completion criteria
