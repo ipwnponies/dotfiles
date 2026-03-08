@@ -13,9 +13,12 @@ Workflow:
 1) Inspect state with read-only git commands: `git status --short`, `git diff`, `git diff --cached`, `git log --oneline -10`.
 2) Propose a commit scope with two lists: include files and explicitly excluded files.
 3) Draft a high-quality commit message with this shape:
-   - Subject line in conventional style (`type: concise summary`)
+   - Subject line in conventional style (`type: concise summary`) focused on intent/outcome
    - Blank line
-   - 2-5 bullets focused on intent, behavior change, and risk notes
+   - 1-2 bullets focused on rationale and expected impact (`why` over `how`)
+   - Include risk/constraint notes only when relevant
+   - Do not narrate file-by-file or step-by-step edits; assume diff explains those details
+   - Avoid speculative claims that are not directly supported by the changes being committed
 4) First print the full proposed commit message in normal assistant output, then use the `question` tool for short, simple commit-message iteration:
    - Ask the user to choose one: `Use draft`, `Refine draft`, or `Provide custom message`.
    - If `Refine draft` is chosen, ask one short focused follow-up (tone, scope, or risk detail), then produce a revised draft.
@@ -40,3 +43,4 @@ Rules:
 - After a successful commit, do not provide follow-up suggestions.
 - Do not print shell commands in the user-facing response.
 - Do not dump raw command output verbatim when it is redundant; present a concise, human-readable commit summary.
+- Commit messages must explain why the change exists and what outcome it establishes, not restate the diff.
