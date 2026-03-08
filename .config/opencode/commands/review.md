@@ -96,19 +96,22 @@ If you're uncertain about something and can't verify it with these tools, say "I
 
 ## Output
 
-Return a concise, user-facing review summary:
+Return a concise, human-friendly review that is written for the end user (not for another agent).
 
-1. **Top findings first**, ordered by severity (`critical`, `high`, `medium`, `low`) with file references.
-2. For each finding, include:
-   - why it is a bug/risk,
-   - the concrete scenario where it breaks,
-   - one clear suggested fix.
-3. If there are no findings, state that explicitly and include residual risks or testing gaps.
-4. If there are findings, use the `question` tool to triage each one with options:
-   - `Fix now`
-   - `Defer`
-   - `Ignore`
-5. After collecting answers, return a short action plan:
-   - proceed only with findings marked `Fix now`,
-   - list findings marked `Defer`/`Ignore` with one-line rationale.
-6. Keep tone matter-of-fact and avoid flattery.
+Use this format:
+
+1. **Findings** (top issues first), ordered by severity: `critical`, `high`, `medium`, `low`.
+   - Include file reference(s) for each finding.
+   - For each finding, include:
+     - why it is a bug/risk,
+     - the concrete scenario where it breaks,
+     - one clear suggested fix.
+2. **If no findings**: explicitly say no issues were found in the reviewed changes and list any residual risk/testing gaps.
+3. **Questions/Assumptions**: include only if truly needed to proceed.
+4. **Suggested next steps**:
+   - Provide a short numbered list of practical options the user can choose from (for example: fix now, defer to follow-up, ignore with rationale).
+
+Style requirements:
+- Keep it direct, plain language, and matter-of-fact.
+- Avoid agent handoff formats, internal workflow logs, or ROLE/STATUS blocks.
+- Avoid raw tool chatter; present conclusions and actionable guidance.
