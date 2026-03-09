@@ -28,9 +28,9 @@ Mode resolution:
 
 Team loop (single unified execution engine):
 1) implementer
-2) reviewer
+2) reviewer_impl
 3) fixer when reviewer finds issues
-4) reviewer re-check
+4) reviewer_impl re-check
 5) qa validation
 
 Loop rules:

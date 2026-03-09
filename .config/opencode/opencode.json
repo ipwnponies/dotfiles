@@ -4,10 +4,13 @@
     "build": {
       "permission": {
         "bash": {
-          "bd list*": "allow",
-          "bd ready": "allow",
+          "bd count *": "allow",
+          "bd list *": "allow",
+          "bd query *": "allow",
+          "bd ready *": "allow",
           "bd show": "allow",
           "bd show *": "allow",
+          "bd status *": "allow",
           "fd *": "allow",
           "git branch": "allow",
           "git branch *": "allow",
@@ -64,10 +67,12 @@
     "fixer": {
       "permission": {
         "bash": {
-          "bd list*": "allow",
-          "bd ready": "allow",
+          "bd count *": "allow",
+          "bd list *": "allow",
+          "bd query *": "allow",
+          "bd ready *": "allow",
           "bd show *": "allow",
-          "bd sync --flush-only": "allow",
+          "bd status *": "allow",
           "bd update *": "allow",
           "bun test*": "allow",
           "cargo test*": "allow",
@@ -96,7 +101,7 @@
         "read": "allow",
         "task": {
           "*": "deny",
-          "reviewer": "allow"
+          "reviewer_impl": "allow"
         },
         "write": "deny"
       }
@@ -104,10 +109,12 @@
     "implementer": {
       "permission": {
         "bash": {
-          "bd list*": "allow",
-          "bd ready": "allow",
+          "bd count *": "allow",
+          "bd list *": "allow",
+          "bd query *": "allow",
+          "bd ready *": "allow",
           "bd show *": "allow",
-          "bd sync --flush-only": "allow",
+          "bd status *": "allow",
           "bd update *": "allow",
           "bun test*": "allow",
           "cargo test*": "allow",
@@ -142,14 +149,16 @@
         "bash": {
           "bd blocked": "allow",
           "bd close *": "allow",
+          "bd count *": "allow",
           "bd create *": "allow",
           "bd dep add *": "allow",
           "bd doctor": "allow",
-          "bd list*": "allow",
-          "bd ready": "allow",
+          "bd list *": "allow",
+          "bd query *": "allow",
+          "bd ready *": "allow",
           "bd show *": "allow",
           "bd stats": "allow",
-          "bd sync --flush-only": "allow",
+          "bd status *": "allow",
           "bd update *": "allow"
         },
         "question": "allow",
@@ -160,7 +169,8 @@
           "implementer": "allow",
           "qa": "allow",
           "researcher": "allow",
-          "reviewer": "allow"
+          "reviewer": "allow",
+          "reviewer_impl": "allow"
         },
         "todoread": "allow",
         "todowrite": "allow"
@@ -168,6 +178,11 @@
     },
     "plan": {
       "permission": {
+        "task": {
+          "*": "deny",
+          "researcher": "allow",
+          "reviewer": "allow"
+        },
         "todoread": "allow",
         "todowrite": "allow"
       }
@@ -175,9 +190,12 @@
     "qa": {
       "permission": {
         "bash": {
-          "bd list*": "allow",
-          "bd ready": "allow",
+          "bd count *": "allow",
+          "bd list *": "allow",
+          "bd query *": "allow",
+          "bd ready *": "allow",
           "bd show *": "allow",
+          "bd status *": "allow",
           "bun test*": "allow",
           "cargo test*": "allow",
           "go test*": "allow",
@@ -201,14 +219,16 @@
         "bash": {
           "ansible *": "deny",
           "bd blocked": "allow",
+          "bd count *": "allow",
           "bd create *": "allow",
           "bd dep add *": "allow",
           "bd doctor": "allow",
-          "bd list*": "allow",
-          "bd ready": "allow",
+          "bd list *": "allow",
+          "bd query *": "allow",
+          "bd ready *": "allow",
           "bd show *": "allow",
           "bd stats": "allow",
-          "bd sync --flush-only": "allow",
+          "bd status *": "allow",
           "bd update *": "allow",
           "bun add*": "deny",
           "chmod *": "deny",
@@ -273,8 +293,27 @@
         "read": "allow",
         "task": {
           "*": "deny",
-          "fixer": "allow",
           "researcher": "allow"
+        }
+      }
+    },
+    "reviewer_impl": {
+      "permission": {
+        "bash": {
+          "fd *": "allow",
+          "git diff*": "allow",
+          "git log*": "allow",
+          "git show *": "allow",
+          "git status*": "allow",
+          "ls*": "allow",
+          "rg *": "allow"
+        },
+        "edit": "deny",
+        "glob": "allow",
+        "read": "allow",
+        "task": {
+          "*": "deny",
+          "fixer": "allow"
         }
       }
     }
