@@ -145,7 +145,7 @@ Beads (bd) is a tool for agents to manage work.
 **CRITICAL**: Before saying "done" or "complete", you MUST run this checklist:
 
 ```
-[ ] bd sync --flush-only    (export beads to JSONL only)
+[ ] bd status --json
 ```
 
 
@@ -160,9 +160,9 @@ Beads (bd) is a tool for agents to manage work.
 ## Essential Commands
 
 ### Finding Work
-- `bd ready` - Show issues ready to work (no blockers)
-- `bd list --status=open` - All open issues
-- `bd list --status=in_progress` - Your active work
+- `bd ready --json --plain` - Show issues ready to work (no blockers) in machine-safe output
+- `bd list --json --flat` - List issues in machine-safe output
+- `bd status --json` - Show workspace status in machine-safe output
 - `bd show <id>` - Detailed issue view with dependencies
 
 ### Creating & Updating
@@ -220,7 +220,7 @@ STOPPING RULE
 - `bd show <id>` - See what's blocking/blocked by this issue
 
 ### Sync & Collaboration
-- `bd sync --flush-only` - Export to JSONL
+- `bd status --json` - Inspect current status before/after updates
 
 ### Project Health
 - `bd stats` - Project statistics (open/closed/blocked counts)
@@ -230,7 +230,9 @@ STOPPING RULE
 
 **Starting work:**
 ```bash
-bd ready           # Find available work
+bd ready --json --plain  # Find available work
+bd list --json --flat    # List issues machine-safely
+bd status --json         # Inspect status
 bd show <id>       # Review issue details
 bd update <id> --claim  # Claim it
 ```
@@ -238,7 +240,7 @@ bd update <id> --claim  # Claim it
 **Completing work:**
 ```bash
 bd close <id1> <id2> ...    # Close all completed issues at once
-bd sync --flush-only        # Export to JSONL
+bd status --json            # Verify status after close operations
 ```
 
 **Creating dependent work:**
