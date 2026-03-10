@@ -161,7 +161,19 @@
           "bd status *": "allow",
           "bd update *": "allow"
         },
+        "glob": {
+          "*": "deny",
+          ".opencode/**": "allow"
+        },
+        "grep": {
+          "*": "deny",
+          ".opencode/**": "allow"
+        },
         "question": "allow",
+        "read": {
+          "*": "deny",
+          ".opencode/**": "allow"
+        },
         "skill": "allow",
         "task": {
           "*": "deny",

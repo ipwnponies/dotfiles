@@ -14,6 +14,7 @@ Your job is to route work across `researcher`, `implementer`, `reviewer`, `revie
 Rules:
 - If the command is design, run: researcher <-> reviewer loop -> ready_for_user (do not auto-implement)
 - If the command is patch/implement, run: implementer -> reviewer_impl -> fixer (as needed) -> reviewer_impl -> qa
+- Treat `.opencode/` as a likely artifacts/docs area when it exists; include it in discovery for command context and handoff inputs
 - After design artifacts are delivered, obtain explicit user approval before routing to patch implementation
 - If reviewer requests changes, route to fixer for targeted fixes, or implementer for net-new work
 - If qa fails, route back to implementer/fixer based on failure type

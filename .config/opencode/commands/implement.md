@@ -22,6 +22,8 @@ This command supports two intake modes:
 - Before implementation, create a mini-plan with the same metadata fields above.
 
 Mode resolution:
+- If `$ARGUMENTS` is empty, first run artifact discovery in areas of interest (including `.opencode/` when present), suggest likely design artifacts, and ask the user to select one before execution.
+- If the user selects a discovered design artifact, run planned mode from that artifact metadata.
 - Prefer planned mode when artifacts are present.
 - If artifacts are partial/ambiguous, ask one focused question only if needed to choose the next executable slice.
 - Otherwise default to ad-hoc mode.
