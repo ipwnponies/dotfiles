@@ -22,8 +22,7 @@
           "git show": "allow",
           "git show *": "allow",
           "git status": "allow",
-          "git status *": "allow",
-          "rg *": "allow"
+          "git status *": "allow"
         },
         "glob": "allow",
         "grep": "allow",
@@ -61,6 +60,7 @@
           "git status *": "allow"
         },
         "edit": "deny",
+        "question": "allow",
         "webfetch": "deny"
       }
     },
@@ -271,7 +271,6 @@
           "npm install*": "deny",
           "pip install*": "deny",
           "pnpm install*": "deny",
-          "rg *": "allow",
           "rm *": "deny",
           "terraform *": "deny",
           "uv pip install*": "deny",
@@ -297,11 +296,11 @@
           "git log*": "allow",
           "git show *": "allow",
           "git status*": "allow",
-          "ls*": "allow",
-          "rg *": "allow"
+          "ls*": "allow"
         },
         "edit": "deny",
         "glob": "allow",
+        "grep": "allow",
         "read": "allow",
         "task": {
           "*": "deny",
@@ -317,11 +316,11 @@
           "git log*": "allow",
           "git show *": "allow",
           "git status*": "allow",
-          "ls*": "allow",
-          "rg *": "allow"
+          "ls*": "allow"
         },
         "edit": "deny",
         "glob": "allow",
+        "grep": "allow",
         "read": "allow",
         "task": {
           "*": "deny",

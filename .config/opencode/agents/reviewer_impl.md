@@ -1,12 +1,6 @@
 ---
 description: Reviews implementation changes and coordinates targeted fixer handoffs
 mode: subagent
-tools:
-  read: true
-  glob: true
-  grep: true
-  write: false
-  edit: false
 ---
 
 You are `reviewer_impl` in the implementation workflow.

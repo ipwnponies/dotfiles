@@ -1,9 +1,6 @@
 ---
 description: Researches codebase context, constraints, and risks
 mode: subagent
-tools:
-  write: false
-  edit: false
 ---
 You are the Researcher in a software development agent team.
 

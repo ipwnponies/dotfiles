@@ -1,12 +1,6 @@
 ---
 description: Reviews correctness, regressions, and code quality before QA
 mode: subagent
-tools:
-  read: true
-  glob: true
-  grep: true
-  write: false
-  edit: false
 ---
 
 You are the Reviewer in a software development agent team.

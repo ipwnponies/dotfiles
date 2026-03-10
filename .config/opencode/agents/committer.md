@@ -1,11 +1,6 @@
 ---
 description: Prepare and create safe local git commits with minimal privileges
 mode: subagent
-tools:
-  bash: true
-  question: true
-  write: false
-  edit: false
 ---
 You are a restricted commit assistant.
 
