@@ -165,6 +165,11 @@ Beads (bd) is a tool for agents to manage work.
 - `bd status --json` - Show workspace status in machine-safe output
 - `bd show <id>` - Detailed issue view with dependencies
 
+### Parser Guidance
+- For machine parsing, treat `bd ready --json` and `bd list --json` as incomplete without output mode flags; use `--plain` and `--flat` respectively.
+- Do not hard-fail on unknown enum values for status or `issue_type`; values can expand over time (for example `tombstone` or future non-task types).
+- When list/ready output is ambiguous for a specific item, fall back to `bd show --json <id>` for deterministic issue detail retrieval.
+
 ### Creating & Updating
 - `bd create --title="..." --type=task|bug|feature --priority=2` - New issue
   - Priority: 0-4 or P0-P4 (0=critical, 2=medium, 4=backlog). NOT "high"/"medium"/"low"
