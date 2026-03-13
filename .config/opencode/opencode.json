@@ -267,7 +267,7 @@
           "docker *": "deny",
           "du *": "allow",
           "git add*": "deny",
-          "git branch*": "allow",
+          "git branch*": "deny",
           "git checkout*": "deny",
           "git commit*": "deny",
           "git diff*": "allow",

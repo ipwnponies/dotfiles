@@ -171,7 +171,7 @@ Beads (bd) is a tool for agents to manage work.
 - `bd show <id>` - Detailed issue view with dependencies
 
 ### Parser Guidance
-- For machine parsing, treat `bd ready --json` and `bd list --json` as incomplete without output mode flags; use `--plain` and `--flat` respectively.
+- For machine parsing, always use `bd ready --json --plain` and `bd list --json --flat`.
 - Do not hard-fail on unknown enum values for status or `issue_type`; values can expand over time (for example `tombstone` or future non-task types).
 - When list/ready output is ambiguous for a specific item, fall back to `bd show --json <id>` for deterministic issue detail retrieval.
 
@@ -278,10 +278,10 @@ bd dep add beads-yyy beads-xxx  # Tests depend on Feature (Feature blocks tests)
   - `reviewer`
   - `qa`
 - Role boundaries:
-  - `researcher`: read-only exploration and planning (including acceptance criteria + verification plan)
+  - `researcher`: read-only exploration and planning for code/config, with only Beads issue-management mutations allowed (`bd create`, `bd dep add`, `bd update`) when preparing handoffs
   - `implementer`: code implementation and dev-tool execution based on researcher handoff
   - `reviewer`: read-only adversarial review of correctness, quality, and design decisions
-  - `qa`: test-focused validation; may edit tests only, never source implementation
+  - `qa`: test-focused validation with strict read-only repository access (runs checks and reports evidence; no source or test edits)
 - Required handoff format for role-to-role transitions:
 
 ```text
