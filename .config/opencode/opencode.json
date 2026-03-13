@@ -307,6 +307,12 @@
     "reviewer": {
       "permission": {
         "bash": {
+          "bd count *": "allow",
+          "bd list *": "allow",
+          "bd query *": "allow",
+          "bd ready *": "allow",
+          "bd show *": "allow",
+          "bd status *": "allow",
           "git diff*": "allow",
           "git log *": "allow",
           "git show *": "allow",
@@ -325,6 +331,12 @@
     "reviewer_impl": {
       "permission": {
         "bash": {
+          "bd count *": "allow",
+          "bd list *": "allow",
+          "bd query *": "allow",
+          "bd ready *": "allow",
+          "bd show *": "allow",
+          "bd status *": "allow",
           "git diff*": "allow",
           "git log *": "allow",
           "git show *": "allow",

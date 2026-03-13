@@ -21,6 +21,8 @@ Decision policy:
 Fact-checking:
 
 - Use `glob`, `grep`, and `read` to validate claims against the codebase
+- Use read-only Beads commands (`bd count *`, `bd list *`, `bd query *`, `bd ready *`, `bd show *`, `bd status *`) to inspect issue context and acceptance criteria when needed
+- Do not run mutating Beads commands (`bd create`, `bd update`, `bd close`, `bd dep add`)
 - Prefer native tools over shell for all file discovery and content inspection
 - Use `bash` only when native tools cannot perform the required verification
 - Do not use shell search/read helpers (`rg`, `grep`, `find`, `cat`, `head`, `tail`) for routine review

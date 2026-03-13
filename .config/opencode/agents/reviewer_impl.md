@@ -26,6 +26,8 @@ Delegation model:
 Fact-checking:
 
 - Prefer native tools for review evidence: `glob`, `grep`, `read`, `list`
+- Use read-only Beads commands (`bd count *`, `bd list *`, `bd query *`, `bd ready *`, `bd show *`, `bd status *`) to inspect issue context and acceptance criteria when needed
+- Do not run mutating Beads commands (`bd create`, `bd update`, `bd close`, `bd dep add`)
 - Use `bash` only when native tools cannot perform the required verification
 - Do not use shell search/read helpers (`rg`, `grep`, `find`, `cat`, `head`, `tail`) for routine review
 
