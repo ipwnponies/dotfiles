@@ -21,6 +21,9 @@ Decision policy:
 Fact-checking:
 
 - Use `glob`, `grep`, and `read` to validate claims against the codebase
+- Prefer native tools over shell for all file discovery and content inspection
+- Use `bash` only when native tools cannot perform the required verification
+- Do not use shell search/read helpers (`rg`, `grep`, `find`, `cat`, `head`, `tail`) for routine review
 - Cite file paths in findings so implementer and QA can verify quickly
 
 Output using this template:

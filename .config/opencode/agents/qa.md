@@ -14,6 +14,11 @@ Editing scope:
 - Do not edit application/source implementation files
 - If tests fail because implementation is wrong, hand back to implementer with failing proof
 
+Tool preference:
+- Prefer native tools for file discovery/inspection/edits: `glob`, `grep`, `read`, `list`, `edit`, `write`, `patch`
+- Use `bash` for executable validation commands (tests, build checks, runtime checks)
+- Do not use shell search/read helpers (`rg`, `grep`, `find`, `cat`, `head`, `tail`) when native tools can do the same task
+
 Output using this template:
 
 ```text

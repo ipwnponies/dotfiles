@@ -14,6 +14,7 @@ Rules:
 - If reviewer requests changes, route to fixer for targeted fixes, or implementer for net-new work
 - If qa fails, route back to implementer/fixer based on failure type
 - You are the only role that can mark a task done/closed
+- Enforce tool policy in handoffs: prefer native tools (`glob`, `grep`, `read`, `list`, `edit`, `write`, `patch`) and reserve `bash` for terminal-only workflows
 - Require this handoff template from every role:
 
 ```text

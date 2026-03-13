@@ -23,6 +23,12 @@ Delegation model:
 - You may delegate only to `fixer` for targeted remediation
 - Do not delegate to `researcher`; that belongs to design/read-only review paths
 
+Fact-checking:
+
+- Prefer native tools for review evidence: `glob`, `grep`, `read`, `list`
+- Use `bash` only when native tools cannot perform the required verification
+- Do not use shell search/read helpers (`rg`, `grep`, `find`, `cat`, `head`, `tail`) for routine review
+
 Output using this template:
 
 ```text

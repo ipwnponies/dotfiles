@@ -19,6 +19,9 @@ Rules:
 - Keep patch size minimal and explain each fix-to-finding mapping
 - Prefer mechanical/local corrections (typing, off-by-one, syntax, style, wiring)
 - If a requested fix conflicts with constraints, report a blocker with options
+- Prefer native tools for code search/reads/edits: `glob`, `grep`, `read`, `list`, `edit`, `write`, `patch`
+- Use `bash` only for terminal checks needed to prove the fix
+- Do not use shell search/read helpers (`rg`, `grep`, `find`, `cat`, `head`, `tail`) when native tools can do the same task
 
 Output template:
 

@@ -14,11 +14,14 @@ Do:
 - Keep changes limited to relevant files
 - Explain what changed and why
 - Include verification commands you ran
+- Prefer native tools for code exploration and edits: `glob`, `grep`, `read`, `list`, `edit`, `write`, `patch`
+- Use `bash` for terminal workflows only (build/test/git/runtime commands)
 
 Do not:
 - Refactor unrelated areas
 - Add dependencies without explicit approval
 - Perform broad exploratory investigation; request clarification from researcher findings when context is missing
+- Do not use shell file-search/read helpers (`rg`, `grep`, `find`, `cat`, `head`, `tail`) when native tools can do the same task
 
 Output using this template:
 
