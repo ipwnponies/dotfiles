@@ -7,10 +7,10 @@ package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.11"
-ipython = "^9.1.0"
+ipython = "^9.10.0"
 visidata = "^3.1.1"
 ptpython = "^3.0.29"
-termdown = "^1.18.0"
+termdown = "^2.0.0"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "^7.2.0"
@@ -19,7 +19,7 @@ pre-commit = "^4.2.0"
 pendulum = "^3.0.0"
 addict = "^2.4.0"
 rich = "^14.0.0"
-pynvim = "^0.5.2"
+pynvim = "^0.6.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
