@@ -11,7 +11,6 @@
           "bd show": "allow",
           "bd show *": "allow",
           "bd status *": "allow",
-          "fd *": "allow",
           "git branch": "allow",
           "git branch *": "allow",
           "git diff": "allow",
@@ -271,8 +270,6 @@
           "cp *": "deny",
           "docker *": "deny",
           "du *": "allow",
-          "fd *": "allow",
-          "find *": "allow",
           "git add*": "deny",
           "git branch*": "allow",
           "git checkout*": "deny",
@@ -289,7 +286,6 @@
           "git status*": "allow",
           "jq *": "allow",
           "kubectl *": "deny",
-          "ls*": "allow",
           "mv *": "deny",
           "npm install*": "deny",
           "pip install*": "deny",
@@ -314,12 +310,10 @@
     "reviewer": {
       "permission": {
         "bash": {
-          "fd *": "allow",
           "git diff*": "allow",
           "git log*": "allow",
           "git show *": "allow",
-          "git status*": "allow",
-          "ls*": "allow"
+          "git status*": "allow"
         },
         "edit": "deny",
         "glob": "allow",
@@ -334,12 +328,10 @@
     "reviewer_impl": {
       "permission": {
         "bash": {
-          "fd *": "allow",
           "git diff*": "allow",
           "git log*": "allow",
           "git show *": "allow",
-          "git status*": "allow",
-          "ls*": "allow"
+          "git status*": "allow"
         },
         "edit": "deny",
         "glob": "allow",
