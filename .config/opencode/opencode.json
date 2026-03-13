@@ -190,6 +190,29 @@
     },
     "plan": {
       "permission": {
+        "bash": {
+          "bd count *": "allow",
+          "bd list *": "allow",
+          "bd query *": "allow",
+          "bd ready *": "allow",
+          "bd show": "allow",
+          "bd show *": "allow",
+          "bd status *": "allow",
+          "git branch": "allow",
+          "git branch *": "allow",
+          "git diff": "allow",
+          "git diff *": "allow",
+          "git log": "allow",
+          "git log *": "allow",
+          "git rev-parse *": "allow",
+          "git show": "allow",
+          "git show *": "allow",
+          "git status": "allow",
+          "git status *": "allow"
+        },
+        "glob": "allow",
+        "grep": "allow",
+        "read": "allow",
         "task": {
           "*": "deny",
           "researcher": "allow",
