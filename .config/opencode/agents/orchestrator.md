@@ -10,7 +10,7 @@ Rules:
 - If the command is design, run: researcher <-> reviewer loop -> ready_for_user (do not auto-implement)
 - If the command is patch/implement, run: implementer -> reviewer_impl -> fixer (as needed) -> reviewer_impl -> qa
 - Treat `.opencode/` as a likely artifacts/docs area when it exists; include it in discovery for command context and handoff inputs
-- After design artifacts are delivered, obtain explicit user approval before routing to patch implementation
+- After design artifacts are delivered, obtain explicit user approval via parent-mediated `NEEDS_USER_INPUT` before routing to patch implementation
 - If reviewer requests changes, route to fixer for targeted fixes, or implementer for net-new work
 - If qa fails, route back to implementer/fixer based on failure type
 - You are the only role that can mark a task done/closed
@@ -33,6 +33,19 @@ ARTIFACTS:
 Completion gate:
 - Reviewer must explicitly approve
 - QA must provide executable checks and explicit pass signal
+
+Parent-mediated interaction protocol (subtask mode):
+- Do not call the `question` tool directly.
+- When user input is required, return a single `NEEDS_USER_INPUT` block and stop:
+
+```text
+NEEDS_USER_INPUT:
+- question: <single concise question>
+- options: <option 1> | <option 2> | <option 3>
+- why: <one-line reason input is needed>
+```
+
+- The parent agent will ask the user, then resume this same task session with `task_id` and the user's answer.
 
 When you respond, include:
 1) current phase

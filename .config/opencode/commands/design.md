@@ -1,7 +1,7 @@
 ---
 description: Design research flow (researcher <-> reviewer, orchestrator finalizes, user approval gate)
 agent: orchestrator
-subtask: false
+subtask: true
 ---
 Run the Design workflow for this request: `$ARGUMENTS`.
 
@@ -69,5 +69,5 @@ Risk: <low|medium|high>
 
 Exit criteria:
 - End at STATUS: ready_for_user.
-- Stop and wait for user approval/iteration.
+- Stop and return `NEEDS_USER_INPUT` so the parent can collect user approval/iteration feedback.
 - Do not auto-start patch/build teams from this command.

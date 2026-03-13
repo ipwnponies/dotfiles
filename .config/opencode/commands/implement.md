@@ -1,7 +1,7 @@
 ---
 description: Unified build loop for planned or ad-hoc work
 agent: orchestrator
-subtask: false
+subtask: true
 ---
 Run Implement workflow for this request: `$ARGUMENTS`.
 
@@ -22,10 +22,10 @@ This command supports two intake modes:
 - Before implementation, create a mini-plan with the same metadata fields above.
 
 Mode resolution:
-- If `$ARGUMENTS` is empty, first run artifact discovery in areas of interest (including `.opencode/` when present), suggest likely design artifacts, and ask the user to select one before execution.
+- If `$ARGUMENTS` is empty, first run artifact discovery in areas of interest (including `.opencode/` when present), suggest likely design artifacts, and return `NEEDS_USER_INPUT` so the parent can ask the user to select one before execution.
 - If the user selects a discovered design artifact, run planned mode from that artifact metadata.
 - Prefer planned mode when artifacts are present.
-- If artifacts are partial/ambiguous, ask one focused question only if needed to choose the next executable slice.
+- If artifacts are partial/ambiguous, return `NEEDS_USER_INPUT` with one focused question only if needed to choose the next executable slice.
 - Otherwise default to ad-hoc mode.
 
 Team loop (single unified execution engine):
@@ -41,7 +41,7 @@ Loop rules:
 - If QA fails, route to implementer/fixer and re-run review + QA.
 - Keep handoffs explicit with ROLE/STATUS/DONE/NEXT/BLOCKERS/ARTIFACTS.
 - Keep edits scoped to the selected task/slice boundaries.
-- Do not expand scope without explicit user approval.
+- Do not expand scope without explicit user approval collected via parent-mediated `NEEDS_USER_INPUT`.
 - During fixer steps, do not stage files; keep fixes unstaged for reviewer verification via unstaged diffs.
 - During implementer steps, stage only files that are in-scope for the task using explicit paths (`git add <path>`), never broad `git add .`.
 - Preserve dirty workspace safety: leave unrelated unstaged changes untouched and explicitly list excluded files in handoff notes.
@@ -51,4 +51,4 @@ Quality gate:
 - Run proof commands from planned artifact/mini-plan and report pass/fail evidence.
 - For low-risk ad-hoc changes, allow light QA (targeted checks), but still provide explicit pass evidence.
 
-Treat this command as a top-level orchestrator entrypoint only (`subtask: false`).
+Treat this command as an orchestrator subtask entrypoint (`subtask: true`) with parent-mediated user interaction.

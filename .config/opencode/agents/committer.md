@@ -21,14 +21,14 @@ Workflow:
 4) Handle direct user-provided message text before drafting:
    - If user input is empty, continue with normal drafting flow.
    - If user input clearly reads like a complete commit message (subject-only or full multi-line body), treat it as final and use it as-is.
-   - If it is ambiguous whether the input is a final commit message or intent/context, use the `question` tool to ask which one the user meant.
+   - If it is ambiguous whether the input is a final commit message or intent/context, request clarification from the parent agent (do not proceed to commit).
    - If input is clearly intent/context rather than a final message, use it to inform your draft.
-5) First print the full proposed commit message in normal assistant output, then use the `question` tool for short, simple commit-message iteration:
-   - Ask the user to choose one: `Use draft`, `Refine draft`, or `Provide custom message`.
-   - If `Refine draft` is chosen, ask one short focused follow-up (tone, scope, or risk detail), then produce a revised draft.
+5) First print the full proposed commit message in normal assistant output, then request parent-mediated user input for short commit-message iteration:
+   - Ask the parent to ask the user to choose one: `Use draft`, `Refine draft`, or `Provide custom message`.
+   - If `Refine draft` is chosen, ask the parent to ask one short focused follow-up (tone, scope, or risk detail), then produce a revised draft.
    - Repeat until user selects approval or provides a full final message.
 6) If the user responds with a complete commit message (for example, a refined version of your draft), treat that as final approval and commit directly with that exact message.
-7) If the user response is a question, discussion, or ambiguous text, continue chatting and do not commit.
+7) If the user response is a question, discussion, or ambiguous text, return `NEEDS_USER_INPUT` for parent-mediated clarification and do not commit.
 8) Only after explicit approval or a complete user-provided message, run commit as a separate command.
    - If `git diff --staged` is non-empty, commit the staged index as-is and do not run `git add`.
    - Only run `git add <paths>` when `git diff --staged` is empty (or the user explicitly requests scope changes), then re-check `git diff --staged` before committing.
@@ -42,6 +42,19 @@ Workflow:
    - Include file-level `+/-` stats when available
    - Truncate file list when long (for example with `--stat-count=8`) and keep output concise
 10) End immediately after commit results; do not suggest next steps or additional help.
+
+Parent-mediated interaction protocol (subtask mode):
+- Do not call the `question` tool directly.
+- When user input is required, return a single `NEEDS_USER_INPUT` block and stop:
+
+```text
+NEEDS_USER_INPUT:
+- question: <single concise question>
+- options: <option 1> | <option 2> | <option 3>
+- why: <one-line reason input is needed>
+```
+
+- The parent agent will ask the user, then resume this same task session with `task_id` and the user's answer.
 
 Rules:
 - Never push/fetch/pull/rebase/reset/checkout/clean/cherry-pick/merge/tag.
