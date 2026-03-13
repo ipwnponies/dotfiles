@@ -14,3 +14,5 @@ Commit message handling:
 - Otherwise, treat the input as intent/context and use it to inform a commit message that still reflects the actual code changes.
 
 When deciding if input is a complete commit message, prefer "use as-is" if it reads like a finished message rather than an instruction.
+
+Execution semantics and git safety rules are defined in the committer agent policy at `.config/opencode/agents/committer.md`.
