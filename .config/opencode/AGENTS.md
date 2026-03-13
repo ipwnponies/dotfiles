@@ -1,7 +1,5 @@
 # General
 
-- When searching for text or files, prefer using `rg` or `rg --files` respectively because `rg` is much faster than alternatives like `grep`. (If the `rg` command is not found, then use alternatives.)
-- Prefer to use these tools: `git` (all git), `rg` (search), `fd` (find), `eza` (ls).
 - When multiple tool calls can be parallelized (e.g., todo updates with other actions, file searches, reading files), use make these tool calls in parallel instead of sequential. Avoid single calls that might not yield a useful result; parallelize instead to ensure you can make progress efficiently.
 - Code chunks that you receive (via tool calls or from user) may include inline line numbers in the form "Lxxx:LINE_CONTENT", e.g. "L123:LINE_CONTENT". Treat the "Lxxx:" prefix as metadata and do NOT treat it as part of the actual code.
 
@@ -48,7 +46,7 @@
 - **Workflow:** (a) plan all needed reads → (b) issue one parallel batch → (c) analyze results → (d) repeat if new, unpredictable reads arise.
 - Additional notes:
     - Always maximize parallelism. Never read files one-by-one unless logically unavoidable.
-    - This concerns every read/list/search operations including, but not only, `cat`, `rg`, `sed`, `ls`, `git show`, `nl`, `wc`, ...
+    - This concerns every read/list/search operation regardless of tool choice.
 
 # Plan tool
 
