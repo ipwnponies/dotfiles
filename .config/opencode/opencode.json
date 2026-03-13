@@ -229,6 +229,8 @@
           "bd status *": "allow",
           "bun test*": "allow",
           "cargo test*": "allow",
+          "git diff *": "allow",
+          "git status *": "allow",
           "go test*": "allow",
           "make lint*": "allow",
           "make test*": "allow",
