@@ -34,6 +34,7 @@ Team loop (single unified execution engine):
 3) fixer when reviewer finds issues
 4) reviewer_impl re-check
 5) qa validation
+6) implementer stages final relevant files for commit handoff
 
 Loop rules:
 - Repeat reviewer/fixer until reviewer approves.
@@ -41,6 +42,10 @@ Loop rules:
 - Keep handoffs explicit with ROLE/STATUS/DONE/NEXT/BLOCKERS/ARTIFACTS.
 - Keep edits scoped to the selected task/slice boundaries.
 - Do not expand scope without explicit user approval.
+- During fixer steps, do not stage files; keep fixes unstaged for reviewer verification via unstaged diffs.
+- During implementer steps, stage only files that are in-scope for the task using explicit paths (`git add <path>`), never broad `git add .`.
+- Preserve dirty workspace safety: leave unrelated unstaged changes untouched and explicitly list excluded files in handoff notes.
+- Before ending the workflow, ensure the intended commit contents are staged so the committer can focus on committing staged files only.
 
 Quality gate:
 - Run proof commands from planned artifact/mini-plan and report pass/fail evidence.

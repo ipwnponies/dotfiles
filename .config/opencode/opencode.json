@@ -38,8 +38,7 @@
     "committer": {
       "permission": {
         "bash": {
-          "git add": "allow",
-          "git add *": "allow",
+          "git add *": "ask",
           "git commit --amend -m *": "ask",
           "git commit -F *": "allow",
           "git commit -m *": "allow",
@@ -115,6 +114,7 @@
           "bun test*": "allow",
           "cargo test*": "allow",
           "eslint *": "allow",
+          "git add *": "allow",
           "git checkout *": "deny",
           "git diff*": "allow",
           "git log *": "allow",
