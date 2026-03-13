@@ -15,7 +15,6 @@
           "git branch *": "allow",
           "git diff": "allow",
           "git diff *": "allow",
-          "git log": "allow",
           "git log *": "allow",
           "git rev-parse *": "allow",
           "git show": "allow",
@@ -48,9 +47,7 @@
           "git diff *": "allow",
           "git diff --cached": "allow",
           "git diff --cached *": "allow",
-          "git log --oneline": "allow",
-          "git log --oneline *": "allow",
-          "git log --oneline -10": "allow",
+          "git log *": "allow",
           "git push*": "deny",
           "git rebase*": "deny",
           "git reset*": "deny",
@@ -78,7 +75,7 @@
           "eslint *": "allow",
           "git checkout *": "deny",
           "git diff*": "allow",
-          "git log*": "allow",
+          "git log *": "allow",
           "git push*": "deny",
           "git rebase*": "deny",
           "git reset*": "deny",
@@ -120,7 +117,7 @@
           "eslint *": "allow",
           "git checkout *": "deny",
           "git diff*": "allow",
-          "git log*": "allow",
+          "git log *": "allow",
           "git push*": "deny",
           "git rebase*": "deny",
           "git reset*": "deny",
@@ -275,7 +272,7 @@
           "git checkout*": "deny",
           "git commit*": "deny",
           "git diff*": "allow",
-          "git log*": "allow",
+          "git log *": "allow",
           "git merge*": "deny",
           "git pull*": "deny",
           "git push*": "deny",
@@ -311,7 +308,7 @@
       "permission": {
         "bash": {
           "git diff*": "allow",
-          "git log*": "allow",
+          "git log *": "allow",
           "git show *": "allow",
           "git status*": "allow"
         },
@@ -329,7 +326,7 @@
       "permission": {
         "bash": {
           "git diff*": "allow",
-          "git log*": "allow",
+          "git log *": "allow",
           "git show *": "allow",
           "git status*": "allow"
         },
