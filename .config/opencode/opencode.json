@@ -39,12 +39,9 @@
       "permission": {
         "bash": {
           "git add *": "ask",
+          "git commit *": "allow",
           "git commit --amend -m *": "ask",
-          "git commit -F *": "allow",
-          "git commit -m *": "allow",
-          "git diff": "allow",
           "git diff *": "allow",
-          "git diff --cached": "allow",
           "git diff --cached *": "allow",
           "git log *": "allow",
           "git push*": "deny",
