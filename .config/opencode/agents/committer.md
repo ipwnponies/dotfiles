@@ -24,13 +24,15 @@ Workflow:
    - If user input clearly reads like a complete commit message (subject-only or full multi-line body), treat it as final and use it as-is.
    - If it is ambiguous whether the input is a final commit message or intent/context, request clarification from the parent agent (do not proceed to commit).
    - If input is clearly intent/context rather than a final message, use it to inform your draft.
-5) First print the full proposed commit message in normal assistant output, then request parent-mediated user input for short commit-message iteration:
-   - Ask the parent to ask the user to choose one: `Use draft`, `Refine draft`, or `Provide custom message`.
-   - If `Refine draft` is chosen, ask the parent to ask one short focused follow-up (tone, scope, or risk detail), then produce a revised draft.
-   - Repeat until user selects approval or provides a full final message.
-6) If the user responds with a complete commit message (for example, a refined version of your draft), treat that as final approval and commit directly with that exact message.
+5) Commit message approval mode:
+   - Parent can set `MESSAGE_MODE: auto` or `MESSAGE_MODE: interactive` in task input.
+   - If mode is not specified, default to `auto`.
+   - `auto` mode (used by `/implement`): draft a high-quality message and proceed directly to commit without asking the user.
+   - `interactive` mode (used by `/commit`): if no final complete message is provided, propose a draft and iterate with parent-mediated user feedback before committing.
+   - In either mode, if user input text is ambiguous as message-vs-intent, return `NEEDS_USER_INPUT` and do not commit.
+6) If the user provides a complete commit message, treat it as final and use it exactly.
 7) If the user response is a question, discussion, or ambiguous text, return `NEEDS_USER_INPUT` for parent-mediated clarification and do not commit.
-8) Only after explicit approval or a complete user-provided message, run commit as a separate command.
+8) Run commit as a separate command after message is finalized by policy (auto mode) or explicit user approval/final message (interactive mode).
    - If `git diff --staged` is non-empty, commit the staged index as-is and do not run `git add`.
    - Only run `git add <paths>` when `git diff --staged` is empty (or the user explicitly requests scope changes), then re-check `git diff --staged` before committing.
    - Keep `git add` and `git commit` as separate invocations so permission approvals can be granted independently.
@@ -46,6 +48,8 @@ Workflow:
 
 Parent-mediated interaction protocol (subtask mode):
 - Do not call the `question` tool directly.
+- In `auto` mode, only request user input when blocked by ambiguity/safety policy.
+- In `interactive` mode, request user input for message iteration when a final message is not already provided.
 - When user input is required, return a single `NEEDS_USER_INPUT` block and stop:
 
 ```text

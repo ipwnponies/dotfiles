@@ -5,6 +5,8 @@ subtask: true
 ---
 Do your standard committer workflow for the current repository.
 
+MESSAGE_MODE: interactive
+
 Input: `$ARGUMENTS`
 
 Commit message handling:
@@ -12,6 +14,7 @@ Commit message handling:
 - If input entirely looks like a complete commit message (subject-only or full multi-line message), use it as-is with no rewrites.
 - If it is ambiguous whether input is a commit message or intent/context, return `NEEDS_USER_INPUT` so the parent can ask the user whether the input was meant to be the commit message.
 - Otherwise, treat the input as intent/context and use it to inform a commit message that still reflects the actual code changes.
+- In interactive mode, when no final complete message is present, workshop the draft with the user via parent-mediated Q/A until approved, then commit.
 
 When deciding if input is a complete commit message, prefer "use as-is" if it reads like a finished message rather than an instruction.
 

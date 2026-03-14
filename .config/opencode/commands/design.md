@@ -47,7 +47,7 @@ Required output artifact:
   - scope and non-goals,
   - chosen approach and rejected alternatives,
   - single epic + checklist breakdown,
-  - dependencies/order,
+  - explicit slice graph (DAG) with dependencies/order,
   - verification plan with executable checks and pass signals,
   - rollback strategy,
   - monitoring/observability plan,
@@ -61,6 +61,7 @@ Slice ID: <unique-slice-id>
 Task: <one-sentence implementable ask>
 Scope: <allowed files/dirs>
 Non-goals: <what not to change>
+Commit intent: <commit|no-commit-needed>
 Acceptance:
 - <criteria>
 Proof commands:
@@ -74,6 +75,9 @@ Risk: <low|medium|high>
 - Ensure these `PATCH READY` blocks are designed to be consumed directly by `/implement` in planned mode from either:
   - a design doc reference (for example `/implement start work on @design-doc.md`), or
   - a beads epic/task reference that mirrors this metadata.
+- Target at least 5 slices for medium+ features, and allow 10+ slices when the problem naturally decomposes.
+- Design slices to support multi-commit autonomous execution where dependencies permit non-serial readiness.
+- Keep each slice sized for one atomic commit when `Commit intent` is `commit`.
 
 Exit criteria:
 - End at STATUS: ready_for_user.
