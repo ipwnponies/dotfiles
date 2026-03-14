@@ -17,10 +17,18 @@ Execution model:
 - Use direct researcher <-> reviewer collaboration for fast iteration.
 - Use orchestrator as a lightweight finalizer only (entrypoint, conflict resolution, final artifact packaging).
 - Keep every handoff explicit using ROLE/STATUS/DONE/NEXT/BLOCKERS/ARTIFACTS.
-- Before writing the design doc, ensure `.opencode/design/` directory exists (relative to project root).
+- Before writing the design doc, attempt to write directly to `.opencode/design/`.
+- Artifact creation must be done with filesystem tools (`Read`/`Write`/`Edit`), not shell commands.
+- Do not run `ls`, `mkdir`, `date`, or similar shell commands just to prepare the artifact path.
+- Use the session date context for `YYYYMMDD` in artifact filenames.
 
 Permissions:
 - Researcher and reviewer are read-only against the local workspace.
+- Orchestrator is allowed to create exactly one design artifact under `.opencode/design/` for this workflow.
+- If artifact creation fails because `.opencode/design/` is missing or write access is blocked, return `NEEDS_USER_INPUT` with one request that includes:
+  - exact path to create,
+  - why write access is required,
+  - what will be written (single design markdown artifact).
 - Researcher and reviewer may request network access, but network is denied by default.
 - When external lookups are needed, emit STATUS: blocked with:
   - purpose,
@@ -34,7 +42,7 @@ Permissions:
 
 Required output artifact:
 - Produce one design doc artifact in `.opencode/design/` with:
-  - Filename format: `YYYYMMDD-HHMMSS-<slug>.md`
+  - Filename format: `YYYYMMDD-<slug>.md`
   - problem statement,
   - scope and non-goals,
   - chosen approach and rejected alternatives,
