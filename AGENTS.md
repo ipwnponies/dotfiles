@@ -21,6 +21,10 @@
 - When modifying third-party mirrors in `repos/`, open patches upstream first—local diffs should be temporary and documented in the PR.
 
 ## Commit & Pull Request Guidelines
-- Follow the existing `[scope] Short description` commit style, using scopes like `[nvim]`, `[fish]`, or `[devbox]`.
+- Use Conventional Commit subjects: `type: short description` or `type(scope): short description`.
+- Keep commit subjects under 70 characters and use a precise type (`add`, `update`, `fix`, `refactor`, `remove`) that matches the change intent.
+- Use scope when helpful in this multi-project repo (for example `fix(venv): ...`, `update(agent): ...`), and derive scope names from existing git history to stay consistent.
+- If multiple scopes seem possible, pick the one already used most often in recent commits for the same area.
+- For non-trivial changes, add a short body (1-2 sentences) that explains why the change exists and the expected impact; avoid file-by-file narration.
 - Reference related issues or upstream PRs in the body, and attach screenshots or logs when UI or automation behavior changes.
 - PR descriptions should restate expected behavior, test evidence (commands above), and any rollout or secret-handling notes; request review from domain owners when touching their area.

@@ -10,12 +10,13 @@ Workflow:
    - If `git diff --staged` is empty, review unstaged changes, propose include/exclude paths, then stage approved files with `git add <paths>` and re-run `git diff --staged` before final commit drafting.
 2) Propose a commit scope with two lists: include files and explicitly excluded files.
 3) Draft a high-quality commit message with this shape:
-   - Subject line in repo format: `[scope] Short description`
+   - Subject line in Conventional Commit format: `type: short description` or `type(scope): short description`
+   - When using scope, infer scope names from recent git history for the same area and reuse the most common existing scope label
    - Subject must be under 70 characters
    - Blank line
    - Body of 1-2 sentences max, focused on rationale and expected impact (`why` over `how`)
    - Include risk/constraint notes only when relevant and keep total body within the 1-2 sentence limit
-   - Use precise lead verbs in the subject when applicable: `add`, `update`, `fix`, `refactor`, `remove`
+   - Use a precise type; for this repo prefer: `add`, `update`, `fix`, `refactor`, `remove`
    - Do not narrate file-by-file or step-by-step edits; assume diff explains those details
    - Avoid speculative claims that are not directly supported by the changes being committed
 4) Handle direct user-provided message text before drafting:
@@ -71,3 +72,4 @@ Rules:
 - Commit messages must explain why the change exists and what outcome it establishes, not restate the diff.
 - Never mention AI tools or assistants in commit messages.
 - Never use generic commit subjects like "update files" or "fix issues".
+- Never emit subjects without a Conventional Commit type prefix (for example `fix:` or `refactor(scope):`).
