@@ -35,6 +35,8 @@ Team loop (single unified execution engine):
 4) reviewer_impl re-check
 5) qa validation
 6) implementer stages final relevant files for commit handoff
+7) committer creates commit (or records no-commit-needed)
+8) orchestrator closes the beads task only after committer outcome
 
 Loop rules:
 - Repeat reviewer/fixer until reviewer approves.
@@ -46,6 +48,11 @@ Loop rules:
 - During implementer steps, stage only files that are in-scope for the task using explicit paths (`git add <path>`), never broad `git add .`.
 - Preserve dirty workspace safety: leave unrelated unstaged changes untouched and explicitly list excluded files in handoff notes.
 - Before ending the workflow, ensure the intended commit contents are staged so the committer can focus on committing staged files only.
+- Do not close a beads task before committer completes.
+- Beads task closure requires one of:
+  - a commit hash from committer for the scoped task changes, or
+  - explicit no-commit-needed evidence from committer (no file changes required), documented in handoff artifacts.
+- If committer fails or is blocked, route back to implementer/fixer and keep the beads task open.
 
 Quality gate:
 - Run proof commands from planned artifact/mini-plan and report pass/fail evidence.

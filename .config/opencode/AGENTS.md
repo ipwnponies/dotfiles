@@ -193,6 +193,7 @@ Add ongoing notes and implementation details in `--notes`.
 Description will remain focused on the problem statement and motivation.
 Keep `--title` concise and high-level; capture specific policy values or parameters in `--description` instead of the title.
 Acceptance criteria should verify the intended outcome without overfitting to one exact implementation; avoid hardcoding incidental details.
+For tasks that involve code/doc/config file changes, include `GIT PROOF` checks in acceptance so closure requires either a commit hash or explicit no-commit-needed evidence.
 
 #### Task Acceptance Criteria Template
 ```
@@ -207,6 +208,12 @@ PROOF (Executable checks)
   - Pass condition: <exact success signal>
 - Run: <command 2> (optional)
   - Pass condition: <exact success signal>
+
+GIT PROOF (Required when task changes files)
+- Run: `git show --name-only --oneline -1`
+  - Pass condition: output includes a commit hash and latest commit includes only in-scope files for this task.
+- If no commit is needed:
+  - Pass condition: evidence shows no file changes were required, and notes include `no-commit-needed` rationale.
 
 EDGE CASE (Must also work)
 - Case: <edge case>
