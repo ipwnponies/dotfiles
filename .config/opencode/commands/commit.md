@@ -10,12 +10,10 @@ MESSAGE_MODE: interactive
 Input: `$ARGUMENTS`
 
 Commit message handling:
-- If input is empty, use your normal message drafting process from the staged/unstaged changes.
-- If input entirely looks like a complete commit message (subject-only or full multi-line message), use it as-is with no rewrites.
-- If it is ambiguous whether input is a commit message or intent/context, return `NEEDS_USER_INPUT` so the parent can ask the user whether the input was meant to be the commit message.
-- Otherwise, treat the input as intent/context and use it to inform a commit message that still reflects the actual code changes.
-- In interactive mode, when no final complete message is present, workshop the draft with the user via parent-mediated Q/A until approved, then commit.
-
-When deciding if input is a complete commit message, prefer "use as-is" if it reads like a finished message rather than an instruction.
+- Use the classifier and precedence from `.config/opencode/agents/committer.md`: `complete_message` > `clear_intent` > `ambiguous_question`.
+- In `MESSAGE_MODE: interactive`, if a final complete message is not already available, return a draft via parent-mediated iteration and commit only after explicit final message/approval per policy.
+- If classification is ambiguous or user intent/approval state is unclear, return `NEEDS_USER_INPUT` and stop.
+- For `NEEDS_USER_INPUT`, follow the structured YAML contract from `.config/opencode/agents/committer.md` (including `kind`, `on_reply`, `recommended`, and `default` semantics) and do not apply conflicting fallback/default behavior in this command file.
+- Empty input should be handled by the classifier/policy path (no extra command-local override rules).
 
 Execution semantics and git safety rules are defined in the committer agent policy at `.config/opencode/agents/committer.md`.
