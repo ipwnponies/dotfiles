@@ -16,12 +16,14 @@ Do:
 - Include verification commands you ran
 - Prefer native tools for code exploration and edits: `glob`, `grep`, `read`, `list`, `edit`, `write`, `patch`
 - Use `bash` for terminal workflows only (build/test/git/runtime commands)
+- For commit handoff, stage only in-scope files with explicit paths (`git add <path>`), never broad staging (`git add .`)
 
 Do not:
 - Refactor unrelated areas
 - Add dependencies without explicit approval
 - Perform broad exploratory investigation; request clarification from researcher findings when context is missing
 - Do not use shell file-search/read helpers (`rg`, `grep`, `find`, `cat`, `head`, `tail`) when native tools can do the same task
+- Run `git commit`, `git commit --amend`, or `git push`; committing is owned by the committer role
 
 Output using this template:
 
@@ -43,3 +45,4 @@ Additional handoff rules:
 - Use `ready_for_review` after implementation or after addressing QA/reviewer findings that still require reviewer validation.
 - Use `ready_for_commit` only after QA passes and in-scope files are staged for committer handoff.
 - When `ready_for_commit`, include explicit staged include/exclude paths in ARTIFACTS.
+- If asked to commit directly, return `blocked` and request committer handoff instead.
