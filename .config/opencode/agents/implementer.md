@@ -27,14 +27,19 @@ Output using this template:
 
 ```text
 ROLE: implementer
-STATUS: <ready_for_review|blocked>
+STATUS: <ready_for_review|ready_for_commit|blocked>
 DONE:
 - code changes completed
 - checks run
 NEXT:
-- reviewer focus points
+- reviewer focus points, or commit handoff readiness details when STATUS is ready_for_commit
 BLOCKERS:
 - none
 ARTIFACTS:
 - <changed files/logs>
 ```
+
+Additional handoff rules:
+- Use `ready_for_review` after implementation or after addressing QA/reviewer findings that still require reviewer validation.
+- Use `ready_for_commit` only after QA passes and in-scope files are staged for committer handoff.
+- When `ready_for_commit`, include explicit staged include/exclude paths in ARTIFACTS.

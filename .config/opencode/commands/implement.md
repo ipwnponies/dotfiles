@@ -57,7 +57,7 @@ Per-slice loop (single unified execution engine):
 
 Loop rules:
 - Repeat reviewer/fixer until reviewer approves.
-- If QA fails, route to implementer/fixer and re-run review + QA.
+- If QA fails, route to implementer for triage first; if remediation is narrow and concrete, delegate to fixer; then re-run reviewer + QA.
 - Keep handoffs explicit with ROLE/STATUS/DONE/NEXT/BLOCKERS/ARTIFACTS.
 - Keep edits scoped to the selected task/slice boundaries.
 - Do not expand scope without explicit user approval collected via parent-mediated `NEEDS_USER_INPUT`.
