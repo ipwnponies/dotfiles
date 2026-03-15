@@ -23,19 +23,25 @@ Workflow:
    - Avoid repo-specific aliases like `add`, `update`, or `remove` when an equivalent standard type exists
    - Do not narrate file-by-file or step-by-step edits; assume diff explains those details
    - Avoid speculative claims that are not directly supported by the changes being committed
-4) Handle direct user-provided message text before drafting:
-   - If user input is empty, continue with normal drafting flow.
-   - If user input clearly reads like a complete commit message (subject-only or full multi-line body), treat it as final and use it as-is.
-   - If it is ambiguous whether the input is a final commit message or intent/context, request clarification from the parent agent (do not proceed to commit).
-   - If input is clearly intent/context rather than a final message, use it to inform your draft.
+4) Deterministic user-input classifier (run in this exact order):
+   - `CLASS=complete_message` when user input is a complete commit message (subject-only or multi-line). Use it exactly as final message.
+   - `CLASS=clear_intent` when user input is not a complete message and clearly describes desired outcome/context. Use it to draft the message.
+   - `CLASS=ambiguous_question` for any remaining case, including question/discussion text, mixed intent+message uncertainty, or unclear approval state.
+   - Precedence is strict and deterministic: `complete_message` > `clear_intent` > `ambiguous_question`.
+   - If user input is empty, treat it as `clear_intent` with no extra constraints.
 5) Commit message approval mode:
    - Parent can set `MESSAGE_MODE: auto` or `MESSAGE_MODE: interactive` in task input.
    - If mode is not specified, default to `auto`.
    - `auto` mode (used by `/implement`): draft a high-quality message and proceed directly to commit without asking the user.
    - `interactive` mode (used by `/commit`): if no final complete message is provided, propose a draft and iterate with parent-mediated user feedback before committing.
-   - In either mode, if user input text is ambiguous as message-vs-intent, return `NEEDS_USER_INPUT` and do not commit.
+   - Interactive loop cap: maximum 3 parent-mediated clarification rounds per commit attempt.
+   - On reaching round 3 without a final approved message, return `NEEDS_USER_INPUT` with `kind: final_decision_required`; require explicit final message text or explicit cancel. Do not commit until one is provided.
+   - In either mode, `CLASS=ambiguous_question` requires `NEEDS_USER_INPUT`; do not commit.
 6) If the user provides a complete commit message, treat it as final and use it exactly.
-7) If the user response is a question, discussion, or ambiguous text, return `NEEDS_USER_INPUT` for parent-mediated clarification and do not commit.
+7) Response handling by classifier:
+   - `complete_message`: finalize message immediately and continue to commit policy checks.
+   - `clear_intent`: draft/refine message using intent; in `auto` mode continue, in `interactive` mode return a draft for approval via parent mediation.
+   - `ambiguous_question`: return `NEEDS_USER_INPUT` and stop.
 8) Run commit as a separate command after message is finalized by policy (auto mode) or explicit user approval/final message (interactive mode).
    - If `git diff --staged` is non-empty, commit the staged index as-is and do not run `git add`.
    - Only run `git add <paths>` when `git diff --staged` is empty (or the user explicitly requests scope changes), then re-check `git diff --staged` before committing.
@@ -54,14 +60,32 @@ Parent-mediated interaction protocol (subtask mode):
 - Do not call the `question` tool directly.
 - In `auto` mode, only request user input when blocked by ambiguity/safety policy.
 - In `interactive` mode, request user input for message iteration when a final message is not already provided.
-- When user input is required, return a single `NEEDS_USER_INPUT` block and stop:
+- When user input is required, return a single `NEEDS_USER_INPUT` YAML block and stop:
 
 ```text
 NEEDS_USER_INPUT:
-- question: <single concise question>
-- options: <option 1> | <option 2> | <option 3>
-- why: <one-line reason input is needed>
+  kind: <approve_draft|classify_input|scope_change|final_decision_required|safety_confirmation>
+  question: <single concise question>
+  options:
+    - <option 1>
+    - <option 2>
+    - <option 3>
+  recommended: <exact option text or null>
+  default: <exact option text | null>
+  on_reply:
+    parse_as: <final_message|intent|approval|scope|cancel>
+    if_match:
+      - when: <condition>
+        then: <single deterministic action>
+    if_unmatched: <request_clarification|treat_as_ambiguous>
+  why: <one-line reason input is needed>
 ```
+
+- `recommended` semantics: best option from policy; must match one listed option or be `null`.
+- `default` semantics: option used when parent/user response is missing or non-decisive; must match one listed option or be `null`.
+- `default` must be `null` for safety-critical or ambiguity-resolution prompts (`kind: safety_confirmation`, `kind: classify_input`, `kind: final_decision_required`).
+- `on_reply` semantics: deterministic mapping from user reply to action; if no mapping matches, follow `if_unmatched` exactly.
+- Never use implicit defaults. If `default: null`, do not proceed until explicit user reply is classified.
 
 - The parent agent will ask the user, then resume this same task session with `task_id` and the user's answer.
 
