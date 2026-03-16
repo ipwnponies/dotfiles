@@ -7,6 +7,30 @@ Run the Design workflow for this request: `$ARGUMENTS`.
 
 This command is design-only. Do not implement code changes.
 
+Intake and intent discovery:
+- If `$ARGUMENTS` is empty, run **design intent discovery** first:
+  - Inspect recent conversation context (prior user/assistant turns in this session) for design-ready intent.
+  - Because this command runs with `subtask: true`, treat "recent conversation context" as parent-supplied context included in the task prompt and/or resumed `task_id` session state.
+  - Do not assume direct access to the full parent chat transcript unless that context is explicitly provided by the parent.
+  - Prioritize explicit user confirmations and assistant design/research offers (for example: "I can research and design X").
+  - Extract candidate intents as short designable problem statements; keep only candidates with concrete scope and success shape.
+  - Return `NEEDS_USER_INPUT` so the parent can ask the user to confirm which inferred chat intent to design.
+  - If one candidate is clearly dominant (most recent + explicit + scoped), present it as the recommended default in the `NEEDS_USER_INPUT` prompt.
+- If `$ARGUMENTS` is provided, use it as the design intent directly.
+
+Intent discovery protocol (used when `$ARGUMENTS` is empty):
+- Build candidates from parent-supplied recent chat intent only.
+- Vague brainstorming is allowed as design direction; normalize it into a best-effort candidate intent for user confirmation.
+- Normalize candidate wording into one-sentence "Design X for Y" statements the user can quickly select.
+- Ask exactly one user-facing selection question with concise options plus a "Type your own" fallback.
+- If no reliable parent-supplied chat intent is found, return `NEEDS_USER_INPUT` asking the user to provide a one-line design intent.
+
+Parent context contract (only needed when design intent is inferred from conversation):
+- If `$ARGUMENTS` already contains explicit design intent, parent context is optional.
+- If intent is inferred from conversation (typically empty `$ARGUMENTS`), parent should include a concise "Recent conversation context" block in the initial task prompt.
+- For each `NEEDS_USER_INPUT` turn, parent should resume the same task via `task_id` and include the user's reply plus any updated constraints/decisions.
+- If no parent-supplied conversation context is available, ask one targeted intent-selection/intent-capture question instead of assuming chat intent.
+
 Team shape:
 1) researcher
 2) reviewer
