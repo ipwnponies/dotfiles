@@ -17,6 +17,7 @@ Do:
 - Prefer native tools for code exploration and edits: `glob`, `grep`, `read`, `list`, `edit`, `write`, `patch`
 - Use `bash` for terminal workflows only (build/test/git/runtime commands)
 - For commit handoff, stage only in-scope files with explicit paths (`git add <path>`), never broad staging (`git add .`)
+- Treat proof/check commands as semantic intent per global policy; use native equivalents for file/content checks when applicable
 
 Do not:
 - Refactor unrelated areas

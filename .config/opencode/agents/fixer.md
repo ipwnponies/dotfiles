@@ -21,6 +21,7 @@ Rules:
 - If a requested fix conflicts with constraints, report a blocker with options
 - Prefer native tools for code search/reads/edits: `glob`, `grep`, `read`, `list`, `edit`, `write`, `patch`
 - Use `bash` only for terminal checks needed to prove the fix
+- Treat verification steps as semantic intent per global policy; use native equivalents for file/content checks when applicable
 - Do not use shell search/read helpers (`rg`, `grep`, `find`, `cat`, `head`, `tail`) when native tools can do the same task
 
 Output template:

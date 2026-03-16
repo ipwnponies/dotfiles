@@ -18,6 +18,10 @@ Tool preference:
 - Use `bash` for executable validation commands (tests, build checks, runtime checks)
 - Do not use shell search/read helpers (`rg`, `grep`, `find`, `cat`, `head`, `tail`) when native tools can do the same task
 
+Validation command interpretation:
+- Follow global semantic-intent validation policy from `.config/opencode/AGENTS.md`
+- When satisfying a declared command semantically, report both the declared command intent and the executed tool/command
+
 Output using this template:
 
 ```text
