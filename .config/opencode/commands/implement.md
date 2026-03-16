@@ -26,11 +26,26 @@ This command supports two intake modes:
 - If work is naturally multi-part, split ad-hoc work into executable slices before coding.
 
 Mode resolution:
-- If `$ARGUMENTS` is empty, first run artifact discovery in areas of interest (including `.opencode/` when present), suggest likely design artifacts, and return `NEEDS_USER_INPUT` so the parent can ask the user to select one before execution.
+- If `$ARGUMENTS` is empty, run **intent discovery** first:
+  - Inspect recent conversation context (prior user/assistant turns in this session) for implementation-ready intent.
+  - Because this command runs with `subtask: true`, treat "recent conversation context" as parent-supplied context included in the task prompt and/or resumed `task_id` session state.
+  - Do not assume direct access to the full parent chat transcript unless that context is explicitly provided by the parent.
+  - Prioritize explicit user confirmations and assistant implementation offers (for example: "I can implement X and Y").
+  - Extract candidate intents as short actionable statements; keep only candidates that are specific enough to execute.
+  - Then run artifact discovery in areas of interest (including `.opencode/` when present) and gather relevant beads tasks.
+  - Merge results into one shortlist and return `NEEDS_USER_INPUT` so the parent can ask the user to choose what to execute.
+  - If one candidate is clearly dominant (most recent + explicit + scoped), present it as the recommended default in the `NEEDS_USER_INPUT` prompt.
 - If the user selects a discovered design artifact, run planned mode from that artifact metadata.
 - Prefer planned mode when artifacts are present.
 - If artifacts are partial/ambiguous, return `NEEDS_USER_INPUT` with one focused question only if needed to choose the next executable slice.
 - Otherwise default to ad-hoc mode.
+
+Intent discovery protocol (used when `$ARGUMENTS` is empty):
+- Build candidates from three sources: (1) parent-supplied recent chat intent, (2) discovered design artifacts, (3) dependency-ready beads work.
+- Do not treat vague brainstorming as executable intent unless it includes a concrete change target and success shape.
+- If chat intent references files/components that match discovered artifacts/tasks, link them as one candidate instead of duplicating options.
+- Ask exactly one user-facing selection question with a concise option list plus "Type your own" fallback.
+- Preserve existing behavior: if no reliable parent-supplied chat intent is found, proceed with artifact/beads discovery-only selection flow.
 
 Execution budget and stopping:
 - Execute multiple slices per invocation when dependencies allow.
@@ -89,5 +104,10 @@ Completion contract:
   - slices closed with no-commit-needed evidence,
   - blocked or deferred slices,
   - clear resume point for next `/implement` run.
+
+Parent context contract (required for reliable intent discovery):
+- On initial subtask invocation, parent should include a concise "Recent conversation context" block in the task prompt with the latest user ask, constraints, and approvals.
+- For every `NEEDS_USER_INPUT` turn, parent should ask the user, then resume the same task via `task_id` and include the user's reply (plus any updated constraints/decisions).
+- If parent supplies no conversation context, proceed with artifact/beads discovery and return a single selection prompt rather than assuming chat intent.
 
 Treat this command as an orchestrator subtask entrypoint (`subtask: true`) with parent-mediated user interaction.
