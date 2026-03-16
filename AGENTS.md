@@ -22,8 +22,8 @@
 
 ## Commit & Pull Request Guidelines
 - Use Conventional Commit subjects: `type: short description` or `type(scope): short description`.
-- Keep commit subjects under 70 characters and use a precise type (`add`, `update`, `fix`, `refactor`, `remove`) that matches the change intent.
-- Use scope when helpful in this multi-project repo (for example `fix(venv): ...`, `update(agent): ...`), and derive scope names from existing git history to stay consistent.
+- Keep commit subjects under 70 characters and use a precise type (`feat`, `fix`, `docs`, `refactor`, `chore`) that matches the change intent.
+- Use scope when helpful in this multi-project repo (for example `fix(venv): ...`, `chore(agent): ...`), and derive scope names from existing git history to stay consistent.
 - If multiple scopes seem possible, pick the one already used most often in recent commits for the same area.
 - For non-trivial changes, add a short body (1-2 sentences) that explains why the change exists and the expected impact; avoid file-by-file narration.
 - Reference related issues or upstream PRs in the body, and attach screenshots or logs when UI or automation behavior changes.
