@@ -31,6 +31,19 @@ Parent context contract (only needed when design intent is inferred from convers
 - For each `NEEDS_USER_INPUT` turn, parent should resume the same task via `task_id` and include the user's reply plus any updated constraints/decisions.
 - If no parent-supplied conversation context is available, ask one targeted intent-selection/intent-capture question instead of assuming chat intent.
 
+Required prompt envelope for inferred-intent mode (empty `$ARGUMENTS`):
+- The parent-provided task prompt should include these labeled sections:
+  - `Recent conversation context:`
+  - `Inferred design intent:`
+  - `Constraints and approvals:`
+- If these sections are missing or substantially empty, treat context as unavailable.
+
+Fail-safe when context envelope is missing:
+- If `$ARGUMENTS` is empty and required prompt-envelope context is unavailable, return `NEEDS_USER_INPUT` asking for either:
+  - a one-line explicit design intent, or
+  - confirmation to proceed with artifact-only discovery.
+- Do not infer design intent from unstated/implicit chat history in this case.
+
 Team shape:
 1) researcher
 2) reviewer
