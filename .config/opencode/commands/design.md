@@ -82,6 +82,7 @@ Permissions:
   - NETWORK: approved_once | approved_phase | denied
 - Without approval, continue offline and explicitly record uncertainty/risk.
 - Do not create or update bd issues in this command.
+- `/design` must never execute `bd create`, `bd dep add`, or any other bd mutation command.
 
 Required output artifact:
 - Produce one design doc artifact in `.opencode/design/` with:
@@ -94,7 +95,9 @@ Required output artifact:
   - verification plan with executable checks and pass signals,
   - rollback strategy,
   - monitoring/observability plan,
-  - bd-ready section with near-copy/paste instructions to create corresponding bd issues later (default type `feature`, priority `P2`),
+  - `BD COMMANDS` section with copy/paste-ready commands to create corresponding bd issues later (default type `feature`, priority `P2`),
+  - per-slice command coverage in `BD COMMANDS` that includes `bd create` inputs for title, type, priority, and description source, plus explicit `bd dep add` wiring for slice dependencies,
+  - `BD COMMANDS` must be executable with only ID substitution (for example replacing `<epic-id>` and `<slice-id>` placeholders) and no additional command authoring,
   - one `PATCH READY` block per implementation slice using this format:
 
 PATCH READY
@@ -124,5 +127,6 @@ Risk: <low|medium|high>
 
 Exit criteria:
 - End at STATUS: ready_for_user.
+- Do not mark `ready_for_user` unless the design artifact contains a complete `BD COMMANDS` section where every planned slice has executable `bd create` and `bd dep add` coverage requiring only ID substitution.
 - Stop and return `NEEDS_USER_INPUT` so the parent can collect user approval/iteration feedback.
 - Do not auto-start patch/build teams from this command.
