@@ -28,27 +28,23 @@ Workflow:
    - Do not narrate file-by-file or step-by-step edits; assume diff explains those details
    - Avoid speculative claims that are not directly supported by the changes being committed
 4) Deterministic user-input classifier (run in this exact order):
-   - `CLASS=FINAL_MESSAGE` when user input is a complete commit message (subject-only or multi-line). Use it exactly as final message.
-   - `CLASS=INTENT_CONTEXT` when user input is not a complete message and clearly describes desired outcome/context. Use it to draft the message.
-   - `CLASS=AMBIGUOUS` for any remaining case, including question/discussion text, mixed intent+message uncertainty, or unclear approval state.
-   - Precedence is strict and deterministic: `FINAL_MESSAGE` > `INTENT_CONTEXT` > `AMBIGUOUS`.
-   - If user input is empty, treat it as `INTENT_CONTEXT` with no extra constraints.
-   - Tie-breaker rule: in `interactive` mode, prefer clarification (`NEEDS_USER_INPUT`) when both FINAL_MESSAGE and INTENT_CONTEXT signals are strong; in `auto` mode, prefer drafting from diff/intent unless user explicitly says to use exact text as final message.
-5) Commit message approval mode:
-   - Parent can set `MESSAGE_MODE: auto` or `MESSAGE_MODE: interactive` in task input.
-   - If mode is not specified, default to `auto`.
-   - `auto` mode (used by `/implement`): draft a high-quality message and proceed directly to commit without asking the user.
-   - `interactive` mode (used by `/commit`): if no final complete message is provided, propose a draft and iterate with parent-mediated user feedback before committing.
-   - Interactive loop cap: maximum `INTERACTIVE_MAX_ROUNDS` parent-mediated clarification rounds per commit attempt.
-   - If `INTERACTIVE_MAX_ROUNDS` is not specified, default to `2`.
-   - On reaching the configured round cap without a final approved message, return `NEEDS_USER_INPUT` with `kind: final_approval`; require explicit final message text or explicit cancel. Do not commit until one is provided.
-   - In either mode, `CLASS=AMBIGUOUS` requires `NEEDS_USER_INPUT`; do not commit.
-6) If the user provides a complete commit message, treat it as final and use it exactly.
-7) Response handling by classifier:
-   - `FINAL_MESSAGE`: finalize message immediately and continue to commit policy checks.
-   - `INTENT_CONTEXT`: draft/refine message using intent; in `auto` mode continue, in `interactive` mode return a draft for approval via parent mediation.
-   - `AMBIGUOUS`: return `NEEDS_USER_INPUT` and stop.
-8) Run commit as a separate command after message is finalized by policy (auto mode) or explicit user approval/final message (interactive mode).
+    - `CLASS=FINAL_MESSAGE` when user input is a complete commit message (subject-only or multi-line). Use it exactly as final message.
+    - `CLASS=INTENT_CONTEXT` when user input is not a complete message and clearly describes desired outcome/context. Use it to draft the message.
+    - `CLASS=AMBIGUOUS` for any remaining case, including question/discussion text, mixed intent+message uncertainty, or unclear approval state.
+    - Precedence is strict and deterministic: `FINAL_MESSAGE` > `INTENT_CONTEXT` > `AMBIGUOUS`.
+    - If user input is empty, treat it as `INTENT_CONTEXT` with no extra constraints.
+    - Tie-breaker rule: if both FINAL_MESSAGE and INTENT_CONTEXT signals are strong, classify as `AMBIGUOUS` and request clarification.
+5) Message finalization and correctness gate:
+    - Non-interactive by default: draft/finalize and proceed to commit without message review loops.
+    - If classifier returns `FINAL_MESSAGE`, treat the user's text as final unless it is materially incorrect for the staged diff or violates commit-message constraints.
+    - If classifier returns `INTENT_CONTEXT`, draft/refine a compliant message from diff + intent and proceed automatically.
+    - Materially incorrect means the message conflicts with the observed diff in a meaningful way (for example: claims a breaking change that is not present, describes a different subsystem, or states an opposite outcome).
+    - Differences in style, verbosity, or level of detail are acceptable when the message remains accurate.
+6) Response handling by classifier:
+    - `FINAL_MESSAGE`: validate for correctness/safety, then continue; if materially incorrect, return `NEEDS_USER_INPUT` (`kind: final_approval`) and stop.
+    - `INTENT_CONTEXT`: draft/refine message using intent and continue.
+    - `AMBIGUOUS`: return `NEEDS_USER_INPUT` and stop.
+7) Run commit as a separate command after message is finalized.
    - If `STAGE_MANIFEST` is provided, stage manifest `include` paths and verify staged results match manifest scope before committing.
    - If `STAGE_MANIFEST` is not provided and `git diff --staged` is non-empty, commit the staged index as-is and do not run `git add`.
    - If `STAGE_MANIFEST` is not provided and `git diff --staged` is empty (or the user explicitly requests scope changes), run `git add <paths>` and re-check `git diff --staged` before committing.
@@ -56,7 +52,7 @@ Workflow:
    - Do not chain commit flow with other operations.
    - For any multi-line commit message, always pass message content with heredoc or `git commit -F`.
    - For single-line messages, avoid fragile inline quoting and prefer safe quoting patterns.
-9) Confirm clearly that the commit was created, then show a one-commit summary with `git log -1 --oneline --shortstat --stat --stat-count=8` (or equivalent):
+8) Confirm clearly that the commit was created, then show a one-commit summary with `git log -1 --oneline --shortstat --stat --stat-count=8` (or equivalent):
    - Always include hash + final subject
    - Include shortstat totals (`files changed`, `insertions`, `deletions`)
     - Include file-level `+/-` stats when available
@@ -74,17 +70,16 @@ COMMIT_RESULT:
     - <path + stat>
 ```
 
-10) End immediately after commit results; do not suggest next steps or additional help.
+9) End immediately after commit results; do not suggest next steps or additional help.
 
 Parent-mediated interaction protocol (subtask mode):
 - Do not call the `question` tool directly.
-- In `auto` mode, only request user input when blocked by ambiguity/safety policy.
-- In `interactive` mode, request user input for message iteration when a final message is not already provided.
+- Request user input only when blocked by ambiguity, safety policy, or final-message correctness validation.
 - When user input is required, return a single `NEEDS_USER_INPUT` YAML block and stop:
 
 ```text
 NEEDS_USER_INPUT:
-  kind: <message_or_intent|scope_selection|final_approval|secret_file_confirmation>
+  kind: <message_or_intent|scope_change|final_approval|secret_file_confirmation>
   question: <single concise question>
   options:
     - label: <short option label>
