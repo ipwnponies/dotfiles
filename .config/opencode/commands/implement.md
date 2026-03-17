@@ -112,17 +112,30 @@ Completion contract:
   - blocked or deferred slices,
   - clear resume point for next `/implement` run.
 
-Parent context contract (only needed when implementation intent is inferred from conversation):
-- If `$ARGUMENTS` already contains explicit implementation intent (for example artifact/task references or direct executable scope), parent context is optional.
-- When intent is inferred from conversation (typically empty `$ARGUMENTS`), parent should include a concise "Recent conversation context" block in the task prompt with the latest user ask, constraints, and approvals.
-- For every `NEEDS_USER_INPUT` turn, parent should ask the user, then resume the same task via `task_id` and include the user's reply (plus any updated constraints/decisions).
+Parent context contract:
+- Do not rely on one-line context summaries when prior discussion exists.
+- If prior discussion exists (including a single long turn), parent must include a structured context packet in the initial prompt, even when `$ARGUMENTS` contains explicit implementation intent.
+- For every `NEEDS_USER_INPUT` turn, parent should ask the user, then resume the same task via `task_id` and include the user's reply (plus any updated constraints/decisions/context packet fields).
 - Required prompt envelope for inferred-intent mode (empty `$ARGUMENTS`):
   - `Recent conversation context:`
+  - `Current user intent:`
   - `Inferred build intent:`
+  - `Decisions made:`
   - `Constraints and approvals:`
+  - `Open questions and risks:`
+  - `Referenced artifacts:`
+- Coverage guidance:
+  - Include the right amount of detail to preserve intent and constraints; do not force fixed minimums or maximums.
+  - `Recent conversation context:` retain enough detail to avoid compressing materially important discussion into one line.
+  - `Decisions made:` include accepted and rejected options when applicable.
+  - `Constraints and approvals:` include explicit safety/tool/network approvals or denials when present.
+- Required prompt envelope for explicit-intent mode (non-empty `$ARGUMENTS`) when prior discussion exists:
+  - Include all sections except `Inferred build intent:`.
+- If prior discussion exists but packet coverage is too shallow to preserve intent/constraints, return `NEEDS_USER_INPUT` requesting a fuller context packet before execution.
 - If `$ARGUMENTS` is empty and the required prompt envelope is missing or substantially empty, return `NEEDS_USER_INPUT` asking for either:
   - a one-line explicit build/implementation intent, or
   - confirmation to proceed with artifact-only discovery.
+- If explicit intent is provided but prior discussion exists and packet coverage is too shallow, return `NEEDS_USER_INPUT` asking for a fuller context packet (timeline, decisions, constraints) before intent discovery/execution.
 - Do not infer implementation intent from unstated/implicit chat history in this fail-safe branch.
 
 Treat this command as an orchestrator subtask entrypoint (`subtask: true`) with parent-mediated user interaction.

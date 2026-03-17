@@ -30,23 +30,37 @@ Intent discovery protocol (used when `$ARGUMENTS` is empty):
 - Ask exactly one user-facing selection question with concise options plus a "Type your own" fallback.
 - If no reliable parent-supplied chat intent is found, return `NEEDS_USER_INPUT` asking the user to provide a one-line design intent.
 
-Parent context contract (only needed when design intent is inferred from conversation):
-- If `$ARGUMENTS` already contains explicit design intent, parent context is optional.
-- If intent is inferred from conversation (typically empty `$ARGUMENTS`), parent should include a concise "Recent conversation context" block in the initial task prompt.
-- For each `NEEDS_USER_INPUT` turn, parent should resume the same task via `task_id` and include the user's reply plus any updated constraints/decisions.
+Parent context contract:
+- Do not rely on one-line context summaries when prior discussion exists.
+- If prior discussion exists (including a single long turn), parent must include a structured context packet in the initial prompt, even when `$ARGUMENTS` contains explicit design intent.
+- For each `NEEDS_USER_INPUT` turn, parent should resume the same task via `task_id` and include the user's reply plus any updated constraints/decisions/context packet fields.
 - If no parent-supplied conversation context is available, ask one targeted intent-selection/intent-capture question instead of assuming chat intent.
 
 Required prompt envelope for inferred-intent mode (empty `$ARGUMENTS`):
 - The parent-provided task prompt should include these labeled sections:
   - `Recent conversation context:`
+  - `Current user intent:`
   - `Inferred design intent:`
+  - `Decisions made:`
   - `Constraints and approvals:`
+  - `Open questions and risks:`
+  - `Referenced artifacts:`
+- Coverage guidance:
+  - Include the right amount of detail to preserve intent and constraints; do not force fixed minimums or maximums.
+  - `Recent conversation context:` retain enough detail to avoid compressing materially important discussion into one line.
+  - `Decisions made:` include accepted and rejected options when applicable.
+  - `Constraints and approvals:` include explicit safety/tool/network approvals or denials when present.
 - If these sections are missing or substantially empty, treat context as unavailable.
 
+Required prompt envelope for explicit-intent mode (non-empty `$ARGUMENTS`) when prior discussion exists:
+- Include all sections except `Inferred design intent:`.
+- If prior discussion exists but packet coverage is too shallow to preserve intent/constraints, return `NEEDS_USER_INPUT` requesting a fuller context packet before continuing.
+
 Fail-safe when context envelope is missing:
-- If `$ARGUMENTS` is empty and required prompt-envelope context is unavailable, return `NEEDS_USER_INPUT` asking for either:
+- If required prompt-envelope context is unavailable in inferred-intent mode, return `NEEDS_USER_INPUT` asking for either:
   - a one-line explicit design intent, or
   - confirmation to proceed with artifact-only discovery.
+- If explicit intent is provided but prior discussion exists and packet coverage is too shallow, return `NEEDS_USER_INPUT` asking for a fuller context packet (timeline, decisions, constraints) before researcher/reviewer execution.
 - Do not infer design intent from unstated/implicit chat history in this case.
 - In this fail-safe branch, do not start researcher/reviewer execution until user input is received.
 

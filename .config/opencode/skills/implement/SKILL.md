@@ -24,17 +24,30 @@ description: Implement workflow skill with inferred-intent context handoff.
 
 - If the user provides explicit implementation intent, use it as `$ARGUMENTS`.
 - If no intent is provided, infer candidates from recent conversation context only.
-- If inferred mode is used, include this exact prompt envelope in orchestrator task input:
+
+## Context packet contract
+
+- Do not pass one-line context summaries when prior discussion exists.
+- If prior discussion exists (including a single long turn), include a structured context packet in orchestrator task input.
+- Use this exact envelope when dispatching to `/implement` (for both explicit and inferred intent):
   - `Recent conversation context:`
-  - `Inferred build intent:`
+  - `Current user intent:`
+  - `Decisions made:`
   - `Constraints and approvals:`
+  - `Open questions and risks:`
+  - `Referenced artifacts:`
+- Coverage guidance:
+  - Capture enough detail to preserve user intent, decisions, and constraints without forcing fixed minimums or maximums.
+  - `Recent conversation context:` preserve material context in the level of detail needed for accurate execution.
+  - `Decisions made:` include accepted/rejected decisions when implementation choices were discussed.
+  - `Constraints and approvals:` include explicit safety/tool/network approvals or denials when mentioned.
+- In inferred-intent mode, include an additional section:
+  - `Inferred build intent:`
 
 ## Deterministic subtask dispatch
 
 - Dispatch to `orchestrator` as a subtask target for `/implement`.
-- Always pass either:
-  - explicit `$ARGUMENTS`, or
-  - an empty-arguments prompt that contains the required envelope.
+- Always pass either explicit `$ARGUMENTS` or an inferred-intent prompt, and include the context packet envelope whenever prior discussion exists.
 - For `NEEDS_USER_INPUT`, ask exactly one question and resume the same task session via `task_id` with the user response and updated constraints.
 
 ## Empty-input fail-safe
