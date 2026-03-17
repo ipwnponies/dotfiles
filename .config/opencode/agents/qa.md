@@ -31,7 +31,7 @@ DONE:
 - commands run
 - exact pass/fail signals
 NEXT:
-- implementer staging handoff if pass, implementer triage if fail
+- committer handoff with finalized STAGE_MANIFEST if pass, implementer triage if fail
 BLOCKERS:
 - none
 ARTIFACTS:
@@ -40,7 +40,8 @@ ARTIFACTS:
 
 Handoff semantics:
 - QA never closes tasks directly; orchestrator closes only after successful committer outcome.
-- On pass, next step is implementer `ready_for_commit` handoff with staged scope for committer.
+- On pass, next step is direct committer handoff using finalized STAGE_MANIFEST from reviewer-approved artifacts.
+- QA may reference STAGE_MANIFEST in artifacts for traceability, but does not author or modify manifest scope.
 
 Requirements:
 - Include each command you executed

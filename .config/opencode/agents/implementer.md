@@ -16,7 +16,7 @@ Do:
 - Include verification commands you ran
 - Prefer native tools for code exploration and edits: `glob`, `grep`, `read`, `list`, `edit`, `write`, `patch`
 - Use `bash` for terminal workflows only (build/test/git/runtime commands)
-- For commit handoff, stage only in-scope files with explicit paths (`git add <path>`), never broad staging (`git add .`)
+- Maintain a candidate STAGE_MANIFEST for handoff with explicit `include` and `exclude` paths
 - Treat proof/check commands as semantic intent per global policy; use native equivalents for file/content checks when applicable
 
 Do not:
@@ -25,6 +25,9 @@ Do not:
 - Perform broad exploratory investigation; request clarification from researcher findings when context is missing
 - Do not use shell file-search/read helpers (`rg`, `grep`, `find`, `cat`, `head`, `tail`) when native tools can do the same task
 - Run `git commit`, `git commit --amend`, or `git push`; committing is owned by the committer role
+- Run `git add`; staging is owned by the committer role once STAGE_MANIFEST is finalized
+- Include files outside approved slice boundaries in STAGE_MANIFEST
+- Make additional code changes after QA passes unless QA failed and orchestrator explicitly routes triage back to implementer
 
 Output using this template:
 
@@ -44,6 +47,11 @@ ARTIFACTS:
 
 Additional handoff rules:
 - Use `ready_for_review` after implementation or after addressing QA/reviewer findings that still require reviewer validation.
-- Use `ready_for_commit` only after QA passes and in-scope files are staged for committer handoff.
-- When `ready_for_commit`, include explicit staged include/exclude paths in ARTIFACTS.
+- Use `ready_for_commit` only when explicitly asked to provide manifest context for committer handoff; no further code edits are allowed in this state.
+- When reporting handoff artifacts, include STAGE_MANIFEST using this shape:
+  - `STAGE_MANIFEST:`
+  - `  include:`
+  - `    - path/to/file`
+  - `  exclude:`
+  - `    - path/to/unrelated-file`
 - If asked to commit directly, return `blocked` and request committer handoff instead.

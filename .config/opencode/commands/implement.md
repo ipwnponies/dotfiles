@@ -65,28 +65,30 @@ Per-slice loop (single unified execution engine):
 4) fixer when reviewer finds issues
 5) reviewer_impl re-check
 6) qa validation
-7) implementer stages final relevant files for commit handoff
-8) committer creates commit (or records no-commit-needed)
-9) orchestrator closes slice-linked beads task only after committer outcome
-10) return to step 1 for next ready slice until stop conditions are met
+7) committer stages from finalized STAGE_MANIFEST and creates commit (or records no-commit-needed)
+8) orchestrator closes slice-linked beads task only after committer outcome
+9) return to step 1 for next ready slice until stop conditions are met
 
 Loop rules:
-- Repeat reviewer/fixer until reviewer approves.
+- Repeat reviewer/fixer until reviewer approves and marks STAGE_MANIFEST as final.
 - If QA fails, route to implementer for triage first; if remediation is narrow and concrete, delegate to fixer; then re-run reviewer + QA.
 - Keep handoffs explicit with ROLE/STATUS/DONE/NEXT/BLOCKERS/ARTIFACTS.
 - Keep edits scoped to the selected task/slice boundaries.
 - Do not expand scope without explicit user approval collected via parent-mediated `NEEDS_USER_INPUT`.
-- During fixer steps, do not stage files; keep fixes unstaged for reviewer verification via unstaged diffs.
-- During implementer steps, stage only files that are in-scope for the task using explicit paths (`git add <path>`), never broad `git add .`.
+- During fixer steps, do not stage files; keep fixes unstaged for reviewer verification via unstaged diffs, and update candidate STAGE_MANIFEST paths as edits change.
+- During implementer steps, maintain candidate STAGE_MANIFEST (`include` + `exclude`) for in-scope files; do not run `git commit`.
+- During reviewer steps, validate scope and mark STAGE_MANIFEST as final before QA.
+- On QA pass, orchestrator hands finalized STAGE_MANIFEST directly to committer; do not route back to implementer unless QA failed.
+- During committer steps, stage only manifest `include` paths with explicit `git add <path>` and verify manifest `exclude` paths stay unstaged.
 - Preserve dirty workspace safety: leave unrelated unstaged changes untouched and explicitly list excluded files in handoff notes.
-- Before ending the workflow, ensure the intended commit contents are staged so the committer can focus on committing staged files only.
+- Before ending the workflow, ensure finalized STAGE_MANIFEST is explicit and committer-validated against the staged index.
 - Commit handoff is automatic by default: committer drafts and commits without user-message approval unless ambiguity/safety policy forces a blocker.
 - For committer handoff in this workflow, set `MESSAGE_MODE: auto`.
 - Do not close a beads task before committer completes.
 - Beads task closure requires one of:
   - a commit hash from committer for the scoped task changes, or
   - explicit no-commit-needed evidence from committer (no file changes required), documented in handoff artifacts.
-- If committer fails or is blocked, route back to implementer/fixer and keep the beads task open.
+- If committer fails or is blocked on scope/manifest mismatch, route to reviewer_impl for manifest correction; if blocked on code defects, route to implementer/fixer; keep the beads task open.
 
 Scheduler rules for partially parallel plans:
 - Respect declared dependencies; only execute slices whose dependencies are complete.

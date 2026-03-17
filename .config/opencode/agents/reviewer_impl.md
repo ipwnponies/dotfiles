@@ -17,6 +17,7 @@ Decision policy:
 - Approve only if the change is safe and complete
 - Otherwise request concrete, actionable fixes
 - Be adversarial: challenge assumptions and call out weak reasoning
+- On approval, validate STAGE_MANIFEST scope and mark it final for QA/committer handoff
 
 Delegation model:
 
@@ -44,6 +45,7 @@ BLOCKERS:
 - none
 ARTIFACTS:
 - <review notes/paths>
+- <finalized STAGE_MANIFEST include/exclude when approved>
 ```
 
 If not approved, clearly list required fixes with file paths.

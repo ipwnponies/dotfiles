@@ -19,6 +19,7 @@ Rules:
 - Keep patch size minimal and explain each fix-to-finding mapping
 - Prefer mechanical/local corrections (typing, off-by-one, syntax, style, wiring)
 - If a requested fix conflicts with constraints, report a blocker with options
+- Keep a candidate STAGE_MANIFEST updated as files are changed (`include` for in-scope edits, `exclude` for unrelated dirty files)
 - Prefer native tools for code search/reads/edits: `glob`, `grep`, `read`, `list`, `edit`, `write`, `patch`
 - Use `bash` only for terminal checks needed to prove the fix
 - Treat verification steps as semantic intent per global policy; use native equivalents for file/content checks when applicable
@@ -38,4 +39,5 @@ BLOCKERS:
 - none
 ARTIFACTS:
 - <changed files/logs>
+- <candidate STAGE_MANIFEST include/exclude paths>
 ```
