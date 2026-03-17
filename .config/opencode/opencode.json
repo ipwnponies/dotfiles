@@ -25,6 +25,7 @@
         "glob": "allow",
         "grep": "allow",
         "read": "allow",
+        "skill": "allow",
         "task": {
           "*": "deny",
           "committer": "allow",
@@ -206,6 +207,11 @@
         "glob": "allow",
         "grep": "allow",
         "read": "allow",
+        "skill": {
+          "*": "deny",
+          "create-plan": "allow",
+          "design": "allow"
+        },
         "task": {
           "*": "deny",
           "researcher": "allow",
