@@ -28,24 +28,26 @@ Workflow:
    - Do not narrate file-by-file or step-by-step edits; assume diff explains those details
    - Avoid speculative claims that are not directly supported by the changes being committed
 4) Deterministic user-input classifier (run in this exact order):
-   - `CLASS=complete_message` when user input is a complete commit message (subject-only or multi-line). Use it exactly as final message.
-   - `CLASS=clear_intent` when user input is not a complete message and clearly describes desired outcome/context. Use it to draft the message.
-   - `CLASS=ambiguous_question` for any remaining case, including question/discussion text, mixed intent+message uncertainty, or unclear approval state.
-   - Precedence is strict and deterministic: `complete_message` > `clear_intent` > `ambiguous_question`.
-   - If user input is empty, treat it as `clear_intent` with no extra constraints.
+   - `CLASS=FINAL_MESSAGE` when user input is a complete commit message (subject-only or multi-line). Use it exactly as final message.
+   - `CLASS=INTENT_CONTEXT` when user input is not a complete message and clearly describes desired outcome/context. Use it to draft the message.
+   - `CLASS=AMBIGUOUS` for any remaining case, including question/discussion text, mixed intent+message uncertainty, or unclear approval state.
+   - Precedence is strict and deterministic: `FINAL_MESSAGE` > `INTENT_CONTEXT` > `AMBIGUOUS`.
+   - If user input is empty, treat it as `INTENT_CONTEXT` with no extra constraints.
+   - Tie-breaker rule: in `interactive` mode, prefer clarification (`NEEDS_USER_INPUT`) when both FINAL_MESSAGE and INTENT_CONTEXT signals are strong; in `auto` mode, prefer drafting from diff/intent unless user explicitly says to use exact text as final message.
 5) Commit message approval mode:
    - Parent can set `MESSAGE_MODE: auto` or `MESSAGE_MODE: interactive` in task input.
    - If mode is not specified, default to `auto`.
    - `auto` mode (used by `/implement`): draft a high-quality message and proceed directly to commit without asking the user.
    - `interactive` mode (used by `/commit`): if no final complete message is provided, propose a draft and iterate with parent-mediated user feedback before committing.
-   - Interactive loop cap: maximum 3 parent-mediated clarification rounds per commit attempt.
-   - On reaching round 3 without a final approved message, return `NEEDS_USER_INPUT` with `kind: final_decision_required`; require explicit final message text or explicit cancel. Do not commit until one is provided.
-   - In either mode, `CLASS=ambiguous_question` requires `NEEDS_USER_INPUT`; do not commit.
+   - Interactive loop cap: maximum `INTERACTIVE_MAX_ROUNDS` parent-mediated clarification rounds per commit attempt.
+   - If `INTERACTIVE_MAX_ROUNDS` is not specified, default to `2`.
+   - On reaching the configured round cap without a final approved message, return `NEEDS_USER_INPUT` with `kind: final_approval`; require explicit final message text or explicit cancel. Do not commit until one is provided.
+   - In either mode, `CLASS=AMBIGUOUS` requires `NEEDS_USER_INPUT`; do not commit.
 6) If the user provides a complete commit message, treat it as final and use it exactly.
 7) Response handling by classifier:
-   - `complete_message`: finalize message immediately and continue to commit policy checks.
-   - `clear_intent`: draft/refine message using intent; in `auto` mode continue, in `interactive` mode return a draft for approval via parent mediation.
-   - `ambiguous_question`: return `NEEDS_USER_INPUT` and stop.
+   - `FINAL_MESSAGE`: finalize message immediately and continue to commit policy checks.
+   - `INTENT_CONTEXT`: draft/refine message using intent; in `auto` mode continue, in `interactive` mode return a draft for approval via parent mediation.
+   - `AMBIGUOUS`: return `NEEDS_USER_INPUT` and stop.
 8) Run commit as a separate command after message is finalized by policy (auto mode) or explicit user approval/final message (interactive mode).
    - If `STAGE_MANIFEST` is provided, stage manifest `include` paths and verify staged results match manifest scope before committing.
    - If `STAGE_MANIFEST` is not provided and `git diff --staged` is non-empty, commit the staged index as-is and do not run `git add`.
@@ -57,8 +59,21 @@ Workflow:
 9) Confirm clearly that the commit was created, then show a one-commit summary with `git log -1 --oneline --shortstat --stat --stat-count=8` (or equivalent):
    - Always include hash + final subject
    - Include shortstat totals (`files changed`, `insertions`, `deletions`)
-   - Include file-level `+/-` stats when available
-   - Truncate file list when long (for example with `--stat-count=8`) and keep output concise
+    - Include file-level `+/-` stats when available
+    - Truncate file list when long (for example with `--stat-count=8`) and keep output concise
+   - Return this structured summary block for parent consumption:
+
+```text
+COMMIT_RESULT:
+  hash: <commit-hash>
+  subject: <final subject>
+  files_changed: <int>
+  insertions: <int>
+  deletions: <int>
+  top_files:
+    - <path + stat>
+```
+
 10) End immediately after commit results; do not suggest next steps or additional help.
 
 Parent-mediated interaction protocol (subtask mode):
@@ -69,28 +84,28 @@ Parent-mediated interaction protocol (subtask mode):
 
 ```text
 NEEDS_USER_INPUT:
-  kind: <approve_draft|classify_input|scope_change|final_decision_required|safety_confirmation>
+  kind: <message_or_intent|scope_selection|final_approval|secret_file_confirmation>
   question: <single concise question>
   options:
-    - <option 1>
-    - <option 2>
-    - <option 3>
-  recommended: <exact option text or null>
-  default: <exact option text | null>
+    - label: <short option label>
+      value: <stable option id>
+      on_reply: <single deterministic action for this option>
+    - label: <short option label>
+      value: <stable option id>
+      on_reply: <single deterministic action for this option>
+  recommended: <option value or null>
+  accepts_freeform: <true|false>
+  default_if_no_response: <option value or null>
   on_reply:
-    parse_as: <final_message|intent|approval|scope|cancel>
-    if_match:
-      - when: <condition>
-        then: <single deterministic action>
     if_unmatched: <request_clarification|treat_as_ambiguous>
   why: <one-line reason input is needed>
 ```
 
-- `recommended` semantics: best option from policy; must match one listed option or be `null`.
-- `default` semantics: option used when parent/user response is missing or non-decisive; must match one listed option or be `null`.
-- `default` must be `null` for safety-critical or ambiguity-resolution prompts (`kind: safety_confirmation`, `kind: classify_input`, `kind: final_decision_required`).
+- `recommended` semantics: best option from policy; must match one listed `value` or be `null`.
+- `default_if_no_response` semantics: option used when parent/user response is missing or non-decisive; must match one listed `value` or be `null`.
+- `default_if_no_response` must be `null` for safety-critical or ambiguity-resolution prompts (`kind: secret_file_confirmation`, `kind: message_or_intent`, `kind: final_approval`).
 - `on_reply` semantics: deterministic mapping from user reply to action; if no mapping matches, follow `if_unmatched` exactly.
-- Never use implicit defaults. If `default: null`, do not proceed until explicit user reply is classified.
+- Never use implicit defaults. If `default_if_no_response: null`, do not proceed until explicit user reply is classified.
 
 - The parent agent will ask the user, then resume this same task session with `task_id` and the user's answer.
 
