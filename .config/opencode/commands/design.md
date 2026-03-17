@@ -7,6 +7,11 @@ Run the Design workflow for this request: `$ARGUMENTS`.
 
 This command is design-only. Do not implement code changes.
 
+Skill-based entrypoint usage:
+- This command is the deterministic subtask target for the `design` skill.
+- When launched from `design` with empty `$ARGUMENTS`, parent should pass the required prompt envelope exactly once in the initial orchestrator task prompt.
+- For follow-up `NEEDS_USER_INPUT` turns, parent should resume the same task via `task_id` and include user replies plus updated constraints.
+
 Intake and intent discovery:
 - If `$ARGUMENTS` is empty, run **design intent discovery** first:
   - Inspect recent conversation context (prior user/assistant turns in this session) for design-ready intent.
@@ -43,6 +48,7 @@ Fail-safe when context envelope is missing:
   - a one-line explicit design intent, or
   - confirmation to proceed with artifact-only discovery.
 - Do not infer design intent from unstated/implicit chat history in this case.
+- In this fail-safe branch, do not start researcher/reviewer execution until user input is received.
 
 Team shape:
 1) researcher

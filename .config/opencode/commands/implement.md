@@ -5,6 +5,11 @@ subtask: true
 ---
 Run Implement workflow for this request: `$ARGUMENTS`.
 
+Skill-based entrypoint usage:
+- This command is the deterministic subtask target for the `implement` skill.
+- When launched from `implement` with empty `$ARGUMENTS`, parent should pass the required prompt envelope exactly once in the initial orchestrator task prompt.
+- For follow-up `NEEDS_USER_INPUT` turns, parent should resume the same task via `task_id` and include user replies plus updated constraints.
+
 This command supports two intake modes:
 
 1) planned mode
@@ -45,7 +50,7 @@ Intent discovery protocol (used when `$ARGUMENTS` is empty):
 - Do not treat vague brainstorming as executable intent unless it includes a concrete change target and success shape.
 - If chat intent references files/components that match discovered artifacts/tasks, link them as one candidate instead of duplicating options.
 - Ask exactly one user-facing selection question with a concise option list plus "Type your own" fallback.
-- Preserve existing behavior: if no reliable parent-supplied chat intent is found, proceed with artifact/beads discovery-only selection flow.
+- Preserve existing behavior conditionally: if no reliable parent-supplied chat intent is found, proceed with artifact/beads discovery-only selection flow only when the required prompt envelope is present/substantive or prior user confirmation to artifact-only discovery already exists in resumed context.
 
 Execution budget and stopping:
 - Execute multiple slices per invocation when dependencies allow.
@@ -107,9 +112,17 @@ Completion contract:
   - blocked or deferred slices,
   - clear resume point for next `/implement` run.
 
-Parent context contract (required for reliable intent discovery):
-- On initial subtask invocation, parent should include a concise "Recent conversation context" block in the task prompt with the latest user ask, constraints, and approvals.
+Parent context contract (only needed when implementation intent is inferred from conversation):
+- If `$ARGUMENTS` already contains explicit implementation intent (for example artifact/task references or direct executable scope), parent context is optional.
+- When intent is inferred from conversation (typically empty `$ARGUMENTS`), parent should include a concise "Recent conversation context" block in the task prompt with the latest user ask, constraints, and approvals.
 - For every `NEEDS_USER_INPUT` turn, parent should ask the user, then resume the same task via `task_id` and include the user's reply (plus any updated constraints/decisions).
-- If parent supplies no conversation context, proceed with artifact/beads discovery and return a single selection prompt rather than assuming chat intent.
+- Required prompt envelope for inferred-intent mode (empty `$ARGUMENTS`):
+  - `Recent conversation context:`
+  - `Inferred build intent:`
+  - `Constraints and approvals:`
+- If `$ARGUMENTS` is empty and the required prompt envelope is missing or substantially empty, return `NEEDS_USER_INPUT` asking for either:
+  - a one-line explicit build/implementation intent, or
+  - confirmation to proceed with artifact-only discovery.
+- Do not infer implementation intent from unstated/implicit chat history in this fail-safe branch.
 
 Treat this command as an orchestrator subtask entrypoint (`subtask: true`) with parent-mediated user interaction.
