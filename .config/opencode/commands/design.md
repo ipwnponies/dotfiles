@@ -1,5 +1,5 @@
 ---
-description: Design research flow (researcher <-> reviewer, orchestrator finalizes, user approval gate)
+description: Design research flow (researcher <-> reviewer, researcher writes artifacts, orchestrator coordinates, user approval gate)
 agent: orchestrator
 subtask: true
 ---
@@ -68,24 +68,25 @@ Team shape:
 1) researcher
 2) reviewer
 3) researcher/reviewer loop until both approve each design part
-4) orchestrator final packaging
+4) orchestrator final review and coordination
 
 Execution model:
 - Use direct researcher <-> reviewer collaboration for fast iteration.
-- Use orchestrator as a lightweight finalizer only (entrypoint, conflict resolution, final artifact packaging).
+- Use orchestrator as a lightweight coordinator only (entrypoint, conflict resolution, final review of researcher-written artifacts).
 - Keep every handoff explicit using ROLE/STATUS/DONE/NEXT/BLOCKERS/ARTIFACTS.
-- Before writing the design doc, attempt to write directly to `.opencode/design/`.
+- Researcher writes intermediate findings to `.opencode/design/.research/` during iteration, then writes the final design doc to `.opencode/design/`.
 - Artifact creation must be done with filesystem tools (`Read`/`Write`/`Edit`), not shell commands.
 - Do not run `ls`, `mkdir`, `date`, or similar shell commands just to prepare the artifact path.
 - Use the session date context for `YYYYMMDD` in artifact filenames.
 
 Permissions:
-- Researcher and reviewer are read-only against the local workspace.
-- Orchestrator is allowed to create exactly one design artifact under `.opencode/design/` for this workflow.
-- If artifact creation fails because `.opencode/design/` is missing or write access is blocked, return `NEEDS_USER_INPUT` with one request that includes:
+- Reviewer is read-only against the local workspace.
+- Researcher can write intermediate findings to `.opencode/design/.research/` and final design artifacts to `.opencode/design/`.
+- Orchestrator coordinates workflow and reads artifacts for final review but does not write them.
+- If artifact creation fails because `.opencode/design/` or `.opencode/design/.research/` is missing or write access is blocked, researcher should return STATUS: blocked so orchestrator can emit `NEEDS_USER_INPUT` with:
   - exact path to create,
   - why write access is required,
-  - what will be written (single design markdown artifact).
+  - what will be written (intermediate findings or final design markdown artifact).
 - Researcher and reviewer may request network access, but network is denied by default.
 - When external lookups are needed, emit STATUS: blocked with:
   - purpose,

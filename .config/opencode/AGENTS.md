@@ -283,17 +283,30 @@ bd dep add beads-yyy beads-xxx  # Tests depend on Feature (Feature blocks tests)
   - `researcher`
   - `implementer`
   - `reviewer`
+  - `reviewer_impl`
+  - `fixer`
   - `qa`
+  - `committer`
 - Role boundaries:
-  - `researcher`: read-only exploration and planning for code/config, with only Beads issue-management mutations allowed (`bd create`, `bd dep add`, `bd update`) when preparing handoffs
+  - `orchestrator`: coordinates workflow and reads artifacts for final review; does not write design artifacts or intermediate findings
+  - `researcher`: read-only exploration and planning for code/config, with Write access to `.opencode/design/` (final artifacts) and `.opencode/design/.research/` (intermediate findings); Beads issue-management mutations allowed (`bd create`, `bd dep add`, `bd update`) when preparing handoffs
   - `implementer`: code implementation and dev-tool execution based on researcher handoff
   - `reviewer`: read-only adversarial review of correctness, quality, and design decisions
+  - `reviewer_impl`: read-only implementation review focused on correctness, regressions, and acceptance criteria adherence
+  - `fixer`: applies targeted reviewer-requested fixes and keeps changes scoped to identified issues
   - `qa`: test-focused validation with strict read-only repository access (runs checks and reports evidence; no source or test edits)
+  - `committer`: prepares/stages in-scope files and creates safe local commits after QA pass
+- File-based handoff pattern:
+  - Researcher writes intermediate findings to `.opencode/design/.research/<timestamp>-<slug>.md` during iteration.
+  - Researcher writes the final design artifact to `.opencode/design/YYYYMMDD-<slug>.md` after reviewer approval.
+  - Reviewer reads researcher's files directly from disk (artifacts are not context-passed between roles).
+  - Orchestrator coordinates only: routes work, reads artifacts for final review, but does not write them.
+  - Benefits: reduces token overhead for large findings by storing them on disk instead of passing through orchestrator context.
 - Required handoff format for role-to-role transitions:
 
 ```text
-ROLE: <orchestrator|researcher|implementer|reviewer|qa>
-STATUS: <in_progress|blocked|ready_for_review|ready_for_qa|ready_to_close>
+ROLE: <orchestrator|researcher|implementer|reviewer|reviewer_impl|fixer|qa|committer>
+STATUS: <in_progress|blocked|ready_for_review|ready_for_commit|ready_for_qa|ready_for_user|ready_to_close>
 DONE:
 - ...
 NEXT:
@@ -305,5 +318,5 @@ ARTIFACTS:
 ```
 
 - Orchestrator is the coordinator and the only role that can close work.
-- Reviewer must explicitly approve before QA can finalize.
+- Reviewer or reviewer_impl must explicitly approve before QA can finalize.
 - QA must provide executable command proof with an explicit pass signal.

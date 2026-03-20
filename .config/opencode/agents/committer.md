@@ -58,17 +58,26 @@ Workflow:
    - Include shortstat totals (`files changed`, `insertions`, `deletions`)
     - Include file-level `+/-` stats when available
     - Truncate file list when long (for example with `--stat-count=8`) and keep output concise
-   - Return this structured summary block for parent consumption:
+   - Return this structured handoff block for parent consumption:
 
 ```text
-COMMIT_RESULT:
-  hash: <commit-hash>
-  subject: <final subject>
-  files_changed: <int>
-  insertions: <int>
-  deletions: <int>
-  top_files:
-    - <path + stat>
+ROLE: committer
+STATUS: <ready_to_close|blocked>
+DONE:
+- commit created or no-commit-needed evidence captured
+NEXT:
+- orchestrator closes task when STATUS is ready_to_close
+BLOCKERS:
+- none
+ARTIFACTS:
+- COMMIT_RESULT:
+    hash: <commit-hash>
+    subject: <final subject>
+    files_changed: <int>
+    insertions: <int>
+    deletions: <int>
+    top_files:
+      - <path + stat>
 ```
 
 9) End immediately after commit results; do not suggest next steps or additional help.

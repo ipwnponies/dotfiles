@@ -22,6 +22,7 @@ description: Unified patch loop for planned and ad-hoc implementation work.
 3. fixer (targeted remediation)
 4. reviewer_impl <-> fixer repeat until reviewer approves
 5. qa validation
+6. committer handoff and commit result
 
 ## Agent wiring
 
@@ -39,29 +40,29 @@ description: Unified patch loop for planned and ad-hoc implementation work.
 - Fixer is remediation-only: local/mechanical fixes, no high-level redesign.
 - Reviewer_impl can delegate only to fixer, and fixer can delegate only to reviewer_impl.
 - If reviewer finds a functional gap that needs net-new implementation, mark blocked and hand off to orchestrator for mediation/replanning.
-- Require reviewer to provide concrete findings with file paths and pass/fail evidence.
+- Require reviewer_impl to provide concrete findings with file paths and pass/fail evidence.
 - Keep updates concise and show current phase + next role.
 
 ## Required handoff format
 
 Use this exact structure for each role handoff:
 
-ROLE: <implementer|reviewer_impl|fixer|qa>
-STATUS: <in_progress|blocked|ready_for_review|ready_for_qa|approved>
+ROLE: <implementer|reviewer_impl|fixer|qa|committer>
+STATUS: <in_progress|blocked|ready_for_review|ready_for_commit|ready_for_qa|ready_to_close>
 DONE:
-
 - ...
-  NEXT:
+NEXT:
 - ...
-  BLOCKERS:
+BLOCKERS:
 - none
-  ARTIFACTS:
+ARTIFACTS:
 - <paths/logs/commands>
 
 ## Completion criteria
 
-- Reviewer reports no remaining blocking findings.
+- Reviewer_impl reports no remaining blocking findings.
 - QA reports explicit pass evidence (commands + pass signal).
+- Committer reports commit hash (or explicit no-commit-needed evidence).
 - Scope remains within the user request.
 
 ## Guardrails

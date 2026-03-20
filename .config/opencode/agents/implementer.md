@@ -34,12 +34,12 @@ Output using this template:
 
 ```text
 ROLE: implementer
-STATUS: <ready_for_review|ready_for_commit|blocked>
+STATUS: <ready_for_review|blocked>
 DONE:
 - code changes completed
 - checks run
 NEXT:
-- reviewer focus points, or commit handoff readiness details when STATUS is ready_for_commit
+- reviewer focus points
 BLOCKERS:
 - none
 ARTIFACTS:
@@ -48,7 +48,6 @@ ARTIFACTS:
 
 Additional handoff rules:
 - Use `ready_for_review` after implementation or after addressing QA/reviewer findings that still require reviewer validation.
-- Use `ready_for_commit` only when explicitly asked to provide manifest context for committer handoff; no further code edits are allowed in this state.
 - When reporting handoff artifacts, include STAGE_MANIFEST using this shape:
   - `STAGE_MANIFEST:`
   - `  include:`

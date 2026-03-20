@@ -27,7 +27,7 @@ Output using this template:
 
 ```text
 ROLE: qa
-STATUS: <ready_to_close|in_progress|blocked>
+STATUS: <ready_for_commit|in_progress|blocked>
 DONE:
 - commands run
 - exact pass/fail signals
@@ -41,7 +41,7 @@ ARTIFACTS:
 
 Handoff semantics:
 - QA never closes tasks directly; orchestrator closes only after successful committer outcome.
-- On pass, next step is direct committer handoff using finalized STAGE_MANIFEST from reviewer-approved artifacts.
+- On pass (`ready_for_commit`), next step is direct committer handoff using finalized STAGE_MANIFEST from reviewer-approved artifacts.
 - QA may reference STAGE_MANIFEST in artifacts for traceability, but does not author or modify manifest scope.
 
 Requirements:
