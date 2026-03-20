@@ -37,6 +37,7 @@
       }
     },
     "committer": {
+      "hidden": false,
       "permission": {
         "bash": {
           "git add *": "allow",
@@ -55,9 +56,12 @@
         "edit": "deny",
         "question": "allow",
         "webfetch": "deny"
-      }
+      },
+      "steps": 6,
+      "temperature": 0
     },
     "fixer": {
+      "hidden": true,
       "permission": {
         "bash": {
           "bd count *": "allow",
@@ -97,9 +101,12 @@
           "reviewer_impl": "allow"
         },
         "write": "deny"
-      }
+      },
+      "steps": 8,
+      "temperature": 0.1
     },
     "implementer": {
+      "hidden": false,
       "permission": {
         "bash": {
           "bd count *": "allow",
@@ -134,9 +141,12 @@
         "glob": "allow",
         "grep": "allow",
         "read": "allow"
-      }
+      },
+      "steps": 20,
+      "temperature": 0.15
     },
     "orchestrator": {
+      "hidden": false,
       "permission": {
         "*": "deny",
         "bash": {
@@ -184,7 +194,8 @@
           "*": "deny",
           ".opencode/design/**": "allow"
         }
-      }
+      },
+      "temperature": 0.1
     },
     "plan": {
       "permission": {
@@ -226,6 +237,7 @@
       }
     },
     "qa": {
+      "hidden": true,
       "permission": {
         "bash": {
           "bd count *": "allow",
@@ -252,9 +264,12 @@
         "grep": "allow",
         "read": "allow",
         "write": "deny"
-      }
+      },
+      "steps": 12,
+      "temperature": 0.05
     },
     "researcher": {
+      "hidden": true,
       "permission": {
         "bash": {
           "ansible *": "deny",
@@ -311,9 +326,12 @@
           "*": "deny",
           "reviewer": "allow"
         }
-      }
+      },
+      "steps": 18,
+      "temperature": 0.25
     },
     "reviewer": {
+      "hidden": true,
       "permission": {
         "bash": {
           "bd count *": "allow",
@@ -335,9 +353,12 @@
           "*": "deny",
           "researcher": "allow"
         }
-      }
+      },
+      "steps": 10,
+      "temperature": 0.25
     },
     "reviewer_impl": {
+      "hidden": true,
       "permission": {
         "bash": {
           "bd count *": "allow",
@@ -359,7 +380,9 @@
           "*": "deny",
           "fixer": "allow"
         }
-      }
+      },
+      "steps": 10,
+      "temperature": 0.2
     }
   },
   "model": "{env:OPENCODE_MODEL_DEEP}",
