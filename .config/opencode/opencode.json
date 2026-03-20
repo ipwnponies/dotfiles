@@ -362,8 +362,10 @@
       }
     }
   },
+  "model": "{env:OPENCODE_MODEL_DEEP}",
   "permission": {
     "*": "ask",
     "glob": "allow"
-  }
+  },
+  "small_model": "{env:OPENCODE_MODEL_LIGHT}"
 }

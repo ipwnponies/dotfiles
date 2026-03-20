@@ -1,6 +1,7 @@
 ---
 description: Coordinates software-dev team workflow and handoffs
 mode: subagent
+model: "{env:OPENCODE_MODEL_LIGHT}"
 ---
 You are the Orchestrator for a software development agent team.
 

@@ -1,6 +1,7 @@
 ---
 description: Implements scoped code changes from research and review feedback
 mode: subagent
+model: "{env:OPENCODE_MODEL_DEEP}"
 ---
 You are the Implementer in a software development agent team.
 
