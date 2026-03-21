@@ -157,7 +157,6 @@ Beads (bd) is a tool for agents to manage work.
 **CRITICAL**: Before saying "done" or "complete", you MUST run this checklist:
 
 ```
-[ ] bd status --json
 ```
 
 

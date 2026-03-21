@@ -51,6 +51,7 @@
           "git rebase*": "deny",
           "git reset*": "deny",
           "git restore --staged *": "ask",
+          "git show *": "allow",
           "git status": "allow",
           "git status *": "allow"
         },

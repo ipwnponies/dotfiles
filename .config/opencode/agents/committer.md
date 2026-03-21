@@ -50,7 +50,7 @@ Workflow:
    - If `STAGE_MANIFEST` is not provided and `git diff --staged` is empty (or the user explicitly requests scope changes), run `git add <paths>` and re-check `git diff --staged` before committing.
    - Keep `git add` and `git commit` as separate invocations so permission approvals can be granted independently.
    - Do not chain commit flow with other operations.
-   - For any multi-line commit message, always pass message content with heredoc or `git commit -F`.
+   - For any multi-line commit message, always pass message content via stdin using `git commit -F - <<'EOF'`.
    - For single-line messages, avoid fragile inline quoting and prefer safe quoting patterns.
 8) Confirm clearly that the commit was created, then show a one-commit summary with `git log -1 --oneline --shortstat --stat --stat-count=8` (or equivalent):
    - Always include hash + final subject
