@@ -191,6 +191,9 @@
           "committer": "allow",
           "fixer": "allow",
           "implementer": "allow",
+          "patch_fixer": "allow",
+          "patch_implementer": "allow",
+          "patch_reviewer": "allow",
           "qa": "allow",
           "researcher": "allow",
           "reviewer": "allow",
@@ -203,6 +206,123 @@
           ".opencode/design/**": "allow"
         }
       },
+      "temperature": 0.1
+    },
+    "patch_fixer": {
+      "hidden": false,
+      "model": "{env:OPENCODE_MODEL_LIGHT}",
+      "permission": {
+        "bash": {
+          "bd count *": "allow",
+          "bd list *": "allow",
+          "bd query *": "allow",
+          "bd ready *": "allow",
+          "bd show *": "allow",
+          "bd status *": "allow",
+          "bd update *": "allow",
+          "bun test*": "allow",
+          "cargo test*": "allow",
+          "eslint *": "allow",
+          "git checkout *": "deny",
+          "git diff*": "allow",
+          "git log *": "allow",
+          "git push*": "deny",
+          "git rebase*": "deny",
+          "git reset*": "deny",
+          "git status*": "allow",
+          "go test*": "allow",
+          "make lint*": "allow",
+          "make test*": "allow",
+          "mypy *": "allow",
+          "npm test*": "allow",
+          "pnpm test*": "allow",
+          "pytest*": "allow",
+          "python -m pytest*": "allow",
+          "ruff *": "allow",
+          "yarn test*": "allow"
+        },
+        "edit": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "read": "allow",
+        "task": {
+          "*": "deny",
+          "patch_reviewer": "allow"
+        }
+      },
+      "prompt": "{file:./agents/fixer.md}",
+      "steps": 6,
+      "temperature": 0.1
+    },
+    "patch_implementer": {
+      "hidden": false,
+      "model": "{env:OPENCODE_MODEL_LIGHT}",
+      "permission": {
+        "bash": {
+          "bd count *": "allow",
+          "bd list *": "allow",
+          "bd query *": "allow",
+          "bd ready *": "allow",
+          "bd show *": "allow",
+          "bd status *": "allow",
+          "bd update *": "allow",
+          "bun test*": "allow",
+          "cargo test*": "allow",
+          "eslint *": "allow",
+          "git checkout *": "deny",
+          "git diff*": "allow",
+          "git log *": "allow",
+          "git push*": "deny",
+          "git rebase*": "deny",
+          "git reset*": "deny",
+          "git status*": "allow",
+          "go test*": "allow",
+          "make lint*": "allow",
+          "make test*": "allow",
+          "mypy *": "allow",
+          "npm test*": "allow",
+          "pnpm test*": "allow",
+          "pytest*": "allow",
+          "python -m pytest*": "allow",
+          "ruff *": "allow",
+          "yarn test*": "allow"
+        },
+        "edit": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "read": "allow"
+      },
+      "prompt": "{file:./agents/implementer.md}",
+      "steps": 6,
+      "temperature": 0.1
+    },
+    "patch_reviewer": {
+      "hidden": false,
+      "model": "{env:OPENCODE_MODEL_LIGHT}",
+      "permission": {
+        "bash": {
+          "bd count *": "allow",
+          "bd list *": "allow",
+          "bd query *": "allow",
+          "bd ready *": "allow",
+          "bd show *": "allow",
+          "bd status *": "allow",
+          "git diff*": "allow",
+          "git log *": "allow",
+          "git show *": "allow",
+          "git status*": "allow"
+        },
+        "edit": "deny",
+        "glob": "allow",
+        "grep": "allow",
+        "read": "allow",
+        "task": {
+          "*": "deny",
+          "patch_fixer": "allow"
+        }
+      },
+      "prompt": "{file:./agents/reviewer_impl.md}",
+      "steps": 6,
       "temperature": 0.1
     },
     "plan": {

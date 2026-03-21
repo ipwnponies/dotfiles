@@ -31,37 +31,37 @@ description: Straightforward mechanical changes where you know exactly what to d
 
 ## Role flow
 
-1. implementer (initial scoped change)
-2. reviewer_impl (review + validation)
-3. fixer (targeted remediation)
-4. reviewer_impl <-> fixer repeat until reviewer approves
+1. patch_implementer (initial scoped change)
+2. patch_reviewer (review + validation)
+3. patch_fixer (targeted remediation)
+4. patch_reviewer <-> patch_fixer repeat until reviewer approves
 5. qa validation
 6. **Stop - user reviews changes and commits interactively**
 
 ## Agent wiring
 
 - Primary runner: `orchestrator`
-- Implementation role: `implementer` (no delegation)
+- Implementation role: `patch_implementer` (no delegation)
 - Delegation model:
-  - Orchestrator routes implementer -> reviewer_impl -> qa across major phases.
-  - Reviewer_impl and fixer can delegate to each other during the remediation loop.
+  - Orchestrator routes patch_implementer -> patch_reviewer -> qa across major phases.
+  - patch_reviewer and patch_fixer can delegate to each other during the remediation loop.
   - After QA completes, orchestrator stops (no committer handoff).
 - Include the exact handoff format in each delegated prompt.
 
 ## Rules
 
 - Keep scope focused on existing behavior/code paths unless explicitly expanded.
-- Fixer is remediation-only: local/mechanical fixes, no high-level redesign.
-- Reviewer_impl can delegate only to fixer, and fixer can delegate only to reviewer_impl.
+- patch_fixer is remediation-only: local/mechanical fixes, no high-level redesign.
+- patch_reviewer can delegate only to patch_fixer, and patch_fixer can delegate only to patch_reviewer.
 - If reviewer finds a functional gap that needs net-new implementation, mark blocked and hand off to orchestrator for mediation/replanning.
-- Require reviewer_impl to provide concrete findings with file paths and pass/fail evidence.
+- Require patch_reviewer to provide concrete findings with file paths and pass/fail evidence.
 - Keep updates concise and show current phase + next role.
 
 ## Required handoff format
 
 Use this exact structure for each role handoff:
 
-ROLE: <implementer|reviewer_impl|fixer|qa>
+ROLE: <patch_implementer|patch_reviewer|patch_fixer|qa>
 STATUS: <in_progress|blocked|ready_for_review|ready_for_qa|approved>
 DONE:
 - ...
@@ -74,7 +74,7 @@ ARTIFACTS:
 
 ## Completion criteria
 
-- Reviewer_impl reports no remaining blocking findings.
+- patch_reviewer reports no remaining blocking findings.
 - QA reports explicit pass evidence (commands + pass signal).
 - Scope remains within the user request.
 - **Changes left unstaged for user to review and commit interactively.**
