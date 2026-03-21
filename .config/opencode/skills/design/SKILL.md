@@ -49,10 +49,13 @@ description: Design workflow skill with inferred-intent context handoff.
 ## Deterministic subtask dispatch
 
 - Dispatch to `orchestrator` as a subtask target for `/design`.
+- Treat `/design` as mandatory, not advisory: this skill must not execute researcher/reviewer work inline in the current agent.
+- Always use the agent-team path because researcher/reviewer permissions and artifact-writing boundaries live there.
 - Always pass either explicit `$ARGUMENTS` or an inferred-intent prompt, and include the context packet envelope whenever prior discussion exists.
 - For `NEEDS_USER_INPUT`, ask exactly one question and resume the same task session via `task_id` with the user response and updated constraints.
 - Git/worktree state is parent-owned context. The parent may provide it explicitly in `Git/worktree context:`; if it is not provided, do not instruct `orchestrator` or downstream roles to inspect git state or the working tree to fill the gap.
 - Do not generate instructions such as "inspect the current working tree first" or "determine whether to keep/fix/replace parent edits." Either include that context up front or proceed without it.
+- If `/design` dispatch cannot run, stop and surface the blocker instead of bypassing the team workflow locally.
 
 ## Empty-input fail-safe
 
@@ -64,4 +67,5 @@ description: Design workflow skill with inferred-intent context handoff.
 ## Residual dependency
 
 - This skill assumes runtime support for command-to-subtask dispatch and task resume (`task_id`).
-- If dispatcher support is unavailable, use the best equivalent: construct and return the exact envelope text for the user/parent to pass into `/design` manually, then stop.
+- If dispatcher support is unavailable, construct and return the exact envelope text for the user/parent to pass into `/design` manually, then stop.
+- Do not fall back to direct design execution in the current agent as a substitute for the team workflow.

@@ -49,10 +49,13 @@ description: Implement workflow skill with inferred-intent context handoff.
 ## Deterministic subtask dispatch
 
 - Dispatch to `orchestrator` as a subtask target for `/implement`.
+- Treat `/implement` as mandatory, not advisory: this skill must not execute implementer/reviewer/fixer/qa/committer work inline in the current agent.
+- Always use the agent-team path because the specialized roles own the needed prompts, permissions, and commit/QA boundaries.
 - Always pass either explicit `$ARGUMENTS` or an inferred-intent prompt, and include the context packet envelope whenever prior discussion exists.
 - For `NEEDS_USER_INPUT`, ask exactly one question and resume the same task session via `task_id` with the user response and updated constraints.
 - Git/worktree state is parent-owned context. The parent may provide it explicitly in `Git/worktree context:`; if it is not provided, do not instruct `orchestrator` or downstream roles to inspect git state or the working tree to fill the gap.
 - Do not generate instructions such as "inspect the current working tree first" or "determine whether to keep/fix/replace parent edits." Either include that context up front or proceed without it.
+- If `/implement` dispatch cannot run, stop and surface the blocker instead of bypassing the team workflow locally.
 
 ## Empty-input fail-safe
 
@@ -64,4 +67,5 @@ description: Implement workflow skill with inferred-intent context handoff.
 ## Residual dependency
 
 - This skill assumes runtime support for command-to-subtask dispatch and task resume (`task_id`).
-- If dispatcher support is unavailable, use the best equivalent: construct and return the exact envelope text for the user/parent to pass into `/implement` manually, then stop.
+- If dispatcher support is unavailable, construct and return the exact envelope text for the user/parent to pass into `/implement` manually, then stop.
+- Do not fall back to direct implementation execution in the current agent as a substitute for the team workflow.

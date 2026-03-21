@@ -1,68 +1,62 @@
 ---
 name: patch
-description: Straightforward mechanical changes where you know exactly what to do. Use when the fix is obvious - just tedious. For work requiring thinking/planning, use /implement instead.
+description: Unified patch loop for planned and ad-hoc implementation work.
 ---
 
 # Patch Workflow
 
+## Purpose
+
+- Provide a patch-focused entrypoint for implementation work that still runs through the orchestrated agent team.
+- Route patch requests through orchestrator subtask execution of `.config/opencode/commands/implement.md`.
+
 ## When to use
 
-**Use `/patch` when you know exactly what needs to change:**
-- "Add dry run flag to function_foo"
-- "Fix typo in all error messages"
-- "Add logging to database queries"
-- "Convert print() to logger.info()"
-- Simple bug fixes with obvious solutions
-- Mechanical refactors following a clear pattern
+- Small-to-medium scoped changes on existing behavior/code paths.
+- Bug fixes and targeted implementation updates.
 
-**Key indicators:**
-- The fix is straightforward - just tedious to do manually
-- No architectural decisions needed
-- Single approach is obvious
+## Do not use
 
-## Do NOT use - use `/implement` instead when:
-
-- "Figure out how to add caching" (needs architectural thinking)
-- "Implement rate limiting" (multiple approaches to consider)
-- "Add authentication" (requires design decisions)
-- Work from design docs or beads epics
-- Multi-slice work with dependencies
-- Broad redesigns or architecture-level rework
+- Broad redesigns or architecture-level rework.
+- Multi-epic implementation programs.
 
 ## Role flow
 
-1. patch_implementer (initial scoped change)
-2. patch_reviewer (review + validation)
-3. patch_fixer (targeted remediation)
-4. patch_reviewer <-> patch_fixer repeat until reviewer approves
+1. implementer (initial scoped change)
+2. reviewer_impl (review + validation)
+3. fixer (targeted remediation)
+4. reviewer_impl <-> fixer repeat until reviewer approves
 5. qa validation
-6. **Stop - user reviews changes and commits interactively**
+6. committer handoff and commit result
 
 ## Agent wiring
 
 - Primary runner: `orchestrator`
-- Implementation role: `patch_implementer` (no delegation)
+- Entry command: `/implement`
+- Implementation role: `implementer`
 - Delegation model:
-  - Orchestrator routes patch_implementer -> patch_reviewer -> qa across major phases.
-  - patch_reviewer and patch_fixer can delegate to each other during the remediation loop.
-  - After QA completes, orchestrator stops (no committer handoff).
-- Include the exact handoff format in each delegated prompt.
+  - Orchestrator routes implementer -> reviewer_impl -> qa -> committer across major phases.
+  - Reviewer_impl and fixer can delegate to each other during the remediation loop.
+  - Researcher and reviewer can delegate to each other during design-phase review loops.
+  - Include the exact handoff format in each delegated prompt.
+- `/implement` is mandatory for this skill: do not run the patch loop inline in the current agent.
+- If dispatcher support is unavailable, stop and surface the blocker instead of bypassing the orchestrated team workflow.
 
 ## Rules
 
 - Keep scope focused on existing behavior/code paths unless explicitly expanded.
-- patch_fixer is remediation-only: local/mechanical fixes, no high-level redesign.
-- patch_reviewer can delegate only to patch_fixer, and patch_fixer can delegate only to patch_reviewer.
+- Fixer is remediation-only: local/mechanical fixes, no high-level redesign.
+- Reviewer_impl can delegate only to fixer, and fixer can delegate only to reviewer_impl.
 - If reviewer finds a functional gap that needs net-new implementation, mark blocked and hand off to orchestrator for mediation/replanning.
-- Require patch_reviewer to provide concrete findings with file paths and pass/fail evidence.
+- Require reviewer_impl to provide concrete findings with file paths and pass/fail evidence.
 - Keep updates concise and show current phase + next role.
 
 ## Required handoff format
 
 Use this exact structure for each role handoff:
 
-ROLE: <patch_implementer|patch_reviewer|patch_fixer|qa>
-STATUS: <in_progress|blocked|ready_for_review|ready_for_qa|approved>
+ROLE: <implementer|reviewer_impl|fixer|qa|committer>
+STATUS: <in_progress|blocked|ready_for_review|ready_for_commit|ready_for_qa|ready_to_close>
 DONE:
 - ...
 NEXT:
@@ -74,10 +68,10 @@ ARTIFACTS:
 
 ## Completion criteria
 
-- patch_reviewer reports no remaining blocking findings.
+- Reviewer_impl reports no remaining blocking findings.
 - QA reports explicit pass evidence (commands + pass signal).
+- Committer reports commit hash (or explicit no-commit-needed evidence).
 - Scope remains within the user request.
-- **Changes left unstaged for user to review and commit interactively.**
 
 ## Guardrails
 
