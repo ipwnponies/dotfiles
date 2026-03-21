@@ -26,9 +26,22 @@ Based on the input provided, determine which type of review to perform:
 3. **Branch name**: Compare current branch to the specified branch
    - Run: `git diff $ARGUMENTS...HEAD`
 
-4. **Other input**: If it is not a commit hash or branch name, return `NEEDS_USER_INPUT` so the parent can ask the user to provide one of those forms.
+4. **Other input**: If it is not a commit hash or branch name, fall back to default uncommitted review (`git diff`, `git diff --cached`, `git status --short`) and continue.
 
 Use best judgement when processing input.
+
+## Single-Turn Contract (Command override)
+
+This command must complete in exactly one subagent response.
+
+- Do NOT return `NEEDS_USER_INPUT`.
+- Do NOT return `STATUS: blocked` or `STATUS: in_progress`.
+- If `$ARGUMENTS` is invalid or ambiguous, fall back to default uncommitted review:
+  - `git diff`
+  - `git diff --cached`
+  - `git status --short`
+- In `Questions/Assumptions`, include one short note that fallback mode was used.
+- Always return final findings (or explicit no-findings) in the same response.
 
 ---
 
