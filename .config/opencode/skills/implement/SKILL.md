@@ -34,6 +34,7 @@ description: Implement workflow skill with inferred-intent context handoff.
   - `Current user intent:`
   - `Decisions made:`
   - `Constraints and approvals:`
+  - `Git/worktree context:`
   - `Open questions and risks:`
   - `Referenced artifacts:`
 - Coverage guidance:
@@ -41,6 +42,7 @@ description: Implement workflow skill with inferred-intent context handoff.
   - `Recent conversation context:` preserve material context in the level of detail needed for accurate execution.
   - `Decisions made:` include accepted/rejected decisions when implementation choices were discussed.
   - `Constraints and approvals:` include explicit safety/tool/network approvals or denials when mentioned.
+  - `Git/worktree context:` is optional parent-owned context; if omitted, do not ask orchestrator or child roles to inspect git state or the working tree just to recover it.
 - In inferred-intent mode, include an additional section:
   - `Inferred build intent:`
 
@@ -49,6 +51,8 @@ description: Implement workflow skill with inferred-intent context handoff.
 - Dispatch to `orchestrator` as a subtask target for `/implement`.
 - Always pass either explicit `$ARGUMENTS` or an inferred-intent prompt, and include the context packet envelope whenever prior discussion exists.
 - For `NEEDS_USER_INPUT`, ask exactly one question and resume the same task session via `task_id` with the user response and updated constraints.
+- Git/worktree state is parent-owned context. The parent may provide it explicitly in `Git/worktree context:`; if it is not provided, do not instruct `orchestrator` or downstream roles to inspect git state or the working tree to fill the gap.
+- Do not generate instructions such as "inspect the current working tree first" or "determine whether to keep/fix/replace parent edits." Either include that context up front or proceed without it.
 
 ## Empty-input fail-safe
 

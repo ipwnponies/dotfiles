@@ -43,6 +43,7 @@ Required prompt envelope for inferred-intent mode (empty `$ARGUMENTS`):
   - `Inferred design intent:`
   - `Decisions made:`
   - `Constraints and approvals:`
+  - `Git/worktree context:`
   - `Open questions and risks:`
   - `Referenced artifacts:`
 - Coverage guidance:
@@ -50,6 +51,7 @@ Required prompt envelope for inferred-intent mode (empty `$ARGUMENTS`):
   - `Recent conversation context:` retain enough detail to avoid compressing materially important discussion into one line.
   - `Decisions made:` include accepted and rejected options when applicable.
   - `Constraints and approvals:` include explicit safety/tool/network approvals or denials when present.
+  - `Git/worktree context:` is optional parent-owned context; if omitted, do not have orchestrator or child roles inspect git state or the working tree merely to recover it.
 - If these sections are missing or substantially empty, treat context as unavailable.
 
 Required prompt envelope for explicit-intent mode (non-empty `$ARGUMENTS`) when prior discussion exists:
