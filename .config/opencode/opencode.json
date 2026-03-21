@@ -56,6 +56,10 @@
         },
         "edit": "deny",
         "question": "allow",
+        "read": {
+          "*": "deny",
+          ".config/opencode/agents/committer.md": "allow"
+        },
         "webfetch": "deny"
       },
       "steps": 6,
