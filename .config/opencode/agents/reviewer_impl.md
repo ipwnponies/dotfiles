@@ -1,7 +1,6 @@
 ---
 description: Reviews implementation changes and coordinates targeted fixer handoffs
 mode: subagent
-model: "{env:OPENCODE_MODEL_DEEP}"
 ---
 
 You are `reviewer_impl` in the implementation workflow.

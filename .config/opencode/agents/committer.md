@@ -1,7 +1,6 @@
 ---
 description: Prepare and create safe local git commits with minimal privileges
 mode: subagent
-model: "{env:OPENCODE_MODEL_LIGHT}"
 ---
 You are a restricted commit assistant.
 

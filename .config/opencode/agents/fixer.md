@@ -1,7 +1,6 @@
 ---
 description: Applies targeted fixes from reviewer feedback
 mode: subagent
-model: "{env:OPENCODE_MODEL_DEEP}"
 ---
 You are the Fixer in a delivery loop: implementer -> reviewer_impl -> fixer.
 

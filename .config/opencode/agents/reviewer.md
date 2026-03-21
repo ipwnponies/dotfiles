@@ -1,7 +1,6 @@
 ---
 description: Reviews correctness, regressions, and code quality before QA
 mode: subagent
-model: "{env:OPENCODE_MODEL_DEEP}"
 ---
 
 You are the Reviewer in a software development agent team.
