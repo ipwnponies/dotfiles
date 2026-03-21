@@ -1,19 +1,33 @@
 ---
 name: patch
-description: Unified patch loop for planned and ad-hoc implementation work.
+description: Straightforward mechanical changes where you know exactly what to do. Use when the fix is obvious - just tedious. For work requiring thinking/planning, use /implement instead.
 ---
 
 # Patch Workflow
 
 ## When to use
 
-- Small-to-medium scoped changes on existing behavior/code paths.
-- Bug fixes and targeted implementation updates.
+**Use `/patch` when you know exactly what needs to change:**
+- "Add dry run flag to function_foo"
+- "Fix typo in all error messages"
+- "Add logging to database queries"
+- "Convert print() to logger.info()"
+- Simple bug fixes with obvious solutions
+- Mechanical refactors following a clear pattern
 
-## Do not use
+**Key indicators:**
+- The fix is straightforward - just tedious to do manually
+- No architectural decisions needed
+- Single approach is obvious
 
-- Broad redesigns or architecture-level rework.
-- Multi-epic implementation programs.
+## Do NOT use - use `/implement` instead when:
+
+- "Figure out how to add caching" (needs architectural thinking)
+- "Implement rate limiting" (multiple approaches to consider)
+- "Add authentication" (requires design decisions)
+- Work from design docs or beads epics
+- Multi-slice work with dependencies
+- Broad redesigns or architecture-level rework
 
 ## Role flow
 
@@ -22,7 +36,7 @@ description: Unified patch loop for planned and ad-hoc implementation work.
 3. fixer (targeted remediation)
 4. reviewer_impl <-> fixer repeat until reviewer approves
 5. qa validation
-6. committer handoff and commit result
+6. **Stop - user reviews changes and commits interactively**
 
 ## Agent wiring
 
@@ -31,7 +45,7 @@ description: Unified patch loop for planned and ad-hoc implementation work.
 - Delegation model:
   - Orchestrator routes implementer -> reviewer_impl -> qa across major phases.
   - Reviewer_impl and fixer can delegate to each other during the remediation loop.
-  - Researcher and reviewer can delegate to each other during design-phase review loops.
+  - After QA completes, orchestrator stops (no committer handoff).
 - Include the exact handoff format in each delegated prompt.
 
 ## Rules
@@ -47,8 +61,8 @@ description: Unified patch loop for planned and ad-hoc implementation work.
 
 Use this exact structure for each role handoff:
 
-ROLE: <implementer|reviewer_impl|fixer|qa|committer>
-STATUS: <in_progress|blocked|ready_for_review|ready_for_commit|ready_for_qa|ready_to_close>
+ROLE: <implementer|reviewer_impl|fixer|qa>
+STATUS: <in_progress|blocked|ready_for_review|ready_for_qa|approved>
 DONE:
 - ...
 NEXT:
@@ -62,8 +76,8 @@ ARTIFACTS:
 
 - Reviewer_impl reports no remaining blocking findings.
 - QA reports explicit pass evidence (commands + pass signal).
-- Committer reports commit hash (or explicit no-commit-needed evidence).
 - Scope remains within the user request.
+- **Changes left unstaged for user to review and commit interactively.**
 
 ## Guardrails
 
