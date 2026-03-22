@@ -41,6 +41,7 @@
       "model": "{env:OPENCODE_MODEL_LIGHT}",
       "permission": {
         "bash": {
+          "cat *": "deny",
           "git add *": "allow",
           "git commit *": "allow",
           "git commit --amend -m *": "ask",
@@ -53,7 +54,8 @@
           "git restore --staged *": "ask",
           "git show *": "allow",
           "git status": "allow",
-          "git status *": "allow"
+          "git status *": "allow",
+          "ls *": "deny"
         },
         "edit": "deny",
         "question": "allow",

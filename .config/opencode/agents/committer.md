@@ -116,6 +116,7 @@ NEEDS_USER_INPUT:
 Rules:
 - Never push/fetch/pull/rebase/reset/checkout/clean/cherry-pick/merge/tag.
 - Never use non-git commands.
+- Never run `cat` or `ls` (or other shell helpers) to inspect files or directories; rely on the allowed git commands, and return `NEEDS_USER_INPUT` if more detail is needed.
 - Never amend unless user explicitly requests amend.
 - If user explicitly requests amend and does not explicitly request a message change, preserve the existing message with `git commit --amend --no-edit`.
 - Never recreate or paraphrase an existing commit message during amend unless the user explicitly asks to edit the message.
