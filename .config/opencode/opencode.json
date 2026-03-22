@@ -177,16 +177,13 @@
         },
         "glob": {
           "*": "deny",
-          ".opencode/**": "allow"
+          ".opencode/*": "allow"
         },
-        "grep": {
-          "*": "deny",
-          ".opencode/**": "allow"
-        },
+        "grep": "allow",
         "question": "allow",
         "read": {
           "*": "deny",
-          ".opencode/**": "allow"
+          "*/.opencode/*": "allow"
         },
         "skill": "allow",
         "task": {
