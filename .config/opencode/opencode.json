@@ -360,6 +360,7 @@
         },
         "task": {
           "*": "deny",
+          "orchestrator": "allow",
           "researcher": "allow",
           "reviewer": "allow"
         },
