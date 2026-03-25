@@ -5,6 +5,11 @@ subtask: true
 ---
 Do your standard committer workflow for the current repository.
 
+## Conversation-scoped manifest
+- The parent commit skill must supply a `STAGE_MANIFEST` that lists only the files discussed/edited in this conversation (`include`) and every other dirty file (`exclude`).
+- Stage exactly `STAGE_MANIFEST.include`; do not add or infer additional files. Leave every path in `STAGE_MANIFEST.exclude` untouched so the parent/patch skill can keep the dirty worktree intact.
+- If the manifest is missing or inconsistent with the requested scope, return `NEEDS_USER_INPUT` (`kind: scope_change`) so the parent can rebuild the manifest from the conversation context before committing.
+
 MESSAGE_MODE: auto
 
 Input: `$ARGUMENTS`
