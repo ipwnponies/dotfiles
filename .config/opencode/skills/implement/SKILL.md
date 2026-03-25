@@ -7,17 +7,17 @@ description: Implement workflow skill with inferred-intent context handoff.
 
 ## Purpose
 
-- Provide a consistent skill-first entrypoint for build/implementation workflow execution.
+- Provide a consistent skill-first entrypoint for autonomous implementation workflow execution.
 - Route work through orchestrator subtask execution of `.config/opencode/commands/implement.md`.
 
 ## Trigger examples
 
-- Use this skill when the user asks to implement, build, patch, or execute approved work.
+- Use this skill when the user asks to implement, build, or execute approved work across one or more related slices.
 - Positive examples:
   - "Implement this change now."
   - "Go build the slices from @design-20260316-auth-migration.md."
-  - "Apply the planned patch and run the validation loop."
   - "Start implementation from this beads task and ship commits."
+- Use the `patch` skill instead when the user wants one scoped slice with a stop for review before any commit handoff.
 - Prefer design/planning skills when the user asks for analysis-first output without code changes.
 
 ## Intake rules
@@ -56,6 +56,13 @@ description: Implement workflow skill with inferred-intent context handoff.
 - Git/worktree state is parent-owned context. The parent may provide it explicitly in `Git/worktree context:`; if it is not provided, do not instruct `orchestrator` or downstream roles to inspect git state or the working tree to fill the gap.
 - Do not generate instructions such as "inspect the current working tree first" or "determine whether to keep/fix/replace parent edits." Either include that context up front or proceed without it.
 - If `/implement` dispatch cannot run, stop and surface the blocker instead of bypassing the team workflow locally.
+
+## Workflow defaults
+
+- Treat `implement` as the autonomous path: once started, continue through the related in-scope workset until blocked, out of ready slices, or out of budget.
+- Process ready slices sequentially, not as one large batch; each completed logical slice should produce its own review, QA, and commit outcome.
+- Fulfill clearly related follow-on work that belongs to the same approved request or plan, but do not opportunistically pull in unrelated backlog items.
+- Commit per completed logical slice rather than waiting until the entire workset is done.
 
 ## Empty-input fail-safe
 

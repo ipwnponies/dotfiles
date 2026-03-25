@@ -1,5 +1,5 @@
 ---
-description: Unified build loop for planned or ad-hoc work
+description: Autonomous multi-slice build loop for planned or ad-hoc work
 agent: orchestrator
 subtask: true
 ---
@@ -9,6 +9,10 @@ Skill-based entrypoint usage:
 - This command is the deterministic subtask target for the `implement` skill.
 - When launched from `implement` with empty `$ARGUMENTS`, parent should pass the required prompt envelope exactly once in the initial orchestrator task prompt.
 - For follow-up `NEEDS_USER_INPUT` turns, parent should resume the same task via `task_id` and include user replies plus updated constraints.
+
+This command is the autonomous implementation path, not the human-in-the-loop patch path.
+- Use it to execute one or more related ready slices from the same approved request, design, or beads workset.
+- Do not use it to grab unrelated backlog work or to stop after the first slice unless the user explicitly limits the run.
 
 This command supports two intake modes:
 
@@ -29,6 +33,7 @@ This command supports two intake modes:
 - Trigger when request is a direct change request without design artifact metadata.
 - Before implementation, create a mini-plan with the same metadata fields above.
 - If work is naturally multi-part, split ad-hoc work into executable slices before coding.
+- Keep the slices within the same approved scope; do not widen into adjacent unrelated tasks.
 
 Mode resolution:
 - If `$ARGUMENTS` is empty, run **intent discovery** first:
@@ -56,7 +61,7 @@ Execution budget and stopping:
 - Execute multiple slices per invocation when dependencies allow.
 - Default target budget is up to 10 successful slice cycles per invocation.
 - If user explicitly provides a different limit in `$ARGUMENTS`, honor it.
-- Do not try to exhaust all backlog items by default.
+- Do not try to exhaust all backlog items by default; stay within the related workset for the current request.
 - Stop when:
   - budget is reached,
   - no dependency-ready slice remains,
@@ -74,12 +79,18 @@ Per-slice loop (single unified execution engine):
 8) orchestrator closes slice-linked beads task only after committer outcome
 9) return to step 1 for next ready slice until stop conditions are met
 
+Per-slice intent:
+- Treat each slice as a logical, reviewable unit with its own implementation, review, QA, and commit outcome.
+- Prefer to finish and commit one ready slice before starting the next.
+- Do not defer commits until the end of the full run unless the user explicitly requests a different commit strategy.
+
 Loop rules:
 - Repeat reviewer/fixer until reviewer approves and marks STAGE_MANIFEST as final.
 - If QA fails, route to implementer for triage first; if remediation is narrow and concrete, delegate to fixer; then re-run reviewer + QA.
 - Keep handoffs explicit with ROLE/STATUS/DONE/NEXT/BLOCKERS/ARTIFACTS.
 - Keep edits scoped to the selected task/slice boundaries.
 - Do not expand scope without explicit user approval collected via parent-mediated `NEEDS_USER_INPUT`.
+- Continue into the next related ready slice by default after a successful commit; do not stop after the first passing slice unless blocked, budget-limited, or user-limited.
 - During fixer steps, do not stage files; keep fixes unstaged for reviewer verification via unstaged diffs, and update candidate STAGE_MANIFEST paths as edits change.
 - During implementer steps, maintain candidate STAGE_MANIFEST (`include` + `exclude`) for in-scope files; do not run `git commit`.
 - During reviewer steps, validate scope and mark STAGE_MANIFEST as final before QA.
@@ -89,6 +100,7 @@ Loop rules:
 - Before ending the workflow, ensure finalized STAGE_MANIFEST is explicit and committer-validated against the staged index.
 - Commit handoff is automatic by default: committer drafts and commits without user-message approval unless ambiguity/safety policy forces a blocker.
 - For committer handoff in this workflow, set `MESSAGE_MODE: auto`.
+- Commit after each completed logical slice, not once at the very end of a multi-slice run.
 - Do not close a beads task before committer completes.
 - Beads task closure requires one of:
   - a commit hash from committer for the scoped task changes, or
