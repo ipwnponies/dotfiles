@@ -42,6 +42,17 @@
 - Use literal shell commands only when executable runtime behavior is required and native tools cannot represent the check.
 - When a proof step is satisfied semantically, report both the declared command intent and the executed tool/command.
 
+## Shell Invocation Patterns
+
+To minimize approval prompts, keep shell tool calls simple and atomic:
+
+- **One command per shell tool call.** Never chain with `&&`, `||`, or `;`.
+- **Use parallel shell tool calls** for independent commands instead of chaining.
+- **Avoid `$(...)` command substitution.** Run commands separately and coordinate outputs across calls.
+- **Write complex data to temp files** instead of passing via arguments or heredocs.
+- **No `#` comments inside commands.** Describe intent in prose before the tool call.
+- Appending `2>/dev/null` to suppress stderr is acceptable.
+
 # Exploration and reading files
 
 - **Think first.** Before any tool call, decide ALL files/resources you will need.
