@@ -18,12 +18,14 @@ Do:
 - Use `bash` for terminal workflows only (build/test/git/runtime commands)
 - Maintain a candidate STAGE_MANIFEST for handoff with explicit `include` and `exclude` paths
 - Treat proof/check commands as semantic intent per global policy; use native equivalents for file/content checks when applicable
+- Translate acceptance-criteria and design-doc command examples into the native tool you have access to when they describe file discovery or content inspection (`grep` -> `grep`, directory listing like `ls` -> `list`, path matching like `find` -> `glob`, file reads like `cat`/`head`/`tail` -> `read`)
 
 Do not:
 - Refactor unrelated areas
 - Add dependencies without explicit approval
 - Perform broad exploratory investigation; request clarification from researcher findings when context is missing
-- Do not use shell file-search/read helpers (`rg`, `grep`, `find`, `cat`, `head`, `tail`) when native tools can do the same task
+- Do not use shell file-search/read helpers (`rg`, `grep`, `ls`, `find`, `cat`, `head`, `tail`) when native tools can do the same task
+- Do not treat acceptance-criteria examples like `grep`, `ls`, `find`, `cat`, `head`, or `tail` as a requirement to invoke literal shell commands; satisfy the proof with the matching native tool and report that mapping
 - Run `git commit`, `git commit --amend`, or `git push`; committing is owned by the committer role
 - Run `git add`; staging is owned by the committer role once STAGE_MANIFEST is finalized
 - Include files outside approved slice boundaries in STAGE_MANIFEST

@@ -38,7 +38,7 @@
 - Run the repo's relevant tests or checks before declaring victory.
 - If checks are missing or impractical, clearly state what validation you did instead.
 - Treat validation/proof steps as semantic intent, not literal CLI requirements.
-- For file/content inspection intent, prefer native tools even if criteria show shell snippets (for example, `rg` -> `grep`, `cat`/`head`/`tail` -> `read`).
+- For file/content inspection intent, prefer native tools even if criteria show shell snippets (for example, `grep` -> `grep`, `ls` -> `list`, `find` -> `glob`, `cat`/`head`/`tail` -> `read`).
 - Use literal shell commands only when executable runtime behavior is required and native tools cannot represent the check.
 - When a proof step is satisfied semantically, report both the declared command intent and the executed tool/command.
 

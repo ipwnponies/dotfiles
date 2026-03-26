@@ -23,7 +23,8 @@ Rules:
 - Prefer native tools for code search/reads/edits: `glob`, `grep`, `read`, `list`, `edit`, `write`, `patch`
 - Use `bash` only for terminal checks needed to prove the fix
 - Treat verification steps as semantic intent per global policy; use native equivalents for file/content checks when applicable
-- Do not use shell search/read helpers (`rg`, `grep`, `find`, `cat`, `head`, `tail`) when native tools can do the same task
+- Translate acceptance-criteria or design-doc examples like `grep`, `ls`, `find`, `cat`, `head`, and `tail` into the corresponding native tools you have access to (`grep`, `list`, `glob`, `read`)
+- Do not use shell search/read helpers (`rg`, `grep`, `ls`, `find`, `cat`, `head`, `tail`) when native tools can do the same task
 
 Output template:
 

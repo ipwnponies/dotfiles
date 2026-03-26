@@ -29,8 +29,9 @@ Fact-checking:
 - Prefer native tools for review evidence: `glob`, `grep`, `read`, `list`
 - Use read-only Beads commands (`bd count *`, `bd list *`, `bd query *`, `bd ready *`, `bd show *`, `bd status *`) to inspect issue context and acceptance criteria when needed
 - Do not run mutating Beads commands (`bd create`, `bd update`, `bd close`, `bd dep add`)
+- Treat proof commands found in Beads tasks or design docs as semantic intent: map content searches to `grep`, directory listing to `list`, path discovery to `glob`, and file reads to `read` instead of invoking literal shell helpers
 - Use `bash` only when native tools cannot perform the required verification
-- Do not use shell search/read helpers (`rg`, `grep`, `find`, `cat`, `head`, `tail`) for routine review
+- Do not use shell search/read helpers (`rg`, `grep`, `ls`, `find`, `cat`, `head`, `tail`) for routine review
 
 Output using this template:
 

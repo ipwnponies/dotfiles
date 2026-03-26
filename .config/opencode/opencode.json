@@ -30,6 +30,7 @@
         },
         "glob": "allow",
         "grep": "allow",
+        "list": "allow",
         "read": "allow",
         "skill": "allow",
         "task": {
@@ -110,6 +111,7 @@
         "edit": "allow",
         "glob": "allow",
         "grep": "allow",
+        "list": "allow",
         "read": "allow",
         "task": {
           "*": "deny",
@@ -156,6 +158,7 @@
         "edit": "allow",
         "glob": "allow",
         "grep": "allow",
+        "list": "allow",
         "read": "allow"
       },
       "steps": 20,
@@ -186,6 +189,10 @@
           ".opencode/*": "allow"
         },
         "grep": "allow",
+        "list": {
+          "*": "deny",
+          ".opencode/*": "allow"
+        },
         "question": "allow",
         "read": {
           "*": "deny",
@@ -250,6 +257,7 @@
         "edit": "allow",
         "glob": "allow",
         "grep": "allow",
+        "list": "allow",
         "read": "allow",
         "task": {
           "*": "deny",
@@ -296,6 +304,7 @@
         "edit": "allow",
         "glob": "allow",
         "grep": "allow",
+        "list": "allow",
         "read": "allow"
       },
       "prompt": "{file:./agents/implementer.md}",
@@ -321,6 +330,7 @@
         "edit": "deny",
         "glob": "allow",
         "grep": "allow",
+        "list": "allow",
         "read": "allow",
         "task": {
           "*": "deny",
@@ -358,6 +368,7 @@
         },
         "glob": "allow",
         "grep": "allow",
+        "list": "allow",
         "read": "allow",
         "skill": {
           "*": "deny",
@@ -401,6 +412,7 @@
         "edit": "deny",
         "glob": "allow",
         "grep": "allow",
+        "list": "allow",
         "read": "allow",
         "write": "deny"
       },
@@ -461,6 +473,7 @@
         "edit": "deny",
         "glob": "allow",
         "grep": "allow",
+        "list": "allow",
         "read": "allow",
         "task": {
           "*": "deny",
@@ -489,6 +502,7 @@
         "edit": "deny",
         "glob": "allow",
         "grep": "allow",
+        "list": "allow",
         "read": "allow",
         "task": {
           "*": "deny",
@@ -517,6 +531,7 @@
         "edit": "deny",
         "glob": "allow",
         "grep": "allow",
+        "list": "allow",
         "read": "allow",
         "task": {
           "*": "deny",
