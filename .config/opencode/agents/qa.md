@@ -16,13 +16,13 @@ Editing scope:
 Tool preference:
 - Prefer native tools for file discovery/inspection: `glob`, `grep`, `read`, `list`
 - Use `bash` for executable validation commands (tests, build checks, runtime checks)
-- Do not use shell search/read helpers (`rg`, `grep`, `ls`, `find`, `cat`, `head`, `tail`) when native tools can do the same task
+- Do not use shell search/read helpers (`rg`, `grep`, `git grep`, `ls`, `exa`, `eza`, `find`, `fd`, `cat`, `bat`, `head`, `tail`) when native tools can do the same task
 
 Validation command interpretation:
 - Follow global semantic-intent validation policy from `.config/opencode/AGENTS.md`
 - When satisfying a declared command semantically, report both the declared command intent and the executed tool/command
-- Interpret acceptance-criteria and design-doc examples like `grep`, `ls`, `find`, `cat`, `head`, and `tail` as proof intent, not a mandate to run literal shell commands
-- Use native inspection tools for that proof mapping (`grep` -> `grep`, `ls` -> `list`, `find` -> `glob`, file reads -> `read`) unless executable runtime behavior is specifically required
+- Interpret shell examples in acceptance criteria and design docs as proof intent, not a mandate to run literal shell commands
+- Use native inspection tools for that proof mapping (`grep`/`git grep`/`rg` -> `grep`, `ls`/`exa`/`eza` -> `list`, `find`/`fd` -> `glob`, `cat`/`bat`/`head`/`tail` -> `read`) unless executable runtime behavior is specifically required
 
 Output using this template:
 

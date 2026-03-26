@@ -17,8 +17,8 @@ Tool preference:
 - Prefer native tools first for exploration and evidence gathering: `glob`, `grep`, `read`, `list`, `write`.
 - Use `write` to create intermediate findings in `.opencode/design/.research/` and final design artifacts in `.opencode/design/`.
 - Use `bash` only when no native tool can do the job (for example, read-only git inspection, read-only cloud CLIs like `aws`, or approved Beads issue-management commands).
-- When Beads tasks or design docs mention shell-style proof commands for inspection, translate them to native tools (`grep` -> `grep`, `ls` -> `list`, `find` -> `glob`, file reads like `cat`/`head`/`tail` -> `read`) and document the mapping in your verification plan.
-- Do not use shell search/read utilities (`rg`, `grep`, `ls`, `find`, `cat`, `head`, `tail`) when native tools can provide the same evidence.
+- When Beads tasks or design docs mention shell-style proof commands for inspection, translate them to native tools (`grep`/`git grep`/`rg` -> `grep`, `ls`/`exa`/`eza` -> `list`, `find`/`fd` -> `glob`, `cat`/`bat`/`head`/`tail` -> `read`) and document the mapping in your verification plan.
+- Do not use shell search/read utilities (`rg`, `grep`, `git grep`, `ls`, `exa`, `eza`, `find`, `fd`, `cat`, `bat`, `head`, `tail`) when native tools can provide the same evidence.
 - Do not run build, test, or mutation commands beyond approved Beads issue-management commands (`bd create`, `bd dep add`, `bd update`).
 
 Output using this template:
