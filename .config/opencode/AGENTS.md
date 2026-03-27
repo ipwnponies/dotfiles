@@ -46,10 +46,12 @@
 
 To minimize approval prompts, keep shell tool calls simple and atomic:
 
+- **Keep each shell command on one physical line.** Permission matching can reject multiline commands even when the equivalent single-line pattern is allowed.
 - **One command per shell tool call.** Never chain with `&&`, `||`, or `;`.
 - **Use parallel shell tool calls** for independent commands instead of chaining.
 - **Avoid `$(...)` command substitution.** Run commands separately and coordinate outputs across calls.
 - **Write complex data to temp files** instead of passing via arguments or heredocs.
+- **If an argument needs line breaks, encode them inside the argument** with escaped `\n` or use a file-backed input instead of splitting the shell command across lines.
 - **No `#` comments inside commands.** Describe intent in prose before the tool call.
 - Appending `2>/dev/null` to suppress stderr is acceptable.
 
@@ -201,6 +203,7 @@ Beads (bd) is a tool for agents to manage work.
 ### Creating & Updating
 - `bd create --title="..." --type=task|bug|feature --priority=2` - New issue
   - Priority: 0-4 or P0-P4 (0=critical, 2=medium, 4=backlog). NOT "high"/"medium"/"low"
+  - Follow the shell invocation rule above: keep `bd create` on one physical line, and encode multiline field content as `\n` or use a file-backed input flag when the CLI supports it.
 - `bd update <id> --claim` - Claim work
 - `bd update <id> --assignee=username` - Assign to someone
 - `bd close <id>` - Mark complete
@@ -211,7 +214,7 @@ Beads (bd) is a tool for agents to manage work.
 When tasks are ordered, always add beads dependencies immediately after create.
 Create tasks with acceptance criteria detailed enough to be fully verifiable, using the template below as the default structure (omit sections only if clearly not applicable).
 Ensure each task includes concrete, testable proofs and clear guardrails; avoid vague or subjective criteria.
-When using `bd create`, keep `--description` to a brief summary only and put the acceptance criteria template content in `--acceptance`.
+When using `bd create`, keep `--description` to a brief summary only and put the acceptance criteria template content in `--acceptance`. Preserve a single-line shell invocation when doing this; multiline content belongs inside escaped `\n` sequences or file-backed inputs, not as literal command newlines.
 Add ongoing notes and implementation details in `--notes`.
 Description will remain focused on the problem statement and motivation.
 Keep `--title` concise and high-level; capture specific policy values or parameters in `--description` instead of the title.

@@ -112,10 +112,11 @@ Required output artifact:
   - verification plan with executable checks and pass signals,
   - rollback strategy,
   - monitoring/observability plan,
-  - `BD COMMANDS` section with copy/paste-ready commands to create corresponding bd issues later (default type `feature`, priority `P2`),
-  - per-slice command coverage in `BD COMMANDS` that includes `bd create` inputs for title, type, priority, and description source, plus explicit `bd dep add` wiring for slice dependencies,
-  - `BD COMMANDS` must be executable with only ID substitution (for example replacing `<epic-id>` and `<slice-id>` placeholders) and no additional command authoring,
-  - one `PATCH READY` block per implementation slice using this format:
+- `BD COMMANDS` section with copy/paste-ready commands to create corresponding bd issues later (default type `feature`, priority `P2`),
+- per-slice command coverage in `BD COMMANDS` that includes `bd create` inputs for title, type, priority, and description source, plus explicit `bd dep add` wiring for slice dependencies,
+- `BD COMMANDS` must be executable with only ID substitution (for example replacing `<epic-id>` and `<slice-id>` placeholders) and no additional command authoring,
+- Every generated `bd create` command in `BD COMMANDS` must stay on one physical line; if acceptance or notes need line breaks, encode them as `\n` inside quoted arguments or route them through a supported file input instead of literal multiline shell commands,
+- one `PATCH READY` block per implementation slice using this format:
 
 PATCH READY
 Design source: <path-or-id>
