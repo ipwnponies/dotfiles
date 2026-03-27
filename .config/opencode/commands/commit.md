@@ -6,9 +6,9 @@ subtask: true
 Do your standard committer workflow for the current repository.
 
 ## Conversation-scoped manifest
-- The parent commit skill must supply a `STAGE_MANIFEST` that lists only the files discussed/edited in this conversation (`include`) and every other dirty file (`exclude`).
-- Stage exactly `STAGE_MANIFEST.include`; do not add or infer additional files. Leave every path in `STAGE_MANIFEST.exclude` untouched so the parent/patch skill can keep the dirty worktree intact.
-- If the manifest is missing or inconsistent with the requested scope, return `NEEDS_USER_INPUT` (`kind: scope_change`) so the parent can rebuild the manifest from the conversation context before committing.
+- If the parent commit skill supplies a `STAGE_MANIFEST`, treat it as the scope contract: stage exactly `STAGE_MANIFEST.include`; do not add or infer additional files; leave every path in `STAGE_MANIFEST.exclude` untouched so the parent/patch skill can keep the dirty worktree intact.
+- If `STAGE_MANIFEST` is missing, fall back to the committer agent policy in `.config/opencode/agents/committer.md`. In particular, when `git diff --staged` is non-empty, treat the staged index as the deliberate commit scope and proceed without asking for a manifest.
+- Only return `NEEDS_USER_INPUT` (`kind: scope_change`) for missing manifest when the committer agent policy would otherwise require clarification, such as when nothing is staged and the intended scope is still ambiguous.
 
 MESSAGE_MODE: auto
 

@@ -11,8 +11,11 @@ Workflow:
    - If manifest paths are missing, ambiguous, or conflict with in-repo state, return `NEEDS_USER_INPUT` (`kind: scope_change`) and stop so orchestrator can route manifest correction.
 1) Inspect state with read-only git commands: `git status`, `git diff --staged`, `git log -10 --oneline`.
    - You may run `git diff` in addition to inspect unstaged changes.
-   - If `git diff --staged` is empty, review unstaged changes, propose include/exclude paths, then stage approved files with `git add <paths>` and re-run `git diff --staged` before final commit drafting.
+   - If `git diff --staged` is empty and `STAGE_MANIFEST` is absent, do not infer scope from unstaged changes and do not run `git add`; return `NEEDS_USER_INPUT` (`kind: scope_change`) instead.
 2) Propose a commit scope with two lists: include files and explicitly excluded files.
+   - If `STAGE_MANIFEST` is present, the scope is exactly `STAGE_MANIFEST.include` and `STAGE_MANIFEST.exclude`.
+   - If `STAGE_MANIFEST` is absent and `git diff --staged` is non-empty, the scope is exactly the staged index.
+   - If `STAGE_MANIFEST` is absent and `git diff --staged` is empty, stop with `NEEDS_USER_INPUT` (`kind: scope_change`) instead of proposing new files to stage.
 3) Draft a high-quality commit message with this shape:
    - Subject line in Conventional Commit format: `type: short description`, `type(scope): short description`, `type!: short description`, or `type(scope)!: short description`
    - When using scope, infer scope names from recent git history for the same area and reuse the most common existing scope label
@@ -47,7 +50,9 @@ Workflow:
 7) Run commit as a separate command after message is finalized.
    - If `STAGE_MANIFEST` is provided, stage manifest `include` paths and verify staged results match manifest scope before committing.
    - If `STAGE_MANIFEST` is not provided and `git diff --staged` is non-empty, commit the staged index as-is and do not run `git add`.
-   - If `STAGE_MANIFEST` is not provided and `git diff --staged` is empty (or the user explicitly requests scope changes), run `git add <paths>` and re-check `git diff --staged` before committing.
+   - If `STAGE_MANIFEST` is not provided and `git diff --staged` is empty, never stage files automatically; return `NEEDS_USER_INPUT` (`kind: scope_change`) and stop.
+   - If the user explicitly requests scope changes, require explicit user-provided paths before running `git add`, then re-check `git diff --staged` before committing.
+   - Before any `git add`, verify either `STAGE_MANIFEST` exists or the user explicitly requested specific paths; otherwise stop with `NEEDS_USER_INPUT` (`kind: scope_change`).
    - Keep `git add` and `git commit` as separate invocations so permission approvals can be granted independently.
    - Do not chain commit flow with other operations.
    - For any multi-line commit message, always pass message content via stdin using `git commit -F - <<'EOF'`.
@@ -121,6 +126,8 @@ Rules:
 - If user explicitly requests amend and does not explicitly request a message change, preserve the existing message with `git commit --amend --no-edit`.
 - Never recreate or paraphrase an existing commit message during amend unless the user explicitly asks to edit the message.
 - Exclude unrelated files and likely secrets.
+- Never infer commit scope from unstaged changes when `STAGE_MANIFEST` is absent.
+- Never run `git add` unless authorized by `STAGE_MANIFEST.include` or by an explicit user request naming specific paths.
 - Never stage files that likely contain secrets (`.env*`, `*.pem`, `*.key`, `credentials*`, `*token*`) without explicit user confirmation.
 - If no changes, report "nothing to commit".
 - After a successful commit, do not provide follow-up suggestions.
