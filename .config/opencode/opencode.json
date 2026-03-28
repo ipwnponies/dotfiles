@@ -265,7 +265,6 @@
         },
         "skill": {
           "*": "deny",
-          "create-plan": "allow",
           "design": "allow"
         },
         "task": {
