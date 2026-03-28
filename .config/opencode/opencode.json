@@ -28,10 +28,6 @@
           "git status": "allow",
           "git status *": "allow"
         },
-        "glob": "allow",
-        "grep": "allow",
-        "list": "allow",
-        "read": "allow",
         "skill": "allow",
         "task": {
           "*": "deny",
@@ -109,10 +105,6 @@
           "yarn test*": "allow"
         },
         "edit": "allow",
-        "glob": "allow",
-        "grep": "allow",
-        "list": "allow",
-        "read": "allow",
         "task": {
           "*": "deny",
           "reviewer_impl": "allow"
@@ -155,11 +147,7 @@
           "ruff *": "allow",
           "yarn test*": "allow"
         },
-        "edit": "allow",
-        "glob": "allow",
-        "grep": "allow",
-        "list": "allow",
-        "read": "allow"
+        "edit": "allow"
       },
       "steps": 20,
       "temperature": 0.15
@@ -255,10 +243,6 @@
           "yarn test*": "allow"
         },
         "edit": "allow",
-        "glob": "allow",
-        "grep": "allow",
-        "list": "allow",
-        "read": "allow",
         "task": {
           "*": "deny",
           "patch_reviewer": "allow"
@@ -301,11 +285,7 @@
           "ruff *": "allow",
           "yarn test*": "allow"
         },
-        "edit": "allow",
-        "glob": "allow",
-        "grep": "allow",
-        "list": "allow",
-        "read": "allow"
+        "edit": "allow"
       },
       "prompt": "{file:./agents/implementer.md}",
       "steps": 6,
@@ -328,10 +308,6 @@
           "git status*": "allow"
         },
         "edit": "deny",
-        "glob": "allow",
-        "grep": "allow",
-        "list": "allow",
-        "read": "allow",
         "task": {
           "*": "deny",
           "patch_fixer": "allow"
@@ -366,10 +342,6 @@
           "git status": "allow",
           "git status *": "allow"
         },
-        "glob": "allow",
-        "grep": "allow",
-        "list": "allow",
-        "read": "allow",
         "skill": {
           "*": "deny",
           "create-plan": "allow",
@@ -410,10 +382,6 @@
           "yarn test*": "allow"
         },
         "edit": "deny",
-        "glob": "allow",
-        "grep": "allow",
-        "list": "allow",
-        "read": "allow",
         "write": "deny"
       },
       "steps": 12,
@@ -471,10 +439,6 @@
           "yq *": "allow"
         },
         "edit": "deny",
-        "glob": "allow",
-        "grep": "allow",
-        "list": "allow",
-        "read": "allow",
         "task": {
           "*": "deny",
           "reviewer": "allow"
@@ -529,10 +493,6 @@
           "git status*": "allow"
         },
         "edit": "deny",
-        "glob": "allow",
-        "grep": "allow",
-        "list": "allow",
-        "read": "allow",
         "task": {
           "*": "deny",
           "fixer": "allow"
@@ -545,7 +505,10 @@
   "model": "{env:OPENCODE_MODEL_DEEP}",
   "permission": {
     "*": "ask",
-    "glob": "allow"
+    "glob": "allow",
+    "grep": "allow",
+    "list": "allow",
+    "read": "allow"
   },
   "small_model": "{env:OPENCODE_MODEL_LIGHT}"
 }
