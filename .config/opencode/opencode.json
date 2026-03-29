@@ -424,7 +424,13 @@
     "glob": "allow",
     "grep": "allow",
     "list": "allow",
-    "read": "allow"
+    "read": "allow",
+    "skill": {
+      "commit": "deny",
+      "design": "deny",
+      "implement": "deny",
+      "patch": "deny"
+    }
   },
   "small_model": "{env:OPENCODE_MODEL_LIGHT}"
 }
