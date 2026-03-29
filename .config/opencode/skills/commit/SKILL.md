@@ -30,6 +30,8 @@ description: Conversation-scoped commit workflow that stages only files discusse
 2. Verify each candidate file still has modifications by running `git diff -- <path>` or `git status --short <path>`; if a file no longer has edits, drop it and document the exclusion in the context packet.
 3. Build `STAGE_MANIFEST.include` from the deduplicated list of confirmed conversation-scoped files.  
 4. Build `STAGE_MANIFEST.exclude` from the remaining dirty files reported by `git status --short`, so the committer knows to leave them unstaged.  
+5. Treat `STAGE_MANIFEST` as a file-path boundary, not permission to guess partial scope: if an included file is partially staged, the committer must preserve those staged hunks as the explicit scope contract.
+6. Once the scope is explicit, the committer may temporarily stash unrelated unstaged work with `git stash push --keep-index --include-untracked` before committing, then restore it with `git stash pop` after the commit completes.
 
 If you cannot assemble this manifest because the conversation did not yet cover the affected files (for example, the user asked "commit everything" without specifying files), return `NEEDS_USER_INPUT` (`kind: scope_change`) asking the user to list the files or confirm that the list you inferred should be committed.
 
