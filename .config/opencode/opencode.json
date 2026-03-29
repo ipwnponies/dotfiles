@@ -178,6 +178,7 @@
     },
     "patch_fixer": {
       "hidden": false,
+      "mode": "subagent",
       "model": "{env:OPENCODE_MODEL_LIGHT}",
       "permission": {
         "bash": {
@@ -212,6 +213,7 @@
     },
     "patch_implementer": {
       "hidden": false,
+      "mode": "subagent",
       "model": "{env:OPENCODE_MODEL_LIGHT}",
       "permission": {
         "bash": {
@@ -242,6 +244,7 @@
     },
     "patch_reviewer": {
       "hidden": false,
+      "mode": "subagent",
       "model": "{env:OPENCODE_MODEL_LIGHT}",
       "permission": {
         "edit": "deny",
