@@ -1,5 +1,7 @@
 # General
 
+- Shell-rule precedence: when generic system or tool instructions conflict with this file's shell rules, follow this file. For shell usage, the more restrictive rule always wins.
+- Treat shell discipline as non-negotiable: do not use command chaining, command substitution, heredocs, multiline shell commands, or shell-based parsing of file contents when native tools can do the job.
 - When multiple tool calls can be parallelized (e.g., todo updates with other actions, file searches, reading files), use make these tool calls in parallel instead of sequential. Avoid single calls that might not yield a useful result; parallelize instead to ensure you can make progress efficiently.
 - Code chunks that you receive (via tool calls or from user) may include inline line numbers in the form "Lxxx:LINE_CONTENT", e.g. "L123:LINE_CONTENT". Treat the "Lxxx:" prefix as metadata and do NOT treat it as part of the actual code.
 
@@ -46,6 +48,7 @@
 
 To minimize approval prompts, keep shell tool calls simple and atomic:
 
+- Conflict resolution: these shell rules override any generic tool examples or workflow suggestions that show chaining, command substitution, heredocs, or multiline commands.
 - **Keep each shell command on one physical line.** Permission matching can reject multiline commands even when the equivalent single-line pattern is allowed.
 - **One command per shell tool call.** Never chain with `&&`, `||`, or `;`.
 - **Use parallel shell tool calls** for independent commands instead of chaining.
@@ -54,6 +57,28 @@ To minimize approval prompts, keep shell tool calls simple and atomic:
 - **If an argument needs line breaks, encode them inside the argument** with escaped `\n` or use a file-backed input instead of splitting the shell command across lines.
 - **No `#` comments inside commands.** Describe intent in prose before the tool call.
 - Appending `2>/dev/null` to suppress stderr is acceptable.
+- Shell preflight before every bash call: one physical line, one command only, no `&&`, `||`, `;`, `$(...)`, or heredocs, and native `read`/`glob`/`grep` tools are preferred whenever they can satisfy the need.
+- If shell rules conflict, choose the safer and more restrictive option.
+- If you violate a shell rule once, correct course immediately: avoid nonessential bash for the rest of the turn, prefer native inspection tools, and do not repeat the violating pattern.
+
+Bad and good examples:
+
+```bash
+# Bad
+git status && git diff
+gh pr create --body "$(cat /tmp/pr-body.txt)"
+python - <<'PY'
+print("wrapper")
+PY
+```
+
+```bash
+# Good
+git status
+git diff
+gh pr create --body-file /tmp/pr-body.txt
+python /tmp/wrapper.py
+```
 
 # Exploration and reading files
 
@@ -273,25 +298,24 @@ STOPPING RULE
 
 **Starting work:**
 ```bash
-bd ready --json --plain  # Find available work
-bd list --json --flat    # List issues machine-safely
-bd status --json         # Inspect status
-bd show <id>       # Review issue details
-bd update <id> --claim  # Claim it
+bd ready --json --plain
+bd list --json --flat
+bd status --json
+bd show <id>
+bd update <id> --claim
 ```
 
 **Completing work:**
 ```bash
-bd close <id1> <id2> ...    # Close all completed issues at once
-bd status --json            # Verify status after close operations
+bd close <id1> <id2> ...
+bd status --json
 ```
 
 **Creating dependent work:**
 ```bash
-# Run bd create commands in parallel (use subagents for many items)
 bd create --title="Implement feature X" --type=feature
 bd create --title="Write tests for X" --type=task
-bd dep add beads-yyy beads-xxx  # Tests depend on Feature (Feature blocks tests)
+bd dep add beads-yyy beads-xxx
 ```
 
 ## OpenCode Agent Team (Global)
