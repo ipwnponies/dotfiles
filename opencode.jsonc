@@ -1,0 +1,10 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "permission": {
+    "bash": {
+      // Allow validation of openconfig config
+      "python -m json.tool .config/opencode/opencode.jsonc *": "allow",
+      "python3 -m json.tool .config/opencode/opencode.jsonc *": "allow"
+    }
+  }
+}

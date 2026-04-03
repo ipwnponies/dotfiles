@@ -40,9 +40,11 @@
           "git push*": "deny",
           "git rebase*": "deny",
           "git reset*": "deny",
+          // Commit uses git stash to handle staging targeted files. Opencode agent not capable to staging hunks.
           "git stash *": "allow",
           "git status": "allow",
           "git status *": "allow",
+          // Prevent shell-based directory discovery; the agent should rely on scoped file tools.
           "ls *": "deny"
         },
         "edit": "deny",
@@ -141,6 +143,7 @@
         },
         "glob": {
           "*": "deny",
+          // Have space for orchestrator to dump artifacts, such as research. Or other handoff items.
           ".opencode/*": "allow"
         },
         "grep": "allow",
@@ -321,6 +324,7 @@
           "bd stats *": "allow",
           "bd update *": "allow",
           "bun add*": "deny",
+          // Keep the researcher safely read-only even when shell access is available.
           "chmod *": "deny",
           "chown *": "deny",
           "cp *": "deny",
@@ -425,6 +429,8 @@
     "list": "allow",
     "read": "allow",
     "skill": {
+      // These workflows are only meant for interactive user to invoke. Deny so that agents don't misinterpret them as
+      // useful for agent instruction.
       "commit": "deny",
       "design": "deny",
       "implement": "deny",

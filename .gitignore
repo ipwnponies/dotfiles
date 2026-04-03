@@ -7,4 +7,4 @@ __pycache__/
 !README
 !/.config/
 !/.opencode/
-!/opencode.json
+!/opencode.jsonc
