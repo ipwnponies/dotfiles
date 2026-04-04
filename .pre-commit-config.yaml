@@ -32,3 +32,12 @@ repos:
       rev: v0.6.4
       hooks:
           - id: add-trailing-comma
+    - repo: local
+      hooks:
+          - id: prettier-jsonc
+            name: prettier jsonc
+            entry: prettier --write --parser jsonc --trailing-comma all
+            language: node
+            additional_dependencies:
+                - prettier@3.6.2
+            files: \.jsonc$

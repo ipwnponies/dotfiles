@@ -10,18 +10,18 @@
           "bd search *": "allow",
           "bd update *": "allow",
           "git branch": "allow",
-          "git branch *": "allow"
+          "git branch *": "allow",
         },
         "skill": "allow",
         "task": {
           "*": "deny",
           "committer": "allow",
           "orchestrator": "allow",
-          "reviewer": "allow"
+          "reviewer": "allow",
         },
         "todoread": "allow",
-        "todowrite": "allow"
-      }
+        "todowrite": "allow",
+      },
     },
     "committer": {
       "hidden": false,
@@ -45,18 +45,18 @@
           "git status": "allow",
           "git status *": "allow",
           // Prevent shell-based directory discovery; the agent should rely on scoped file tools.
-          "ls *": "deny"
+          "ls *": "deny",
         },
         "edit": "deny",
         "question": "allow",
         "read": {
           "*": "deny",
-          ".config/opencode/agents/committer.md": "allow"
+          ".config/opencode/agents/committer.md": "allow",
         },
-        "webfetch": "deny"
+        "webfetch": "deny",
       },
       "steps": 6,
-      "temperature": 0
+      "temperature": 0,
     },
     "fixer": {
       "hidden": true,
@@ -80,17 +80,17 @@
           "pytest*": "allow",
           "python -m pytest*": "allow",
           "ruff *": "allow",
-          "yarn test*": "allow"
+          "yarn test*": "allow",
         },
         "edit": "allow",
         "task": {
           "*": "deny",
-          "reviewer_impl": "allow"
+          "reviewer_impl": "allow",
         },
-        "write": "deny"
+        "write": "deny",
       },
       "steps": 8,
-      "temperature": 0.1
+      "temperature": 0.1,
     },
     "implementer": {
       "hidden": false,
@@ -114,12 +114,12 @@
           "pytest*": "allow",
           "python -m pytest*": "allow",
           "ruff *": "allow",
-          "yarn test*": "allow"
+          "yarn test*": "allow",
         },
-        "edit": "allow"
+        "edit": "allow",
       },
       "steps": 20,
-      "temperature": 0.15
+      "temperature": 0.15,
     },
     "orchestrator": {
       "hidden": false,
@@ -139,22 +139,22 @@
           "bd show *": "allow",
           "bd stats *": "allow",
           "bd status *": "allow",
-          "bd update *": "allow"
+          "bd update *": "allow",
         },
         "glob": {
           "*": "deny",
           // Have space for orchestrator to dump artifacts, such as research. Or other handoff items.
-          ".opencode/design/**": "allow"
+          ".opencode/design/**": "allow",
         },
         "grep": "allow",
         "list": {
           "*": "deny",
-          ".opencode/design/**": "allow"
+          ".opencode/design/**": "allow",
         },
         "question": "allow",
         "read": {
           "*": "deny",
-          ".opencode/design/**": "allow"
+          ".opencode/design/**": "allow",
         },
         "task": {
           "*": "deny",
@@ -167,16 +167,16 @@
           "qa": "allow",
           "researcher": "allow",
           "reviewer": "allow",
-          "reviewer_impl": "allow"
+          "reviewer_impl": "allow",
         },
         "todoread": "allow",
         "todowrite": "allow",
         "write": {
           "*": "deny",
-          ".opencode/design/**": "allow"
-        }
+          ".opencode/design/**": "allow",
+        },
       },
-      "temperature": 0.1
+      "temperature": 0.1,
     },
     "patch_fixer": {
       "hidden": false,
@@ -201,17 +201,17 @@
           "pytest*": "allow",
           "python -m pytest*": "allow",
           "ruff *": "allow",
-          "yarn test*": "allow"
+          "yarn test*": "allow",
         },
         "edit": "allow",
         "task": {
           "*": "deny",
-          "patch_reviewer": "allow"
-        }
+          "patch_reviewer": "allow",
+        },
       },
       "prompt": "{file:./agents/fixer.md}",
       "steps": 6,
-      "temperature": 0.1
+      "temperature": 0.1,
     },
     "patch_implementer": {
       "hidden": false,
@@ -236,13 +236,13 @@
           "pytest*": "allow",
           "python -m pytest*": "allow",
           "ruff *": "allow",
-          "yarn test*": "allow"
+          "yarn test*": "allow",
         },
-        "edit": "allow"
+        "edit": "allow",
       },
       "prompt": "{file:./agents/implementer.md}",
       "steps": 6,
-      "temperature": 0.1
+      "temperature": 0.1,
     },
     "patch_reviewer": {
       "hidden": false,
@@ -252,12 +252,12 @@
         "edit": "deny",
         "task": {
           "*": "deny",
-          "patch_fixer": "allow"
-        }
+          "patch_fixer": "allow",
+        },
       },
       "prompt": "{file:./agents/reviewer_impl.md}",
       "steps": 6,
-      "temperature": 0.1
+      "temperature": 0.1,
     },
     "plan": {
       "permission": {
@@ -273,21 +273,21 @@
           "git show": "allow",
           "git show *": "allow",
           "git status": "allow",
-          "git status *": "allow"
+          "git status *": "allow",
         },
         "skill": {
           "*": "deny",
-          "design": "allow"
+          "design": "allow",
         },
         "task": {
           "*": "deny",
           "orchestrator": "allow",
           "researcher": "allow",
-          "reviewer": "allow"
+          "reviewer": "allow",
         },
         "todoread": "allow",
-        "todowrite": "allow"
-      }
+        "todowrite": "allow",
+      },
     },
     "qa": {
       "hidden": true,
@@ -303,13 +303,13 @@
           "pnpm test*": "allow",
           "pytest*": "allow",
           "python -m pytest*": "allow",
-          "yarn test*": "allow"
+          "yarn test*": "allow",
         },
         "edit": "deny",
-        "write": "deny"
+        "write": "deny",
       },
       "steps": 12,
-      "temperature": 0.05
+      "temperature": 0.05,
     },
     "researcher": {
       "hidden": true,
@@ -354,16 +354,16 @@
           "uv pip install*": "deny",
           "wc *": "allow",
           "yarn add*": "deny",
-          "yq *": "allow"
+          "yq *": "allow",
         },
         "edit": "deny",
         "task": {
           "*": "deny",
-          "reviewer": "allow"
-        }
+          "reviewer": "allow",
+        },
       },
       "steps": 18,
-      "temperature": 0.25
+      "temperature": 0.25,
     },
     "reviewer": {
       "hidden": true,
@@ -371,16 +371,16 @@
       "permission": {
         "bash": {
           "git diff*": "allow",
-          "git status*": "allow"
+          "git status*": "allow",
         },
         "edit": "deny",
         "task": {
           "*": "deny",
-          "researcher": "allow"
-        }
+          "researcher": "allow",
+        },
       },
       "steps": 10,
-      "temperature": 0.25
+      "temperature": 0.25,
     },
     "reviewer_impl": {
       "hidden": true,
@@ -388,17 +388,17 @@
       "permission": {
         "bash": {
           "git diff*": "allow",
-          "git status*": "allow"
+          "git status*": "allow",
         },
         "edit": "deny",
         "task": {
           "*": "deny",
-          "fixer": "allow"
-        }
+          "fixer": "allow",
+        },
       },
       "steps": 10,
-      "temperature": 0.2
-    }
+      "temperature": 0.2,
+    },
   },
   "model": "{env:OPENCODE_MODEL_DEEP}",
   "permission": {
@@ -422,7 +422,7 @@
       "git show": "allow",
       "git show *": "allow",
       "git status": "allow",
-      "git status *": "allow"
+      "git status *": "allow",
     },
     "glob": "allow",
     "grep": "allow",
@@ -434,8 +434,8 @@
       "commit": "deny",
       "design": "deny",
       "implement": "deny",
-      "patch": "deny"
-    }
+      "patch": "deny",
+    },
   },
-  "small_model": "{env:OPENCODE_MODEL_LIGHT}"
+  "small_model": "{env:OPENCODE_MODEL_LIGHT}",
 }
