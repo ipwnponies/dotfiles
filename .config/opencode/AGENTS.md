@@ -46,18 +46,27 @@
 
 ## Shell Invocation Patterns
 
-To minimize approval prompts, keep shell tool calls simple and atomic:
+**CRITICAL: Keep shell commands simple so they map to the approved allowlist.**
 
-- Conflict resolution: these shell rules override any generic tool examples or workflow suggestions that show chaining, command substitution, heredocs, or multiline commands.
+Shell constructs break allowlist matching and trigger approval prompts. Commands must be simple, atomic, and single-line to match permission patterns.
+
+**Conflict resolution:** These shell rules override any generic tool examples or workflow suggestions that show chaining, command substitution, heredocs, or multiline commands.
+
+**Core Rules:**
 - **Keep each shell command on one physical line.** Permission matching can reject multiline commands even when the equivalent single-line pattern is allowed.
 - **One command per shell tool call.** Never chain with `&&`, `||`, or `;`.
-- **Use parallel shell tool calls** for independent commands instead of chaining.
 - **Avoid `$(...)` command substitution.** Run commands separately and coordinate outputs across calls.
 - **Write complex data to temp files** instead of passing via arguments or heredocs.
-- **If an argument needs line breaks, keep the command on one physical line and use shell quoting that produces real newline characters in the argument.** In this `zsh` environment, prefer ANSI-C quoting like `$'line 1\nline 2'`, or use a file-backed input instead of splitting the shell command across lines. Do not rely on the target CLI to decode literal `\n` sequences.
 - **No `#` comments inside commands.** Describe intent in prose before the tool call.
+- **Use parallel shell tool calls** for independent commands instead of chaining.
 - Appending `2>/dev/null` to suppress stderr is acceptable.
-- Shell preflight before every bash call: one physical line, one command only, no `&&`, `||`, `;`, `$(...)`, or heredocs, and native `read`/`glob`/`grep` tools are preferred whenever they can satisfy the need.
+
+**When arguments need newlines:** Keep the command on one physical line and use shell quoting that produces real newline characters in the argument. In this `zsh` environment, prefer ANSI-C quoting like `$'line 1\nline 2'`, or use a file-backed input instead of splitting the shell command across lines. Do not rely on the target CLI to decode literal `\n` sequences.
+
+**Correct pattern:** Run multiple separate shell tool calls, passing results from one call to the next. Each command stays simple and matches the allowlist. Prefer native tools (`read`/`glob`/`grep`) whenever they can satisfy the need.
+
+**Enforcement:**
+- Shell preflight before every bash call: one physical line, one command only, no `&&`, `||`, `;`, `$(...)`, or heredocs.
 - If shell rules conflict, choose the safer and more restrictive option.
 - If you violate a shell rule once, correct course immediately: avoid nonessential bash for the rest of the turn, prefer native inspection tools, and do not repeat the violating pattern.
 
