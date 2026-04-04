@@ -144,17 +144,17 @@
         "glob": {
           "*": "deny",
           // Have space for orchestrator to dump artifacts, such as research. Or other handoff items.
-          ".opencode/*": "allow"
+          ".opencode/design/**": "allow"
         },
         "grep": "allow",
         "list": {
           "*": "deny",
-          ".opencode/*": "allow"
+          ".opencode/design/**": "allow"
         },
         "question": "allow",
         "read": {
           "*": "deny",
-          "*/.opencode/*": "allow"
+          ".opencode/design/**": "allow"
         },
         "task": {
           "*": "deny",

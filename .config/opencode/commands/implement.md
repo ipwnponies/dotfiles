@@ -42,8 +42,9 @@ Mode resolution:
   - Do not assume direct access to the full parent chat transcript unless that context is explicitly provided by the parent.
   - Prioritize explicit user confirmations and assistant implementation offers (for example: "I can implement X and Y").
   - Extract candidate intents as short actionable statements; keep only candidates that are specific enough to execute.
-  - Then run artifact discovery in areas of interest (including `.opencode/` when present) and gather relevant beads tasks.
-  - Merge results into one shortlist and return `NEEDS_USER_INPUT` so the parent can ask the user to choose what to execute.
+  - If resumed context already records user confirmation to proceed with artifact-only discovery, skip the generic shortlist flow, continue in the same orchestrator task, and run repo-local artifact discovery yourself.
+  - Otherwise run artifact discovery in areas of interest (including `.opencode/` when present) and gather relevant beads tasks.
+  - Merge the non-artifact-only results into one shortlist and return `NEEDS_USER_INPUT` so the parent can ask the user to choose what to execute.
   - If one candidate is clearly dominant (most recent + explicit + scoped), present it as the recommended default in the `NEEDS_USER_INPUT` prompt.
 - If the user selects a discovered design artifact, run planned mode from that artifact metadata.
 - Prefer planned mode when artifacts are present.
@@ -56,6 +57,12 @@ Intent discovery protocol (used when `$ARGUMENTS` is empty):
 - If chat intent references files/components that match discovered artifacts/tasks, link them as one candidate instead of duplicating options.
 - Ask exactly one user-facing selection question with a concise option list plus "Type your own" fallback.
 - Preserve existing behavior conditionally: if no reliable parent-supplied chat intent is found, proceed with artifact/beads discovery-only selection flow only when the required prompt envelope is present/substantive or prior user confirmation to artifact-only discovery already exists in resumed context.
+- In the resumed artifact-only branch, discover repo-local design artifacts before asking the user for anything else:
+  - Search the current repository for `.opencode/design/*.md` artifacts first.
+  - Treat `.opencode/design/.research/*.md` as secondary discovery targets when no final design docs are present there or when resumed context explicitly points to research artifacts.
+  - If no relevant artifacts are found, return one focused fallback `NEEDS_USER_INPUT` prompt asking the user to upload a design doc or indicate where one lives, instead of asking for an explicit path up front.
+  - If exactly one relevant artifact is found, continue automatically in planned mode with that artifact.
+  - If multiple relevant artifacts are found, return one `NEEDS_USER_INPUT` selection prompt listing the discovered artifact paths as options.
 
 Execution budget and stopping:
 - Execute multiple slices per invocation when dependencies allow.
@@ -149,6 +156,7 @@ Parent context contract:
 - If `$ARGUMENTS` is empty and the required prompt envelope is missing or substantially empty, return `NEEDS_USER_INPUT` asking for either:
   - a one-line explicit build/implementation intent, or
   - confirmation to proceed with artifact-only discovery.
+- After the user confirms artifact-only discovery in this fail-safe branch, expect the parent to resume the same `task_id` session with that confirmation and updated context; do not require the parent to perform filesystem lookup or supply a design-doc path unless the orchestrator's own repo-local discovery returns no usable artifacts.
 - If explicit intent is provided but prior discussion exists and packet coverage is too shallow, return `NEEDS_USER_INPUT` asking for a fuller context packet (timeline, decisions, constraints) before intent discovery/execution.
 - Do not infer implementation intent from unstated/implicit chat history in this fail-safe branch.
 

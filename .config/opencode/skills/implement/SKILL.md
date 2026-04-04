@@ -53,6 +53,7 @@ description: Implement workflow skill with inferred-intent context handoff.
 - Always use the agent-team path because the specialized roles own the needed prompts, permissions, and commit/QA boundaries.
 - Always pass either explicit `$ARGUMENTS` or an inferred-intent prompt, and include the context packet envelope whenever prior discussion exists.
 - For `NEEDS_USER_INPUT`, ask exactly one question and resume the same task session via `task_id` with the user response and updated constraints.
+- If the empty-input fail-safe question is answered with artifact-only discovery, the parent should only forward that confirmation when resuming `task_id`; do not ask the user for a design-doc path or perform any parent-side file lookup.
 - Git/worktree state is parent-owned context. The parent may provide it explicitly in `Git/worktree context:`; if it is not provided, do not instruct `orchestrator` or downstream roles to inspect git state or the working tree to fill the gap.
 - Do not generate instructions such as "inspect the current working tree first" or "determine whether to keep/fix/replace parent edits." Either include that context up front or proceed without it.
 - If `/implement` dispatch cannot run, stop and surface the blocker instead of bypassing the team workflow locally.
@@ -70,6 +71,7 @@ description: Implement workflow skill with inferred-intent context handoff.
 - Return `NEEDS_USER_INPUT` requesting one of:
   - one-line explicit build/implementation intent, or
   - confirmation to proceed with artifact-only discovery.
+- After artifact-only confirmation, the resumed orchestrator session should discover repo-local `.opencode/design` artifacts itself and only ask the user a follow-up question when discovery yields zero or multiple viable artifacts.
 
 ## Residual dependency
 
