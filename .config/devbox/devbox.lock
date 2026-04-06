@@ -1447,50 +1447,50 @@
       }
     },
     "pyenv@latest": {
-      "last_modified": "2024-09-12T11:58:09Z",
-      "resolved": "github:NixOS/nixpkgs/280db3decab4cbeb22a4599bd472229ab74d25e1#pyenv",
+      "last_modified": "2026-03-21T07:29:51Z",
+      "resolved": "github:NixOS/nixpkgs/09061f748ee21f68a089cd5d91ec1859cd93d0be#pyenv",
       "source": "devbox-search",
-      "version": "2.4.11",
+      "version": "2.6.26",
       "systems": {
         "aarch64-darwin": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/1c5dwzmdq3whhbd1qm5w7lg2nbskmmvn-pyenv-2.4.11",
+              "path": "/nix/store/jkx0acnk3614baa12a01qir3gmbr99qd-pyenv-2.6.26",
               "default": true
             }
           ],
-          "store_path": "/nix/store/1c5dwzmdq3whhbd1qm5w7lg2nbskmmvn-pyenv-2.4.11"
+          "store_path": "/nix/store/jkx0acnk3614baa12a01qir3gmbr99qd-pyenv-2.6.26"
         },
         "aarch64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/fld8vp482aiclx85s1pkpn460xpr7ncv-pyenv-2.4.11",
+              "path": "/nix/store/x1rcykmaxnpg6ama1qqz9fg8l6b3izr1-pyenv-2.6.26",
               "default": true
             }
           ],
-          "store_path": "/nix/store/fld8vp482aiclx85s1pkpn460xpr7ncv-pyenv-2.4.11"
+          "store_path": "/nix/store/x1rcykmaxnpg6ama1qqz9fg8l6b3izr1-pyenv-2.6.26"
         },
         "x86_64-darwin": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/yzxl7ny1pjx8nwv7l2d817mzl8mg5xbd-pyenv-2.4.11",
+              "path": "/nix/store/5bn1giq0c40m91z21hp5bys91x742cj9-pyenv-2.6.26",
               "default": true
             }
           ],
-          "store_path": "/nix/store/yzxl7ny1pjx8nwv7l2d817mzl8mg5xbd-pyenv-2.4.11"
+          "store_path": "/nix/store/5bn1giq0c40m91z21hp5bys91x742cj9-pyenv-2.6.26"
         },
         "x86_64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/x471d8mij0155h4pxds1wxv1b3358ncd-pyenv-2.4.11",
+              "path": "/nix/store/31228bh4y13jbm4l6qlv5h743yczhlnd-pyenv-2.6.26",
               "default": true
             }
           ],
-          "store_path": "/nix/store/x471d8mij0155h4pxds1wxv1b3358ncd-pyenv-2.4.11"
+          "store_path": "/nix/store/31228bh4y13jbm4l6qlv5h743yczhlnd-pyenv-2.6.26"
         }
       }
     },
