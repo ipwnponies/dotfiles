@@ -8,6 +8,6 @@ function install_aqua --description 'Install aqua if not present'
 end
 
 type -q aqua; or install_aqua
-status --is-login; and aqua install
+status --is-login; and aqua install -a
 
 fish_add_path (aqua root-dir)/bin
