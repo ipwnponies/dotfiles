@@ -8,7 +8,7 @@ description: Design workflow skill with inferred-intent context handoff.
 ## Purpose
 
 - Provide a consistent skill-first entrypoint for design-only workflow execution.
-- Route work through orchestrator subtask execution of `.config/opencode/commands/design.md`.
+- Route work through orchestrator subtask execution of `/design`.
 
 ## Trigger examples
 

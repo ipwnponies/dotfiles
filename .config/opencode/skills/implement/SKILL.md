@@ -8,7 +8,7 @@ description: Implement workflow skill with inferred-intent context handoff.
 ## Purpose
 
 - Provide a consistent skill-first entrypoint for autonomous implementation workflow execution.
-- Route work through orchestrator subtask execution of `.config/opencode/commands/implement.md`.
+- Route work through orchestrator subtask execution of `/implement`.
 
 ## Trigger examples
 

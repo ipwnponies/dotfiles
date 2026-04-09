@@ -18,7 +18,7 @@ description: Conversation-scoped commit workflow that stages only files discusse
 
 ## Intake rules
 
-- Use `$ARGUMENTS` as the user’s commit intent/message candidate. Feed it through the committer classifier described in `.config/opencode/agents/committer.md` (final vs intent).
+- Use `$ARGUMENTS` as the user’s commit intent/message candidate. Feed it through the `committer` classifier contract (final vs intent).
 - When the user does not provide an explicit message, summarize the request and the relevant files from the conversation context when you invoke `/commit`.
 - Do not infer new files from `git status`; build the scope only from files already mentioned/edited in this conversation (either by the user or by the assistant while editing).
 
@@ -47,5 +47,5 @@ If the user later wants to add an externally edited file not yet discussed, perf
 
 ## Dispatch
 
-- Call `.config/opencode/commands/commit.md` with the assembled context packet plus the `STAGE_MANIFEST` block so the committer stages only the approved files. Ensure the prompt includes both the intent message (or summary) and the manifest.
+- Call `/commit` with the assembled context packet plus the `STAGE_MANIFEST` block so the committer stages only the approved files. Ensure the prompt includes both the intent message (or summary) and the manifest.
 - After the commit, remind the user to mention any future additional files explicitly so the scope stays this clean.
