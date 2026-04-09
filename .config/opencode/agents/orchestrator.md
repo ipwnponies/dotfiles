@@ -47,7 +47,7 @@ Approval signal for this loop: reviewer `STATUS: ready_for_qa` means approved.
 
 1. **Spawn researcher** with full task requirements.
    - Include: the user's request, relevant file paths, and any `.opencode/design/` context.
-   - Wait for researcher to return with STATUS `ready_for_review` and proposal artifacts (research notes/draft paths).
+   - Wait for researcher to return with STATUS `ready_for_review` and proposal artifacts (draft/scratch artifact paths).
 
 2. **Spawn reviewer** to evaluate the researcher's proposal.
    - Include in prompt: the researcher's full handoff output (DONE, NEXT, ARTIFACTS).
@@ -64,7 +64,7 @@ Approval signal for this loop: reviewer `STATUS: ready_for_qa` means approved.
    - Escalate with `NEEDS_USER_INPUT` using the reviewer's blocker details.
 
 5. **When reviewer approves**:
-   - Spawn researcher one final time to create the design artifact at `.opencode/design/YYYYMMDD-<slug>.md`.
+   - Spawn researcher one final time to create the approved design artifact at `.opencode/design/YYYYMMDD-<slug>.md`.
    - Include: "Reviewer approved. Create final design artifact with all required sections."
    - Wait for researcher to confirm artifact creation and return artifact path.
 

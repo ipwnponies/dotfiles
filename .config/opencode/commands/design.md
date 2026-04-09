@@ -76,19 +76,21 @@ Execution model:
 - Use direct researcher <-> reviewer collaboration for fast iteration.
 - Use orchestrator as a lightweight coordinator only (entrypoint, conflict resolution, final review of researcher-written artifacts).
 - Keep every handoff explicit using ROLE/STATUS/DONE/NEXT/BLOCKERS/ARTIFACTS.
-- Researcher writes intermediate findings to `.opencode/design/.research/` during iteration, then writes the final design doc to `.opencode/design/`.
+- Researcher writes all design artifacts to `.opencode/design/`.
+- Use filename and document status to distinguish maturity: drafts/scratch notes use `YYYYMMDD-wip-<slug>.md`, approved design docs use `YYYYMMDD-<slug>.md`.
 - Artifact creation must be done with filesystem tools (`Read`/`Write`/`Edit`), not shell commands.
 - Do not run `ls`, `mkdir`, `date`, or similar shell commands just to prepare the artifact path.
 - Use the session date context for `YYYYMMDD` in artifact filenames.
 
 Permissions:
 - Reviewer is read-only against the local workspace.
-- Researcher can write intermediate findings to `.opencode/design/.research/` and final design artifacts to `.opencode/design/`.
+- Researcher can write all design artifacts to `.opencode/design/`.
 - Orchestrator coordinates workflow and reads artifacts for final review but does not write them.
-- If artifact creation fails because `.opencode/design/` or `.opencode/design/.research/` is missing or write access is blocked, researcher should return STATUS: blocked so orchestrator can emit `NEEDS_USER_INPUT` with:
+- Every written artifact should include a `Status:` line near the top with one of `wip`, `scratch`, or `approved`.
+- If artifact creation fails because `.opencode/design/` is missing or write access is blocked, researcher should return STATUS: blocked so orchestrator can emit `NEEDS_USER_INPUT` with:
   - exact path to create,
   - why write access is required,
-  - what will be written (intermediate findings or final design markdown artifact).
+  - what will be written (draft/scratch notes or approved design markdown artifact).
 - Researcher and reviewer may request network access, but network is denied by default.
 - When external lookups are needed, emit STATUS: blocked with:
   - purpose,
@@ -104,6 +106,7 @@ Permissions:
 Required output artifact:
 - Produce one design doc artifact in `.opencode/design/` with:
   - Filename format: `YYYYMMDD-<slug>.md`
+  - `Status: approved` near the top of the document
   - problem statement,
   - scope and non-goals,
   - chosen approach and rejected alternatives,

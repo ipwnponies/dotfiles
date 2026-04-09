@@ -341,7 +341,7 @@ bd dep add beads-yyy beads-xxx
   - `committer`
 - Role boundaries:
   - `orchestrator`: coordinates workflow and reads artifacts for final review; does not write design artifacts or intermediate findings
-  - `researcher`: read-only exploration and planning for code/config, with Write access to `.opencode/design/` (final artifacts) and `.opencode/design/.research/` (intermediate findings); Beads issue-management mutations allowed (`bd create`, `bd dep add`, `bd update`) when preparing handoffs
+  - `researcher`: read-only exploration and planning for code/config, with Write access to `.opencode/design/` for all design artifacts; Beads issue-management mutations allowed (`bd create`, `bd dep add`, `bd update`) when preparing handoffs
   - `implementer`: code implementation and dev-tool execution based on researcher handoff
   - `reviewer`: read-only adversarial review of correctness, quality, and design decisions
   - `reviewer_impl`: read-only implementation review focused on correctness, regressions, and acceptance criteria adherence
@@ -349,8 +349,9 @@ bd dep add beads-yyy beads-xxx
   - `qa`: test-focused validation with strict read-only repository access (runs checks and reports evidence; no source or test edits)
   - `committer`: prepares/stages in-scope files and creates safe local commits after QA pass
 - File-based handoff pattern:
-  - Researcher writes intermediate findings to `.opencode/design/.research/<timestamp>-<slug>.md` during iteration.
-  - Researcher writes the final design artifact to `.opencode/design/YYYYMMDD-<slug>.md` after reviewer approval.
+  - Researcher writes all design artifacts to `.opencode/design/`.
+  - Use filename and document status to distinguish artifact maturity: drafts/scratch notes use `YYYYMMDD-wip-<slug>.md`, approved design artifacts use `YYYYMMDD-<slug>.md`.
+  - Include an explicit `Status:` line near the top of each artifact (`wip`, `scratch`, or `approved`) so discovery does not depend on folder layout.
   - Reviewer reads researcher's files directly from disk (artifacts are not context-passed between roles).
   - Orchestrator coordinates only: routes work, reads artifacts for final review, but does not write them.
   - Benefits: reduces token overhead for large findings by storing them on disk instead of passing through orchestrator context.

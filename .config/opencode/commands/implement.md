@@ -59,10 +59,12 @@ Intent discovery protocol (used when `$ARGUMENTS` is empty):
 - Preserve existing behavior conditionally: if no reliable parent-supplied chat intent is found, proceed with artifact/beads discovery-only selection flow only when the required prompt envelope is present/substantive or prior user confirmation to artifact-only discovery already exists in resumed context.
 - In the resumed artifact-only branch, discover repo-local design artifacts before asking the user for anything else:
   - Search the current repository for `.opencode/design/*.md` artifacts first.
-  - Treat `.opencode/design/.research/*.md` as secondary discovery targets when no final design docs are present there or when resumed context explicitly points to research artifacts.
+  - Treat approved artifacts as the only auto-runnable candidates: prioritize filenames without the `-wip-` marker and documents whose top-level `Status:` line says `approved`.
+  - Ignore `wip` artifacts for automatic planned-mode execution when at least one approved candidate exists.
+  - If exactly one approved artifact is found, continue automatically in planned mode with that artifact.
+  - If multiple approved artifacts are found, return one `NEEDS_USER_INPUT` selection prompt listing only the approved artifact paths as options.
+  - If no approved artifacts are found but one or more `wip` artifacts exist, return one focused `NEEDS_USER_INPUT` prompt that suggests those `wip` artifact paths as fallback candidates instead of auto-running them.
   - If no relevant artifacts are found, return one focused fallback `NEEDS_USER_INPUT` prompt asking the user to upload a design doc or indicate where one lives, instead of asking for an explicit path up front.
-  - If exactly one relevant artifact is found, continue automatically in planned mode with that artifact.
-  - If multiple relevant artifacts are found, return one `NEEDS_USER_INPUT` selection prompt listing the discovered artifact paths as options.
 
 Execution budget and stopping:
 - Execute multiple slices per invocation when dependencies allow.
