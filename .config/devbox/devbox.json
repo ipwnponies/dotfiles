@@ -42,7 +42,8 @@
     "uv@latest",
     "yarn@latest",
     "yq@latest",
-    "zoxide@latest"
+    "zoxide@latest",
+    "bun@latest"
   ],
   "shell": {
     "init_hook": [
