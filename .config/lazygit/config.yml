@@ -7,8 +7,9 @@ gui:
   filterMode: substring
 git:
   branchLogCmd: "git hist {{branchName}} --max-count 40 --"
-  paging:
-    externalDiffCommand: difft --display=inline
+  pagers:
+    - externalDiffCommand: difft --display=inline
+    - pager: delta --dark --paging=never
 promptToReturnFromSubprocess: false
 customCommands:
   - description: Push (override)
