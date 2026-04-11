@@ -12,46 +12,43 @@ git:
 promptToReturnFromSubprocess: false
 customCommands:
   - description: Push (override)
-    key: 'P'
+    key: "P"
     command: git {{.Form.push}} --verbose
     context: files, commits
     loadingText: Reticulating splines...
-    stream: false
-    showOutput: true
     prompts:
-      - type: 'menu'
-        title: 'How to push?'
+      - type: "menu"
+        title: "How to push?"
         key: push
         options:
-          - value: 'push'
-          - value: 'push --force-with-lease'
+          - value: "push"
+          - value: "push --force-with-lease"
             description: Who needs history anyways?
-          - value: 'push --no-verify'
+          - value: "push --no-verify"
             description: Pre-commit hooks slow as shit? No worries, i got you
-          - value: 'push --no-verify --force-with-lease'
+          - value: "push --no-verify --force-with-lease"
             description: just do it
+    output: popup
   - description: Push (override)
-    key: 'P'
+    key: "P"
     command: git {{.Form.push}} --verbose {{with .SelectedLocalBranch}} {{.UpstreamRemote}} {{.Name}} {{end}}
     context: localBranches
-    stream: false
-    showOutput: true
     prompts:
-      - type: 'menu'
-        title: 'How to push?'
+      - type: "menu"
+        title: "How to push?"
         key: push
         options:
-          - value: 'push'
-          - value: 'push --force-with-lease'
+          - value: "push"
+          - value: "push --force-with-lease"
             description: Who needs history anyways?
-          - value: 'push --no-verify'
+          - value: "push --no-verify"
             description: Pre-commit hooks slow as shit? No worries, i got you
-          - value: 'push --no-verify --force-with-lease'
+          - value: "push --no-verify --force-with-lease"
             description: just do it
+    output: popup
   - description: Set upstream to selected local branch
-    key: 'U'
+    key: "U"
     command: git branch --set-upstream-to={{.SelectedLocalBranch.Name}}
     context: localBranches
     loadingText: Setting upstream...
-    stream: false
-    showOutput: true
+    output: popup
