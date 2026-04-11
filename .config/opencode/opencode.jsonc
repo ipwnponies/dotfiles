@@ -1,5 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "plugin": ["superpowers@git+https://github.com/obra/superpowers.git"],
   "agent": {
     "build": {
       "permission": {
@@ -438,7 +439,14 @@
     "grep": "allow",
     "list": "allow",
     "read": "allow",
+    "command": {
+      "commit": "ask",
+      "design": "ask",
+      "implement": "ask",
+      "review": "ask",
+    },
     "skill": {
+      "*": "allow",
       // These workflows are only meant for interactive user to invoke. Deny so that agents don't misinterpret them as
       // useful for agent instruction.
       "commit": "deny",
