@@ -12,6 +12,13 @@
           "bd update *": "allow",
           "git branch": "allow",
           "git branch *": "allow",
+          // Superpowers uses these for repo-local .worktrees creation and cleanup.
+          "git check-ignore -q .worktrees": "allow",
+          "git worktree list": "allow",
+          "git worktree add \".worktrees/*\" *": "allow",
+          "git worktree remove \"*/.worktrees/*\"": "allow",
+          "ls -d .worktrees": "allow",
+          "mkdir -p \".worktrees/*\"": "allow",
         },
         "skill": "allow",
         "task": {
@@ -429,6 +436,7 @@
       "git diff *": "allow",
       "git log": "allow",
       "git log *": "allow",
+      "git merge-base *": "allow",
       "git rev-parse *": "allow",
       "git show": "allow",
       "git show *": "allow",
