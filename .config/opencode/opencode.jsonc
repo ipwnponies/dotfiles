@@ -12,6 +12,7 @@
           "bd update *": "allow",
           "git branch": "allow",
           "git branch *": "allow",
+          "git commit *": "allow",
           // Superpowers uses these for repo-local .worktrees creation and cleanup.
           "git check-ignore -q .worktrees": "allow",
           "git worktree list": "allow",
