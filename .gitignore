@@ -5,6 +5,7 @@ __pycache__/
 # But there are some things I'd like to keep track of.
 # These directories all have their own .gitignore file.
 !README
+!/bin/
 !/.config/
 !/.opencode/
 !/opencode.jsonc
