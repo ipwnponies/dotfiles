@@ -11,34 +11,35 @@
 
 ## conf.d load order
 
-Files are sourced alphabetically. The numeric prefix controls ordering:
+Files are sourced alphabetically. The numeric prefix exists solely to control
+load order when one file depends on variables set by another. The numbers
+themselves carry no meaning beyond their relative order — pick a number that
+places the file after its dependencies and before anything that depends on it.
+Files with no ordering dependency carry no prefix.
 
-| Prefix range | Role |
-|---|---|
-| `00-` | Generated files — never edit manually (e.g. `00-devbox-generated_local.fish`) |
-| `05-` | Core env: XDG dirs, PATH bootstrap — must load before anything uses `$XDG_*` |
-| `10-` | Dev environment managers (devbox) |
-| `15-` | AI/coding tools (opencode, codex) |
-| `20-` | Language toolchain paths (cargo, go, npm, virtualenv) |
-| no prefix | Tool integrations with no ordering dependency (abbr, direnv, fzf, etc.) |
-
-New tool integrations that only set env vars or PATH go at `20-`. If a new
-file must read variables set by another conf.d file, choose a higher number.
+Current numeric files and their actual dependencies:
+- `00-devbox-generated_local.fish` — generated, do not edit
+- `05-env.fish` — XDG dirs and PATH; must be first so later files can use `$XDG_*`
+- `05-ssh_agent.fish` — no deps on other conf.d files, `05` is just convention
+- `10-devbox.fish` — reads `$XDG_CONFIG_HOME` from `05-env.fish`
+- `15-opencode.fish` — no deps, number places it after devbox setup
+- `20-cargo.fish`, `20-go.fish`, `20-npm.fish`, `20-virtualenv.fish` — read `$XDG_*` vars
 
 ## Fish variable and env var conventions
 
 ```fish
-set -x VAR value          # export env var (not: export VAR=value)
-set -gx VAR value         # global + exported (equivalent for top-level conf.d)
-fish_add_path DIR         # append to PATH deduplicating (not: PATH="$DIR:$PATH")
+set -x VAR value          # export env var; at top level, scope is implicitly global
+set -gx VAR value         # explicitly global + exported; same effect at top level
+fish_add_path DIR         # append to PATH, deduplicating
 fish_add_path --prepend DIR  # prepend (for higher-priority overrides)
 
-set -g VAR value          # global fish variable (not exported)
+set -g VAR value          # global fish variable, not exported
 set -l VAR value          # local to current scope/function
 ```
 
-Do **not** use bash-style `export VAR=value` or `PATH=...` — these are
-silently ignored or cause subtle issues in fish.
+`-g` is redundant at the top level of a conf.d file (top-level variables are
+global by default) but makes intent explicit inside functions where `-l` is the
+default.
 
 ## Interactive vs login guards
 
@@ -50,9 +51,15 @@ if status --is-interactive
 end
 ```
 
-Use the interactive guard for prompts, keybindings, and anything that would
-produce output. Use the login guard for one-time setup (package installs,
-submodule syncs).
+Use the **interactive guard** for user-facing quality-of-life config:
+abbreviations, prompt customization, keybindings, UI-only tool setup. These
+make no sense in scripts or non-interactive subprocesses.
+
+Use the **login guard** for infrequent, heavier operations — package installs,
+syncing tools, updating generated files — where eventual consistency is
+acceptable. Combine both guards (`--is-interactive` and `--is-login`) so that
+remote commands and programmatic subprocesses don't accidentally pay the cost
+of these operations.
 
 ## Abbreviations vs functions vs aliases
 
@@ -82,7 +89,8 @@ values. The `*_local.fish` files are gitignored.
 
 1. Create `conf.d/<priority>-<toolname>.fish` with the right numeric prefix.
 2. Set env vars with `set -x`, add bins with `fish_add_path`.
-3. Wrap install/sync logic in a function and call it guarded by `status --is-login`.
+3. Wrap install/sync logic in a function and call it guarded by both
+   `status --is-interactive` and `status --is-login`.
 4. If the tool generates completions dynamically, cache them with a TTL check
    (see `10-devbox.fish` for the expiry pattern).
 5. If completions are static, add a file to `completions/<toolname>.fish`.
