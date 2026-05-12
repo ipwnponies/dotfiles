@@ -35,7 +35,8 @@ return {
 }
 ```
 
-Full spec with common fields:
+Full spec with common fields (use Context7 — https://context7.com/ — to pull
+current lazy.nvim docs when field semantics are unclear):
 ```lua
 return {
   "author/plugin-name",
