@@ -7,12 +7,6 @@ All scripts are host-agnostic and self-contained.
 Deletes merged remote branches. Defaults to `origin`.
 Usage: `git clean-remote [-r remote]`
 
-### git-deploy
-Pushes current `u/<user>/*` branch to a `d/<user>/*` deploy branch, or to
-an integration branch with `-i`. Supports force push (`-f`), deletion (`-d`),
-and listing (`-l`).
-Usage: `git deploy [-h] [-i] [-f] [-d] [-l] [remote]`
-
 ### git-find-merge-commit
 Given a commit SHA, finds the merge commit that introduced it into a branch.
 Useful for tracing when a change landed.
@@ -25,11 +19,6 @@ Usage: `git previous <N> [file]`
 ### make-print
 Prints the evaluated value of Makefile variables without running targets.
 Usage: `make-print VAR1 VAR2 ...`
-
-### pomodoro
-Alternating 25-minute work / 5-minute break timer with voice announcements
-via `termdown`. Runs indefinitely until interrupted.
-Usage: `pomodoro`
 
 ## Conventions for new scripts
 

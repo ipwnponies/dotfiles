@@ -18,12 +18,10 @@ places the file after its dependencies and before anything that depends on it.
 Files with no ordering dependency carry no prefix.
 
 Current numeric files and their actual dependencies:
-- `00-devbox-generated_local.fish` — generated, do not edit
-- `05-env.fish` — XDG dirs and PATH; must be first so later files can use `$XDG_*`
-- `05-ssh_agent.fish` — no deps on other conf.d files, `05` is just convention
-- `10-devbox.fish` — reads `$XDG_CONFIG_HOME` from `05-env.fish`
-- `15-opencode.fish` — no deps, number places it after devbox setup
-- `20-cargo.fish`, `20-go.fish`, `20-npm.fish`, `20-virtualenv.fish` — read `$XDG_*` vars
+- `05-env.fish` — XDG dirs and PATH; must load first so later files can use `$XDG_*`
+- `20-cargo.fish`, `20-go.fish`, `20-npm.fish`, `20-virtualenv.fish` — language
+  ecosystem package managers; each sets install paths and adds bins to PATH using
+  `$XDG_*` vars from `05-env.fish`
 
 ## Fish variable and env var conventions
 
