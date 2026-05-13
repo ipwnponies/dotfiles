@@ -1,5 +1,11 @@
 # Repository Guidelines
 
+## Personal Knowledge Store
+
+`~/.agents/docs/solutions/` — documented solutions to past problems (bugs, best practices, workflow patterns), organized by category with YAML frontmatter (`module`, `tags`, `problem_type`). Relevant when debugging or working in a documented area.
+
+When running `/ce-compound`, write docs to `~/.agents/docs/solutions/<category>/` instead of the default `docs/solutions/`.
+
 ## Project Structure & Module Organization
 - `bin/` contains host-agnostic CLI helpers (e.g., `bin/git-clean-remote`, `bin/pomodoro`); keep each file executable and documented with a header comment.
 - `.config/` mirrors application settings for fish, neovim, taskwarrior, etc.; keep app-specific docs inside the directory README when necessary and prefer per-app subfolders.
