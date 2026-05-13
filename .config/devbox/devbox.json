@@ -2,8 +2,10 @@
   "packages": [
     "angle-grinder@latest",
     "bat@latest",
+    "bun@latest",
     "cargo@latest",
     "choose@latest",
+    "claude-code@latest",
     "delta@latest",
     "diff-so-fancy@latest",
     "difftastic@latest",
@@ -42,8 +44,7 @@
     "uv@latest",
     "yarn@latest",
     "yq@latest",
-    "zoxide@latest",
-    "bun@latest"
+    "zoxide@latest"
   ],
   "shell": {
     "init_hook": [

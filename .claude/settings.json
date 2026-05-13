@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(~/.claude/plugins/cache/compound-engineering-plugin/*)",
+      "Edit(~/.agents/docs/solutions/*)",
+      "Write(~/.agents/docs/solutions/*)",
+      "Bash(python3 ~/.claude/plugins/cache/compound-engineering-plugin/*)"
+    ]
+  },
+  "enabledPlugins": {
+    "context7@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true,
+    "code-review@claude-plugins-official": true,
+    "code-simplifier@claude-plugins-official": true,
+    "skill-creator@claude-plugins-official": true,
+    "claude-md-management@claude-plugins-official": true,
+    "compound-engineering@compound-engineering-plugin": true
+  },
+  "extraKnownMarketplaces": {
+    "compound-engineering-plugin": {
+      "source": {
+        "source": "git",
+        "url": "https://github.com/EveryInc/every-marketplace.git"
+      }
+    }
+  },
+  "skipDangerousModePermissionPrompt": true,
+  "theme": "dark"
+}
