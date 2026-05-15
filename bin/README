@@ -1,0 +1,46 @@
+Scripts on PATH for git workflows and terminal utilities.
+All scripts are host-agnostic and self-contained.
+
+## Scripts
+
+### git-clean-remote
+Deletes merged remote branches. Defaults to `origin`.
+Usage: `git clean-remote [-r remote]`
+
+### git-find-merge-commit
+Given a commit SHA, finds the merge commit that introduced it into a branch.
+Useful for tracing when a change landed.
+Usage: `git find-merge-commit <commit> [branch]`
+
+### git-previous
+Fetches the SHA for the Nth-previous version of a file (file-scoped HEAD~N).
+Usage: `git previous <N> [file]`
+
+### make-print
+Prints the evaluated value of Makefile variables without running targets.
+Usage: `make-print VAR1 VAR2 ...`
+
+## Tracking and deployment
+
+New files in `bin/` are git-ignored by default, so host-specific scripts can
+be added locally without affecting other machines. Scripts listed above are
+tracked and deploy to all hosts.
+
+To promote a script for all-host deployment, use `git add -f bin/my-script`.
+
+## Conventions for new scripts
+
+- **Interpreter**: prefer fish (`#!/usr/bin/env fish`) for scripts that need
+  fish-specific features (argparse, fish functions); use bash (`#!/bin/bash`)
+  for POSIX-portable scripts or ones that call external tools expecting sh.
+- **git subcommands**: name files `git-<verb>` and they become `git <verb>`
+  automatically when `~/bin` is on PATH. Keep the verb a single word.
+- **Arguments**: use fish `argparse` or bash `getopts`; always implement `-h`
+  that prints usage and exits 0.
+- **Header**: first lines after the shebang should document usage and intent
+  as a comment block — this is what agents read to understand the script
+  without executing it.
+- **No install step**: scripts run directly from the repo; ensure the file is
+  executable (`chmod +x`).
+- **Dependencies**: call out any non-standard dependencies in the header
+  comment (e.g. `termdown`, `devbox`).
