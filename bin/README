@@ -20,6 +20,17 @@ Usage: `git previous <N> [file]`
 Prints the evaluated value of Makefile variables without running targets.
 Usage: `make-print VAR1 VAR2 ...`
 
+## Tracking and deployment
+
+New files in `bin/` are git-ignored by default, so host-specific scripts can
+be added locally without affecting other machines. Scripts listed above are
+tracked and deploy to all hosts.
+
+To promote a script for all-host deployment, add it to `bin/.gitignore`:
+```
+!my-script
+```
+
 ## Conventions for new scripts
 
 - **Interpreter**: prefer fish (`#!/usr/bin/env fish`) for scripts that need
