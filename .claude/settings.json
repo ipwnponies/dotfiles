@@ -3,10 +3,7 @@
     "allow": [
       "Read(~/.claude/plugins/cache/**)",
       "Bash(python3 ~/.claude/plugins/cache/compound-engineering-plugin/**)",
-      "Read(~/.claude/plans/**)",
-      "Write(~/.claude/plans/**)",
-      "Edit(~/.claude/plans/**)",
-      "Write(docs/superpowers/**)",
+"Write(docs/superpowers/**)",
       "Edit(docs/superpowers/**)",
       "Bash(mkdir -p docs/superpowers/**)",
       "Write(docs/plans/*.md)",
