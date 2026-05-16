@@ -9,5 +9,6 @@ if status --is-interactive
             set --erase argv[1]
         end
         __zoxide_z $argv
+        or return $status
     end
 end
