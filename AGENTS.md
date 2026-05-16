@@ -1,5 +1,11 @@
 # Repository Guidelines
 
+## Dotfiles Conventions
+
+Instructions go in `AGENTS.md` (all agents read it). `CLAUDE.md` is for Claude-specific config only. Never duplicate the same rule in both files.
+
+This repo uses an opt-in gitignore (`/*` ignores everything at root; specific paths are whitelisted). New files in ignored dirs require `git add -f`. If `git add` silently does nothing, check `.gitignore` for a blocking rule.
+
 ## Personal Knowledge Store
 
 `~/.agents/docs/solutions/` — documented solutions to past problems (bugs, best practices, workflow patterns), organized by category with YAML frontmatter (`module`, `tags`, `problem_type`). Relevant when debugging or working in a documented area.
