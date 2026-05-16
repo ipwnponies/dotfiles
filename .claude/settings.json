@@ -1,15 +1,7 @@
 {
   "permissions": {
     "allow": [
-      "Read(~/.claude/plugins/cache/compound-engineering-plugin/**)",
       "Read(~/.claude/plugins/cache/**)",
-      "Edit(~/.agents/docs/solutions/**)",
-      "Write(~/.agents/docs/solutions/**)",
-      "Read(~/.agents/docs/solutions/**)",
-      "Read(.agents/docs/solutions/**)",
-      "Edit(.agents/docs/solutions/**)",
-      "Write(.agents/docs/solutions/**)",
-      "Bash(mkdir -p ~/.agents/docs/solutions/**)",
       "Bash(python3 ~/.claude/plugins/cache/compound-engineering-plugin/**)",
       "Read(~/.claude/plans/**)",
       "Write(~/.claude/plans/**)",
