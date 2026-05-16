@@ -21,7 +21,7 @@ Read the full conversation. For each friction point or non-obvious finding, dete
 3. Where to capture it (see routing below)
 4. What the capture should say
 
-Then present a structured proposal, get confirmation, execute.
+Then present a structured proposal, get confirmation, execute, report.
 
 ---
 
@@ -31,11 +31,11 @@ Then present a structured proposal, get confirmation, execute.
 
 **What to look for:**
 - User stated a preference explicitly ("use X", "I prefer Y", "from now on Z")
-- User corrected a pattern more than once
+- User corrected a pattern (even once)
 - User established a convention (fixture, helper, assertion style, import pattern)
 - A preference was stated but not yet automatic
 
-**Why capture it:** Next time, Claude applies the preference without being asked. User stops repeating themselves.
+**Why capture it:** Next time, the preference is applied without being asked. User stops repeating themselves.
 
 **Where to write it — pick narrowest applicable scope:**
 
@@ -99,7 +99,7 @@ problem_type: environment
 
 **Why capture it:** Script gets reused instead of rewritten. Future sessions start with the tool already built.
 
-**How:** Move to logical location in repo (`scripts/`, `tools/`, `bin/`). Commit and push. If script is general-purpose (not project-specific), consider `~/bin/`.
+**How:** Move to logical location in repo (`scripts/`, `tools/`, `bin/`). Stage and commit. Ask the user before pushing — do not push automatically.
 
 ---
 
@@ -125,7 +125,7 @@ problem_type: environment
 
 **Why capture it:** Next time, the skill is invoked and the process is followed correctly from the start.
 
-**How:** Flag it — propose using `/skill-creator` to formalize it. Don't auto-create; creating a skill requires proper testing.
+**How:** Flag it — propose using `/skill-creator` to formalize it. If the user approves, immediately invoke `/skill-creator` with context from the session.
 
 ---
 
@@ -133,7 +133,9 @@ problem_type: environment
 
 Use `AskUserQuestion` to present findings before making any changes. This lets the user toggle items, add notes, and redirect scope before execution.
 
-Each finding becomes a question option. Group by category. Include destination and "next time" outcome in the description so the user understands the value of each capture.
+Each finding becomes a question option. Group by category. Include destination and "next time" outcome in the description. **Omit a category's question entirely if that category has no findings.**
+
+If `AskUserQuestion` is unavailable, present findings as a numbered list and ask the user to reply with numbers to approve.
 
 Example structure for a session that found test preferences, a debugging solution, and a script:
 
@@ -144,10 +146,6 @@ Example structure for a session that found test preferences, a debugging solutio
 - Question 2 (multiSelect): "Which solutions and scripts should I persist?"
   - Option: "Docker disk space check pattern" — `~/.agents/docs/solutions/debugging/docker.md`
   - Option: "check-ports.sh" — `scripts/check-ports.sh`, committed to repo
-
-- Question 3 (single): "Skill fixes needed?"
-  - Option: "Fix ce-compound path" — corrects wrong solutions dir
-  - Option: "None"
 
 Collapse into fewer questions if the session was small. One question is fine for simple sessions.
 
@@ -161,6 +159,7 @@ Say so briefly. Not every session produces captures. Don't manufacture entries.
 
 1. AGENTS.md entries (immediate behavior change, highest value)
 2. Solutions docs (reference material)
-3. Scripts (version control)
+3. Scripts (stage and commit; ask before push)
 4. Skill fixes (targeted, surgical)
-5. New skill proposals (flag only, don't create)
+5. New skill candidates (invoke `/skill-creator` if approved)
+6. Report: for each item executed, one line — what was written and where
