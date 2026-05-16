@@ -41,7 +41,7 @@ Then present a structured proposal, get confirmation, execute.
 
 | Applies to | Target |
 |------------|--------|
-| Any project, global default | `~/.claude/CLAUDE.md` |
+| Any project, global default | `~/.agents/AGENTS.md` |
 | This project, all files | `<project-root>/AGENTS.md` |
 | Specific subdirectory | `<dir>/AGENTS.md` |
 | Tests only | `<project-root>/tests/AGENTS.md` |
@@ -131,36 +131,25 @@ problem_type: environment
 
 ## Proposal Format
 
-Present before making any changes:
+Use `AskUserQuestion` to present findings before making any changes. This lets the user toggle items, add notes, and redirect scope before execution.
 
-```
-Here's what I found worth capturing:
+Each finding becomes a question option. Group by category. Include destination and "next time" outcome in the description so the user understands the value of each capture.
 
-PREFERENCES (→ AGENTS.md)
-  [ ] Use hamcrest for Python test assertions
-      → tests/AGENTS.md
-      Next time: automatic, no prompting needed
+Example structure for a session that found test preferences, a debugging solution, and a script:
 
-  [ ] no_network autouse fixture blocks HTTP in all tests
-      → tests/AGENTS.md
-      Next time: fixture applied without being asked
+- Question 1 (multiSelect): "Which of these preferences should I write to AGENTS.md?"
+  - Option: "Use hamcrest for assertions" — `tests/AGENTS.md` — next time: automatic
+  - Option: "no_network autouse fixture blocks HTTP" — `tests/AGENTS.md` — next time: no manual mocking
 
-SOLUTIONS (→ ~/.agents/docs/solutions/)
-  [ ] Disk space check for Docker build failures
-      → debugging/docker.md
-      Next time: check df -h first, skip other investigation
+- Question 2 (multiSelect): "Which solutions and scripts should I persist?"
+  - Option: "Docker disk space check pattern" — `~/.agents/docs/solutions/debugging/docker.md`
+  - Option: "check-ports.sh" — `scripts/check-ports.sh`, committed to repo
 
-SCRIPTS (→ version control)
-  [ ] check-ports.sh — useful for port conflict debugging
-      → scripts/check-ports.sh
-      Next time: already exists, just run it
+- Question 3 (single): "Skill fixes needed?"
+  - Option: "Fix ce-compound path" — corrects wrong solutions dir
+  - Option: "None"
 
-SKILL FIXES
-  [ ] ce-compound had wrong solutions path — skipped writing to right dir
-      → fix path in skill instructions
-
-Anything to add, remove, or adjust scope on?
-```
+Collapse into fewer questions if the session was small. One question is fine for simple sessions.
 
 ---
 
