@@ -1,18 +1,4 @@
 function main
-
-    function is_expired
-        set file $argv[1]
-        test -f $file; or return 0
-
-        # Expire dynamic generations after a week
-        set ttl (math '60*60*24*7') # 1 week
-
-        set current_time (date +%s)
-        set file_age (stat -c %Y $file; or echo 0)
-
-        test (math $current_time - $file_age) -gt $ttl
-    end
-
     set --append fish_complete_path $DEVBOX_PACKAGES_DIR/share/fish/vendor_completions.d
 end
 
