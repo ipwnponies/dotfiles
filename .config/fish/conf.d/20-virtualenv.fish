@@ -7,20 +7,20 @@
 function pyenv-init --description 'Stripped down, lightweight pyenv init'
 
     # pyenv init -
-    while set pyenv_index (contains -i -- "/Users/jnguyen/.pyenv/shims" $PATH)
+    while set pyenv_index (contains -i -- (pyenv root)/shims $PATH)
         set -eg PATH[$pyenv_index]
     end
-    set -gx PATH '/Users/jnguyen/.pyenv/shims' $PATH
+    set -gx PATH (pyenv root)/shims $PATH
     set -gx PYENV_SHELL fish
     command pyenv rehash 2>/dev/null
 
     # Auto-activates pyenv virtualenvs
     # pyenv shim magic is only for resolving to a versioned commands; it does not actually set up a virtualenv for LSPs that crave it
     # pyenv virtualenv-init -
-    while set index (contains -i -- "/Users/jnguyen/.pyenv/plugins/pyenv-virtualenv/shims" $PATH)
+    while set index (contains -i -- (pyenv root)/plugins/pyenv-virtualenv/shims $PATH)
         set -eg PATH[$index]
     end
-    set -gx PATH '/Users/jnguyen/.pyenv/plugins/pyenv-virtualenv/shims' $PATH
+    set -gx PATH (pyenv root)/plugins/pyenv-virtualenv/shims $PATH
 
     set -gx PYENV_VIRTUALENV_INIT 1
 
