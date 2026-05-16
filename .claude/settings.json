@@ -1,10 +1,35 @@
 {
   "permissions": {
     "allow": [
-      "Read(~/.claude/plugins/cache/compound-engineering-plugin/*)",
-      "Edit(~/.agents/docs/solutions/*)",
-      "Write(~/.agents/docs/solutions/*)",
-      "Bash(python3 ~/.claude/plugins/cache/compound-engineering-plugin/*)"
+      "Read(~/.claude/plugins/cache/compound-engineering-plugin/**)",
+      "Read(~/.claude/plugins/cache/**)",
+      "Edit(~/.agents/docs/solutions/**)",
+      "Write(~/.agents/docs/solutions/**)",
+      "Read(~/.agents/docs/solutions/**)",
+      "Read(.agents/docs/solutions/**)",
+      "Edit(.agents/docs/solutions/**)",
+      "Write(.agents/docs/solutions/**)",
+      "Bash(mkdir -p ~/.agents/docs/solutions/**)",
+      "Bash(python3 ~/.claude/plugins/cache/compound-engineering-plugin/**)",
+      "Read(~/.claude/plans/**)",
+      "Write(~/.claude/plans/**)",
+      "Edit(~/.claude/plans/**)",
+      "Write(docs/superpowers/**)",
+      "Edit(docs/superpowers/**)",
+      "Bash(mkdir -p docs/superpowers/**)",
+      "Write(docs/plans/*.md)",
+      "Edit(docs/plans/*.md)",
+      "Bash(mkdir -p docs/plans)",
+      "Write(docs/brainstorms/*.md)",
+      "Edit(docs/brainstorms/*.md)",
+      "Bash(mkdir -p docs/brainstorms)",
+      "Write(docs/solutions/**/*.md)",
+      "Edit(docs/solutions/**/*.md)",
+      "Bash(mkdir -p docs/solutions/**)"
+    ],
+    "ask": [
+      "Edit(AGENTS.md)",
+      "Edit(CLAUDE.md)"
     ]
   },
   "enabledPlugins": {
