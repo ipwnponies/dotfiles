@@ -23,24 +23,50 @@ Watch for friction during any session:
 
 When a session reaches a natural end and any friction was observed, offer to run `/post-session-learning` before the user leaves. One short sentence is enough: "Want me to capture what we learned so this is automatic next time?" Do not offer if the session had no friction worth capturing (pure Q&A, trivial tasks).
 
-## Project Structure & Module Organization
-- `bin/` contains host-agnostic CLI helpers (e.g., `bin/git-clean-remote`, `bin/pomodoro`); keep each file executable and documented with a header comment.
-- `.config/` mirrors application settings for fish, neovim, taskwarrior, etc.; keep app-specific docs inside the directory README when necessary and prefer per-app subfolders.
-- `tools/` holds the Devbox definition used to provision auxiliary utilities (`tools/devbox.json`), and `repos/` tracks checked-out upstream projects that should remain untouched unless syncing from their sources.
 
 ## Build, Test, and Development Commands
-- Start a prepared shell with `devbox shell` from the repo root; add packages in `tools/devbox.json`.
-- Validate YAML changes with `yamllint -c .config/yamllint/config config automations.yaml scenes.yaml`.
-- Run shell linting via `shellcheck bin/git-clean-remote` and Python quality checks with `pylint --rcfile .config/pylintrc volta.py`.
+- Start a prepared shell with `devbox shell` from the repo root; add packages in `.config/devbox/devbox.json`.
+- Run all pre-commit hooks with `pre-commit run --all-files`.
+- Run shell linting via `shellcheck bin/` and Python quality checks with `pylint --rcfile .config/pylintrc`.
+- Syntax-check fish configs with `fish -n .config/fish/conf.d/*.fish .config/fish/functions/*.fish`.
 
 ## Coding Style & Naming Conventions
-- YAML follows two-space indentation, 120 character lines, and lower-case keys; structure automations by domain (e.g., `automation.lights_evening`).
-- Python adopts snake_case modules, f-string formatting, and max 120 char lines per `.config/pylintrc`; add lightweight typer commands to `volta.py`.
-- Shell scripts in `bin/` should target POSIX sh, guard against `set -eu`, and log actions with succinct `echo` statements.
+- YAML follows two-space indentation, 120 character lines, and lower-case keys.
+- Python adopts snake_case modules, f-string formatting, and max 120 char lines per `.config/pylintrc`.
+- Shell scripts in `bin/` should target bash, include `set -euo pipefail`, and log actions with succinct `echo` statements.
+- Fish configs in `.config/fish/conf.d/` use 4-space indentation and prefer `set -l` for local variables.
+
+## Fish Shell Patterns
+
+### conf.d files
+- Use numeric prefixes to encode load dependencies (see README for the mapping).
+- Every new conf.d file should follow the main/install pattern:
+  ```fish
+  function main       # runs on every interactive shell
+      ...
+  end
+
+  function install    # runs on login shells (once per session)
+      ...
+  end
+
+  status --is-login; and install
+  status --is-interactive; and main
+  ```
+- This avoids paying install costs (package syncs, git fetches) on every new terminal tab.
+
+### Shared utilities
+- Use `is_expired` from `functions/is_expired.fish` for all TTL-based file regeneration; do not define local copies.
+- Cross-platform stat for file modification times — `stat` flags differ between Linux and macOS:
+  ```fish
+  set -l file_age (stat -c %Y $file 2>/dev/null; or stat -f %m $file 2>/dev/null; or echo 0)
+  ```
+
+### pyenv
+- `20-virtualenv.fish` inlines `pyenv init -` to avoid subshell overhead (~100 ms saved). Always use `(pyenv root)` at runtime; never hardcode user-specific paths like `/Users/name/.pyenv/`.
 
 ## Testing Guidelines
-- Group new YAML automations under matching blueprint directories and include comments noting dependencies.
-- Prefer targeted lint runs (`yamllint config/blueprints`, `pylint volta.py`) before pushing.
+- Prefer targeted lint runs (`shellcheck bin/`, `pylint`) before pushing.
 - When modifying third-party mirrors in `repos/`, open patches upstream first—local diffs should be temporary and documented in the PR.
 
 ## Commit & Pull Request Guidelines
