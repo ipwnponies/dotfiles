@@ -1,7 +1,7 @@
 {
   "permissions": {
     "allow": [
-      "Read(~/.claude/plugins/cache/**)",
+      "Read(~/.claude/plugins/cache/compound-engineering-plugin/**)",
       "Bash(python3 ~/.claude/plugins/cache/compound-engineering-plugin/**)",
       "Read(docs/superpowers/**)",
       "Write(docs/superpowers/**)",
