@@ -1,8 +1,0 @@
-Quick setup: (copy-paste to terminal)
-
-```
-git init
-git remote add origin https://github.com/ipwnponies/dotfiles.git
-git fetch origin
-git switch --create main
-```
