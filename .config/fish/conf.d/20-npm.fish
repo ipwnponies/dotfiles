@@ -7,7 +7,7 @@ function install
     fish --no-config -c "
         mkdir -p (dirname $logfile)
         if not npm ci --lockfile-version 3 --loglevel=error --prefix $venv >> $logfile 2>&1
-            echo 'Uh... that didn\'t work gud. So check out $logfile'
+            echo "npm install failed; check $logfile"
         end
     " &
 end
