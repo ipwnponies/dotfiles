@@ -16,10 +16,6 @@
       "Write(docs/solutions/**/*.md)",
       "Edit(docs/solutions/**/*.md)",
       "Bash(mkdir -p docs/**)"
-    ],
-    "ask": [
-      "Edit(CLAUDE.md)",
-      "Write(CLAUDE.md)"
     ]
   },
   "enabledPlugins": {
