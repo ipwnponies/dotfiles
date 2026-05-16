@@ -6,6 +6,17 @@
 
 When running `/ce-compound`, write docs to `~/.agents/docs/solutions/<category>/` instead of the default `docs/solutions/`.
 
+## Session Learning Capture
+
+Watch for friction during any session:
+- User corrected a pattern or preference (once or repeatedly)
+- Non-obvious solution was found through investigation
+- User stated a convention or preference they want going forward
+- A script was written and used but not persisted
+- A skill was invoked and its instructions were wrong or incomplete
+
+When a session reaches a natural end and any friction was observed, offer to run `/post-session-learning` before the user leaves. One short sentence is enough: "Want me to capture what we learned so this is automatic next time?" Do not offer if the session had no friction worth capturing (pure Q&A, trivial tasks).
+
 ## Project Structure & Module Organization
 - `bin/` contains host-agnostic CLI helpers (e.g., `bin/git-clean-remote`, `bin/pomodoro`); keep each file executable and documented with a header comment.
 - `.config/` mirrors application settings for fish, neovim, taskwarrior, etc.; keep app-specific docs inside the directory README when necessary and prefer per-app subfolders.
