@@ -7,18 +7,6 @@ function main
 end
 
 function install
-    function is_expired
-        set file $argv[1]
-        test -f $file; or return 0
-        # Expire dynamic generations after a week
-        set ttl (math '60*60*24*7') # 1 week
-
-        set file_age (stat -c %Y $file)
-        set current_time (date +%s)
-
-        test (math $current_time - $file_age) -gt $ttl
-    end
-
     if test -d $OMF_PATH
         set bundle $XDG_CONFIG_HOME/omf/bundle
 
