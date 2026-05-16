@@ -1,10 +1,21 @@
 {
   "permissions": {
     "allow": [
-      "Read(~/.claude/plugins/cache/compound-engineering-plugin/*)",
-      "Edit(~/.agents/docs/solutions/*)",
-      "Write(~/.agents/docs/solutions/*)",
-      "Bash(python3 ~/.claude/plugins/cache/compound-engineering-plugin/*)"
+      "Read(~/.claude/plugins/cache/compound-engineering-plugin/**)",
+      "Bash(python3 ~/.claude/plugins/cache/compound-engineering-plugin/**)",
+      "Read(docs/superpowers/**)",
+      "Write(docs/superpowers/**)",
+      "Edit(docs/superpowers/**)",
+      "Read(docs/plans/*.md)",
+      "Write(docs/plans/*.md)",
+      "Edit(docs/plans/*.md)",
+      "Read(docs/brainstorms/*.md)",
+      "Write(docs/brainstorms/*.md)",
+      "Edit(docs/brainstorms/*.md)",
+      "Read(docs/solutions/**/*.md)",
+      "Write(docs/solutions/**/*.md)",
+      "Edit(docs/solutions/**/*.md)",
+      "Bash(mkdir -p docs/**)"
     ]
   },
   "enabledPlugins": {
