@@ -72,6 +72,7 @@ vim.opt.breakindent = true -- Indent wrapped lines to match parent line
 vim.opt.breakindentopt = { "sbr", "shift:4", "min:60" }
 -- Layout
 vim.opt.textwidth = 120 -- Set maximum text width to 120 characters
+vim.opt.colorcolumn = "+1" -- Highlight column past textwidth as a boundary
 vim.opt.splitbelow = true -- New horizontal splits open below
 vim.opt.splitright = true -- New vertical splits open to the right
 
