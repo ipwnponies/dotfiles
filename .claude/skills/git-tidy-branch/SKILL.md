@@ -4,12 +4,12 @@ description: >
   Reorganizes messy git commits on a branch into logical, atomic, reviewer-friendly commits.
   Use this skill when the user wants to clean up their branch before code review, says things
   like "tidy my commits", "clean up branch history", "prep for PR", "reorder commits",
-  "atomic commits", "my commits are a mess", "squash and reorganize", or "reviewers will hate
-  my git log". Handles all starting states: one giant commit, dozens of WIP commits, or
-  roughly-correct-but-wrong-order commits. Produces a series of commits where each one is
-  coherent in isolation and tells a clear story to a reviewer stepping through them one by one.
-  Operates autonomously — analyzes, decides, and executes without asking the user for approval
-  at each step.
+  "atomic commits", "my commits are a mess", "squash and reorganize", "reviewers will hate
+  my git log", "absorb PR feedback into commits", "squash feedback into history", "clean up
+  after review", or "incorporate review changes". Handles all starting states: one giant
+  commit, dozens of WIP commits, wrong-order commits, or clean history with trailing PR
+  feedback commits that need absorbing back into their target commits. Produces a history
+  where each commit is coherent in isolation and tells a clear story. Operates autonomously.
 ---
 
 Reorganize messy branch history into clean, atomic, reviewer-friendly commits. Operate
@@ -153,6 +153,121 @@ Clean up temp files:
 rm -f commit-plan.json stage-and-commit.sh
 rm -rf patches/
 ```
+
+---
+
+## Variant: Absorbing PR feedback into history
+
+Use this variant when the branch already has clean atomic commits but trailing "address
+feedback", "fix review", "nit", or similar commits at the end that touch code from multiple
+earlier commits.
+
+The goal: absorb each feedback hunk into the specific earlier commit it corrects. The final
+history looks as if the developer got it right the first time.
+
+### Step F1: Identify feedback commits
+
+```bash
+git log --oneline $MERGE_BASE..HEAD
+```
+
+Feedback commits are typically at the tip and have messages like "address PR feedback",
+"fix review comments", "nit", "wip", "more fixes". Identify how many there are (call it N).
+
+### Step F2: Find the clean baseline
+
+```bash
+# SHA of the last clean commit (before any feedback commits)
+CLEAN_SHA=$(git log --oneline $MERGE_BASE..HEAD | sed -n "${N}p" | cut -d' ' -f1)
+```
+
+### Step F3: Check for lint/config timeline
+
+Scan for commits that introduce lint or style rules:
+
+```bash
+git log --oneline $MERGE_BASE..$CLEAN_SHA -- \
+  '*.eslintrc*' '*flake8*' 'pyproject.toml' 'ruff.toml' \
+  '.rubocop.yml' '.pre-commit-config.yaml' 'setup.cfg' '.pylintrc'
+```
+
+Note which commits introduce rule changes. A feedback hunk whose target commit predates a
+lint-rule commit should be absorbed into that lint-rule commit or kept after it — never
+squashed into a commit that predates the rule being introduced. That would make the history
+lie: it would show code "correctly" following rules that didn't exist yet.
+
+### Step F4: Map each feedback hunk to its target commit
+
+For each hunk in each feedback commit, find which earlier commit originally introduced the
+lines being changed:
+
+```bash
+# Get the diff of feedback commits
+git diff $CLEAN_SHA..HEAD
+
+# For a hunk touching file F at lines L1-L2, blame the clean baseline:
+git blame -L <L1>,<L2> $CLEAN_SHA -- <file>
+```
+
+The blame output shows which commit SHA introduced each line. That commit is the target for
+this fixup hunk.
+
+Do this for every hunk across all feedback commits. Build a mapping:
+```
+feedback hunk A → target: "refactor: extract validation helper" (abc1234)
+feedback hunk B → target: "fix: reject expired tokens" (def5678)  
+feedback hunk C → target: same "fix: reject expired tokens" (def5678)
+```
+
+### Step F5: Split feedback commits and create fixup commits
+
+For each target commit, collect the feedback hunks that belong to it. Use the same
+`commit-plan.json` + `extract_hunks.py` approach to extract those specific hunks, then
+commit them with a `fixup!` prefix that exactly matches the start of the target message:
+
+```bash
+git commit -m "fixup! refactor: extract validation helper"
+git commit -m "fixup! fix: reject expired tokens"
+```
+
+`git rebase --autosquash` uses prefix matching, so the message must start exactly with
+`fixup! <target-message>`.
+
+### Step F6: Rebase with autosquash
+
+```bash
+git rebase -i --autosquash $MERGE_BASE
+```
+
+git automatically positions each `fixup!` commit directly after its target and marks it as
+`fixup` in the todo list. Save and close the editor (or run non-interactively with
+`GIT_SEQUENCE_EDITOR=true git rebase -i --autosquash $MERGE_BASE`).
+
+### Step F7: Resolve conflicts
+
+When a fixup absorbs into an earlier commit, all subsequent commits replay on top of the
+changed state. A conflict means a later commit modified the same lines.
+
+**The key insight**: don't resolve conflicts mechanically by choosing sides. A conflict
+means "this later commit had a purpose — re-implement that purpose given the new context."
+
+Example: feedback fixes a typo in `get_user()`. Then a later commit adds a lint rule and
+reformats `get_user()`. After autosquash, the lint commit conflicts because the baseline
+changed. Resolution: apply the lint rule to the new version of `get_user()` — don't just
+accept either side blindly.
+
+If the conflict's intent is unclear, stop and ask the user: explain which two commits are
+conflicting, what each was trying to do, and ask how they should compose.
+
+### Step F8: Verify
+
+```bash
+git log --oneline
+git diff $MERGE_BASE..HEAD --stat
+```
+
+Stat must match the pre-feedback stat exactly. The feedback commits should no longer appear
+as separate entries.
 
 ---
 
