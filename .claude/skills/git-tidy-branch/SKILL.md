@@ -178,7 +178,8 @@ Feedback commits are typically at the tip and have messages like "address PR fee
 
 ```bash
 # SHA of the last clean commit (before any feedback commits)
-CLEAN_SHA=$(git log --oneline $MERGE_BASE..HEAD | sed -n "${N}p" | cut -d' ' -f1)
+# git log is newest-first, so the Nth+1 line is the last clean commit
+CLEAN_SHA=$(git log --oneline $MERGE_BASE..HEAD | sed -n "$((N+1))p" | cut -d' ' -f1)
 ```
 
 ### Step F3: Check for lint/config timeline
