@@ -246,19 +246,16 @@ git automatically positions each `fixup!` commit directly after its target and m
 
 ### Step F7: Resolve conflicts
 
-When a fixup absorbs into an earlier commit, all subsequent commits replay on top of the
-changed state. A conflict means a later commit modified the same lines.
+When a fixup absorbs into an earlier commit, subsequent commits replay on top of the changed
+state. A conflict means a later commit modified the same lines.
 
-**The key insight**: don't resolve conflicts mechanically by choosing sides. A conflict
-means "this later commit had a purpose — re-implement that purpose given the new context."
+Follow the **Intelligent conflict resolution** protocol below. The key: don't choose sides
+mechanically — understand the purpose of the conflicting commit and re-implement it in the
+new context.
 
-Example: feedback fixes a typo in `get_user()`. Then a later commit adds a lint rule and
-reformats `get_user()`. After autosquash, the lint commit conflicts because the baseline
-changed. Resolution: apply the lint rule to the new version of `get_user()` — don't just
-accept either side blindly.
-
-If the conflict's intent is unclear, stop and ask the user: explain which two commits are
-conflicting, what each was trying to do, and ask how they should compose.
+Example: feedback fixes logic in `get_user()`. A later commit then reformats it per a new
+lint rule. After autosquash, the lint commit conflicts because the baseline changed.
+Resolution: re-apply the formatting to the new (fixed) version of `get_user()`.
 
 ### Step F8: Verify
 
@@ -269,6 +266,98 @@ git diff $MERGE_BASE..HEAD --stat
 
 Stat must match the pre-feedback stat exactly. The feedback commits should no longer appear
 as separate entries.
+
+---
+
+## Step 8: Rebase onto latest base (optional but recommended before PR)
+
+After history is clean, check if the base branch has moved:
+
+```bash
+git fetch origin
+git rev-list HEAD..origin/$BASE --count
+```
+
+If the count is 0, the branch is current — skip this step.
+
+If the count is >0, rebase:
+
+```bash
+git rebase origin/$BASE
+```
+
+**Do not rebase a dirty branch.** This step must come after Steps 1-7 (history cleaned up
+first). Rebasing a messy branch creates two layers of complexity: conflict resolution AND
+history reorganization simultaneously. Clean first, rebase second.
+
+If conflicts arise, follow the intelligent conflict resolution protocol below.
+
+---
+
+## Intelligent conflict resolution
+
+When `git rebase` or `git rebase --autosquash` stops on a conflict, do NOT blindly choose
+"ours" or "theirs". Instead, understand both intents and re-implement them together.
+
+### The protocol
+
+**1. Gather context on both sides**
+
+```bash
+# What commit is being replayed (our side)?
+git log -1 --format="%H %s%n%b" REBASE_HEAD
+
+# What does the conflict look like?
+git diff                        # shows conflict markers in all conflicted files
+
+# What did upstream change in this file (their side)?
+git log -1 --format="%H %s%n%b" ORIG_HEAD
+git show ORIG_HEAD -- <conflicted-file>
+```
+
+Read:
+- Our commit message → our intent
+- Their commit or the upstream change → their intent
+- The conflict markers → where the two intents collide
+- The surrounding code → enough context to re-implement correctly
+
+**2. Re-implement, don't merge mechanically**
+
+The conflict markers are a symptom, not the answer. Ask: "If a developer had both changes
+in mind from the start, what would they have written?" Write that.
+
+Common cases:
+
+| Conflict type | Resolution approach |
+|---------------|-------------------|
+| Upstream renamed a function our commit calls | Update our call to the new name |
+| Upstream reformatted a block our commit modifies | Apply our change to the reformatted version |
+| Upstream added lines above/below code we changed | Keep both additions |
+| Upstream refactored a function our commit extends | Apply our extension to the refactored version |
+| Both sides changed the same logic differently | Understand which behavior is correct — ask user if domain-specific |
+
+**3. Write the resolution directly**
+
+Read the conflicted file, understand the full context, then write the resolved version.
+Don't use `git checkout --ours/--theirs`. Write what the file should contain.
+
+```bash
+git add <resolved-file>
+git rebase --continue
+```
+
+**4. When to stop and ask**
+
+Ask the user only when:
+- Both sides changed the same business logic and either behavior could be correct
+- The conflict is in generated code (lock files, compiled assets) — usually take theirs
+- The conflict would change observable behavior and you can't determine which is right
+
+When asking, provide:
+- Which two commits are conflicting
+- What each was trying to do (quoted from commit messages)
+- What the specific collision is
+- Your best guess and why you're uncertain
 
 ---
 
