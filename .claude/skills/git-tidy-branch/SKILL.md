@@ -19,6 +19,22 @@ options and guessing wrong would be worse than asking.
 The story to tell a reviewer: first why (refactor/setup), then the test, then the change,
 then cleanup.
 
+## Step 0: Preconditions — never rewrite history over unsaved work
+
+```bash
+git status --porcelain          # MUST be empty
+git symbolic-ref -q HEAD        # MUST succeed (not detached)
+```
+
+If the tree is dirty, stop and tell the user to commit or stash first — a soft reset
+would blend their uncommitted work into the rewrite and it cannot be recovered from the
+backup (the backup only captures committed history). The generated script re-checks this
+and refuses to run, but check up front so you don't waste effort building a plan.
+
+The generated script also refuses if the range contains **merge commits** (a soft reset
+flattens them, destroying topology). If `git rev-list --merges $MERGE_BASE..HEAD` is
+non-empty, this skill is the wrong tool — say so rather than mangling the history.
+
 ## Step 1: Find the base
 
 Try common base branch names:
@@ -75,7 +91,15 @@ concern. Don't create a commit for a single blank-line change.
 
 ## Step 4: Write commit-plan.json
 
-Write this file to the repo root (or `/tmp` if root isn't writable):
+Write to a scratch dir **outside the repo** so the plan, generated script, and patch
+files never dirty the working tree (the precondition check would trip on them, and a
+stray `git add .` could leak them into history):
+
+```bash
+WORK=$(mktemp -d)
+```
+
+Write the plan to `$WORK/commit-plan.json`:
 
 ```json
 {
@@ -115,20 +139,29 @@ Rules:
 
 ```bash
 SKILL_SCRIPT=$(find ~/.claude/skills -name extract_hunks.py 2>/dev/null | head -1)
-python3 "$SKILL_SCRIPT" commit-plan.json
+python3 "$SKILL_SCRIPT" "$WORK/commit-plan.json"
 ```
 
-This produces `stage-and-commit.sh`. Inspect it briefly before running.
+This produces `$WORK/stage-and-commit.sh` (and `$WORK/patches/`). Inspect it briefly
+before running. The script self-guards: it checks the tree is clean, refuses on merge
+commits or detached HEAD, writes a durable backup ref under `refs/tidy-backup/<ts>`, and
+on **any** failure auto-restores to the original tip via an EXIT trap.
 
 ## Step 6: Execute
 
 ```bash
-bash stage-and-commit.sh
+bash "$WORK/stage-and-commit.sh"
 ```
 
-If `git apply --cached` fails (context mismatch), retry:
+The script finishes with a **tree-identity gate**: `git diff --quiet $TIDY_BACKUP HEAD`.
+If the rewritten history does not reproduce the original tree byte-for-byte (a hunk was
+dropped, misplaced, or mangled), it prints the offending stat, hard-resets to the backup,
+and exits non-zero. A clean exit means the content is provably unchanged.
+
+If `git apply --cached` fails (context mismatch) the script aborts and auto-restores.
+Retry by editing the plan, or apply that one file with a fuzzier match:
 ```bash
-git apply --cached --ignore-whitespace --recount patches/<file>.patch
+git apply --cached --ignore-whitespace --recount "$WORK/patches/<file>.patch"
 ```
 
 If that still fails, stage the file manually:
@@ -141,18 +174,21 @@ hunks belong where without their domain knowledge.
 
 ## Step 7: Verify
 
+The script already proved tree identity. Confirm the shape independently:
+
 ```bash
 git log --oneline
-git diff $MERGE_BASE..HEAD --stat
+git diff --quiet $TIDY_BACKUP HEAD && echo "tree identical" || echo "DRIFT — do not ship"
 ```
 
-Diff stat must match what you saw in Step 2. If anything is missing, investigate with
-`git status` and `git diff` before reporting success.
+`git diff --quiet $TIDY_BACKUP HEAD` (exit 0) is the authoritative check — it proves every
+byte of the original tree is preserved. `--stat` is **not** sufficient: it can match while
+hunks landed in the wrong commit or content was whitespace-mangled. `$TIDY_BACKUP` is
+printed by the script; it also persists at `refs/tidy-backup/<ts>`.
 
-Clean up temp files:
+Clean up the scratch dir (keep the backup ref until the branch is pushed and reviewed):
 ```bash
-rm -f commit-plan.json stage-and-commit.sh
-rm -rf patches/
+rm -rf "$WORK"
 ```
 
 ---
@@ -247,7 +283,10 @@ git commit -m "fixup! fix: reject expired tokens"
 
 ### Step F6: Rebase with autosquash
 
+First capture a durable backup so you can always get back:
 ```bash
+git update-ref refs/tidy-backup/$(date +%Y%m%d-%H%M%S) HEAD
+FEEDBACK_BACKUP=$(git rev-parse HEAD)
 git rebase -i --autosquash $MERGE_BASE
 ```
 
@@ -268,43 +307,73 @@ Example: feedback fixes logic in `get_user()`. A later commit then reformats it 
 lint rule. After autosquash, the lint commit conflicts because the baseline changed.
 Resolution: re-apply the formatting to the new (fixed) version of `get_user()`.
 
+**Bail-out:** if a conflict is unresolvable or you've lost the thread, abort cleanly —
+never leave a half-finished rebase:
+```bash
+git rebase --abort                       # returns to FEEDBACK_BACKUP state
+git reset --hard $FEEDBACK_BACKUP        # belt-and-suspenders if abort is unavailable
+```
+
 ### Step F8: Verify
 
 ```bash
 git log --oneline
-git diff $MERGE_BASE..HEAD --stat
+git diff --quiet $FEEDBACK_BACKUP HEAD && echo "tree identical" || echo "DRIFT — investigate"
 ```
 
-Stat must match the pre-feedback stat exactly. The feedback commits should no longer appear
-as separate entries.
+Absorbing feedback must not change the final tree — the end state is identical, only the
+commit boundaries move. `git diff --quiet $FEEDBACK_BACKUP HEAD` (exit 0) proves it.
+The feedback commits should no longer appear as separate entries. If drift is reported,
+something was lost or doubled during conflict resolution — `git reset --hard
+$FEEDBACK_BACKUP` and retry.
 
 ---
 
 ## Step 8: Rebase onto latest base (optional but recommended before PR)
 
-After history is clean, check if the base branch has moved:
+After history is clean, check if the base branch has moved. Unlike the steps above, this
+rebase **intentionally changes the tree** (it incorporates upstream work) — so the
+tree-identity gate does not apply here. The integrity check is instead "every one of my
+commits survived", verified with `git range-diff` below.
+
+Find the remote that actually hosts `$BASE` (don't assume the branch's own upstream remote
+hosts it — fork workflows differ):
 
 ```bash
-# Detect the configured remote (falls back to "origin" if no upstream set)
-REMOTE=$(git rev-parse --abbrev-ref --symbolic-full-name @{upstream} 2>/dev/null \
-         | cut -d/ -f1 || echo "origin")
+# Prefer the remote whose tracking branch for $BASE exists.
+REMOTE=$(git for-each-ref --format='%(refname:short)' "refs/remotes/*/$BASE" \
+         | head -1 | cut -d/ -f1)
+REMOTE=${REMOTE:-origin}
 git fetch "$REMOTE"
 git rev-list HEAD.."$REMOTE/$BASE" --count
 ```
 
 If the count is 0, the branch is current — skip this step.
 
-If the count is >0, rebase:
+If the count is >0, back up first, then rebase:
 
 ```bash
+git update-ref refs/tidy-backup/$(date +%Y%m%d-%H%M%S) HEAD
+REBASE_BACKUP=$(git rev-parse HEAD)
 git rebase "$REMOTE/$BASE"
 ```
+
+After it completes, confirm no commit was silently dropped or mangled:
+```bash
+git range-diff "$REMOTE/$BASE" $REBASE_BACKUP HEAD
+```
+Every original commit should map 1:1 to a rebased commit with only context shifts. An
+unexpected `<` (dropped) or content change beyond the conflict you resolved means investigate.
 
 **Do not rebase a dirty branch.** This step must come after Steps 1-7 (history cleaned up
 first). Rebasing a messy branch creates two layers of complexity: conflict resolution AND
 history reorganization simultaneously. Clean first, rebase second.
 
-If conflicts arise, follow the intelligent conflict resolution protocol below.
+If conflicts arise, follow the intelligent conflict resolution protocol below. To bail out
+of a conflicted rebase at any point:
+```bash
+git rebase --abort               # restores to REBASE_BACKUP
+```
 
 ---
 
@@ -394,12 +463,20 @@ type(scope): imperative summary     ← ≤72 chars, no trailing period
 
 **Deleted files**: whole-file staging (`git add -- <path>` stages deletions too).
 
-**Renamed files**: use the new filename in `commit-plan.json`. After `git reset --soft`,
-the old file doesn't exist — only the new name is in the working tree.
+**Renamed files**: use the new filename in `commit-plan.json`. The script also stages the
+old path so its deletion is recorded (otherwise the old file lingers and the tree diverges).
 
 **apply failure**: try `--ignore-whitespace --recount`. If still failing, use `git add -p`.
 
-**Recovery**: original commits are in reflog:
+**Recovery**: the staging script prints `$TIDY_BACKUP` and writes a durable ref. Use that —
+**not** `HEAD@{1}`, which after a multi-commit rewrite points at an intermediate commit, not
+the original tip.
 ```bash
-git reset --hard HEAD@{1}
+git reset --hard $TIDY_BACKUP          # exact SHA the script printed
+# or, if the shell variable is gone:
+git for-each-ref refs/tidy-backup      # list backups; pick the right timestamp
+git reset --hard refs/tidy-backup/<ts>
 ```
+Backups under `refs/tidy-backup/` persist until you delete them; prune with
+`git for-each-ref --format='%(refname)' refs/tidy-backup | xargs -n1 git update-ref -d`
+once the branch is pushed and reviewed.

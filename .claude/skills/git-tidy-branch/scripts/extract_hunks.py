@@ -54,6 +54,7 @@ class Hunk:
 class FileDiff:
     header_lines: list = field(default_factory=list)
     hunks: list = field(default_factory=list)
+    old_path: str = None   # set only when the file was renamed (a/ side != b/ side)
 
 
 def parse_diff(text):
@@ -64,15 +65,19 @@ def parse_diff(text):
     """
     files = {}
     cur_file = None
+    cur_old = None
     cur_header = []
     cur_hunks = []
     cur_hunk = None
 
     for line in text.splitlines():
         if line.startswith('diff --git '):
-            _flush(files, cur_file, cur_header, cur_hunks, cur_hunk)
+            _flush(files, cur_file, cur_old, cur_header, cur_hunks, cur_hunk)
             m = re.match(r'diff --git a/(.*) b/(.*)', line)
             cur_file = m.group(2) if m else None
+            old = m.group(1) if m else None
+            # Only a rename if the two sides differ (modify keeps a/x b/x).
+            cur_old = old if (old is not None and old != cur_file) else None
             cur_header = [line]
             cur_hunks = []
             cur_hunk = None
@@ -91,16 +96,16 @@ def parse_diff(text):
         elif cur_hunk is not None:
             cur_hunk.lines.append(line)
 
-    _flush(files, cur_file, cur_header, cur_hunks, cur_hunk)
+    _flush(files, cur_file, cur_old, cur_header, cur_hunks, cur_hunk)
     return files
 
 
-def _flush(files, filepath, header, hunks, last_hunk):
+def _flush(files, filepath, old_path, header, hunks, last_hunk):
     if filepath is None:
         return
     if last_hunk is not None:
         hunks.append(last_hunk)
-    files[filepath] = FileDiff(header_lines=list(header), hunks=list(hunks))
+    files[filepath] = FileDiff(header_lines=list(header), hunks=list(hunks), old_path=old_path)
 
 
 def _parse_hunk_header(line):
@@ -180,10 +185,35 @@ def main():
         '#!/bin/bash',
         'set -euo pipefail',
         '',
+        # Resolve patch paths against the script's own location, not the CWD —
+        # the script runs from the repo while its patches live alongside it.
+        'SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"',
+        '',
+        '# ── Preconditions: never rewrite history on top of unsaved work ──',
+        'if [ -n "$(git status --porcelain)" ]; then',
+        '  echo "ERROR: working tree/index not clean. Commit or stash before tidying." >&2',
+        '  exit 1',
+        'fi',
+        'if ! git symbolic-ref -q HEAD >/dev/null; then',
+        '  echo "ERROR: detached HEAD. Checkout a branch first." >&2',
+        '  exit 1',
+        'fi',
+        '',
         'TIDY_BACKUP=$(git rev-parse HEAD)',
         f'BASE=$(git merge-base HEAD {base_ref} 2>/dev/null || echo "{base_ref}")',
-        'echo "Backup ref: $TIDY_BACKUP  (recover: git reset --hard \\"$TIDY_BACKUP\\")"',
-        'trap \'echo ""; echo "FAILED. Restore with: git reset --hard $TIDY_BACKUP"\' ERR',
+        'if [ -n "$(git rev-list --merges "$BASE"..HEAD)" ]; then',
+        '  echo "ERROR: branch contains merge commits; soft-reset would flatten them. Aborting." >&2',
+        '  exit 1',
+        'fi',
+        '',
+        '# Durable backup ref — survives shell exit, unaffected by later reflog shifts.',
+        'BACKUP_REF="refs/tidy-backup/$(date +%Y%m%d-%H%M%S)"',
+        'git update-ref "$BACKUP_REF" "$TIDY_BACKUP"',
+        'echo "Backup: $TIDY_BACKUP at $BACKUP_REF"',
+        'echo "Recover anytime with: git reset --hard $TIDY_BACKUP"',
+        # On any failure, auto-restore to the pre-tidy tip and clean artifacts.
+        'trap \'rc=$?; if [ "$rc" -ne 0 ]; then echo "" >&2; echo "FAILED (exit $rc). Restoring to $TIDY_BACKUP ..." >&2; git reset --hard "$TIDY_BACKUP" >&2 || echo "Auto-restore failed; run: git reset --hard $TIDY_BACKUP" >&2; fi\' EXIT',
+        '',
         'echo "Resetting to $BASE ..."',
         'git reset --soft "$BASE"',
         # After soft reset the index still has everything staged.
@@ -205,7 +235,12 @@ def main():
             file_diff = file_diffs.get(filepath)
 
             if hunk_indices is None or file_diff is None or len(hunk_indices) == len(file_diff.hunks):
-                script_lines.append(f'git add -- {quote(filepath)}')
+                paths = [filepath]
+                # For a rename, also stage the old path so its deletion is recorded;
+                # otherwise the old file lingers in the index and the tree diverges.
+                if file_diff is not None and file_diff.old_path:
+                    paths.append(file_diff.old_path)
+                script_lines.append('git add -- ' + ' '.join(quote(p) for p in paths))
             else:
                 max_idx = max(hunk_indices)
                 if max_idx >= len(file_diff.hunks):
@@ -222,11 +257,22 @@ def main():
                     pf.write(patch_content)
                 any_patches = True
                 rel = os.path.relpath(patch_file, script_dir)
-                script_lines.append(f'git apply --cached {quote(rel)}')
+                script_lines.append(f'git apply --cached "$SCRIPT_DIR"/{quote(rel)}')
 
         script_lines.append(f'git commit -m {quote(msg)}')
         script_lines.append('')
 
+    # ── Tree-identity gate: the rewritten history must reproduce the original
+    #    tree byte-for-byte. If not, content was dropped/mangled/misplaced —
+    #    restore and bail rather than ship a silently-corrupted branch.
+    script_lines.append('# ── Verify: rewritten tree must equal the original exactly ──')
+    script_lines.append('if ! git diff --quiet "$TIDY_BACKUP" HEAD; then')
+    script_lines.append('  echo "ERROR: rewritten tree differs from original. Restoring." >&2')
+    script_lines.append('  git --no-pager diff --stat "$TIDY_BACKUP" HEAD >&2')
+    script_lines.append('  exit 1')  # EXIT trap performs the hard reset to TIDY_BACKUP
+    script_lines.append('fi')
+    script_lines.append('trap - EXIT  # success: disarm auto-restore')
+    script_lines.append('echo "Verified: tree identical to original. Backup kept at $BACKUP_REF."')
     script_lines.append('echo "Done. New history:"')
     script_lines.append('git log --oneline')
 
