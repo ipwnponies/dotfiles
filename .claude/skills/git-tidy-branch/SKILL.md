@@ -114,7 +114,8 @@ Rules:
 ## Step 5: Generate the staging script
 
 ```bash
-python3 /root/.claude/skills/git-tidy-branch/scripts/extract_hunks.py commit-plan.json
+SKILL_SCRIPT=$(find ~/.claude/skills -name extract_hunks.py 2>/dev/null | head -1)
+python3 "$SKILL_SCRIPT" commit-plan.json
 ```
 
 This produces `stage-and-commit.sh`. Inspect it briefly before running.
@@ -180,6 +181,12 @@ Feedback commits are typically at the tip and have messages like "address PR fee
 # SHA of the last clean commit (before any feedback commits)
 # git log is newest-first, so the Nth+1 line is the last clean commit
 CLEAN_SHA=$(git log --oneline $MERGE_BASE..HEAD | sed -n "$((N+1))p" | cut -d' ' -f1)
+
+# Validate — if empty, all commits on the branch are feedback commits (nothing to absorb into)
+if [ -z "$CLEAN_SHA" ]; then
+  echo "Error: all $N commits appear to be feedback commits; no clean baseline to absorb into."
+  exit 1
+fi
 ```
 
 ### Step F3: Check for lint/config timeline
@@ -212,6 +219,10 @@ git blame -L <L1>,<L2> $CLEAN_SHA -- <file>
 
 The blame output shows which commit SHA introduced each line. That commit is the target for
 this fixup hunk.
+
+**Pure-addition hunks** (only `+` lines, no `-` lines to blame): there is no pre-existing line
+to blame. Instead blame the lines immediately surrounding the insertion point — the lines just
+above and below — to identify which commit owns the context. That commit is the target.
 
 Do this for every hunk across all feedback commits. Build a mapping:
 ```
@@ -274,8 +285,11 @@ as separate entries.
 After history is clean, check if the base branch has moved:
 
 ```bash
-git fetch origin
-git rev-list HEAD..origin/$BASE --count
+# Detect the configured remote (falls back to "origin" if no upstream set)
+REMOTE=$(git rev-parse --abbrev-ref --symbolic-full-name @{upstream} 2>/dev/null \
+         | cut -d/ -f1 || echo "origin")
+git fetch "$REMOTE"
+git rev-list HEAD.."$REMOTE/$BASE" --count
 ```
 
 If the count is 0, the branch is current — skip this step.
@@ -283,7 +297,7 @@ If the count is 0, the branch is current — skip this step.
 If the count is >0, rebase:
 
 ```bash
-git rebase origin/$BASE
+git rebase "$REMOTE/$BASE"
 ```
 
 **Do not rebase a dirty branch.** This step must come after Steps 1-7 (history cleaned up
@@ -304,20 +318,23 @@ When `git rebase` or `git rebase --autosquash` stops on a conflict, do NOT blind
 **1. Gather context on both sides**
 
 ```bash
-# What commit is being replayed (our side)?
+# What commit is being replayed (our side — the commit currently being applied)?
 git log -1 --format="%H %s%n%b" REBASE_HEAD
 
 # What does the conflict look like?
 git diff                        # shows conflict markers in all conflicted files
 
-# What did upstream change in this file (their side)?
-git log -1 --format="%H %s%n%b" ORIG_HEAD
-git show ORIG_HEAD -- <conflicted-file>
+# What did the upstream commits (their side) change in this file?
+# ORIG_HEAD is our pre-rebase tip, not the upstream. Use merge-base to find
+# the divergence point, then log what upstream added between there and our target.
+REBASE_ONTO=$(cat .git/rebase-merge/onto 2>/dev/null || cat .git/rebase-apply/onto 2>/dev/null)
+git log --oneline $(git merge-base REBASE_HEAD "$REBASE_ONTO").."$REBASE_ONTO"
+git show "$REBASE_ONTO" -- <conflicted-file>
 ```
 
 Read:
-- Our commit message → our intent
-- Their commit or the upstream change → their intent
+- Our commit message (`REBASE_HEAD`) → our intent
+- The upstream commits between merge-base and `onto` → their intent
 - The conflict markers → where the two intents collide
 - The surrounding code → enough context to re-implement correctly
 

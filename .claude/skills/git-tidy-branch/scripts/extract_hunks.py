@@ -31,6 +31,7 @@ import subprocess
 import sys
 from dataclasses import dataclass, field
 from pathlib import Path
+from shlex import quote
 
 
 @dataclass
@@ -179,7 +180,10 @@ def main():
         '#!/bin/bash',
         'set -euo pipefail',
         '',
+        'TIDY_BACKUP=$(git rev-parse HEAD)',
         f'BASE=$(git merge-base HEAD {base_ref} 2>/dev/null || echo "{base_ref}")',
+        'echo "Backup ref: $TIDY_BACKUP  (recover: git reset --hard \\"$TIDY_BACKUP\\")"',
+        'trap \'echo ""; echo "FAILED. Restore with: git reset --hard $TIDY_BACKUP"\' ERR',
         'echo "Resetting to $BASE ..."',
         'git reset --soft "$BASE"',
         # After soft reset the index still has everything staged.
@@ -201,8 +205,16 @@ def main():
             file_diff = file_diffs.get(filepath)
 
             if hunk_indices is None or file_diff is None or len(hunk_indices) == len(file_diff.hunks):
-                script_lines.append(f'git add -- {_sh_quote(filepath)}')
+                script_lines.append(f'git add -- {quote(filepath)}')
             else:
+                max_idx = max(hunk_indices)
+                if max_idx >= len(file_diff.hunks):
+                    print(
+                        f"Error: commit {idx + 1} ({msg!r}) references hunk index {max_idx} "
+                        f"for {filepath!r}, but it only has {len(file_diff.hunks)} hunk(s) (0-based).",
+                        file=sys.stderr,
+                    )
+                    sys.exit(1)
                 patch_content = build_partial_patch(file_diff, hunk_indices)
                 safe_name = re.sub(r'[^\w.-]', '_', filepath)
                 patch_file = patch_dir / f'commit-{idx + 1:02d}-{safe_name}.patch'
@@ -210,9 +222,9 @@ def main():
                     pf.write(patch_content)
                 any_patches = True
                 rel = os.path.relpath(patch_file, script_dir)
-                script_lines.append(f'git apply --cached {_sh_quote(rel)}')
+                script_lines.append(f'git apply --cached {quote(rel)}')
 
-        script_lines.append(f'git commit -m {_sh_quote(msg)}')
+        script_lines.append(f'git commit -m {quote(msg)}')
         script_lines.append('')
 
     script_lines.append('echo "Done. New history:"')
@@ -228,8 +240,6 @@ def main():
         print(f"Patches:   {patch_dir}/")
 
 
-def _sh_quote(s):
-    return "'" + s.replace("'", "'\\''") + "'"
 
 
 if __name__ == '__main__':
