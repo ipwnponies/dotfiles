@@ -15,7 +15,7 @@ promptToReturnFromSubprocess: false
 customCommands:
   - description: Push (override)
     key: "P"
-    command: git {{.Form.push}} --verbose
+    command: GIT_SSH_COMMAND="ssh -o BatchMode=yes" git {{.Form.push}} --verbose
     context: files, commits
     loadingText: Reticulating splines...
     prompts:
@@ -33,7 +33,7 @@ customCommands:
     output: popup
   - description: Push (override)
     key: "P"
-    command: git {{.Form.push}} --verbose {{with .SelectedLocalBranch}} {{.UpstreamRemote}} {{.Name}} {{end}}
+    command: GIT_SSH_COMMAND="ssh -o BatchMode=yes" git {{.Form.push}} --verbose {{with .SelectedLocalBranch}} {{.UpstreamRemote}} {{.Name}} {{end}}
     context: localBranches
     prompts:
       - type: "menu"
