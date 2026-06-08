@@ -14,16 +14,16 @@ local plugin_window_openers = {
 	claude = function()
 		require("claude-code").toggle()
 	end,
-	codex = function()
-		require("codex").toggle()
+	opencode = function()
+		require("opencode.api").toggle()
 	end,
 }
 
 -- Override coding agent by environment
 -- top priority is .nvim.lua (exrc)
 -- then env var
--- then fallback to codex
-local coding_agent = vim.g.coding_agent_preference or vim.env.CODING_AGENT_PREFERENCE or "codex"
+-- then fallback to claude
+local coding_agent = vim.g.coding_agent_preference or vim.env.CODING_AGENT_PREFERENCE or "claude"
 
 local function ai_keymaps(command_prefix)
 	local ask_desc = "Send selection to coding agent with custom prompt"
@@ -31,13 +31,8 @@ local function ai_keymaps(command_prefix)
 	toggle_mapping = {
 		"<m-,>",
 		function()
-			if command_prefix == "Codex" then
-				plugin_window_openers.codex()
-				local win = require("codex.state").win
-				-- Only enter insert model if window is open
-				if win ~= nil and vim.api.nvim_win_is_valid(win) then
-					vim.cmd("startinsert")
-				end
+			if command_prefix == "Opencode" then
+				plugin_window_openers.opencode()
 			else
 				-- Claude has toggle with insert mode already
 			end
@@ -75,18 +70,9 @@ function AIController:find_ai_buffer()
 		local claude = require("claude-code").claude_code
 
 		return claude.instances[claude.current_instance]
-	elseif self.executable == "codex" then
-		for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-			if vim.api.nvim_buf_is_loaded(buf) then
-				local buftype = vim.api.nvim_get_option_value("buftype", { buf = buf })
-				if buftype == "terminal" then
-					local filetype = vim.api.nvim_get_option_value("filetype", { buf = buf })
-					if self.executable == "codex" and filetype == "codex" then
-						return buf
-					end
-				end
-			end
-		end
+	elseif self.executable == "opencode" then
+		-- opencode.nvim manages its own UI state; no terminal buffer to scan
+		return nil
 	end
 	return nil
 end
@@ -153,6 +139,14 @@ function AIController:send_selection_to_ai(prompt, range)
 	local filename = vim.fn.expand("%:p")
 	local line_number = range and string.format(":%d-%d", range.start, range.line_end) or ""
 	local final_prompt = string.format("@%s%s\n%s", filename, line_number, prompt)
+
+	if self.executable == "opencode" then
+		require("opencode.api").toggle()
+		vim.defer_fn(function()
+			require("opencode.api").run(final_prompt)
+		end, 200)
+		return
+	end
 
 	-- Find existing coding agent buffer or create new one
 	local assistant_bufnr = self:find_ai_buffer()
@@ -407,6 +401,7 @@ return {
 		keys = ai_keymaps("Claude"),
 		---@type ClaudeCode.Config
 		opts = {
+			command = "claude --dangerously-skip-permissions",
 			window = {
 				position = "float",
 			},
@@ -428,35 +423,31 @@ return {
 		end,
 	},
 	{
-		"johnseth97/codex.nvim",
-		enabled = coding_agent == "codex",
+		"sudo-tee/opencode.nvim",
+		enabled = coding_agent == "opencode",
 		cmd = {
-			"Codex",
-			"CodexToggle",
-			"CodexAsk",
-			"CodexRefactor",
-			"CodexAnalyze",
-			"CodexOptimize",
-			"CodexExplain",
-			"CodexBugs",
-			"CodexTest",
+			"Opencode",
+			"OpencodeAsk",
+			"OpencodeRefactor",
+			"OpencodeAnalyze",
+			"OpencodeOptimize",
+			"OpencodeExplain",
+			"OpencodeBugs",
+			"OpencodeTest",
 		},
-		keys = ai_keymaps("Codex"),
+		keys = ai_keymaps("Opencode"),
 		opts = {
-			border = "rounded",
-			width = 0.8,
-			height = 0.8,
-			model = nil,
-			autoinstall = false,
+			opencode_executable = "opencode",
+			default_global_keymaps = false,
 		},
 		config = function(_, opts)
-			require("codex").setup(opts)
+			require("opencode").setup(opts)
 
 			register_ai_provider({
-				prefix = "Codex",
-				executable = "codex",
-				list_header = "Available Codex Presets:",
-				select_prompt = "Select a preset prompt or enter custom (Codex):",
+				prefix = "Opencode",
+				executable = "opencode",
+				list_header = "Available Opencode Presets:",
+				select_prompt = "Select a preset prompt or enter custom (Opencode):",
 			})
 		end,
 	},
