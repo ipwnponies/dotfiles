@@ -24,8 +24,13 @@ jobs:
         env:
           MARKETPLACES: |
             anthropics/claude-plugins-official
+            https://github.com/EveryInc/every-marketplace.git
+            JuliusBrussee/caveman
           PLUGINS: |
             superpowers@claude-plugins-official
+            context7@claude-plugins-official
+            compound-engineering@compound-engineering-plugin
+            caveman@caveman
         run: |
           curl -fsSL https://claude.ai/install.sh | bash
           export PATH="$HOME/.local/bin:$PATH"
@@ -42,7 +47,7 @@ jobs:
             install_path=$(claude plugin list --json | jq -r --arg p "$plugin" '.[] | select(.id == $p) | .installPath')
             rm -rf ".agents/skills/$name"
             cp -r "$install_path" ".agents/skills/$name"
-            rm -rf ".agents/skills/$name/.git"
+            rm -rf ".agents/skills/$name/.git" ".agents/skills/$name/node_modules"
           done <<< "$PLUGINS"
 
       - name: Zip skills
