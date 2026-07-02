@@ -9,3 +9,4 @@ __pycache__/
 !/.opencode/
 !/opencode.jsonc
 !/.agents/
+!/.github/

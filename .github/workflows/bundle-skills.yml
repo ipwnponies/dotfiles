@@ -1,0 +1,30 @@
+name: Bundle Skills
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - '.agents/skills/**'
+  workflow_dispatch:
+
+jobs:
+  bundle:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Zip skills
+        run: cd .agents/skills && zip -r /tmp/skills.zip .
+
+      - name: Update skills-latest release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release delete skills-latest --yes 2>/dev/null || true
+          git push origin :refs/tags/skills-latest 2>/dev/null || true
+          gh release create skills-latest /tmp/skills.zip \
+            --title "Skills Bundle" \
+            --notes "Auto-generated" \
+            --prerelease
