@@ -1,0 +1,62 @@
+name: Bundle Skills
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - '.agents/skills/**'
+      - '.github/workflows/bundle-skills.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: bundle-skills
+  cancel-in-progress: false
+
+jobs:
+  bundle:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install plugins
+        env:
+          MARKETPLACES: |
+            anthropics/claude-plugins-official
+          PLUGINS: |
+            superpowers@claude-plugins-official
+        run: |
+          curl -fsSL https://claude.ai/install.sh | bash
+          export PATH="$HOME/.local/bin:$PATH"
+
+          while IFS= read -r marketplace; do
+            [ -z "$marketplace" ] && continue
+            claude plugin marketplace add "$marketplace"
+          done <<< "$MARKETPLACES"
+
+          while IFS= read -r plugin; do
+            [ -z "$plugin" ] && continue
+            claude plugin install "$plugin" --scope user
+            name="${plugin%%@*}"
+            install_path=$(claude plugin list --json | jq -r --arg p "$plugin" '.[] | select(.id == $p) | .installPath')
+            rm -rf ".agents/skills/$name"
+            cp -r "$install_path" ".agents/skills/$name"
+            rm -rf ".agents/skills/$name/.git"
+          done <<< "$PLUGINS"
+
+      - name: Zip skills
+        run: cd .agents/skills && zip -r /tmp/skills.zip .
+
+      - name: Update skills-latest release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if gh release view skills-latest >/dev/null 2>&1; then
+            gh release upload skills-latest /tmp/skills.zip --clobber
+          else
+            gh release create skills-latest /tmp/skills.zip \
+              --title "Skills Bundle" \
+              --notes "Auto-generated" \
+              --prerelease
+          fi
