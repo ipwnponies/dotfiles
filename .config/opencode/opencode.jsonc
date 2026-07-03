@@ -21,6 +21,25 @@
           "ls -d .worktrees": "allow",
           "mkdir -p \".worktrees/*\"": "allow",
         },
+        // Declared explicitly (not left to inherit from the global block) since
+        // opencode's merge behavior between agent-level and global permission
+        // objects isn't documented; build is the primary interactive agent.
+        "edit": {
+          "*": "ask",
+          "docs/solutions/**/*.md": "allow",
+          "~/.agents/docs/solutions/**/*.md": "allow",
+          "docs/superpowers/**": "allow",
+          "docs/plans/*.md": "allow",
+          "docs/brainstorms/*.md": "allow",
+        },
+        "write": {
+          "*": "ask",
+          "docs/solutions/**/*.md": "allow",
+          "~/.agents/docs/solutions/**/*.md": "allow",
+          "docs/superpowers/**": "allow",
+          "docs/plans/*.md": "allow",
+          "docs/brainstorms/*.md": "allow",
+        },
         "skill": "allow",
         "task": {
           "*": "deny",
@@ -443,11 +462,30 @@
       "git show *": "allow",
       "git status": "allow",
       "git status *": "allow",
+      "mkdir -p \"docs/**\"": "allow",
+      "mkdir -p \"~/.agents/docs/**\"": "allow",
     },
     "glob": "allow",
     "grep": "allow",
     "list": "allow",
     "read": "allow",
+    // Keep this path list in sync with .config/claude/settings.json's docs/* permissions.
+    "edit": {
+      "*": "ask",
+      "docs/solutions/**/*.md": "allow",
+      "~/.agents/docs/solutions/**/*.md": "allow",
+      "docs/superpowers/**": "allow",
+      "docs/plans/*.md": "allow",
+      "docs/brainstorms/*.md": "allow",
+    },
+    "write": {
+      "*": "ask",
+      "docs/solutions/**/*.md": "allow",
+      "~/.agents/docs/solutions/**/*.md": "allow",
+      "docs/superpowers/**": "allow",
+      "docs/plans/*.md": "allow",
+      "docs/brainstorms/*.md": "allow",
+    },
     "command": {
       "commit": "ask",
       "design": "ask",
