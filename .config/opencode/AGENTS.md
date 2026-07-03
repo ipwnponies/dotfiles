@@ -182,6 +182,7 @@ I may say "commit" but you always hold yourself to a high standard of quality fo
 Use Conventional Commit subjects: `type: short description` or `type(scope): short description`.
 Keep commit subjects under 70 characters and use a precise type (`feat`, `fix`, `docs`, `refactor`, `chore`) that matches the change intent.
 For non-trivial changes, add a short body (1-2 sentences) that explains why the change exists and the expected impact; avoid file-by-file narration.
+Write body from the reader's perspective: what problem does this solve and why, not how it works internally. High-level what + why; never implementation details or diff narration.
 Emphasize user-facing behavior or code-level change; skip buzzwords. For example:
 ```
     refactor: move pet state systems into modules
