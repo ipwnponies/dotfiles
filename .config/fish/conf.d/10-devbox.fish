@@ -15,7 +15,7 @@ function regenerate --description 'Refresh devbox generated files, if expired'
     if is_expired $generated_config
         echo 'Regenerating devbox config'
         # Pre-generates env vars that adds devbox to PATH
-        devbox global shellenv >$generated_config
+        devbox global shellenv | grep -e '^export PATH=' -e '^export DEVBOX_' >$generated_config
         exec fish
     end
 
