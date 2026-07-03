@@ -8,9 +8,12 @@ This repo uses an opt-in gitignore (`/*` ignores everything at root; specific pa
 
 ## Personal Knowledge Store
 
-`~/.agents/docs/solutions/` — documented solutions to past problems (bugs, best practices, workflow patterns), organized by category with YAML frontmatter (`module`, `tags`, `problem_type`). Relevant when debugging or working in a documented area.
+Two documented-solutions stores exist, both organized by category with YAML frontmatter (`module`, `tags`, `problem_type`):
 
-When running `/ce-compound`, write docs to `~/.agents/docs/solutions/<category>/` instead of the default `docs/solutions/`.
+- `docs/solutions/` — project-scoped learnings, relevant only to this repo.
+- `~/.agents/docs/solutions/` — cross-project learnings, relevant when debugging or working in a documented area regardless of repo.
+
+When running `/ce-compound`, default to writing docs to `docs/solutions/<category>/` as usual. Only write to `~/.agents/docs/solutions/<category>/` instead when the learning is explicitly cross-project (applies beyond this repo).
 
 ## Session Learning Capture
 

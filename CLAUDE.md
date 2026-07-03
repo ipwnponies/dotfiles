@@ -1,3 +1,1 @@
-# CLAUDE.md
-
-See [AGENTS.md](AGENTS.md) for coding conventions, architecture notes, commit guidelines, and dev commands.
+@AGENTS.md

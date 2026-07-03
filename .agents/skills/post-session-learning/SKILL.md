@@ -60,7 +60,7 @@ Use `no_network` autouse fixture (defined in `tests/conftest.py`) in all tests. 
 
 ---
 
-### Debugging Solutions → `~/.agents/docs/solutions/`
+### Debugging Solutions → `docs/solutions/` (project) or `~/.agents/docs/solutions/` (cross-project)
 
 **What to look for:**
 - Root cause required non-obvious investigation
@@ -70,7 +70,7 @@ Use `no_network` autouse fixture (defined in `tests/conftest.py`) in all tests. 
 
 **Why capture it:** Future sessions skip the diagnostic loop and jump to the fix.
 
-**How:** Run `/ce-compound` with context from the session. Write to `~/.agents/docs/solutions/<category>/` (create dir if needed). Categories: `debugging/`, `storage/`, `docker/`, `networking/`, `auth/`, `performance/`, `testing/`, `git/`, etc.
+**How:** Run `/ce-compound` with context from the session. Defaults to `docs/solutions/<category>/` (project-scoped); use `~/.agents/docs/solutions/<category>/` instead only when the learning is explicitly cross-project. Create the dir if needed. Categories: `debugging/`, `storage/`, `docker/`, `networking/`, `auth/`, `performance/`, `testing/`, `git/`, etc.
 
 Format:
 ```markdown
@@ -144,7 +144,7 @@ Example structure for a session that found test preferences, a debugging solutio
   - Option: "no_network autouse fixture blocks HTTP" — `tests/AGENTS.md` — next time: no manual mocking
 
 - Question 2 (multiSelect): "Which solutions and scripts should I persist?"
-  - Option: "Docker disk space check pattern" — `~/.agents/docs/solutions/debugging/docker.md`
+  - Option: "Docker disk space check pattern" — `docs/solutions/debugging/docker.md`
   - Option: "check-ports.sh" — `scripts/check-ports.sh`, committed to repo
 
 Collapse into fewer questions if the session was small. One question is fine for simple sessions.
