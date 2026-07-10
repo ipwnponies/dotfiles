@@ -186,50 +186,50 @@
       }
     },
     "claude-code@latest": {
-      "last_modified": "2026-05-06T02:58:03Z",
-      "resolved": "github:NixOS/nixpkgs/ed67bc86e84e51d4a88e73c7fd36006dc876476f#claude-code",
+      "last_modified": "2026-06-29T19:19:24Z",
+      "resolved": "github:NixOS/nixpkgs/7a1a64774a5fd0b0cd39ac95d0e170ace8b266a0#claude-code",
       "source": "devbox-search",
-      "version": "2.1.128",
+      "version": "2.1.195",
       "systems": {
         "aarch64-darwin": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/z58ki2nzhfifi4h5ss7nzi7s280zi2i0-claude-code-2.1.128",
+              "path": "/nix/store/qfkm51b6bs9q4vmp692xq5gkd3477csh-claude-code-2.1.195",
               "default": true
             }
           ],
-          "store_path": "/nix/store/z58ki2nzhfifi4h5ss7nzi7s280zi2i0-claude-code-2.1.128"
+          "store_path": "/nix/store/qfkm51b6bs9q4vmp692xq5gkd3477csh-claude-code-2.1.195"
         },
         "aarch64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/ls9kzv129vc2hngvxlchv832bcwsnmxd-claude-code-2.1.128",
+              "path": "/nix/store/acwi09d7hr29l47kxzqp07fh9fy98bag-claude-code-2.1.195",
               "default": true
             }
           ],
-          "store_path": "/nix/store/ls9kzv129vc2hngvxlchv832bcwsnmxd-claude-code-2.1.128"
+          "store_path": "/nix/store/acwi09d7hr29l47kxzqp07fh9fy98bag-claude-code-2.1.195"
         },
         "x86_64-darwin": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/ngbwp84w003xda4dxiidarb34y973bwr-claude-code-2.1.128",
+              "path": "/nix/store/81lkqlv7mhqq6slh1c5nklq85s8z1ri5-claude-code-2.1.195",
               "default": true
             }
           ],
-          "store_path": "/nix/store/ngbwp84w003xda4dxiidarb34y973bwr-claude-code-2.1.128"
+          "store_path": "/nix/store/81lkqlv7mhqq6slh1c5nklq85s8z1ri5-claude-code-2.1.195"
         },
         "x86_64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/0mnb6xxj635rbczw49fly0dy4m6ykbgl-claude-code-2.1.128",
+              "path": "/nix/store/b01qcwrkl5p9va1l8bd493ird8gac53k-claude-code-2.1.195",
               "default": true
             }
           ],
-          "store_path": "/nix/store/0mnb6xxj635rbczw49fly0dy4m6ykbgl-claude-code-2.1.128"
+          "store_path": "/nix/store/b01qcwrkl5p9va1l8bd493ird8gac53k-claude-code-2.1.195"
         }
       }
     },
@@ -1246,7 +1246,7 @@
     },
     "nodejs@latest": {
       "last_modified": "2025-11-07T02:32:13Z",
-      "plugin_version": "0.0.2",
+      "plugin_version": "0.0.4",
       "resolved": "github:NixOS/nixpkgs/e1ebeec86b771e9d387dd02d82ffdc77ac753abc#nodejs_24",
       "source": "devbox-search",
       "version": "24.11.0",
@@ -1459,7 +1459,7 @@
     },
     "poetry@latest": {
       "last_modified": "2025-03-22T01:19:59Z",
-      "plugin_version": "0.0.4",
+      "plugin_version": "0.0.5",
       "resolved": "github:NixOS/nixpkgs/0740f6f238767d4caf9afe774d3e88105766dfc6#poetry",
       "source": "devbox-search",
       "version": "2.1.1",

@@ -34,9 +34,6 @@ abbr --global --add ta 'task +ACTIVE'
 abbr --global --add tl 'task +LATEST edit'
 abbr --global --add tr 'task +READY'
 
-# Claude
-abbr --add claude claude --allow-dangerously-skip-permissions
-
 set -l local_functions (dirname (status --current-filename))/abbr_local.fish
 if test -e $local_functions
     source $local_functions
