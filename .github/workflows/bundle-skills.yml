@@ -5,7 +5,9 @@ on:
     branches: [master]
     paths:
       - '.agents/skills/**'
+      - '.agents/AGENTS.md'
       - '.claude/CLAUDE.md'
+      - '.claude/settings.json'
       - '.github/workflows/bundle-skills.yml'
   workflow_dispatch:
 
@@ -53,9 +55,11 @@ jobs:
 
       - name: Zip claude bundle
         run: |
-          mkdir -p /tmp/claude-bundle/skills
-          cp -r .agents/skills/. /tmp/claude-bundle/skills/
-          cp .claude/CLAUDE.md /tmp/claude-bundle/CLAUDE.md
+          mkdir -p /tmp/claude-bundle/.claude/skills /tmp/claude-bundle/.agents
+          cp -r .agents/skills/. /tmp/claude-bundle/.claude/skills/
+          cp .claude/CLAUDE.md /tmp/claude-bundle/.claude/CLAUDE.md
+          cp .claude/settings.json /tmp/claude-bundle/.claude/settings.json
+          cp .agents/AGENTS.md /tmp/claude-bundle/.agents/AGENTS.md
           cd /tmp/claude-bundle && zip -r /tmp/skills.zip .
 
       - name: Update skills-latest release
