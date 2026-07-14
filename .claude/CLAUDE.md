@@ -1,5 +1,7 @@
 # Claude Global Instructions
 
+@../.agents/AGENTS.md
+
 ## Personal Knowledge Store
 
 `~/.agents/docs/solutions/` — documented solutions to past problems (bugs, best practices, workflow patterns), organized by category with YAML frontmatter (`module`, `tags`, `problem_type`). Relevant when debugging or working in a documented area.
