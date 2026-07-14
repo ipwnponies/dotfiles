@@ -22,8 +22,25 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect change scope
+        id: detect
+        run: |
+          if [ "${{ github.event_name }}" != "push" ]; then
+            echo "config_only=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          CHANGED=$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}")
+          if echo "$CHANGED" | grep -qvE '^(\.claude/CLAUDE\.md|\.claude/settings\.json|\.agents/AGENTS\.md)$'; then
+            echo "config_only=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "config_only=true" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Install plugins
+        if: steps.detect.outputs.config_only != 'true'
         env:
           MARKETPLACES: |
             anthropics/claude-plugins-official
@@ -53,13 +70,31 @@ jobs:
             rm -rf ".agents/skills/$name/.git" ".agents/skills/$name/node_modules"
           done <<< "$PLUGINS"
 
-      - name: Zip claude bundle
+      - name: Stage bundle
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CONFIG_ONLY: ${{ steps.detect.outputs.config_only }}
         run: |
           mkdir -p /tmp/claude-bundle/.claude/skills /tmp/claude-bundle/.agents
-          cp -r .agents/skills/. /tmp/claude-bundle/.claude/skills/
+
+          if [ "$CONFIG_ONLY" = "true" ]; then
+            # No skills/plugin changes: reuse the last successful build's
+            # vendored skills instead of paying for a full plugin reinstall.
+            if ! gh release download skills-latest -p skills.zip -O /tmp/existing-skills.zip; then
+              echo "::error::config-only run but no existing skills-latest release to base it on; trigger workflow_dispatch for a full rebuild"
+              exit 1
+            fi
+            unzip -o /tmp/existing-skills.zip -d /tmp/claude-bundle
+          else
+            cp -r .agents/skills/. /tmp/claude-bundle/.claude/skills/
+          fi
+
           cp .claude/CLAUDE.md /tmp/claude-bundle/.claude/CLAUDE.md
           cp .claude/settings.json /tmp/claude-bundle/.claude/settings.json
           cp .agents/AGENTS.md /tmp/claude-bundle/.agents/AGENTS.md
+
+      - name: Zip claude bundle
+        run: |
           cd /tmp/claude-bundle && zip -r /tmp/skills.zip .
 
       - name: Update skills-latest release

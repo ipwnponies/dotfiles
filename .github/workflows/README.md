@@ -23,6 +23,16 @@ install or registration step needed — see "Skills-directory plugins" in the
 To add another plugin, add a line to `PLUGINS` (and to `MARKETPLACES` if it's
 not already on `claude-plugins-official`) in the `Install plugins` step.
 
+Since the vendored plugin trees aren't checked into git (`.agents/skills/.gitignore`
+excludes them), rebuilding them means re-running the CLI install/marketplace
+steps every time — expensive for a change that only touches `.claude/CLAUDE.md`,
+`.claude/settings.json`, or `.agents/AGENTS.md`. The "Detect change scope" step
+checks whether a push touched only those three files; if so, "Install plugins"
+is skipped and "Stage bundle" instead downloads the current `skills-latest`
+zip and reuses its already-vendored `skills/` directory, only refreshing the
+3 config files before re-zipping. Any other change (skills, the workflow file
+itself, or a manual `workflow_dispatch`) still runs the full pipeline.
+
 ## Cloud environment setup script
 
 Paste this into a cloud environment's setup script to install everything this
