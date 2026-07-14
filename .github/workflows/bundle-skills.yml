@@ -5,6 +5,7 @@ on:
     branches: [master]
     paths:
       - '.agents/skills/**'
+      - '.claude/CLAUDE.md'
       - '.github/workflows/bundle-skills.yml'
   workflow_dispatch:
 
@@ -50,8 +51,12 @@ jobs:
             rm -rf ".agents/skills/$name/.git" ".agents/skills/$name/node_modules"
           done <<< "$PLUGINS"
 
-      - name: Zip skills
-        run: cd .agents/skills && zip -r /tmp/skills.zip .
+      - name: Zip claude bundle
+        run: |
+          mkdir -p /tmp/claude-bundle/skills
+          cp -r .agents/skills/. /tmp/claude-bundle/skills/
+          cp .claude/CLAUDE.md /tmp/claude-bundle/CLAUDE.md
+          cd /tmp/claude-bundle && zip -r /tmp/skills.zip .
 
       - name: Update skills-latest release
         env:

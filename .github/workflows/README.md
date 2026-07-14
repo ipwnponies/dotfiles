@@ -1,12 +1,14 @@
 # Bundle Skills
 
-Zips `.agents/skills/` together with a set of vendored Claude Code plugins and
-publishes the result to the permanent `skills-latest` GitHub release, so a
-fresh cloud environment can fetch one file instead of cloning this repo or
-running `claude plugin install` itself.
+Zips `.agents/skills/` (a set of vendored Claude Code plugins) together with
+`.claude/CLAUDE.md` and publishes the result to the permanent `skills-latest`
+GitHub release, so a fresh cloud environment can fetch one file to recreate
+the Claude dev setup instead of cloning this repo or running
+`claude plugin install` itself.
 
-Runs on every push to `master` that touches `.agents/skills/**` or this
-workflow, and can be triggered manually via `workflow_dispatch`.
+Runs on every push to `master` that touches `.agents/skills/**`,
+`.claude/CLAUDE.md`, or this workflow, and can be triggered manually via
+`workflow_dispatch`.
 
 Plugins are vendored by running the real `claude` CLI in the runner
 (`claude plugin marketplace add` + `claude plugin install`), then copying
@@ -32,15 +34,19 @@ set -euo pipefail
 curl -sfL "https://github.com/ipwnponies/dotfiles/releases/download/skills-latest/skills.zip" \
   -o /tmp/skills.zip
 
-mkdir -p ~/.claude/skills/
-unzip -o /tmp/skills.zip -d ~/.claude/skills/
+mkdir -p ~/.claude/
+unzip -o /tmp/skills.zip -d ~/.claude/
 rm /tmp/skills.zip
 
 echo "Skills installed: $(ls ~/.claude/skills/)"
+echo "CLAUDE.md installed: $([ -f ~/.claude/CLAUDE.md ] && echo yes || echo no)"
 ```
 
 That's it — no `claude plugin install`, no marketplace registration, no
 `GITHUB_TOKEN`. Every plugin currently bundled (`superpowers`, `context7`,
-`compound-engineering`, `caveman`) and every plain skill lands in
-`~/.claude/skills/` ready to use on the next `claude` session in that
-environment.
+`compound-engineering`, `caveman`), every plain skill, and `~/.claude/CLAUDE.md`
+land in place, ready for the next `claude` session in that environment.
+
+Note the extract target changed from `~/.claude/skills/` to `~/.claude/` —
+the zip now contains a top-level `skills/` dir plus `CLAUDE.md`, so unzipping
+one level higher puts both in the right spot.
