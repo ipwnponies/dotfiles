@@ -73,11 +73,11 @@ When a session reaches a natural end and any friction was observed, offer to run
 - When modifying third-party mirrors in `repos/`, open patches upstream first—local diffs should be temporary and documented in the PR.
 
 ## Commit & Pull Request Guidelines
-- Use Conventional Commit subjects: `type: short description` or `type(scope): short description`.
-- Keep commit subjects under 70 characters and use a precise type (`feat`, `fix`, `docs`, `refactor`, `chore`) that matches the change intent.
+See `~/.agents/AGENTS.md`'s Commit Message section for the base Conventional
+Commits format, subject-length limit, and body conventions — this section
+only adds dotfiles-specific extras.
 - Use scope when helpful in this multi-project repo (for example `fix(venv): ...`, `chore(agent): ...`), and derive scope names from existing git history to stay consistent.
 - If multiple scopes seem possible, pick the one already used most often in recent commits for the same area.
-- For non-trivial changes, add a short body (1-2 sentences) that explains why the change exists and the expected impact; avoid file-by-file narration.
 - Reference related issues or upstream PRs in the body, and attach screenshots or logs when UI or automation behavior changes.
 - PR descriptions should restate expected behavior, test evidence (commands above), and any rollout or secret-handling notes; request review from domain owners when touching their area.
 
