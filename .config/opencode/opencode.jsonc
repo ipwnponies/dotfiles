@@ -470,7 +470,7 @@
     "grep": "allow",
     "list": "allow",
     "read": "allow",
-    // Keep this path list in sync with .config/claude/settings.json's docs/* permissions.
+    // Keep this path list in sync with .claude/settings.json's docs/* permissions.
     "edit": {
       "*": "ask",
       "docs/solutions/**/*.md": "allow",
