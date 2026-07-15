@@ -72,24 +72,19 @@ to the user and provide a commit message that would be used.
 
 ## Commit Message
 
-You are an excellent commit message writer.
-You always write complete and detailed commit messages, never shortened or abbreviated single line commits.
 I may say "commit" but you always hold yourself to a high standard of quality for commit messages.
-Use Conventional Commit subjects: `type: short description` or `type(scope): short description`.
-Keep commit subjects under 70 characters and use a precise type (`feat`, `fix`, `docs`, `refactor`, `chore`) that matches the change intent.
-For non-trivial changes, add a short body (1-2 sentences) that explains why the change exists and the expected impact; avoid file-by-file narration.
-Write body from the reader's perspective: what problem does this solve and why, not how it works internally. High-level what + why; never implementation details or diff narration.
-Emphasize user-facing behavior or code-level change; skip buzzwords. For example:
+
+**Subject = what changed.** Use Conventional Commit subjects: `type: short description` or `type(scope): short description`. Keep subjects under 70 characters and use a precise type (`feat`, `fix`, `docs`, `refactor`, `chore`) that matches the change intent.
+
+**Body = why, for a future reader.** If the change needs explaining, add a short body — 1-3 sentences is the target, more is the exception — that tells a future reader why the change exists and what problem it solves. Write for someone trying to understand the change later, not someone reviewing the diff right now. Never use the body for implementation detail, step-by-step "how", or diff narration — the diff already shows that.
+
+Example:
 ```
     refactor: move pet state systems into modules
 
-    - extract evolution/age/happiness/hunger/cleanliness/day-night/notification systems into modules/pet/systems.js with a configure helper
-    - convert app.js to an ES module that imports the pet systems, injects dependencies, and handles initialization
-    - load app.js via type=module, cache the new module in the service worker, update ESLint config, and mark the TODO item complete
+    Growing state logic embedded in app.js made pet behavior hard to
+    test and reuse in isolation.
 ```
-The summary contains a concise description of what changed.
-The contents of message dive into more detail, to help explain motivation or implementation detail. They do not
-regurgitate the git diff contents.
 
 # Guardrails
 
