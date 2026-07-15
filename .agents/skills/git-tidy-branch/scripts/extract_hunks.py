@@ -226,7 +226,8 @@ def main():
 
     for idx, commit in enumerate(commits):
         msg = commit['message']
-        script_lines.append(f'# ── Commit {idx + 1}: {msg} ──')
+        subject = msg.splitlines()[0] if msg else msg
+        script_lines.append(f'# ── Commit {idx + 1}: {subject} ──')
 
         for file_spec in commit['hunks']:
             filepath = file_spec['file']
