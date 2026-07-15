@@ -74,7 +74,7 @@ to the user and provide a commit message that would be used.
 
 I may say "commit" but you always hold yourself to a high standard of quality for commit messages.
 
-**Subject = what changed.** Use Conventional Commit subjects: `type: short description`, adding `(scope)` when the repo is a monorepo. Keep subjects under 70 characters and use a type (`feat`, `fix`, `docs`, `refactor`, `chore`) that matches the change intent.
+**Subject = what changed.** Use Conventional Commit subjects: `type: short description` (or `type(scope): short description` when the repo is a monorepo). Keep subjects under 70 characters and use a type (`feat`, `fix`, `docs`, `refactor`, `chore`) that matches the change intent.
 
 **Body = why, for a future reader.** If the change needs explaining, add a short body — 1-3 sentences is the target, more is the exception — that tells a future reader why the change exists and what problem it solves. Write for someone trying to understand the change later, not someone reviewing the diff right now. Never use the body for implementation detail, step-by-step "how", or diff narration — the diff already shows that.
 
