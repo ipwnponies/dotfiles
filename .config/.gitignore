@@ -1,9 +1,13 @@
+# Ignore host-local configs
+/*_local/
+
 /configstore/
 /github-copilot/
 /git/ignore
 /htop/
 /http-prompt/
 /iterm2/
+/rclone/
 /nextjs-nodejs/
 /nvm/
 /pgcli/
