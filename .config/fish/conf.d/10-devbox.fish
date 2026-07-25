@@ -1,10 +1,18 @@
 function main
     set --append fish_complete_path $DEVBOX_PACKAGES_DIR/share/fish/vendor_completions.d
+
+    set -l local_pkgs $XDG_DATA_HOME/devbox_local/.devbox/nix/profile/default
+    fish_add_path $local_pkgs/bin
+    set --append fish_complete_path $local_pkgs/share/fish/vendor_completions.d
+    set --prepend MANPATH $local_pkgs/share/man
 end
 
 function install
     # Sync dependencies
-    devbox global install
+    mkdir -p $XDG_STATE_HOME/devbox
+    set -l log $XDG_STATE_HOME/devbox/install.log
+    devbox global install >>$log 2>&1
+    test -f $XDG_DATA_HOME/devbox_local/devbox.json; and devbox install --config $XDG_DATA_HOME/devbox_local >>$log 2>&1
 end
 
 function regenerate --description 'Refresh devbox generated files, if expired'
