@@ -9,6 +9,7 @@ set -x XDG_STATE_HOME $HOME/.local/state
 fish_add_path --prepend --move --global $HOME/bin
 
 set -x RIPGREP_CONFIG_PATH "$XDG_CONFIG_HOME/ripgrep/rc"
+set -x PYTHONSTARTUP $HOME/.pythonrc.py
 set -x EDITOR nvim
 
 if status --is-interactive
