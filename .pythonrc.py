@@ -1,20 +1,16 @@
-# Add auto-completion and a stored history file of commands to your Python
-# interactive interpreter. Requires Python 2.0+, readline. Autocomplete is
-# bound to the Esc key by default (you can change it - see readline docs).
-#
-# Store the file in ~/.pythonrc.py, and set an environment variable to point
-# to it:  "export PYTHONSTARTUP=/home/user/.pythonrc.py" in bash.
-#
-# Note that PYTHONSTARTUP does *not* expand "~", so you have to put in the
-# full path to your home directory.
+# Persistent history + tab-completion for the plain `python` REPL.
+# Activated via PYTHONSTARTUP, set in .config/fish/conf.d/05-env.fish.
 import atexit
 import os
 import readline
 import rlcompleter
 
-histFilePath = os.path.expanduser('~/.python_history')
+state_home = os.environ.get('XDG_STATE_HOME', os.path.expanduser('~/.local/state'))
+histDir = os.path.join(state_home, 'python')
+histFilePath = os.path.join(histDir, 'history')
 
-# load an existing python history file.
+os.makedirs(histDir, exist_ok=True)
+
 try:
 	readline.read_history_file(histFilePath)
 except IOError:
@@ -24,4 +20,4 @@ atexit.register(readline.write_history_file, histFilePath)
 
 readline.parse_and_bind('tab: complete')
 
-del os, atexit, readline, rlcompleter, histFilePath
+del os, atexit, readline, rlcompleter, state_home, histDir, histFilePath
