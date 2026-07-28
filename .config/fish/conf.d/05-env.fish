@@ -10,6 +10,7 @@ fish_add_path --prepend --move --global $HOME/bin
 
 set -x RIPGREP_CONFIG_PATH "$XDG_CONFIG_HOME/ripgrep/rc"
 set -x PYTHONSTARTUP $XDG_CONFIG_HOME/python/pythonrc.py
+set -x INPUTRC $XDG_CONFIG_HOME/readline/inputrc
 set -x EDITOR nvim
 
 if status --is-interactive
