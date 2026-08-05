@@ -56,7 +56,7 @@ echo "AGENTS.md installed: $([ -f ~/.agents/AGENTS.md ] && echo yes || echo no)"
 
 That's it — no `claude plugin install`, no marketplace registration, no
 `GITHUB_TOKEN`. Every plugin currently bundled (`superpowers`, `context7`,
-`compound-engineering`, `caveman`), every plain skill, `~/.claude/CLAUDE.md`,
+`compound-engineering`, `caveman`, `andrej-karpathy-skills`), every plain skill, `~/.claude/CLAUDE.md`,
 `~/.claude/settings.json`, and `~/.agents/AGENTS.md` land in place, ready for
 the next `claude` session in that environment — and `~/.claude/CLAUDE.md`'s
 `@../.agents/AGENTS.md` import resolves correctly since both paths land
