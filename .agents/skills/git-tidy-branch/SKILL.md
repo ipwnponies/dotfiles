@@ -85,6 +85,13 @@ splitting across commits if it contains both refactor and logic changes.
 Merge trivially small groups into adjacent commits when they're clearly part of the same
 concern. Don't create a commit for a single blank-line change.
 
+## Step 3.5: Draft commit messages
+
+Invoke the `commit-message` skill for subject/body conventions (Conventional Commit subject,
+spec-level body, when to omit the body) and apply it to each commit group in the plan. This
+is what makes the rewritten history read as if it had been committed with intent the first
+time, not just reshuffled hunks with placeholder labels.
+
 ## Step 4: Write commit-plan.json
 
 Write to a scratch dir **outside the repo** so artifacts never dirty the working tree:
@@ -113,7 +120,7 @@ Write the plan to `$WORK/commit-plan.json`:
       ]
     },
     {
-      "message": "fix: reject expired tokens on refresh endpoint",
+      "message": "fix: reject expired tokens on refresh endpoint\n\nRefresh silently re-issued tokens past their expiry, letting revoked\nsessions keep working indefinitely.",
       "hunks": [
         {"file": "src/auth.py", "hunk_indices": [2]},
         {"file": "src/routes.py"}
@@ -126,7 +133,8 @@ Write the plan to `$WORK/commit-plan.json`:
 Rules:
 - Omit `hunk_indices` when taking the whole file
 - Use the **new** filename for renamed files (the `b/` side in `diff --git a/old b/new`)
-- Conventional Commits format: `type(scope): imperative summary` ≤72 chars
+- `message` goes straight to `git commit -m` — first line is the subject, a blank line plus
+  following lines become the body. Use the messages drafted in Step 3.5.
 - `base_ref` must be the branch name (e.g. `main`), not a SHA — the script computes merge-base
 
 ## Step 5: Generate the staging script

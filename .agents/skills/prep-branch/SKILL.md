@@ -4,8 +4,8 @@ description: >
   Use when the user wants to clean up a feature branch for review or merge. Triggers:
   "clean up this branch", "prep for review", "prep for merge", "clean up and rebase",
   "make this branch reviewable", "polish this branch". Handles commit tidying, optional
-  rebase, and iterative code review with fixes.
-argument-hint: "[--rebase] [--max-review-passes N]"
+  rebase, iterative code review with fixes, and drafting/refreshing the PR title and body.
+argument-hint: "[--rebase] [--max-review-passes N] [--update-pr]"
 ---
 
 # Prep Branch
@@ -26,6 +26,7 @@ digraph prep_branch {
   "Review+Fix loop" [shape=box];
   "Converged?" [shape=diamond];
   "Tidy 2: absorb fixes" [shape=box];
+  "Draft PR description" [shape=box];
   "Done" [shape=doublecircle];
 
   "Start" -> "Preconditions";
@@ -37,7 +38,8 @@ digraph prep_branch {
   "Review+Fix loop" -> "Converged?";
   "Converged?" -> "Review+Fix loop" [label="new findings, pass < max"];
   "Converged?" -> "Tidy 2: absorb fixes" [label="clean or limit hit"];
-  "Tidy 2: absorb fixes" -> "Done";
+  "Tidy 2: absorb fixes" -> "Draft PR description";
+  "Draft PR description" -> "Done";
 }
 ```
 
@@ -49,6 +51,7 @@ Parse `$ARGUMENTS` for tokens:
 |-------|---------|--------|
 | `--rebase` | off | Rebase onto base branch after first tidy, before review loop |
 | `--max-review-passes N` | 5 | Max iterations of review+fix loop |
+| `--update-pr` | off | Apply the redrafted title/body to an existing PR without asking first |
 
 Natural language triggers for rebase: "and rebase", "rebase first", "rebase onto main".
 
@@ -98,6 +101,7 @@ branch. This reviews code and applies safe fixes.
    Likely oscillating or deep issues that need human judgment.
 
 Each pass commits fixes before the next review pass so the next review sees a clean diff.
+Use the `commit-message` skill for each fix commit's message.
 
 ## Step 5: Tidy 2 — Absorb fix commits
 
@@ -106,6 +110,16 @@ This absorbs the fix commits back into the logical commits from Step 2, so the
 final history shows no "fix review feedback" noise.
 
 If no fix commits were created (review was clean on first pass), skip this step.
+
+## Step 6: Draft PR title/body
+
+Invoke the `pr-description` skill against the final commit history (after Tidy 2, so the
+description reflects the actual commit boundaries instead of a stale intermediate state).
+
+- Check whether an open PR already exists for this branch. If it does, present the
+  redrafted title/body to the user and apply it only after they confirm — or immediately
+  if `--update-pr` was passed.
+- If no PR exists yet, hand the user the drafted title/body for when they open one.
 
 ## Stop conditions
 
@@ -122,8 +136,8 @@ Always report what was completed and what remains.
 
 | User says | Behavior |
 |-----------|----------|
-| "clean up this branch" | Tidy → review+fix loop → tidy |
-| "prep this branch and rebase" | Tidy → rebase → review+fix loop → tidy |
+| "clean up this branch" | Tidy → review+fix loop → tidy → draft PR description |
+| "prep this branch and rebase" | Tidy → rebase → review+fix loop → tidy → draft PR description |
 | "clean up this branch and rebase onto main" | Same as above |
-| "prep for review" | Tidy → review+fix loop → tidy |
-| "prep for merge --rebase" | Tidy → rebase → review+fix loop → tidy |
+| "prep for review" | Tidy → review+fix loop → tidy → draft PR description |
+| "prep for merge --rebase" | Tidy → rebase → review+fix loop → tidy → draft PR description |

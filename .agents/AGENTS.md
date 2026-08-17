@@ -67,24 +67,13 @@ here.
 
 # Commit
 
-After generating code, if you deem the git working tree has enough changes to make a coherent and complete commit, suggest
-to the user and provide a commit message that would be used.
+After generating code, if the working tree has enough changes for a coherent, complete
+commit, suggest one with a drafted message. Guidance: `.agents/skills/commit-message/SKILL.md`.
 
-## Commit Message
+# Pull Requests
 
-I may say "commit" but you always hold yourself to a high standard of quality for commit messages.
-
-**Subject = what changed.** Use Conventional Commit subjects: `type: short description` (or `type(scope): short description` when the repo is a monorepo). Keep subjects under 70 characters and use a type (`feat`, `fix`, `docs`, `refactor`, `chore`) that matches the change intent.
-
-**Body = why, for a future reader.** If the change needs explaining, add a short body — 1-3 sentences is the target, more is the exception — that tells a future reader why the change exists and what problem it solves. Write for someone trying to understand the change later, not someone reviewing the diff right now. Never use the body for implementation detail, step-by-step "how", or diff narration — the diff already shows that.
-
-Example:
-```
-    refactor: move pet state systems into modules
-
-    Growing state logic embedded in app.js made pet behavior hard to
-    test and reuse in isolation.
-```
+PR title/body follow the same spec-level principle as commits, aggregated and pruned
+for concision across every commit on the branch. Guidance: `.agents/skills/pr-description/SKILL.md`.
 
 # Guardrails
 

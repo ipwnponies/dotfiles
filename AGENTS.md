@@ -73,9 +73,10 @@ When a session reaches a natural end and any friction was observed, offer to run
 - When modifying third-party mirrors in `repos/`, open patches upstream first—local diffs should be temporary and documented in the PR.
 
 ## Commit & Pull Request Guidelines
-See `~/.agents/AGENTS.md`'s Commit Message section for the base Conventional
-Commits format, subject-length limit, and body conventions — this section
-only adds dotfiles-specific extras.
+See `~/.agents/AGENTS.md`'s Commit and Pull Requests sections (and the
+`commit-message`/`pr-description` skills they point to) for the base
+Conventional Commits format, subject-length limit, and body conventions —
+this section only adds dotfiles-specific extras.
 - Use scope when helpful in this multi-project repo (for example `fix(venv): ...`, `chore(agent): ...`), and derive scope names from existing git history to stay consistent.
 - If multiple scopes seem possible, pick the one already used most often in recent commits for the same area.
 - Reference related issues or upstream PRs in the body, and attach screenshots or logs when UI or automation behavior changes.
