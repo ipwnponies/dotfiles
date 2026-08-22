@@ -255,6 +255,7 @@ return {
 	},
 	{
 		"zbirenbaum/copilot.lua",
+		enabled = vim.env.COPILOT_ENABLED == "1", -- GitHub Copilot license inactive; flip COPILOT_ENABLED=1 if it returns.
 		cmd = "Copilot",
 		event = "InsertEnter",
 		opts = {
@@ -292,6 +293,7 @@ return {
 	},
 	{
 		"CopilotC-Nvim/CopilotChat.nvim",
+		enabled = vim.env.COPILOT_ENABLED == "1", -- GitHub Copilot license inactive; using codecompanion/avante instead. Flip COPILOT_ENABLED=1 if license returns.
 		cmd = vim.tbl_map(function(name)
 			return "CopilotChat" .. name
 		end, {
