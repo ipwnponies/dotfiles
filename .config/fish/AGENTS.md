@@ -41,13 +41,8 @@ default.
 
 ## Interactive vs login guards
 
-```fish
-status --is-interactive; and <expr>   # run only in interactive shells
-status --is-login; and <expr>         # run only in login shells (first shell on login)
-if status --is-interactive
-    ...
-end
-```
+`status --is-interactive` runs only in interactive shells; `status --is-login`
+runs only in login shells (the first shell on login).
 
 Use the **interactive guard** for user-facing quality-of-life config:
 abbreviations, prompt customization, keybindings, UI-only tool setup. These
@@ -55,9 +50,54 @@ make no sense in scripts or non-interactive subprocesses.
 
 Use the **login guard** for infrequent, heavier operations — package installs,
 syncing tools, updating generated files — where eventual consistency is
-acceptable. Combine both guards (`--is-interactive` and `--is-login`) so that
-remote commands and programmatic subprocesses don't accidentally pay the cost
-of these operations.
+acceptable.
+
+For a file that only needs one guard, either inline it:
+
+```fish
+if status --is-interactive
+    ...
+end
+```
+
+(see `man.fish`, `zoxide.fish`), or guard a function call (see `direnv.fish`,
+`fuck.fish`):
+
+```fish
+function main
+    ...
+end
+
+status --is-interactive; and main
+```
+
+A file that needs both — light interactive setup plus heavier login-time
+install/sync work — combines both guards via the main/install split (see
+`10-devbox.fish`, `20-npm.fish`, `20-virtualenv.fish`, `omf.fish`):
+
+```fish
+function main       # runs on every interactive shell
+    ...
+end
+
+function install    # runs on login shells
+    ...
+end
+
+status --is-login; and install
+status --is-interactive; and main
+```
+
+`main` and `install` are plain global functions, not scoped to the file that
+defines them — once all conf.d files finish sourcing, whichever file defined
+them last (alphabetically) wins for the rest of the session. That's fine for
+the guarded calls above, since each fires immediately, before the next file
+can redefine it — but never call `main`/`install` manually later expecting a
+specific file's logic. It also means `install` can run again in another login
+shell before the first finishes, so make it idempotent (see the
+`test -d`/`is_expired` guards in `20-virtualenv.fish` and `omf.fish`).
+
+This avoids paying install costs (package syncs, git fetches) on every new terminal tab.
 
 ## Abbreviations vs functions vs aliases
 
@@ -83,12 +123,27 @@ end
 Use this pattern when adding new conf.d files that need machine-specific
 values. The `*_local.fish` files are gitignored.
 
+## Style
+
+- 4-space indentation.
+- Prefer `set -l` for local variables.
+
+## Shared utilities
+
+- Use `is_expired` from `functions/is_expired.fish` for all TTL-based file regeneration; do not define local copies.
+- Cross-platform stat for file modification times — `stat` flags differ between Linux and macOS:
+  ```fish
+  set -l file_age (stat -c %Y $file 2>/dev/null; or stat -f %m $file 2>/dev/null; or echo 0)
+  ```
+
+## pyenv
+
+`20-virtualenv.fish` inlines `pyenv init -` to avoid subshell overhead (~100 ms saved). Always use `(pyenv root)` at runtime; never hardcode user-specific paths like `/Users/name/.pyenv/`.
+
 ## Adding a new tool integration
 
 1. Create `conf.d/<priority>-<toolname>.fish` with the right numeric prefix.
 2. Set env vars with `set -x`, add bins with `fish_add_path`.
-3. Wrap install/sync logic in a function and call it guarded by both
-   `status --is-interactive` and `status --is-login`.
-4. If the tool generates completions dynamically, cache them with a TTL check
-   (see `10-devbox.fish` for the expiry pattern).
+3. If it needs login-time install/sync work, follow the main/install pattern above; otherwise use a single guard.
+4. If the tool generates completions dynamically, cache them with `is_expired` (see Shared utilities above).
 5. If completions are static, add a file to `completions/<toolname>.fish`.
