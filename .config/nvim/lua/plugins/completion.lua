@@ -137,13 +137,16 @@ return {
 
 			require("luasnip.loaders.from_vscode").lazy_load()
 
-			local copilotchat_source = require("completions.copilotchat_functions")
-			cmp.register_source("copilotchat_functions", copilotchat_source)
-			cmp.setup.filetype("copilot-chat", {
-				sources = cmp.config.sources({
-					{ name = "copilotchat_functions", keyword_length = 1, max_item_count = 5 },
-				}, sources),
-			})
+			-- Only register when CopilotChat.nvim itself is enabled; see plugins/copilot.lua.
+			if vim.env.COPILOT_ENABLED == "1" then
+				local copilotchat_source = require("completions.copilotchat_functions")
+				cmp.register_source("copilotchat_functions", copilotchat_source)
+				cmp.setup.filetype("copilot-chat", {
+					sources = cmp.config.sources({
+						{ name = "copilotchat_functions", keyword_length = 1, max_item_count = 5 },
+					}, sources),
+				})
+			end
 		end,
 	},
 	{
@@ -193,17 +196,14 @@ return {
 			},
 
 			sources = {
-				default = {
-					"lsp",
-					"path",
-					"snippets",
-					"copilot",
-					"buffer",
-					"copilotchat_functions",
-					"emoji",
-					"datword",
-					"calc",
-				},
+				-- copilot/copilotchat_functions only registered when the Copilot plugins are enabled; see plugins/copilot.lua.
+				default = (function()
+					local default_sources = { "lsp", "path", "snippets", "buffer", "emoji", "datword", "calc" }
+					if vim.env.COPILOT_ENABLED == "1" then
+						vim.list_extend(default_sources, { "copilot", "copilotchat_functions" })
+					end
+					return default_sources
+				end)(),
 				providers = {
 					lsp = {
 						min_keyword_length = 0,
