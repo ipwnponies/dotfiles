@@ -462,4 +462,35 @@ return {
 			})
 		end,
 	},
+	{
+		"olimorris/codecompanion.nvim",
+		version = "^19.0.0",
+		cmd = { "CodeCompanion", "CodeCompanionChat", "CodeCompanionActions", "CodeCompanionCmd" },
+		opts = {
+			strategies = {
+				chat = { adapter = "anthropic" },
+				inline = { adapter = "anthropic" },
+				cmd = { adapter = "anthropic" },
+			},
+		},
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-treesitter/nvim-treesitter",
+		},
+	},
+	{
+		"yetone/avante.nvim",
+		-- Requires compiling a Rust binary (build = "make"); heavy on constrained hosts.
+		-- Opt in per-host via NVIM_AVANTE_ENABLED; see fish/conf.d/nvim.fish.
+		enabled = vim.env.NVIM_AVANTE_ENABLED == "1",
+		event = "VeryLazy",
+		version = false,
+		opts = {},
+		build = "make",
+		dependencies = {
+			"stevearc/dressing.nvim",
+			"nvim-lua/plenary.nvim",
+			"MunifTanjim/nui.nvim",
+		},
+	},
 }
