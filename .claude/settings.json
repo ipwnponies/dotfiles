@@ -36,6 +36,7 @@
       "Bash(mkdir -p docs/**)",
       "Bash(mkdir -p ~/.agents/docs/**)"
     ],
+    "defaultMode": "auto"
   },
   "hooks": {
     "PreToolUse": [
@@ -97,8 +98,13 @@
       }
     }
   },
+  "askUserQuestionTimeout": "never",
   "skipDangerousModePermissionPrompt": true,
   "theme": "dark",
+  "editorMode": "normal",
+  "verbose": false,
+  "autoCompactEnabled": true,
   "remoteControlAtStartup": false,
-  "agentPushNotifEnabled": true
+  "agentPushNotifEnabled": false,
+  "model": "haiku"
 }
