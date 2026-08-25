@@ -38,6 +38,7 @@
     ],
     "defaultMode": "auto"
   },
+  "disableClaudeAiConnectors": true,
   "hooks": {
     "PreToolUse": [
       {
