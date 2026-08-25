@@ -35,7 +35,36 @@
       "Edit(~/.agents/docs/solutions/**/*.md)",
       "Bash(mkdir -p docs/**)",
       "Bash(mkdir -p ~/.agents/docs/**)"
+    ],
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Skill",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "ccstatusline --hook"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "ccstatusline --hook"
+          }
+        ]
+      }
     ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "ccstatusline",
+    "padding": 0,
+    "refreshInterval": 10
   },
   "enabledPlugins": {
     "context7@claude-plugins-official": true,
