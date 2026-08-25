@@ -36,6 +36,9 @@ squash-merge type). Detail goes in the body, not the title.
 - **What changed**: the capability or behavior now different, described at the level
   of what a user or caller observes — not function names, internal data structures,
   refactor mechanics, or a file-by-file walkthrough. The diff already shows the how.
+  Use markdown to make it scannable, not one run-on paragraph: bullets for parallel
+  facts, bold for the key term in a sentence, a short code span for a literal value,
+  a table when comparing options — whatever fits, not bullets by default.
 - **Why**: the problem this solves or the motivation, one to a few sentences.
 - **Public API/contract changes**: an exception to "no how" — callers depend on these,
   so name them explicitly (new function signatures, changed return shapes, new config
@@ -55,6 +58,9 @@ squash-merge type). Detail goes in the body, not the title.
 - Anything already obvious from the file list or diff stat (e.g. "docs are included",
   "tests were added" when the diff visibly touches `*.test.*` files) — say what the
   tests/docs establish, not that they exist.
+- Detail that doesn't change what the reader takes away — cut it even if true. If a
+  clause could be deleted without losing anything the next sentence doesn't already
+  carry, delete it.
 
 ## Conciseness
 
