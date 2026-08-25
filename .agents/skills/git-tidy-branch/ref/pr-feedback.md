@@ -1,20 +1,36 @@
-# Variant: Absorbing PR feedback into history
+# Variant: Absorbing self-fix commits into history
 
-Use this variant when the branch already has clean atomic commits but trailing "address
-feedback", "fix review", "nit", or similar commits at the end that touch code from multiple
-earlier commits.
+Use this variant whenever the branch has one or more self-fix commits: commits whose real
+job is to fix, correct, revise, or close a gap in something an *earlier commit in this same
+range* introduced. The classic shape is "address feedback"/"fix review"/"nit" commits
+trailing at the tip, but the same pattern shows up anywhere in the range and in any file
+type — a `docs:` commit revising a plan or spec an earlier commit added is the identical
+case to a `fix:` commit correcting code from two commits back. Don't read "PR feedback" or
+"trailing" in this file's name/examples as a scope limit; the mechanics below (blame-to-
+target, hunk extraction, autosquash) work the same for a self-fix found in the middle of
+the range or in a non-code file.
 
-The goal: absorb each feedback hunk into the specific earlier commit it corrects. The final
-history looks as if the developer got it right the first time.
+The goal: absorb each self-fix hunk into the specific earlier commit it corrects. The final
+history looks as if the developer (or, on this branch, whatever produced it — SDD, a
+review pass, an earlier assistant session) got it right the first time.
 
-## Step F1: Identify feedback commits
+## Step F1: Identify self-fix commits
 
 ```bash
 git log --oneline $MERGE_BASE..HEAD
 ```
 
-Feedback commits are typically at the tip and have messages like "address PR feedback",
-"fix review comments", "nit", "wip", "more fixes". Identify how many there are (call it N).
+Read every commit's message and diff, not just the ones at the tip — a self-fix can sit
+anywhere in the range. Typical messages: "address PR feedback", "fix review comments",
+"nit", "wip", "more fixes", "resolve doc-review findings", "close plan-review gaps",
+"correct X". But the type prefix isn't reliable on its own — a `feat:` or `docs:` commit
+whose diff only makes sense as "revise what an earlier commit in this range already added"
+is a self-fix too; judge by what the diff does to earlier content, not by the label.
+Identify how many there are (call it N) and whether they're contiguous at the tip or
+scattered through the range — scattered self-fixes still get mapped and absorbed the same
+way (Step F4), they just don't have a single contiguous "clean baseline" to diff against
+in Step F2, so treat that step as identifying the *set* of non-self-fix commits instead of
+one prefix/suffix split point.
 
 ## Step F2: Find the clean baseline
 
@@ -29,6 +45,11 @@ if [ -z "$CLEAN_SHA" ]; then
   exit 1
 fi
 ```
+
+This shortcut only applies when the self-fixes are contiguous at the tip. When they're
+scattered through the range instead, there's no single `CLEAN_SHA` — go straight to Step F4
+and map every self-fix hunk to its target commit directly; the target commits collectively
+serve the role `CLEAN_SHA` plays below.
 
 ## Step F3: Check for lint/config timeline
 
