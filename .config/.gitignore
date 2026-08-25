@@ -1,6 +1,7 @@
 # Ignore host-local configs
 /*_local/
 
+/caddy/
 /configstore/
 /github-copilot/
 /git/ignore
