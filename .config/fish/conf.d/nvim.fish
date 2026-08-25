@@ -1,5 +1,5 @@
 function main
-    set -gx NVIM_AVANTE_ENABLED 1
+    set -gx NVIM_AVANTE_ENABLED 0
 
     set -l nvim_local (dirname (status --current-filename))/nvim_local.fish
     if test -e $nvim_local

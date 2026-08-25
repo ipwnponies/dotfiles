@@ -467,10 +467,9 @@ return {
 		version = "^19.0.0",
 		cmd = { "CodeCompanion", "CodeCompanionChat", "CodeCompanionActions", "CodeCompanionCmd" },
 		opts = {
-			strategies = {
-				chat = { adapter = "anthropic" },
-				inline = { adapter = "anthropic" },
-				cmd = { adapter = "anthropic" },
+			interactions = {
+				chat = { adapter = "claude_code" },
+				cmd = { adapter = "claude_code" },
 			},
 		},
 		dependencies = {

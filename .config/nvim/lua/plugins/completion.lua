@@ -45,6 +45,9 @@ return {
 				{ name = "spell", keyword_length = 5, max_item_count = 5 },
 				{ name = "calc", keyword_length = 2, max_item_count = 5 },
 				{ name = "luasnip" },
+				per_filetype = {
+					codecompanion = { "codecompanion" },
+				},
 			}
 
 			cmp.setup({
