@@ -1,0 +1,6 @@
+{
+  "name": "global-packages",
+  "dependencies": {
+    "ccstatusline": "latest"
+  }
+}
