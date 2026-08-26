@@ -498,6 +498,17 @@ return {
 					},
 				},
 			},
+			adapters = {
+				acp = {
+					claude_code = function()
+						local oauth_token = os.getenv("CODECOMPANION_CLAUDE_TOKEN")
+						return require("codecompanion.adapters").extend("claude_code", {
+							env = {
+								CLAUDE_CODE_OAUTH_TOKEN = oauth_token,
+							},
+						})
+					end,
+				},
 			},
 		},
 		dependencies = {
