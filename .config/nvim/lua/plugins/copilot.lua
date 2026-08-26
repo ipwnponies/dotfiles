@@ -466,16 +466,54 @@ return {
 		"olimorris/codecompanion.nvim",
 		version = "^19.0.0",
 		cmd = { "CodeCompanion", "CodeCompanionChat", "CodeCompanionActions", "CodeCompanionCmd" },
+		keys = {
+			{
+				"<Leader>a",
+				"<cmd>CodeCompanionChat Toggle<cr>",
+				mode = { "n", "v" },
+				noremap = true,
+				silent = true,
+			},
+			{ "ga", "<cmd>CodeCompanionChat Add<cr>", mode = "v", noremap = true, silent = true },
+		},
 		opts = {
 			interactions = {
 				chat = { adapter = "claude_code" },
 				cmd = { adapter = "claude_code" },
+				cli = {
+					agent = "claude_code",
+					agents = {
+						claude_code = {
+							cmd = "claude",
+							args = {},
+							description = "Claude Code CLI",
+							provider = "terminal",
+						},
+					},
+				},
+				shared = {
+					keymaps = {
+						accept_change = { modes = { n = { "<C-y>", "g2" } } },
+						reject_change = { modes = { n = { "<C-n>", "g3" } } },
+					},
+				},
+			},
 			},
 		},
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-treesitter/nvim-treesitter",
 		},
+		config = function(_, opts)
+			require("codecompanion").setup(opts)
+
+			_G.eatchar = function(pat)
+				local c = vim.fn.nr2char(vim.fn.getchar(0))
+				return string.match(c, pat) and "" or c
+			end
+
+			vim.cmd([[cabbrev cc CodeCompanion<C-R>=v:lua.eatchar('%s')<CR>]])
+		end,
 	},
 	{
 		"yetone/avante.nvim",
