@@ -106,6 +106,5 @@
   "verbose": false,
   "autoCompactEnabled": true,
   "remoteControlAtStartup": false,
-  "agentPushNotifEnabled": false,
-  "model": "haiku"
+  "agentPushNotifEnabled": false
 }
