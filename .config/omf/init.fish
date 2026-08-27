@@ -1,6 +1,3 @@
-# Configure path to z (autojump)
-set -gx _Z_DATA $XDG_CACHE_HOME/z_datafile
-
 # plugin-expand
 begin
     # This gets eval by plugin-expand, so we need to add an additional layer of shell escaping
