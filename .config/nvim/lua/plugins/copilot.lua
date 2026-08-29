@@ -243,6 +243,99 @@ local function register_ai_provider(provider)
 	register_command("Test", "test")
 end
 
+-- Fidget.nvim progress popup for CodeCompanion requests
+-- Adapted from https://github.com/olimorris/codecompanion.nvim/discussions/813
+local codecompanion_fidget_spinner = { handles = {}, current_handle = nil }
+
+function codecompanion_fidget_spinner:init()
+	local group = vim.api.nvim_create_augroup("CodeCompanionFidgetHooks", { clear = true })
+
+	vim.api.nvim_create_autocmd({ "User" }, {
+		pattern = "CodeCompanionRequestStarted",
+		group = group,
+		callback = function(request)
+			local handle = self:create_progress_handle(request)
+			self.handles[request.data.id] = handle
+			self.current_handle = handle
+		end,
+	})
+
+	vim.api.nvim_create_autocmd({ "User" }, {
+		pattern = "CodeCompanionRequestFinished",
+		group = group,
+		callback = function(request)
+			local handle = self.handles[request.data.id]
+			self.handles[request.data.id] = nil
+			if handle then
+				self:report_exit_status(handle, request)
+				handle:finish()
+			end
+			if self.current_handle == handle then
+				self.current_handle = nil
+			end
+		end,
+	})
+
+	-- Tool events carry no request id to key off, so we just target whichever
+	-- request is currently in flight (fine in practice: one active chat at a time).
+	vim.api.nvim_create_autocmd({ "User" }, {
+		pattern = "CodeCompanionToolStarted",
+		group = group,
+		callback = function(request)
+			if self.current_handle then
+				self.current_handle.message = "Running tool: " .. request.data.tool
+			end
+		end,
+	})
+
+	vim.api.nvim_create_autocmd({ "User" }, {
+		pattern = "CodeCompanionToolFinished",
+		group = group,
+		callback = function()
+			if self.current_handle then
+				self.current_handle.message = nil
+			end
+		end,
+	})
+end
+
+function codecompanion_fidget_spinner:create_progress_handle(request)
+	local message
+	if request.data.interaction == "chat" then
+		local chat = require("codecompanion").last_chat()
+		if chat and type(chat.tokens) == "number" then
+			local count = chat.tokens >= 1000 and string.format("%.1fK", chat.tokens / 1000) or tostring(chat.tokens)
+			message = "~" .. count .. " tokens"
+		end
+	end
+
+	return require("fidget.progress").handle.create({
+		title = "CodeCompanion: " .. request.data.interaction,
+		message = message,
+		lsp_client = {
+			name = self:llm_role_title(request.data.adapter),
+		},
+	})
+end
+
+function codecompanion_fidget_spinner:llm_role_title(adapter)
+	local parts = { adapter.formatted_name }
+	if adapter.model and adapter.model ~= "" then
+		table.insert(parts, "(" .. adapter.model .. ")")
+	end
+	return table.concat(parts, " ")
+end
+
+function codecompanion_fidget_spinner:report_exit_status(handle, request)
+	if request.data.status == "success" then
+		handle.message = "󰄬 Completed"
+	elseif request.data.status == "error" then
+		handle.message = "󰅙 Error"
+	else
+		handle.message = "󰜺 Cancelled"
+	end
+end
+
 ---@type LazyPluginSpec | LazyPluginSpec[]
 return {
 	{
@@ -534,6 +627,7 @@ examples, to bridge understanding.
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-treesitter/nvim-treesitter",
+			"j-hui/fidget.nvim",
 		},
 		config = function(_, opts)
 			local original_system_prompt = require("codecompanion.config").config.interactions.chat.opts.system_prompt
@@ -547,6 +641,7 @@ When referencing a specific line, append `:LINE` to that path.
 			end
 
 			require("codecompanion").setup(opts)
+			codecompanion_fidget_spinner:init()
 
 			_G.eatchar = function(pat)
 				local c = vim.fn.nr2char(vim.fn.getchar(0))
