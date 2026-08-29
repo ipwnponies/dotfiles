@@ -13,6 +13,15 @@ A PR body is not a diff walkthrough. Treat it as a spec: a reviewer should be ab
 read it, form their own mental picture of the implementation, and use that picture to
 judge the actual diff — without the body pre-narrating the code for them.
 
+Reviewers read top-down through an increasing-detail hierarchy — title, then body, then
+each commit message, then the diff — and stop to resolve disagreement at whichever level
+it first surfaces, descending further only once satisfied with what came before. The
+body sits between title and commits: concrete enough to let a reviewer form a mental
+model and judge the shape of the change, without repeating what a commit message or the
+diff already says one level down. Every rule below follows from that: what belongs in
+the body is whatever a reviewer needs at this altitude to decide whether to keep
+descending, no more.
+
 ## Before writing
 
 Look at every commit on the branch (`git log <base>..HEAD --oneline`), not just HEAD —
@@ -40,11 +49,18 @@ squash-merge type). Detail goes in the body, not the title.
   facts, bold for the key term in a sentence, a short code span for a literal value,
   a table when comparing options — whatever fits, not bullets by default.
 - **Why**: the problem this solves or the motivation, one to a few sentences.
-- **Public API/contract changes**: an exception to "no how" — callers depend on these,
-  so name them explicitly (new function signatures, changed return shapes, new config
-  keys).
 - **Test plan**: what was actually run/verified, not aspirational — reuse evidence you
   already gathered during the work, don't re-run things just to fill this section.
+- **Noteworthy implementation choices — exception, not the norm**: call out a specific
+  choice only when the gap to the commit message and diff below is otherwise too wide —
+  it would read as a bug, arbitrary, or silently breaking once the reviewer reaches it,
+  without a rung to catch it on the way down (a fixed delay compensating for a hydration
+  race, a retry count chosen to survive a flaky dependency, a renamed export or changed
+  return shape whose other callers aren't visible in this diff). Most PRs need none of
+  these; reach for it only when the diff would otherwise prompt a "wait, why?" or "does
+  this break something?" that isn't already obvious from the changed line itself — a new
+  parameter with a default, for instance, already answers its own compatibility question
+  and doesn't need restating.
 
 ## Body — what to leave out
 

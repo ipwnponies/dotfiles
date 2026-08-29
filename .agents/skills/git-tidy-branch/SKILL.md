@@ -146,13 +146,14 @@ conventions.
 For every commit the plan will produce — new groups AND existing commits kept as-is —
 invoke the `commit-message` skill and check the message against its rules before
 accepting it:
-- Subject: Conventional Commit shape, **≤70 chars** (hard cap, not a suggestion)
+- Subject: Conventional Commit shape, **≤80 chars** (a couple chars over is fine; past
+  that, split the commit or defer detail to the body rather than compress the wording)
 - Body: spec-level (what changed, why) — not diff narration, not a list of internal
   function/variable names invented for the change (apply the skill's own self-check:
   if a sentence just paraphrases a diff line or names an invented identifier, cut it)
-- Body length: 1-3 sentences is the target; more is the exception, not the default —
-  a commit bundling several distinct findings can justify it, but check it's earning
-  the length rather than defaulting to it
+- Body length: more than 3 sentences is a smell, not a hard cap — a commit bundling
+  several distinct findings can justify it, but check it's earning the length rather
+  than defaulting to it
 - Omit the body only when the subject is genuinely self-explanatory
 
 Any commit that fails gets a rewritten message, whether or not its hunks move. This
