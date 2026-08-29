@@ -58,13 +58,32 @@ characters over is fine; reach for split-or-defer instead of compression tricks.
 
 ## Body — spec level, not diff narration
 
-Write at the level of a single logical change's spec: what capability or behavior is
-now different, and why it was needed. It's fine to be specific — name the exact
-function, behavior, or edge case this commit addresses — but never restate the diff
-as prose ("renamed X to Y", "added an if-check for Z"). If the subject line already
-says it, the body doesn't need to repeat it.
+State the nature of the change precisely: either the approach/mechanism used, or a
+specific, quantified characterization of its effect (a complexity class, a concrete
+before/after number, a named behavior change). A vague capability claim ("speeds up
+lookups", "improves performance") isn't precise — it could mean anything from a minor
+tweak to a rewrite. Naming the literal algorithm or data structure isn't required once
+the outcome is already stated precisely (`lookup cost now scales logarithmically
+instead of linearly`) — the reader can find the exact mechanism in the diff; restating
+it doesn't change the reason for the change.
 
-1-3 sentences is the target; more is the exception. Omit the body entirely when the
+The subject is mandatory and can already carry the why (per the subject rules above);
+the body is optional and purely additive. Restating a why the subject already gave
+isn't wrong, just usually unnecessary — add it explicitly when the subject didn't have
+room for it, or the approach alone wouldn't make the motivation clear.
+
+Never restate the diff as prose (naming a variable/function/library call invented for
+this change, or describing control flow) — that's implementation narration, not spec;
+the reader can read the diff for that. Naming an existing, already-established symbol
+is fine. Describing real shipped behavior that's part of the design (a fallback
+threshold, a documented limit) is fine too — the line is defending the choice against
+alternatives you didn't take, or cataloging edge cases/tests, not describing what
+actually ships.
+
+Use as many sentences as the change needs to state precisely. More than 3 is a smell,
+not a hard cap: either the commit is doing too much (split it) or the sentences are
+overlapping/restating each other (cut back to whichever ones carry distinct
+information). Wrap body lines at 100 characters. Omit the body entirely when the
 subject is self-explanatory (e.g. a one-line config/gitignore change).
 
 ## Example
