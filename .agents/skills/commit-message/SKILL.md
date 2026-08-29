@@ -86,6 +86,26 @@ overlapping/restating each other (cut back to whichever ones carry distinct
 information). Wrap body lines at 100 characters. Omit the body entirely when the
 subject is self-explanatory (e.g. a one-line config/gitignore change).
 
+## Layout — separate related points and distinct themes
+
+Within a commit's theme, you may state several related points (the problem, the
+approach, the consequence, an edge case).
+
+- **Multiple complete sentences on distinct points** → newline between them
+- **Dependent qualifier/continuation within a sentence** → use punctuation (semicolon,
+  em-dash) not line break
+- **Distinct themes/topics** → blank line separation for clarity
+
+Avoid run-on sentences that merge multiple points into one hard-to-parse statement.
+Avoid blank lines when points relate to the same change — they signal separate themes.
+
+Example (three related points, each its own sentence):
+```
+Organize weighted choices into named, collapsible groups instead of a flat list.
+Single-expand accordion behavior keeps one group open at a time, with results resetting when switching.
+Existing localStorage data migrates automatically into a single "Default" group.
+```
+
 ## Example
 
 ```
