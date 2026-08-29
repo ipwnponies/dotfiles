@@ -474,7 +474,20 @@ examples, to bridge understanding.
 				noremap = true,
 				silent = true,
 			},
-			{ "ga", "<cmd>CodeCompanionChat Add<cr>", mode = "v", noremap = true, silent = true },
+			{
+				"ga",
+				-- Add visual selection to chat, then focus chat window
+				function()
+					vim.cmd("CodeCompanionChat Add")
+					local chat = require("codecompanion").last_chat()
+					if chat and chat.ui.winnr then
+						vim.api.nvim_set_current_win(chat.ui.winnr)
+					end
+				end,
+				mode = "v",
+				noremap = true,
+				silent = true,
+			},
 		},
 		opts = {
 			interactions = {
