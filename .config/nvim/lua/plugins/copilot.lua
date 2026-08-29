@@ -488,6 +488,13 @@ examples, to bridge understanding.
 				noremap = true,
 				silent = true,
 			},
+			{
+				"gA",
+				"<cmd>CodeCompanionCLI Ask<cr>",
+				mode = { "n", "v" },
+				noremap = true,
+				silent = true,
+			},
 		},
 		opts = {
 			interactions = {
