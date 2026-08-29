@@ -80,6 +80,10 @@ threshold, a documented limit) is fine too — the line is defending the choice 
 alternatives you didn't take, or cataloging edge cases/tests, not describing what
 actually ships.
 
+Skip development-process details: how you tested, validated, or refined the change.
+Those are ephemeral and clutter history. Future readers care what the change does, not
+your methodology.
+
 Use as many sentences as the change needs to state precisely. More than 3 is a smell,
 not a hard cap: either the commit is doing too much (split it) or the sentences are
 overlapping/restating each other (cut back to whichever ones carry distinct
