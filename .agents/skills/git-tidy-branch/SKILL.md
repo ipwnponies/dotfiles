@@ -146,7 +146,8 @@ conventions.
 For every commit the plan will produce — new groups AND existing commits kept as-is —
 invoke the `commit-message` skill and check the message against its rules before
 accepting it:
-- Subject: Conventional Commit shape, **≤70 chars** (hard cap, not a suggestion)
+- Subject: Conventional Commit shape, **≤80 chars** (a couple chars over is fine; past
+  that, split the commit or defer detail to the body rather than compress the wording)
 - Body: spec-level (what changed, why) — not diff narration, not a list of internal
   function/variable names invented for the change (apply the skill's own self-check:
   if a sentence just paraphrases a diff line or names an invented identifier, cut it)
