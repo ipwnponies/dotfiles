@@ -493,8 +493,8 @@ examples, to bridge understanding.
 				},
 				shared = {
 					keymaps = {
-						accept_change = { modes = { n = { "<C-y>", "g2" } } },
-						reject_change = { modes = { n = { "<C-n>", "g3" } } },
+						accept_change = { modes = { n = "<C-y>" } },
+						reject_change = { modes = { n = "<C-n>" } },
 					},
 				},
 			},
