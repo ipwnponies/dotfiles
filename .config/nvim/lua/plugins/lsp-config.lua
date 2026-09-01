@@ -72,15 +72,15 @@ return {
 		config = function()
 			local function executeLua(action)
 				local fzf_lsp_action = {
-					Definition = true,
-					References = true,
-					Declaration = true,
-					TypeDefinition = true,
-					Implementation = true,
+					Definition = "definition_call",
+					References = "references_call",
+					Declaration = "declaration_call",
+					TypeDefinition = "type_definition_call",
+					Implementation = "implementation_call",
 				}
 
 				if fzf_lsp_action[action] then
-					vim.cmd(action)
+					require("fzf_lsp")[fzf_lsp_action[action]]()
 				else
 					local ok, _ = pcall(vim.lsp.buf[action])
 					if not ok then
