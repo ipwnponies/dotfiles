@@ -129,11 +129,9 @@ return {
 			local mason_lspconfig = require("mason-lspconfig")
 			mason_lspconfig.setup(opts)
 
-			local capabilities = require("lazy.core.config").plugins["blink.cmp"]
-					and require("blink.cmp").get_lsp_capabilities({
-						textDocument = { completion = { completionItem = { snippetSupport = false } } },
-					})
-				or require("cmp_nvim_lsp").default_capabilities()
+			local capabilities = require("blink.cmp").get_lsp_capabilities({
+				textDocument = { completion = { completionItem = { snippetSupport = false } } },
+			})
 
 			-- Change the Diagnostic symbols in the sign column (gutter)
 			local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
