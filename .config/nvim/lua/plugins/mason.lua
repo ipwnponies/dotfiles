@@ -32,58 +32,6 @@ for t, _ in pairs(ft) do
 	table.insert(ft_array, t)
 end
 
-local function setup_lsp_keymaps(bufnr)
-	local nmap = function(opts)
-		local keys = opts.keys
-		local func = opts.func
-		local desc = opts.desc and ("LSP: " .. opts.desc) or nil
-		local mode = opts.mode or "n"
-		vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = desc })
-	end
-
-	nmap({ keys = "<leader>rn", func = vim.lsp.buf.rename, desc = "[R]e[n]ame" })
-	nmap({
-		keys = "<leader>ca",
-		func = vim.lsp.buf.code_action,
-		desc = "[C]ode [A]ction",
-		mode = { "n", "v" },
-	})
-	nmap({ keys = "gd", func = vim.lsp.buf.definition, desc = "[G]oto [D]efinition" })
-	nmap({ keys = "gD", func = vim.lsp.buf.declaration, desc = "[G]oto [D]eclaration" })
-	nmap({
-		keys = "gr",
-		func = function()
-			vim.cmd("References")
-		end,
-		desc = "[G]oto [R]eferences",
-	})
-	nmap({ keys = "gR", func = "<cmd>Telescope lsp_references<CR>", desc = "Show LSP [R]eferences" })
-	nmap({ keys = "gI", func = vim.lsp.buf.implementation, desc = "[G]oto [I]mplementation" })
-	nmap({
-		keys = "gt",
-		func = "<cmd>Telescope lsp_type_definitions<CR>",
-		desc = "[G]oto [T]ype Definitions",
-	})
-	nmap({
-		keys = "<leader>D",
-		func = "<cmd>Telescope diagnostics bufnr=0<CR>",
-		desc = "Show Buffer [D]iagnostics",
-	})
-	nmap({ keys = "<leader>d", func = vim.diagnostic.open_float, desc = "Show Line [D]iagnostics" })
-	nmap({
-		keys = "<leader>ds",
-		func = require("telescope.builtin").lsp_document_symbols,
-		desc = "[D]ocument [S]ymbols",
-	})
-	nmap({
-		keys = "<leader>ws",
-		func = require("telescope.builtin").lsp_dynamic_workspace_symbols,
-		desc = "[W]orkspace [S]ymbols",
-	})
-	nmap({ keys = "K", func = vim.lsp.buf.hover, desc = "Hover Documentation" })
-	nmap({ keys = "<leader>k", func = vim.lsp.buf.signature_help, desc = "Signature Documentation" })
-end
-
 ---@type LazyPluginSpec | LazyPluginSpec[]
 return {
 	{
@@ -141,14 +89,12 @@ return {
 			end
 
 			local function on_attach(_, bufnr)
-				setup_lsp_keymaps(bufnr)
+				require("lsp.keymaps").setup(bufnr)
 
 				vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
 					vim.lsp.buf.format()
 				end, { desc = "Format current buffer with LSP" })
 			end
-
-			local lspconfig = require("lspconfig")
 
 			mason_lspconfig.setup_handlers({
 				function(server_name)
@@ -159,78 +105,10 @@ return {
 					vim.lsp.enable(server_name)
 				end,
 				["ts_ls"] = function()
-					local markers = { "tsconfig.json", "jsconfig.json", "package.json" }
-
-					local function is_within(path, base)
-						return path == base or vim.startswith(path, base .. "/")
-					end
-
-					local function ts_root_for_file(fname)
-						local cwd = vim.fs.normalize(vim.uv.cwd())
-						local dir = vim.fs.normalize(vim.fs.dirname(fname))
-
-						if not is_within(dir, cwd) then
-							return nil
-						end
-
-						while dir do
-							for _, marker in ipairs(markers) do
-								if vim.uv.fs_stat(dir .. "/" .. marker) then
-									return dir
-								end
-							end
-
-							if dir == cwd then
-								break
-							end
-
-							local parent = vim.fs.dirname(dir)
-							if not parent or parent == dir then
-								break
-							end
-							dir = parent
-						end
-
-						-- Keep standalone JS/TS files constrained to the current working directory.
-						return cwd
-					end
-
-					vim.lsp.config("ts_ls", {
-						capabilities = capabilities,
-						on_attach = on_attach,
-						-- Never walk above cwd while resolving project root.
-						root_dir = function(bufnr, on_dir)
-							local fname = vim.api.nvim_buf_get_name(bufnr)
-							on_dir(ts_root_for_file(fname))
-						end,
-						single_file_support = true,
-						-- Keep tsserver memory bounded so startup/indexing spikes are less disruptive.
-						init_options = {
-							hostInfo = "neovim",
-							maxTsServerMemory = 2048,
-						},
-					})
-					vim.lsp.enable("ts_ls")
+					require("lsp.servers.ts_ls")(capabilities, on_attach)
 				end,
 				["pyright"] = function()
-					vim.lsp.config("pyright", {
-						capabilities = capabilities,
-						on_attach = on_attach,
-						root_dir = function(bufnr, on_dir)
-							local fname = vim.api.nvim_buf_get_name(bufnr)
-							local patterns
-							local project_root = vim.g.project_pyright_root
-
-							if project_root ~= nil then
-								patterns = project_root(fname)
-							end
-
-							local root_dir_func = patterns and lspconfig.util.root_pattern(unpack(patterns))
-								or require("lspconfig.configs.pyright").default_config.root_dir
-							on_dir(root_dir_func(fname))
-						end,
-					})
-					vim.lsp.enable("pyright")
+					require("lsp.servers.pyright")(capabilities, on_attach)
 				end,
 			})
 
