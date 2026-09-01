@@ -20,6 +20,8 @@ local plugin_window_openers = {
 
 local M = {}
 
+M.preset_prompts = preset_prompts
+
 function M.ai_keymaps(command_prefix)
 	local ask_desc = "Send selection to coding agent with custom prompt"
 	local toggle_mapping
