@@ -11,16 +11,14 @@ vim.keymap.set("n", "Y", "y$", { silent = true }) -- Yank to end of line
 vim.keymap.set("n", "<m-o>", "<c-i>", { silent = true }) -- Yank to end of line
 
 -- Faster scroll remaps
----@param key string Scroll direction key ('<c-e>' or '<c-y>')
-local scroll = function(key)
-	---Returns a function that scrolls by count*5 lines in the given direction.
-	local lines = vim.v.count1 * 5
+---@param key string Scroll direction key ('<C-e>' or '<C-y>')
+local function scroll(key)
 	return function()
-		return ("<Cmd>execute 'normal! " .. lines .. key .. "'<CR>")
+		vim.cmd.normal({ (vim.v.count1 * 5) .. key, bang = true })
 	end
 end
-vim.keymap.set({ "n", "v" }, "<C-e>", scroll("<c-e>"), { noremap = true, silent = true, expr = true }) -- Scroll down
-vim.keymap.set({ "n", "v" }, "<C-y>", scroll("<c-y>"), { noremap = true, silent = true, expr = true }) -- Scroll up
+vim.keymap.set({ "n", "v" }, "<C-e>", scroll("<C-e>"), { noremap = true, silent = true }) -- Scroll down
+vim.keymap.set({ "n", "v" }, "<C-y>", scroll("<C-y>"), { noremap = true, silent = true }) -- Scroll up
 
 -- Buffer delete but without closing window
 vim.keymap.set("n", "<leader>bd", function()
