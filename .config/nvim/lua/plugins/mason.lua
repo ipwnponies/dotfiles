@@ -121,20 +121,15 @@ return {
 		end,
 	},
 	{
-		"jay-babu/mason-null-ls.nvim",
-		dependencies = {
-			"williamboman/mason.nvim",
-			"nvimtools/none-ls.nvim",
+		"WhoIsSethDaniel/mason-tool-installer.nvim",
+		dependencies = { "williamboman/mason.nvim" },
+		opts = {
+			ensure_installed = {
+				"fish_lsp",
+				"ruff",
+				"shellcheck",
+				"stylua",
+			},
 		},
-		config = function()
-			require("mason-null-ls").setup({
-				ensure_installed = {
-					"fish_lsp",
-					"ruff",
-					"shellcheck",
-					"stylua",
-				},
-			})
-		end,
 	},
 }
