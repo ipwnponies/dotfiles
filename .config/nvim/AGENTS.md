@@ -10,7 +10,6 @@ lua/
   settings.lua            # vim.opt.* options (ex: tabstop, wrap)
   keymaps.lua             # global key mappings not tied to a plugin
   autocmds.lua            # autocommands
-  vim_settings.lua        # legacy vimscript-style settings, ported to lua
   colours.lua             # colorscheme and highlight overrides
   binary-editing.lua      # binary file utilities
   config/

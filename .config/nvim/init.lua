@@ -1,10 +1,9 @@
 -- init.lua
-require("settings") -- basic options
+require("settings") -- basic options, converted from init.vim
 require("keymaps") -- key mappings
 require("config.lazy") -- plugin manager and plugins
 require("binary-editing") -- binary file editing utilities
 require("autocmds")
-require("vim_settings") -- converted settings from init.vim
 require("colours") -- converted settings from init.vim
 
 -- Load host-specific configurations
