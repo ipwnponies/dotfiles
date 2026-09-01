@@ -99,6 +99,31 @@ function codecompanion_fidget_spinner:report_exit_status(handle, request)
 	end
 end
 
+-- Expose ai.controller's preset prompts (Explain/Refactor/Bugs/...) as codecompanion
+-- Action Palette entries / slash commands, so terminal AIs and codecompanion share one prompt set.
+local function codecompanion_preset_prompt_library()
+	local library = {}
+	for _, preset in ipairs(ai_controller.preset_prompts) do
+		if preset.prompt ~= "" then
+			library[preset.name] = {
+				interaction = "chat",
+				description = preset.prompt,
+				opts = {
+					alias = preset.name:lower(),
+					modes = { "n", "v" },
+				},
+				prompts = {
+					{
+						role = "user",
+						content = preset.prompt,
+					},
+				},
+			}
+		end
+	end
+	return library
+end
+
 ---@type LazyPluginSpec | LazyPluginSpec[]
 return {
 	{
@@ -353,6 +378,7 @@ examples, to bridge understanding.
 			},
 		},
 		opts = {
+			prompt_library = codecompanion_preset_prompt_library(),
 			interactions = {
 				chat = { adapter = "claude_code" },
 				cmd = { adapter = "claude_code" },
