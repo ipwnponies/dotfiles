@@ -77,7 +77,7 @@ vim.keymap.set("t", "<C-Space>", "<C-\\><C-n>", { silent = true })
 -- Copy file:line to clipboard
 vim.keymap.set("n", "<leader>.", function()
 	local filepath = vim.fn.expand("%")
-	local line = vim.fn.line(".")
+	local line = vim.api.nvim_win_get_cursor(0)[1]
 	local location = string.format("%s:%d", filepath, line)
 	vim.fn.setreg("+", location)
 	vim.fn.setreg('"', location)
