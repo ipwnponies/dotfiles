@@ -8,8 +8,8 @@ local undodir = cache_home .. "/vim/undo"
 local directory = cache_home .. "/vim/swp"
 
 local function ensure_dir(dir)
-	if not vim.loop.fs_stat(dir) == nil then
-		vim.loop.fs_mkdir(dir, 448) -- 448 = 0700 in decimal
+	if not vim.uv.fs_stat(dir) == nil then
+		vim.uv.fs_mkdir(dir, 448) -- 448 = 0700 in decimal
 	end
 end
 
