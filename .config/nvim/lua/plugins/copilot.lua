@@ -437,7 +437,7 @@ When referencing a specific line, append `:LINE` to that path.
 				return string.match(c, pat) and "" or c
 			end
 
-			vim.cmd([[cabbrev cc CodeCompanion<C-R>=v:lua.eatchar('%s')<CR>]])
+			vim.keymap.set("ca", "cc", "CodeCompanion<C-R>=v:lua.eatchar('%s')<CR>")
 		end,
 	},
 	{

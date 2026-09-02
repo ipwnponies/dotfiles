@@ -6,8 +6,8 @@ vim.opt.spell = true
 vim.opt.concealcursor = "incv"
 
 -- Abbreviations:
-vim.cmd("iabbrev todo: TODO(TICKET):")
-vim.cmd("cabbrev w!! w !sudo tee >/dev/null %") -- Command-line: allows saving file with sudo using 'w!!'
+vim.keymap.set("ia", "todo:", "TODO(TICKET):")
+vim.keymap.set("ca", "w!!", "w !sudo tee >/dev/null %") -- Command-line: allows saving file with sudo using 'w!!'
 
 -- Format Option:
 vim.opt.formatoptions:append("b") -- Break at blank. No autowrapping if line is >textwidth before insert or no blank
