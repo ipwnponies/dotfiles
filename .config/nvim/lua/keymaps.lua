@@ -23,7 +23,7 @@ vim.keymap.set({ "n", "v" }, "<C-y>", scroll("<C-y>"), { noremap = true, silent 
 -- Buffer delete but without closing window
 vim.keymap.set("n", "<leader>bd", function()
 	---Deletes current buffer and switches to alternate or next listed buffer.
-	local target = vim.fn.bufnr("%")
+	local target = vim.api.nvim_get_current_buf()
 	local alt = vim.fn.bufnr("#")
 	if alt == -1 then
 		local bufs = vim.fn.getbufinfo({ buflisted = 1, bufloaded = 1 })
