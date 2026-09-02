@@ -147,7 +147,7 @@ end
 
 -- Function to send selected text to coding agent with a prompt
 function AIController:send_selection_to_ai(prompt, range)
-	local filename = vim.fn.expand("%:p")
+	local filename = vim.api.nvim_buf_get_name(0)
 	local line_number = range and string.format(":%d-%d", range.start, range.line_end) or ""
 	local final_prompt = string.format("@%s%s\n%s", filename, line_number, prompt)
 
