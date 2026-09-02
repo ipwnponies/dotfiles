@@ -1,6 +1,6 @@
 -- Undotree, set vim options so files maintain undofile even when plugin is lazy loaded
-local cache_home = vim.fn.getenv("XDG_CACHE_HOME")
-if cache_home == vim.NIL or cache_home == "" then
+local cache_home = vim.env.XDG_CACHE_HOME
+if cache_home == nil or cache_home == "" then
 	cache_home = vim.fn.expand("~/.cache")
 end
 
