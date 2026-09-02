@@ -9,7 +9,7 @@ return {
 		cmd = { "Gdiffsplit", "Gdifftool" },
 		config = function()
 			-- Abbreviate :Gdiffsplit to always compare with upstream (e.g., origin/branch)
-			vim.cmd(" cabbrev Gdiffsplit Gdiffsplit @{u}...")
+			vim.cmd("cabbrev Gdiffsplit Gdiffsplit @{u}...")
 
 			-- Create :Gdifftool command to get file list changed since upstream
 			vim.api.nvim_create_user_command("Gdifftool", "Git difftool --name-only @{u}...", {})
