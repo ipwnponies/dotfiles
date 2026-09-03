@@ -15,6 +15,7 @@ return {
 				dependencies = { "zbirenbaum/copilot.lua" },
 			},
 			"xieyonn/blink-cmp-dat-word",
+			"ribru17/blink-cmp-spell",
 			"hrsh7th/cmp-calc",
 		},
 		---@type blink.cmp.Config
@@ -48,7 +49,7 @@ return {
 			sources = {
 				-- copilot/copilotchat_functions only registered when the Copilot plugins are enabled; see plugins/copilot.lua.
 				default = (function()
-					local default_sources = { "lsp", "path", "snippets", "buffer", "emoji", "datword", "calc" }
+					local default_sources = { "lsp", "path", "snippets", "buffer", "spell", "emoji", "datword", "calc" }
 					if vim.env.COPILOT_ENABLED == "1" then
 						vim.list_extend(default_sources, { "copilot", "copilotchat_functions" })
 					end
@@ -64,6 +65,27 @@ return {
 					buffer = {
 						min_keyword_length = 3,
 						score_offset = -5, -- the higher the number, the higher the priority
+						opts = {
+							get_bufnrs = function()
+								-- Returns all visible buffer numbers, excluding terminals
+								-- This is different from default, which excludes nofile type. So popups, plugins, help files are not
+								-- available. Exclude terminal since it can be open but will have too poor signal-to-noise ratio
+								local bufs = {}
+								for _, win in ipairs(vim.api.nvim_list_wins()) do
+									local bufnr = vim.api.nvim_win_get_buf(win)
+									if vim.bo[bufnr].buftype ~= "terminal" then
+										bufs[bufnr] = true
+									end
+								end
+								return vim.tbl_keys(bufs)
+							end,
+						},
+					},
+					spell = {
+						name = "Spell",
+						module = "blink-cmp-spell",
+						min_keyword_length = 3,
+						score_offset = 10,
 					},
 					copilot = {
 						name = "copilot",
