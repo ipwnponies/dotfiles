@@ -1,5 +1,7 @@
 # Installation of local virtualenv
 
+type --no-functions pyenv; or exit
+
 # The pyenv instructions use `pyenv init - |  source`. While convenient, it's poorly optimized:
 # - it spins up subshell to evaluate. Which is mostly static
 # - loads shell completions, via source. Not needed if you set up paths correctly

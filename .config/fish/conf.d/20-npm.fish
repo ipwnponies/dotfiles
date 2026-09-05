@@ -1,6 +1,8 @@
 # Installation of local npm library and bun globals
 
 function install
+    type -q npm; or return
+
     set venv $argv[1]
 
     set logfile "$XDG_CACHE_HOME/npm"
@@ -13,6 +15,8 @@ function install
 end
 
 function install_bun_globals
+    type -q bun; or return
+
     set bun_manifest "$XDG_CONFIG_HOME/npm/package.bun.json"
     set logfile "$XDG_CACHE_HOME/bun/log.txt"
 

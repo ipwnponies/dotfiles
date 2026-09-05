@@ -7,7 +7,9 @@ function install_aqua --description 'Install aqua if not present'
     go install github.com/aquaproj/aqua/v2/cmd/aqua@latest
 end
 
-type -q aqua; or install_aqua
-status --is-login; and aqua install -a
+if type -q go
+    type -q aqua; or install_aqua
+    status --is-login; and aqua install -a
 
-fish_add_path (aqua root-dir)/bin
+    fish_add_path (aqua root-dir)/bin
+end
