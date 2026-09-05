@@ -14,7 +14,8 @@ cd ~
 git init
 git remote add origin https://github.com/ipwnponies/dotfiles.git
 git fetch origin
-git switch --create main origin/main
+git switch --create master origin/master
+git submodule update --init
 ```
 
 ## Structure
