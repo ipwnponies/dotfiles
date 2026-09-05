@@ -23,6 +23,7 @@
     "httpie@latest",
     "jiq@latest",
     "jless@latest",
+    "jq@latest",
     "lazydocker@latest",
     "lazygit@latest",
     "litecli@latest",
