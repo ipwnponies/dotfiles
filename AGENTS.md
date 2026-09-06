@@ -36,12 +36,12 @@ When a session reaches a natural end and any friction was observed, offer to run
 ## Coding Style & Naming Conventions
 - YAML follows two-space indentation, 120 character lines, and lower-case keys.
 - Python adopts snake_case modules, f-string formatting, and max 120 char lines per `.config/pylintrc`.
-- Shell scripts in `bin/` should target bash, include `set -euo pipefail`, and log actions with succinct `echo` statements.
+- Shell scripts in `bin/` target bash or fish (see `bin/README` for when to use which); bash scripts should include `set -euo pipefail`, and all scripts should log actions with succinct `echo` statements.
 - Fish config style and patterns: see `.config/fish/AGENTS.md`.
 
 ## Testing Guidelines
 - Prefer targeted lint runs (`shellcheck bin/`, `pylint`) before pushing.
-- When modifying third-party mirrors in `repos/`, open patches upstream first—local diffs should be temporary and documented in the PR.
+- When modifying vendored third-party code (git submodules, e.g. `.config/fish/plugins/oh-my-fish` per `.gitmodules`), open patches upstream first—local diffs should be temporary and documented in the PR.
 
 ## Commit & Pull Request Guidelines
 See `~/.agents/AGENTS.md`'s Commit and Pull Requests sections (and the

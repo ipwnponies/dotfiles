@@ -19,6 +19,12 @@ Files with no ordering dependency carry no prefix.
 
 Current numeric files and their actual dependencies:
 - `05-env.fish` — XDG dirs and PATH; must load first so later files can use `$XDG_*`
+- `05-ssh_agent.fish` — starts/loads the ssh-agent via `keychain`; no ordering
+  dependency on `05-env.fish`, just grouped with it as core environment setup
+- `10-devbox.fish` — devbox integration; uses `$XDG_DATA_HOME`, `$XDG_STATE_HOME`,
+  and `$XDG_CONFIG_HOME` from `05-env.fish`, so must load after it
+- `15-opencode.fish` — sets `OPENCODE_MODEL_*` env vars for AI tooling; no
+  cross-file dependency
 - `20-cargo.fish`, `20-go.fish`, `20-npm.fish`, `20-virtualenv.fish` — language
   ecosystem package managers; each sets install paths and adds bins to PATH using
   `$XDG_*` vars from `05-env.fish`
