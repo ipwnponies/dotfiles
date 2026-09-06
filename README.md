@@ -22,7 +22,7 @@ git submodule update --init
 
 | Path | Purpose |
 |------|---------|
-| `bin/` | Host-agnostic CLI helpers (`git-deploy`, `git-clean-remote`, `pomodoro`, …) |
+| `bin/` | Host-agnostic CLI helpers (`git-clean-remote`, `git-find-merge-commit`, `git-previous`, `make-print`) |
 | `.config/fish/` | Fish shell configuration |
 | `.config/nvim/` | Neovim configuration (Lua, lazy.nvim) |
 | `.config/devbox/` | Devbox package manifest for dev tools |
