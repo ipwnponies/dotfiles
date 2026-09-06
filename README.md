@@ -40,9 +40,13 @@ git switch --create main origin/main
 - Unprefixed — Individual tool integrations (zoxide, fzf, direnv, …)
 - `z-wait.fish` — Runs last; waits for background jobs started above
 
-Each file follows a `main` / `install` pattern:
+Files needing both a background package sync and interactive setup (e.g.
+`10-devbox.fish`, `20-npm.fish`, `20-virtualenv.fish`) follow a `main` /
+`install` pattern:
 - `install` runs on **login** shells to sync packages in the background
 - `main` runs on **interactive** shells to configure the environment
+
+See `.config/fish/AGENTS.md` for the full guard conventions.
 
 ## Adding packages
 
