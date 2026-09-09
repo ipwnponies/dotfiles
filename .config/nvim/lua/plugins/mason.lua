@@ -112,7 +112,10 @@ return {
 				end,
 			})
 
-			-- Fish LSP is not managed by mason, it's external
+			-- fish-lsp binary is installed via mason-tool-installer below, but
+			-- mason-lspconfig.nvim has no server-to-package mapping for it
+			-- (its mapping table is static and doesn't know "fish_lsp"), so
+			-- setup_handlers can never dispatch it. Register it manually.
 			vim.lsp.config("fish_lsp", {
 				on_attach = on_attach,
 				capabilities = capabilities,
@@ -125,7 +128,7 @@ return {
 		dependencies = { "williamboman/mason.nvim" },
 		opts = {
 			ensure_installed = {
-				"fish_lsp",
+				"fish-lsp",
 				"ruff",
 				"shellcheck",
 				"stylua",
