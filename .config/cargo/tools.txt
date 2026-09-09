@@ -1,2 +1,2 @@
 pay-respects-module-runtime-rules@^0.1.10
-tree-sitter-cli@^0.26.6
+tree-sitter-cli@^0.27.0
