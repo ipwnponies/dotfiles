@@ -20,7 +20,6 @@ return {
 				"javascript",
 				"jsdoc",
 				"json",
-				"jsonc",
 				"lua",
 				"luadoc",
 				"luap",
@@ -38,6 +37,9 @@ return {
 				"xml",
 				"yaml",
 			}
+			-- filetypes to attach treesitter to; jsonc has no standalone parser,
+			-- nvim-treesitter maps it to the json parser (plugin/filetypes.lua)
+			local filetypes = vim.list_extend({ "jsonc" }, languages)
 
 			local treesitter = require("nvim-treesitter")
 			local install_parsers = function()
@@ -54,7 +56,7 @@ return {
 
 			local group = vim.api.nvim_create_augroup("treesitter-core", { clear = true })
 			vim.api.nvim_create_autocmd("FileType", {
-				pattern = languages,
+				pattern = filetypes,
 				group = group,
 				-- enable treesitter-powered highlight/folds/indent only for the selected buffers
 				callback = function(args)
