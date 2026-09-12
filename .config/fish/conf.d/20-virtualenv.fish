@@ -14,7 +14,6 @@ function pyenv-init --description 'Stripped down, lightweight pyenv init'
     end
     set -gx PATH (pyenv root)/shims $PATH
     set -gx PYENV_SHELL fish
-    command pyenv rehash 2>/dev/null
 
     # Auto-activates pyenv virtualenvs
     # pyenv shim magic is only for resolving to a versioned commands; it does not actually set up a virtualenv for LSPs that crave it
