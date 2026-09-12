@@ -63,12 +63,20 @@ function install
         python3 -m venv $venv
     end
 
-    set logfile "$XDG_CACHE_HOME/venv-update/log"
-    mkdir -p (dirname $logfile)
+    set -l stamp $XDG_STATE_HOME/venv-update/install.stamp
+    if is_expired $stamp $XDG_CONFIG_HOME/venv-update/pyproject.toml $XDG_CONFIG_HOME/venv-update/poetry.lock
+        mkdir -p (dirname $stamp)
 
-    # Poetry will install into activated virtualenv. No other way to tell poetry to target a directory
-    set -x VIRTUAL_ENV $venv
-    poetry sync --project $XDG_CONFIG_HOME/venv-update/ | ts >>$logfile &
+        set logfile "$XDG_CACHE_HOME/venv-update/log"
+        mkdir -p (dirname $logfile)
+
+        # Poetry will install into activated virtualenv. No other way to tell poetry to target a directory
+        set -x VIRTUAL_ENV $venv
+        fish --no-config -c "
+            poetry sync --project $XDG_CONFIG_HOME/venv-update/ | ts >>$logfile
+            test \$pipestatus[1] -eq 0; and touch $stamp
+        " &
+    end
 
     # Set pyenv PATH through fish_user_paths, which has higher precedence than raw PATH
     fish_add_path (pyenv root)/shims

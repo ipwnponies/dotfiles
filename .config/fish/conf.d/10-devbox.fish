@@ -8,11 +8,20 @@ function main
 end
 
 function install
-    # Sync dependencies
+    # Sync dependencies, unless recently synced and configs haven't changed
+    set -l stamp $XDG_STATE_HOME/devbox/install.stamp
+    is_expired $stamp \
+        $XDG_CONFIG_HOME/devbox/devbox.json $XDG_CONFIG_HOME/devbox/devbox.lock \
+        $XDG_DATA_HOME/devbox_local/devbox.json $XDG_DATA_HOME/devbox_local/devbox.lock
+    or return
+
     mkdir -p $XDG_STATE_HOME/devbox
     set -l log $XDG_STATE_HOME/devbox/install.log
-    devbox global install >>$log 2>&1
-    test -f $XDG_DATA_HOME/devbox_local/devbox.json; and devbox install --config $XDG_DATA_HOME/devbox_local >>$log 2>&1
+    fish --no-config -c "
+        devbox global install >>$log 2>&1
+        test -f $XDG_DATA_HOME/devbox_local/devbox.json; and devbox install --config $XDG_DATA_HOME/devbox_local >>$log 2>&1
+        touch $stamp
+    " &
 end
 
 function regenerate --description 'Refresh devbox generated files, if expired'
