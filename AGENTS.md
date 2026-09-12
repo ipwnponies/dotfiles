@@ -32,6 +32,7 @@ When a session reaches a natural end and any friction was observed, offer to run
 - Run all pre-commit hooks with `pre-commit run --all-files`.
 - Run shell linting via `shellcheck bin/` and Python quality checks with `pylint --rcfile .config/pylintrc`.
 - Syntax-check fish configs with `fish -n .config/fish/conf.d/*.fish .config/fish/functions/*.fish`.
+- To exercise interactive-only conf.d behavior (anything gated on `status --is-interactive`), use `fish --login -i -c '...'`, not plain `--login -c`.
 
 ## Coding Style & Naming Conventions
 - YAML follows two-space indentation, 120 character lines, and lower-case keys.
