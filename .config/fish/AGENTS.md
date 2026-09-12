@@ -105,6 +105,22 @@ shell before the first finishes, so make it idempotent (see the
 
 This avoids paying install costs (package syncs, git fetches) on every new terminal tab.
 
+### Backgrounding expensive installs
+
+If `install` shells out to something that can be slow or network-dependent
+(package manager sync, registry check), background it so login doesn't block
+on it:
+
+```fish
+status --is-login; and install &
+```
+
+`cargo.fish`, the poetry sync in `20-virtualenv.fish`, `10-devbox.fish`, and
+`20-go.fish` all do this. Combine with an `is_expired` stamp-file guard (below)
+so the expensive call is also skipped outright most logins, not just moved
+off the critical path — otherwise every login still pays the full cost, just
+in parallel instead of in sequence.
+
 ## Abbreviations vs functions vs aliases
 
 - **Abbreviations** (`abbr --global --add`): expand in the command line before
@@ -137,6 +153,14 @@ values. The `*_local.fish` files are gitignored.
 ## Shared utilities
 
 - Use `is_expired` from `functions/is_expired.fish` for all TTL-based file regeneration; do not define local copies.
+  - Signature: `is_expired $stamp_file [$watch_file ...]`. Expired if the stamp
+    is missing, older than one week, or older than any watch file (`-nt`
+    check). Watch files only ever shorten the wait (force-expire on a source
+    change, e.g. `devbox.json`/`devbox.lock`) — they never extend it past the
+    week TTL.
+  - After the guarded work succeeds, `touch` the stamp file — do this last,
+    after the install call, so a failed/partial run doesn't get marked fresh.
+    See `install` in `10-devbox.fish` and `install_aqua_tools` in `20-go.fish`.
 - Cross-platform stat for file modification times — `stat` flags differ between Linux and macOS:
   ```fish
   set -l file_age (stat -c %Y $file 2>/dev/null; or stat -f %m $file 2>/dev/null; or echo 0)
@@ -150,6 +174,10 @@ values. The `*_local.fish` files are gitignored.
 
 1. Create `conf.d/<priority>-<toolname>.fish` with the right numeric prefix.
 2. Set env vars with `set -x`, add bins with `fish_add_path`.
-3. If it needs login-time install/sync work, follow the main/install pattern above; otherwise use a single guard.
+3. If it needs login-time install/sync work, follow the main/install pattern
+   above; otherwise use a single guard. If the install/sync call is slow or
+   network-dependent, background it and gate it with an `is_expired`
+   stamp file (see Backgrounding expensive installs and Shared utilities
+   above).
 4. If the tool generates completions dynamically, cache them with `is_expired` (see Shared utilities above).
 5. If completions are static, add a file to `completions/<toolname>.fish`.
