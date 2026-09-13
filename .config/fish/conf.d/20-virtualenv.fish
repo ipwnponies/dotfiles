@@ -20,9 +20,15 @@ function pyenv-init --description 'Stripped down, lightweight pyenv init'
     set -gx PATH $pyenv_root/shims $PATH
     set -gx PYENV_SHELL fish
 
-    # Auto-activates pyenv virtualenvs
-    # pyenv shim magic is only for resolving to a versioned commands; it does not actually set up a virtualenv for LSPs that crave it
-    # pyenv virtualenv-init -
+    # pyenv shim magic only resolves to versioned commands; it does not set up VIRTUAL_ENV.
+    # Dropping the fish_prompt hook means VIRTUAL_ENV is no longer set automatically, so
+    # bobthefish's virtualenv prompt segment (keyed off $VIRTUAL_ENV, see bobthefish.fish)
+    # no longer appears on its own. Use direnv (.config/fish/conf.d/direnv.fish) for cases
+    # that need VIRTUAL_ENV set (and the prompt segment back), or run `pyenv activate`
+    # manually (pair it with `pyenv deactivate` when done - nothing unwinds it automatically,
+    # and a lingering venv bin/ on PATH shadows the pyenv shims in unrelated directories).
+    # pyenv virtualenv-init - (fish_prompt hook intentionally omitted, see above; keep it
+    # omitted when regenerating this block from `pyenv virtualenv-init -`)
     while set index (contains -i -- $pyenv_root/plugins/pyenv-virtualenv/shims $PATH)
         set -eg PATH[$index]
     end
@@ -40,17 +46,6 @@ function pyenv-init --description 'Stripped down, lightweight pyenv init'
             case "*"
                 command pyenv "$command" $argv
         end
-    end
-
-    function _pyenv_virtualenv_hook --on-event fish_prompt
-
-        set -l ret $status
-        if [ -n "$VIRTUAL_ENV" ]
-            pyenv activate --quiet; or pyenv deactivate --quiet; or true
-        else
-            pyenv activate --quiet; or true
-        end
-        return $ret
     end
 end
 
