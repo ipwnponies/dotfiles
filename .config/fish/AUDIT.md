@@ -37,7 +37,8 @@ ones where runtime behaviour decides whether the finding is real.
 | `todo` | Accepted, not started. |
 | `wip` | In progress on a branch. |
 | `blocked` | Started, waiting on another finding or an external decision. |
-| `done` | Fix committed. |
+| `done` | Fix committed and confirmed on the default branch. |
+| `assumed-done` | Fix dispatched and expected to land, but not yet confirmed merged. Treat as a sanity check: re-verify against the tree before trusting it, and promote to `done` or back to `todo`. |
 | `n/a` | No work applies (rejected findings, or findings folded into another ID). |
 
 ### Severity
@@ -54,9 +55,9 @@ ones where runtime behaviour decides whether the finding is real.
 
 | ID | Title | Severity | Triage | Work | Project |
 |---|---|---|---|---|---|
-| S1 | aactivator sources any `activate.fish` found above `$PWD` | critical | accepted | todo | PRJ-1 |
+| S1 | aactivator sources any `activate.fish` found above `$PWD` | critical | accepted | assumed-done | PRJ-1 |
 | S2 | Login shell auto-pulls and runs `$HOME` dotfiles from remote | critical | untriaged | todo | PRJ-1 |
-| S3 | Unpinned `git clone` of pyenv-virtualenv onto `PATH` at login | high | untriaged | todo | PRJ-1 |
+| S3 | Unpinned `git clone` of pyenv-virtualenv onto `PATH` at login | high | accepted | assumed-done | PRJ-1 |
 | S4 | `install_aqua` runs `go install @latest` in every shell, unguarded | high | untriaged | todo | PRJ-1 |
 | S5 | PowerShell injection in `notification` | medium | untriaged | todo | PRJ-11 |
 | S6 | Secrets held in plaintext gitignored `*_local.fish` | medium | untriaged | todo | PRJ-11 |
@@ -94,10 +95,10 @@ ones where runtime behaviour decides whether the finding is real.
 
 | ID | Title | Severity | Triage | Work | Project |
 |---|---|---|---|---|---|
-| P1 | pyenv-virtualenv hook forks `pyenv` on every prompt | high | untriaged | todo | PRJ-5 |
-| P2 | `(pyenv root)` forked six times at startup | medium | untriaged | todo | PRJ-5 |
+| P1 | pyenv-virtualenv hook forks `pyenv` on every prompt | high | accepted | assumed-done | PRJ-5 |
+| P2 | `(pyenv root)` forked six times at startup | medium | accepted | assumed-done | PRJ-5 |
 | P3 | `is_expired` forks `date` and `stat` on every call | low | untriaged | todo | PRJ-10 |
-| P4 | Three overlapping venv auto-activation mechanisms | medium | untriaged | todo | PRJ-5 |
+| P4 | Three overlapping venv auto-activation mechanisms | medium | accepted | assumed-done | PRJ-5 |
 | P5 | `abbr --erase (abbr --list)` runs every shell, wipes earlier abbrs | low | untriaged | todo | PRJ-3 |
 | P6 | Install logs append forever, never rotated | low | untriaged | todo | PRJ-6 |
 | P7 | No startup benchmark harness; perf claims unverifiable | medium | untriaged | todo | PRJ-4 |
@@ -182,6 +183,10 @@ If auto-merge is kept, use `--ff-only` and take a lock.
 branch HEAD, unverified, then puts its shims on `PATH`.
 
 Proposed fix: pin a tag, or install via aqua alongside the other pinned tools.
+
+**Triage decision (2026-09-13):** accepted. pyenv-virtualenv tags releases as
+`v1.2.x`, so pin with `--branch <tag> --depth 1`, or move the install to
+`.config/aqua/aqua.yaml` where the version lives with the other pinned tools.
 
 #### S4 — `install_aqua` runs `go install @latest` in every shell, unguarded
 
@@ -382,6 +387,23 @@ runs `pyenv activate`, a shell script, before every prompt.
 Proposed fix: switch to `--on-variable PWD`, or drop entirely in favour of
 direnv. Measure with PRJ-4 before and after.
 
+**Triage decision (2026-09-13):** delete the hook outright, do not downgrade it
+to `--on-variable PWD`. pyenv's shims already resolve `python`/`pip`/`pytest`
+per-directory by reading `.python-version` at exec time, with no hook and no
+prompt cost. The hook is not what makes commands resolve. Its only marginal
+value is setting `VIRTUAL_ENV`, the prompt indicator, and tools keying off that
+variable. Keep the shim `PATH` setup (lines 21-24) and the `pyenv` wrapper
+function so manual `pyenv activate` still works.
+
+**Dependency, outside this audit's scope:** the hook is what currently sets
+`VIRTUAL_ENV`. If the neovim Python LSP resolves its interpreter by inheriting
+`PATH` or `VIRTUAL_ENV` from the launching shell, removing the hook degrades
+it. Correct fix lives in the neovim config, not here: resolve an interpreter
+path per `root_dir` (`$VIRTUAL_ENV`, then `.venv/bin/python`, then
+`poetry env info --path`, then `pyenv which python`). A shim path such as
+`~/.pyenv/shims/python` cannot work for an LSP, since it is a dispatcher
+script with no `pyvenv.cfg` or `site-packages` beside it.
+
 #### P2 — `(pyenv root)` forked six times at startup
 
 `conf.d/20-virtualenv.fish:12,15,21,24,81,83`. Cache once into a local.
@@ -397,6 +419,20 @@ removes both.
 aactivator hooks `PWD`, pyenv-virtualenv hooks `fish_prompt`, direnv hooks the
 prompt as well. Each pays a per-event cost and they can fight over the same
 virtualenv. Consolidate on one.
+
+Worked example of the fighting, plausible from the source but not confirmed at
+runtime: `cd` into a project with a plain `.venv`. aactivator fires on the
+`PWD` change and sets `VIRTUAL_ENV`. The next prompt draw runs
+`_pyenv_virtualenv_hook`, which sees `VIRTUAL_ENV` non-empty, tries
+`pyenv activate --quiet`, fails because that venv is not pyenv-managed, and
+falls through to `pyenv deactivate --quiet` against the venv aactivator just
+set up.
+
+**Triage decision (2026-09-13):** resolved by S1 and P1 together rather than as
+separate work. Deleting aactivator and the pyenv prompt hook leaves pyenv shims
+(exec-time, no hook) plus direnv (opt-in per directory, hash-pinned by
+`direnv allow`). Two mechanisms kept deliberately, not three overlapping by
+accident.
 
 #### P5 — `abbr --erase (abbr --list)` runs every shell, wipes earlier abbrs
 
@@ -579,3 +615,4 @@ perf work is guesswork again.
 | Date | Session | What moved |
 |---|---|---|
 | 2026-09-13 | Initial audit | Full static audit of `.config/fish/`. 53 findings recorded across 12 projects. Nothing triaged, nothing fixed. |
+| 2026-09-13 | Venv triage | Triaged S1, S3, P1, P2, P4 as accepted and dispatched them as two PRs to separate sessions, so all five are `assumed-done` pending confirmation. PR 1: pin the pyenv-virtualenv clone, cache `(pyenv root)`. PR 2: delete aactivator, delete the per-prompt pyenv hook. Those sessions branched from the default branch and cannot see this doc, so their commits will not update these rows. Verify against the tree before trusting the statuses. Follow-up not yet dispatched: neovim Python LSP interpreter resolution, which PR 2 may block on (see P1). |
