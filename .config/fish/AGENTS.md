@@ -1,5 +1,12 @@
 # Fish Shell Config
 
+## Open audit
+
+`AUDIT.md` holds the standing audit backlog for this directory: 53 findings with
+triage and work status, grouped into 12 projects. Consult it before changing
+anything here, and update the dashboard row in the same commit as the fix.
+Reference finding IDs in commit messages, e.g. `fix(fish): correct Darwin detection (C1)`.
+
 ## Directory layout
 
 | Path | Purpose |
