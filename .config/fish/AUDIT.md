@@ -54,7 +54,7 @@ ones where runtime behaviour decides whether the finding is real.
 
 | ID | Title | Severity | Triage | Work | Project |
 |---|---|---|---|---|---|
-| S1 | aactivator sources any `activate.fish` found above `$PWD` | critical | untriaged | todo | PRJ-1 |
+| S1 | aactivator sources any `activate.fish` found above `$PWD` | critical | accepted | todo | PRJ-1 |
 | S2 | Login shell auto-pulls and runs `$HOME` dotfiles from remote | critical | untriaged | todo | PRJ-1 |
 | S3 | Unpinned `git clone` of pyenv-virtualenv onto `PATH` at login | high | untriaged | todo | PRJ-1 |
 | S4 | `install_aqua` runs `go install @latest` in every shell, unguarded | high | untriaged | todo | PRJ-1 |
@@ -154,6 +154,16 @@ cloned repository is enough to execute attacker-controlled fish code.
 Proposed fix: delete in favour of direnv, which is already installed and
 requires an explicit `direnv allow` per directory. If the pattern is kept,
 require the file to be owned by the current user and recorded in an allowlist.
+
+**Triage decision (2026-09-13):** accepted, deprecate aactivator. It is a
+weaker, unsandboxed duplicate of two mechanisms already in the tree:
+pyenv-virtualenv (activation requires the venv to have been created via
+`pyenv virtualenv` and selected via `.python-version` — both deliberate,
+one-time commands, no directory-walk) and direnv (`.envrc` is hash-pinned by
+`direnv allow`, re-prompts on any edit). Removing aactivator loses no
+capability, since either alternative already auto-activates on `cd`. Folds
+into P4 — once this lands, P4 drops from three overlapping mechanisms to two
+kept by choice.
 
 #### S2 — Login shell auto-pulls and runs `$HOME` dotfiles from remote
 
