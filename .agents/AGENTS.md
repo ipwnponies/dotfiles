@@ -43,12 +43,12 @@ here.
 # Commit
 
 After generating code, if the working tree has enough changes for a coherent, complete
-commit, suggest one with a drafted message. Guidance: `.agents/skills/commit-message/SKILL.md`.
+commit, suggest one with a drafted message using the `commit-message` skill.
 
 # Pull Requests
 
 PR title/body follow the same spec-level principle as commits, aggregated and pruned
-for concision across every commit on the branch. Guidance: `.agents/skills/pr-description/SKILL.md`.
+for concision across every commit on the branch, using the `pr-description` skill.
 
 # Guardrails
 
