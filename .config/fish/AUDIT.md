@@ -88,8 +88,8 @@ ones where runtime behaviour decides whether the finding is real.
 
 | ID | Title | Severity | Triage | Work | Project |
 |---|---|---|---|---|---|
-| X1 | `fish_add_path` scope inconsistent; half the calls write universal | high | untriaged | todo | PRJ-2 |
-| X2 | devbox and pyenv `PATH` only applied in interactive shells | high | untriaged | todo | PRJ-2 |
+| X1 | `fish_add_path` scope inconsistent; half the calls write universal | high | accepted | blocked | PRJ-2 |
+| X2 | devbox and pyenv `PATH` only applied in interactive shells | high | accepted | blocked | PRJ-2 |
 
 ### Performance
 
@@ -365,6 +365,32 @@ invisible to git.
 Proposed fix: `--global` everywhere, plus a one-time `set -e -U fish_user_paths`
 and a note in AGENTS.md.
 
+**Triage decision (2026-09-14):** accepted, and X1 and X2 ship together. Fixing
+X1 alone breaks non-interactive shells, because converting to `--global`
+removes the universal crutch that is currently the only reason those shells
+have the paths at all.
+
+Universal variables are imperative machine state in a declarative tree. The
+config writes them and never reads them back, so removing a config line leaves
+the value on disk forever: drop a package from `devbox.json` and its nix store
+path stays ahead of the real `PATH`, on that machine only, pointing at
+something that no longer exists, with a clean `git diff`. Same objection as H3.
+
+Verify current scope on each machine before migrating, since `fish_add_path`'s
+no-flag default has been version-dependent:
+
+    set --show fish_user_paths
+
+Migration needs a one-time `set --erase --universal fish_user_paths` per
+machine. Stale universal entries otherwise sit ahead of the new global ones and
+the change appears to do nothing. Decision: do it by hand and document it in
+the bootstrap notes (see H5) rather than leaving a stamp-guarded one-shot in
+`conf.d/` forever.
+
+**Blocked on:** the in-flight PRs for S3/P2 and S1/P1, which edit
+`20-virtualenv.fish`. Land those first to avoid conflicts. P2 also removes the
+only subprocess this change would make unconditional.
+
 #### X2 — devbox and pyenv `PATH` only applied in interactive shells
 
 `conf.d/10-devbox.fish` and `conf.d/20-virtualenv.fish` call `main` only under
@@ -376,6 +402,31 @@ not actually implemented; it currently works by leakage.
 Proposed fix: move `PATH` setup to unconditional top-level, keep only
 user-facing extras behind the interactive guard. Add a regression test that
 asserts `fish -c 'echo $PATH'` contains the expected entries.
+
+**Correction to the wording above:** the devbox half is overstated. Core devbox
+`PATH` does reach every shell, via the generated
+`conf.d/00-devbox-generated_local.fish`, which sets `export PATH=` at top level.
+What is actually interactive-only-plus-universal-leaked is the `devbox_local`
+profile (`10-devbox.fish:5`), the `fish_complete_path` additions, and `MANPATH`.
+The pyenv half stands as written: `20-virtualenv.fish:81` is universal but sits
+in `install`, which is login-only, so a non-interactive shell on a machine where
+no login shell has ever run has no pyenv shims at all.
+
+**Triage decision (2026-09-14):** accepted, ships with X1. Line drawn on whether
+an item changes what a command resolves to:
+
+| Item | Scope |
+|---|---|
+| devbox global `PATH` | unconditional (already is) |
+| devbox_local `bin` | unconditional |
+| pyenv shims | unconditional |
+| `MANPATH` | unconditional, and use `set -gx` to fix C7 at the same time |
+| `fish_complete_path` | interactive only |
+| abbreviations, keybindings, prompt | interactive only (already correct) |
+
+Startup cost of going unconditional is low: everything moving is a pure builtin
+(`set --append`, `fish_add_path`, `set --prepend`). The only subprocess is
+`(pyenv root)`, which P2 caches. Confirm with P7 once that harness exists.
 
 ### Performance
 
