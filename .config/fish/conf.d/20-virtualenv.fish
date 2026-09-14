@@ -7,21 +7,26 @@ type --query --no-functions pyenv; or exit
 # - loads shell completions, via source. Not needed if you set up paths correctly
 # By inlining it here, we reduce costs by 30% or 100 ms
 function pyenv-init --description 'Stripped down, lightweight pyenv init'
+    set -l pyenv_root (pyenv root)
+    if test -z "$pyenv_root"
+        echo "pyenv root returned empty; skipping pyenv init" >&2
+        return
+    end
 
     # pyenv init -
-    while set pyenv_index (contains -i -- (pyenv root)/shims $PATH)
+    while set pyenv_index (contains -i -- $pyenv_root/shims $PATH)
         set -eg PATH[$pyenv_index]
     end
-    set -gx PATH (pyenv root)/shims $PATH
+    set -gx PATH $pyenv_root/shims $PATH
     set -gx PYENV_SHELL fish
 
     # Auto-activates pyenv virtualenvs
     # pyenv shim magic is only for resolving to a versioned commands; it does not actually set up a virtualenv for LSPs that crave it
     # pyenv virtualenv-init -
-    while set index (contains -i -- (pyenv root)/plugins/pyenv-virtualenv/shims $PATH)
+    while set index (contains -i -- $pyenv_root/plugins/pyenv-virtualenv/shims $PATH)
         set -eg PATH[$index]
     end
-    set -gx PATH (pyenv root)/plugins/pyenv-virtualenv/shims $PATH
+    set -gx PATH $pyenv_root/plugins/pyenv-virtualenv/shims $PATH
 
     set -gx PYENV_VIRTUALENV_INIT 1
 
@@ -54,6 +59,8 @@ function main
 end
 
 function install
+    set -l pyenv_root (pyenv root)
+
     set venv "$XDG_DATA_HOME/virtualenv"
     fish_add_path --global $venv/bin
 
@@ -77,11 +84,15 @@ function install
         " &
     end
 
-    # Set pyenv PATH through fish_user_paths, which has higher precedence than raw PATH
-    fish_add_path (pyenv root)/shims
+    if test -n "$pyenv_root"
+        # Set pyenv PATH through fish_user_paths, which has higher precedence than raw PATH
+        fish_add_path $pyenv_root/shims
 
-    set pyenv_virtualenv_plugin (pyenv root)/plugins/pyenv-virtualenv
-    test -d $pyenv_virtualenv_plugin; or git clone https://github.com/pyenv/pyenv-virtualenv.git $pyenv_virtualenv_plugin
+        set -l pyenv_virtualenv_plugin $pyenv_root/plugins/pyenv-virtualenv
+        test -d $pyenv_virtualenv_plugin; or git clone --branch v1.4.0 --depth 1 https://github.com/pyenv/pyenv-virtualenv.git $pyenv_virtualenv_plugin
+    else
+        echo "pyenv root returned empty; skipping pyenv shim setup" >&2
+    end
 end
 
 status --is-login; and install
