@@ -68,6 +68,19 @@ Plugin configuration variables (e.g. `vim.g.mapleader`) must be set before
 the plugin loads. Put them in `settings.lua` or at the top of the relevant
 plugin file, before `require`.
 
+## Per-host LSP overrides
+
+Machine-specific LSP behavior that shouldn't live in tracked config goes in
+`init_local.lua` (gitignored), set before the LSP server module loads:
+
+- `vim.g.project_pyright_root = function(fname) ... end` — return a list of
+  root markers (passed to `lspconfig.util.root_pattern`) to override how
+  `.config/nvim/lua/lsp/servers/pyright.lua` finds a buffer's project root.
+- `vim.g.project_pyright_python = function(root_dir) ... end` — return an
+  explicit interpreter path to force pyright's `pythonPath` for that root,
+  bypassing the `$VIRTUAL_ENV`/`.venv`/`poetry`/`pyenv` auto-detection.
+  Return `nil` to fall through to auto-detection.
+
 ## Keymaps
 
 ```lua
