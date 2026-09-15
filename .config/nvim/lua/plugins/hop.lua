@@ -2,6 +2,7 @@
 return {
 	{
 		"smoka7/hop.nvim",
+		enabled = lv_off("motion"),
 		version = "v2.7.2",
 		-- This is useful in all editing situations.
 		-- Also allows for FileType autocommands to be set up

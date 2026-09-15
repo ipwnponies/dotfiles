@@ -1,6 +1,7 @@
 ---@type LazyPluginSpec | LazyPluginSpec[]
 return {
 	"kdheepak/lazygit.nvim",
+	enabled = lv_off("git"),
 	commit = "b9eae3badab982e71abab96d3ee1d258f0c07961",
 	cmd = {
 		"LazyGit",

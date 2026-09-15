@@ -1,6 +1,7 @@
 -- init.lua
 require("settings") -- basic options, converted from init.vim
 require("keymaps") -- key mappings
+require("config.migration") -- per-domain LazyVim migration flags (must precede lazy)
 require("config.lazy") -- plugin manager and plugins
 require("binary-editing") -- binary file editing utilities
 require("autocmds")

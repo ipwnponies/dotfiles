@@ -2,6 +2,7 @@
 return {
 	{
 		"vim-airline/vim-airline",
+		enabled = lv_off("statusline"),
 		config = function()
 			vim.g["airline#extensions#tabline#enabled"] = 1
 		end,

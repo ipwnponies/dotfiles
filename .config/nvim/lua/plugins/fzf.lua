@@ -2,6 +2,7 @@
 return {
 	{
 		"ibhagwan/fzf-lua",
+		enabled = lv_off("picker"),
 		dependencies = { "echasnovski/mini.icons" },
 		---@class (partial) opts : fzf-lua.config.Defaults
 		---@type opts

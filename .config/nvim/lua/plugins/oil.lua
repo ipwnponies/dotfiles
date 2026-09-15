@@ -1,6 +1,7 @@
 ---@type LazyPluginSpec | LazyPluginSpec[]
 return {
 	"stevearc/oil.nvim",
+	enabled = lv_off("explorer"),
 	---@module 'oil'
 	---@type oil.SetupOpts
 	opts = {},
