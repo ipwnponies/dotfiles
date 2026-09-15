@@ -345,10 +345,12 @@ Needs confirmation of intent.
 
 #### X1 — `fish_add_path` scope inconsistent; half the calls write universal
 
-Calls without an explicit scope write to the universal `fish_user_paths`, which
-persists in `fish_variables` forever and is never garbage collected. Stale nix
-store paths and old pyenv roots accumulate ahead of the real `PATH` and are
-invisible to git.
+Calls without an explicit scope do not pick a fixed scope. Per the
+`fish_add_path` docs, `--universal` is the default "if it doesn't already
+exist", and the command otherwise follows "what you have already set up (e.g.
+by using a global `fish_user_paths` if you have that already)". So an unscoped
+call writes global when a global already exists, and universal when nothing
+does.
 
 | File | Call | Scope |
 |---|---|---|
@@ -362,13 +364,83 @@ invisible to git.
 | `poetry.fish:2` | none | universal |
 | `20-virtualenv.fish:81` | none | universal |
 
+**Correction (2026-09-15), verified against a real machine.** The "universal"
+column above is wrong for the current tree. `05-env.fish` sorts first in
+`conf.d/` and line 9 passes `--global`, which creates a global
+`fish_user_paths`. Every later unscoped call then follows that global. Nothing
+is presently writing universal.
+
+Observed on a real machine: global `fish_user_paths` holds 12 entries, universal
+holds 4. The 12 are exactly what walking `conf.d/` in load order produces,
+starting from those 4:
+
+| Step | Effect |
+|---|---|
+| start | universal: `.local/bin`, `.poetry/bin`, `fzf/bin`, `cargo/bin` |
+| `05-env.fish:9` `--global` | creates global: `$HOME/bin` + those 4 |
+| `10-devbox.fish:5` unscoped | follows global, prepends devbox_local |
+| `20-cargo.fish:3` | already present, not re-added, stays at tail |
+| `20-go.fish:2,23` | go, aqua prepended |
+| `20-npm.fish:55,57` | npm, bun prepended |
+| `20-virtualenv.fish:81` | pyenv shims prepended |
+| `poetry.fish:2` | already present, not re-added, stays at tail |
+
+So the real defect is not "these calls write universal". It is that correct
+behavior depends on an alphabetical accident. Rename `05-env.fish`, or add any
+earlier-sorting `conf.d` file that calls `fish_add_path` unscoped, and every
+unscoped call silently flips to universal. Same failure class as X2: it works
+by luck rather than by statement.
+
 Proposed fix: `--global` everywhere, plus a one-time `set -e -U fish_user_paths`
 and a note in AGENTS.md.
 
-**Triage decision (2026-09-14):** accepted, and X1 and X2 ship together. Fixing
-X1 alone breaks non-interactive shells, because converting to `--global`
-removes the universal crutch that is currently the only reason those shells
-have the paths at all.
+**Migration hazard, found 2026-09-15.** The 4 universal entries are residue
+from before `05-env.fish` carried `--global`, and they are copied into the
+global at every startup. Two have no config line anywhere in the repo:
+
+| Universal entry | Config source | Survives an erase? |
+|---|---|---|
+| `.local/share/cargo/bin` | `20-cargo.fish:3` | yes |
+| `.poetry/bin` | `poetry.fish:2` | yes |
+| `~/.local/bin` | none, `05-env.fish:9` adds `$HOME/bin`, a different dir | no |
+| `~/.local/share/fzf/bin` | none, `conf.d/fzf.fish` has no `fish_add_path` | no |
+
+Erasing the universal before adding config lines for those two removes
+`~/.local/bin` (pipx, `pip --user`) and fzf's bin directory from `PATH`, with
+nothing to restore them. This is the X1 complaint in its sharpest form: two
+entries of a working `PATH` are not in git and not reproducible on a new
+machine.
+
+Ordered migration:
+
+1. Add `fish_add_path --global` for `$HOME/.local/bin` (in `05-env.fish`, next
+   to the existing `$HOME/bin` line) and for the fzf bin path (in
+   `conf.d/fzf.fish`, outside its interactive guard).
+2. Convert the unscoped call sites to `--global`.
+3. Move `PATH` setup out of the interactive guards (X2).
+4. Only then `set --erase --universal fish_user_paths`, per machine. Run
+   `set --show fish_user_paths` first and diff the universal list against what
+   config provides, in case a machine carries residue not seen here.
+
+Alternative considered: `fish_add_path --path` manipulates `PATH` directly with
+no `fish_user_paths` intermediary, which is more declarative still. Rejected for
+now as the larger change: it gives up `fish_user_paths`' guarantee of sitting
+ahead of the system paths, making ordering the caller's problem.
+
+**Triage decision (2026-09-14, revised 2026-09-15):** accepted, and X1 and X2
+ship together.
+
+The original reasoning ("fixing X1 alone breaks non-interactive shells by
+removing the universal crutch") was wrong, and so was the premise. The universal
+holds only 4 stale entries, none of which are devbox_local or the pyenv shims.
+Those paths are written by `fish_add_path` calls inside `main`, which is
+interactive-only, into a *global* that dies with the shell. So a non-interactive
+shell does not get them by leakage. It does not get them at all. See the revised
+X2 note.
+
+They still ship together, for a simpler reason: X1 makes the scope explicit and
+X2 makes the timing explicit, and both are the same underlying defect of
+`PATH` depending on circumstance rather than statement.
 
 Universal variables are imperative machine state in a declarative tree. The
 config writes them and never reads them back, so removing a config line leaves
@@ -403,14 +475,29 @@ Proposed fix: move `PATH` setup to unconditional top-level, keep only
 user-facing extras behind the interactive guard. Add a regression test that
 asserts `fish -c 'echo $PATH'` contains the expected entries.
 
-**Correction to the wording above:** the devbox half is overstated. Core devbox
-`PATH` does reach every shell, via the generated
+**Correction to the wording above (revised 2026-09-15).** Two errors.
+
+First, core devbox `PATH` does reach every shell, via the generated
 `conf.d/00-devbox-generated_local.fish`, which sets `export PATH=` at top level.
-What is actually interactive-only-plus-universal-leaked is the `devbox_local`
-profile (`10-devbox.fish:5`), the `fish_complete_path` additions, and `MANPATH`.
-The pyenv half stands as written: `20-virtualenv.fish:81` is universal but sits
-in `install`, which is login-only, so a non-interactive shell on a machine where
-no login shell has ever run has no pyenv shims at all.
+What is interactive-only is the `devbox_local` profile (`10-devbox.fish:5`), the
+`fish_complete_path` additions, and `MANPATH`.
+
+Second, "by accident, via the universal variables described in X1" is wrong.
+Per the X1 correction, those calls write to a *global* `fish_user_paths`, which
+does not survive the shell. The universal holds 4 stale entries and none of them
+are devbox_local or the pyenv shims.
+
+So this is not leakage, it is absence. A non-interactive, non-login shell runs
+`conf.d/`, skips `main` in both files and skips `install` in
+`20-virtualenv.fish`, and therefore has neither the devbox_local profile nor the
+pyenv shims. That makes X2 a live bug rather than a latent fragility.
+
+Verify on a real machine, since this was derived from reading rather than
+running:
+
+    fish -c 'echo $PATH' | tr " " "\n" | grep -E "pyenv|devbox_local"
+
+Expect no output today. That is the defect.
 
 **Triage decision (2026-09-14):** accepted, ships with X1. Line drawn on whether
 an item changes what a command resolves to:
@@ -666,4 +753,5 @@ perf work is guesswork again.
 | Date | Session | What moved |
 |---|---|---|
 | 2026-09-13 | Initial audit | Full static audit of `.config/fish/`. 53 findings recorded across 12 projects. Nothing triaged, nothing fixed. |
+| 2026-09-15 | X1/X2 correction | Real `set --show fish_user_paths` output disproved two claims in X1 and X2. Unscoped `fish_add_path` follows an existing global rather than always writing universal, so nothing currently writes universal and the defect is dependence on `05-env.fish` sorting first. Non-interactive shells do not get devbox_local or pyenv shims by leakage, they do not get them at all. Also found two `PATH` entries (`~/.local/bin`, fzf bin) that exist only as universal residue with no config line, making the planned universal erase destructive until they are added. Correction sent to the in-flight X1/X2 session. |
 | 2026-09-13 | Venv triage | Triaged S1, S3, P1, P2, P4 as accepted and dispatched them as two PRs to separate sessions, so all five are `assumed-done` pending confirmation. PR 1: pin the pyenv-virtualenv clone, cache `(pyenv root)`. PR 2: delete aactivator, delete the per-prompt pyenv hook. Those sessions branched from the default branch and cannot see this doc, so their commits will not update these rows. Verify against the tree before trusting the statuses. Follow-up not yet dispatched: neovim Python LSP interpreter resolution, which PR 2 may block on (see P1). |
