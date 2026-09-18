@@ -116,3 +116,7 @@ or restart nvim for changes to take effect.
 3. Prefer `opts` over writing a full `config` function unless custom logic is needed.
 4. If the plugin needs a global variable set before load, put `vim.g.var = val`
    before the spec table or in `settings.lua`.
+
+## Debugging plugin regressions
+
+- Installed lazy.nvim plugins are full git clones under `~/.local/share/nvim/lazy/<plugin>/`. Read/diff/`git log` the actual plugin source there (cross-referenced against the pinned commit in `.config/nvim/lazy-lock.json`) when a plugin regression needs root-causing.
