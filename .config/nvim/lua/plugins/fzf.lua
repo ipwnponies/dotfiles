@@ -3,6 +3,7 @@ return {
 	{
 		"ibhagwan/fzf-lua",
 		dependencies = { "echasnovski/mini.icons" },
+		event = "VeryLazy",
 		---@class (partial) opts : fzf-lua.config.Defaults
 		---@type opts
 		opts = {
