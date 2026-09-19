@@ -2,7 +2,7 @@ function main
     set --append fish_complete_path $DEVBOX_PACKAGES_DIR/share/fish/vendor_completions.d
 
     set -l local_pkgs $XDG_DATA_HOME/devbox_local/.devbox/nix/profile/default
-    fish_add_path $local_pkgs/bin
+    fish_add_path --global $local_pkgs/bin
     set --append fish_complete_path $local_pkgs/share/fish/vendor_completions.d
     set --prepend MANPATH $local_pkgs/share/man
 end

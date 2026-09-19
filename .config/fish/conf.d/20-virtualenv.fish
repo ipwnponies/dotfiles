@@ -81,7 +81,7 @@ function install
 
     if test -n "$pyenv_root"
         # Set pyenv PATH through fish_user_paths, which has higher precedence than raw PATH
-        fish_add_path $pyenv_root/shims
+        fish_add_path --global $pyenv_root/shims
 
         set -l pyenv_virtualenv_plugin $pyenv_root/plugins/pyenv-virtualenv
         test -d $pyenv_virtualenv_plugin; or git clone --branch v1.4.0 --depth 1 https://github.com/pyenv/pyenv-virtualenv.git $pyenv_virtualenv_plugin

@@ -1,5 +1,5 @@
 # Add path for manual install
-fish_add_path $HOME/.local/bin
+fish_add_path --global $HOME/.local/bin
 
 if status --is-interactive
     if not type -q poetry
