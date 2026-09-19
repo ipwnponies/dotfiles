@@ -58,6 +58,13 @@ Use the **login guard** for infrequent, heavier operations — package installs,
 syncing tools, updating generated files — where eventual consistency is
 acceptable.
 
+Anything that changes what a command resolves to — `fish_add_path` calls,
+`MANPATH`, resolving tool root variables like `PYENV_ROOT` — must run
+unconditionally, outside any guard: a script or subshell needs the same PATH
+the interactive shell has. Only purely cosmetic setup (completions,
+abbreviations, prompt customization) belongs behind
+`status --is-interactive`/`status --is-login`.
+
 For a file that only needs one guard, either inline it:
 
 ```fish
@@ -79,7 +86,7 @@ status --is-interactive; and main
 
 A file that needs both — light interactive setup plus heavier login-time
 install/sync work — combines both guards via the main/install split (see
-`10-devbox.fish`, `20-npm.fish`, `20-virtualenv.fish`, `omf.fish`):
+`10-devbox.fish`, `20-npm.fish`, `omf.fish`):
 
 ```fish
 function main       # runs on every interactive shell
@@ -173,7 +180,8 @@ values. The `*_local.fish` files are gitignored.
 ## Adding a new tool integration
 
 1. Create `conf.d/<priority>-<toolname>.fish` with the right numeric prefix.
-2. Set env vars with `set -x`, add bins with `fish_add_path`.
+2. Set env vars with `set -x`, add bins with `fish_add_path` — these go at
+   top level, unconditional, never inside `main`/`install`.
 3. If it needs login-time install/sync work, follow the main/install pattern
    above; otherwise use a single guard. If the install/sync call is slow or
    network-dependent, background it and gate it with an `is_expired`
