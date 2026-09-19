@@ -46,6 +46,13 @@ if status --is-interactive
         end
     end
 
+    if set -q --universal fish_user_paths
+        set_color --bold yellow
+        printf 'Universal fish_user_paths is still set; the one-time PATH cleanup has not been run on this machine.\n'
+        set_color normal
+        printf 'Inspect with `set --show fish_user_paths`, then run `set --erase --universal fish_user_paths`.\n'
+    end
+
     # This allows using python breakpoint() to invoke debugger
     set -x PYTHONBREAKPOINT pudb.set_trace
 end
