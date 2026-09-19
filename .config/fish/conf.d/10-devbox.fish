@@ -4,7 +4,8 @@ function main
     set -l local_pkgs $XDG_DATA_HOME/devbox_local/.devbox/nix/profile/default
     fish_add_path --global $local_pkgs/bin
     set --append fish_complete_path $local_pkgs/share/fish/vendor_completions.d
-    set --prepend MANPATH $local_pkgs/share/man
+    contains $local_pkgs/share/man $MANPATH
+    or set -gx MANPATH $local_pkgs/share/man $MANPATH ""
 end
 
 function install
