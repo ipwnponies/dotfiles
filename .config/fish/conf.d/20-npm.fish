@@ -54,7 +54,7 @@ function main
     set venv "$XDG_CONFIG_HOME/npm"
     fish_add_path --global $venv/node_modules/.bin
     # bun global installs
-    fish_add_path "$XDG_CACHE_HOME/.bun/bin"
+    fish_add_path --global "$XDG_CACHE_HOME/.bun/bin"
 
     if status --is-login
         install $venv

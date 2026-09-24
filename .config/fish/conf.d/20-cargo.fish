@@ -1,6 +1,6 @@
 set -x CARGO_INSTALL_ROOT $XDG_DATA_HOME/cargo
 set -x CARGO_TARGET_DIR $XDG_CACHE_HOME/cargo
-fish_add_path $CARGO_INSTALL_ROOT/bin --append
+fish_add_path --global $CARGO_INSTALL_ROOT/bin --append
 
 function main
     type -q cargo; or exit

@@ -42,7 +42,7 @@ git submodule update --init
 - `z-wait.fish` — Runs last; waits for background jobs started above
 
 Files needing both a background package sync and interactive setup (e.g.
-`10-devbox.fish`, `20-npm.fish`, `20-virtualenv.fish`) follow a `main` /
+`10-devbox.fish`, `20-npm.fish`) follow a `main` /
 `install` pattern:
 - `install` runs on **login** shells to sync packages in the background
 - `main` runs on **interactive** shells to configure the environment

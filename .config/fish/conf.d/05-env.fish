@@ -6,6 +6,7 @@ set -x XDG_CONFIG_HOME $HOME/.config
 set -x XDG_CACHE_HOME $HOME/.cache
 set -x XDG_STATE_HOME $HOME/.local/state
 
+fish_add_path --global $HOME/.local/bin
 fish_add_path --prepend --move --global $HOME/bin
 
 set -x RIPGREP_CONFIG_PATH "$XDG_CONFIG_HOME/ripgrep/rc"
@@ -43,6 +44,13 @@ if status --is-interactive
             printf 'Executing .bashrc_local is deprecated for fish, please port this to %s if necessary.\n' (status current-filename)
             set_color normal
         end
+    end
+
+    if set -q --universal fish_user_paths
+        set_color --bold yellow
+        printf 'Universal fish_user_paths is still set; the one-time PATH cleanup has not been run on this machine.\n'
+        set_color normal
+        printf 'Inspect with `set --show fish_user_paths`, then run `set --erase --universal fish_user_paths`.\n'
     end
 
     # This allows using python breakpoint() to invoke debugger

@@ -34,8 +34,8 @@ Current numeric files and their actual dependencies:
 ```fish
 set -x VAR value          # export env var; at top level, scope is implicitly global
 set -gx VAR value         # explicitly global + exported; same effect at top level
-fish_add_path DIR         # append to PATH, deduplicating
-fish_add_path --prepend DIR  # prepend (for higher-priority overrides)
+fish_add_path --global DIR            # prepend to PATH (the default), deduplicating
+fish_add_path --global --append DIR   # append (lower priority than everything already there)
 
 set -g VAR value          # global fish variable, not exported
 set -l VAR value          # local to current scope/function
@@ -58,6 +58,13 @@ Use the **login guard** for infrequent, heavier operations — package installs,
 syncing tools, updating generated files — where eventual consistency is
 acceptable.
 
+Anything that changes what a command resolves to — `fish_add_path` calls,
+`MANPATH`, resolving tool root variables like `PYENV_ROOT` — must run
+unconditionally, outside any guard: a script or subshell needs the same PATH
+the interactive shell has. Only purely cosmetic setup (completions,
+abbreviations, prompt customization) belongs behind
+`status --is-interactive`/`status --is-login`.
+
 For a file that only needs one guard, either inline it:
 
 ```fish
@@ -79,7 +86,7 @@ status --is-interactive; and main
 
 A file that needs both — light interactive setup plus heavier login-time
 install/sync work — combines both guards via the main/install split (see
-`10-devbox.fish`, `20-npm.fish`, `20-virtualenv.fish`, `omf.fish`):
+`10-devbox.fish`, `20-npm.fish`, `omf.fish`):
 
 ```fish
 function main       # runs on every interactive shell
@@ -166,14 +173,30 @@ values. The `*_local.fish` files are gitignored.
   set -l file_age (stat -c %Y $file 2>/dev/null; or stat -f %m $file 2>/dev/null; or echo 0)
   ```
 
+## Migrating from universal `fish_user_paths`
+
+Previous versions of this config used a universal `fish_user_paths` variable to store PATH modifications. This has been refactored to use explicit global scoping in each tool's configuration file (the five commits of this `fish_user_paths` migration).
+
+To clean up the legacy universal variable on a machine after this refactor:
+
+1. First, verify what the universal variable currently contains by running `set --show fish_user_paths` and comparing it against the PATH additions that are now supplied by the config files. This catches any residual or machine-specific entries.
+2. Deploy all five migration commits to the machine. The final commit adds an interactive warning that appears when the old universal variable is still set, serving as a completion signal — the warning disappears once the variable is erased.
+3. When you are confident that the expected PATH entries now appear correctly in the global list (signaled by the warning from step 2 no longer appearing), erase the universal variable by running:
+   ```fish
+   set --erase --universal fish_user_paths
+   ```
+   Run this command once per machine.
+4. On this machine, the erased variable contains four entries: `~/.local/bin`, `~/.poetry/bin`, `~/.local/share/fzf/bin`, and `~/.local/share/cargo/bin`. Two of them (`~/.poetry/bin`, `~/.local/share/fzf/bin`) are dead orphans — now provided by devbox, no config line supplies them any more. The other two (`~/.local/bin`, `~/.local/share/cargo/bin`) are already re-supplied by this repo's config (`05-env.fish` and `20-cargo.fish` respectively), which is why losing them from the universal scope changes nothing.
+
 ## pyenv
 
-`20-virtualenv.fish` inlines `pyenv init -` to avoid subshell overhead (~100 ms saved). Always use `(pyenv root)` at runtime; never hardcode user-specific paths like `/Users/name/.pyenv/`.
+`20-virtualenv.fish` inlines `pyenv init -` to avoid subshell overhead (~100 ms saved). The `PYENV_ROOT` environment variable is resolved once at startup (defaulting to `$HOME/.pyenv`, matching pyenv's own default, and overridable by any existing `PYENV_ROOT` setting) rather than forking `pyenv root` at runtime; never hardcode user-specific paths like `/Users/name/.pyenv/`.
 
 ## Adding a new tool integration
 
 1. Create `conf.d/<priority>-<toolname>.fish` with the right numeric prefix.
-2. Set env vars with `set -x`, add bins with `fish_add_path`.
+2. Set env vars with `set -x`, add bins with `fish_add_path` — these go at
+   top level, unconditional, never inside `main`/`install`.
 3. If it needs login-time install/sync work, follow the main/install pattern
    above; otherwise use a single guard. If the install/sync call is slow or
    network-dependent, background it and gate it with an `is_expired`

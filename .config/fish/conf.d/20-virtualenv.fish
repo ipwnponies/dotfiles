@@ -2,22 +2,20 @@
 
 type --query --no-functions pyenv; or exit
 
+test -n "$PYENV_ROOT"; or set -gx PYENV_ROOT $HOME/.pyenv
+
+set -g venv "$XDG_DATA_HOME/virtualenv"
+fish_add_path --global $venv/bin
+
+# Set pyenv PATH through fish_user_paths, which has higher precedence than raw PATH
+fish_add_path --global $PYENV_ROOT/shims
+
 # The pyenv instructions use `pyenv init - |  source`. While convenient, it's poorly optimized:
 # - it spins up subshell to evaluate. Which is mostly static
 # - loads shell completions, via source. Not needed if you set up paths correctly
 # By inlining it here, we reduce costs by 30% or 100 ms
 function pyenv-init --description 'Stripped down, lightweight pyenv init'
-    set -l pyenv_root (pyenv root)
-    if test -z "$pyenv_root"
-        echo "pyenv root returned empty; skipping pyenv init" >&2
-        return
-    end
-
     # pyenv init -
-    while set pyenv_index (contains -i -- $pyenv_root/shims $PATH)
-        set -eg PATH[$pyenv_index]
-    end
-    set -gx PATH $pyenv_root/shims $PATH
     set -gx PYENV_SHELL fish
 
     # pyenv shim magic only resolves to versioned commands; it does not set up VIRTUAL_ENV.
@@ -29,10 +27,10 @@ function pyenv-init --description 'Stripped down, lightweight pyenv init'
     # and a lingering venv bin/ on PATH shadows the pyenv shims in unrelated directories).
     # pyenv virtualenv-init - (fish_prompt hook intentionally omitted, see above; keep it
     # omitted when regenerating this block from `pyenv virtualenv-init -`)
-    while set index (contains -i -- $pyenv_root/plugins/pyenv-virtualenv/shims $PATH)
+    while set index (contains -i -- $PYENV_ROOT/plugins/pyenv-virtualenv/shims $PATH)
         set -eg PATH[$index]
     end
-    set -gx PATH $pyenv_root/plugins/pyenv-virtualenv/shims $PATH
+    set -gx PATH $PYENV_ROOT/plugins/pyenv-virtualenv/shims $PATH
 
     set -gx PYENV_VIRTUALENV_INIT 1
 
@@ -49,16 +47,7 @@ function pyenv-init --description 'Stripped down, lightweight pyenv init'
     end
 end
 
-function main
-    pyenv-init
-end
-
 function install
-    set -l pyenv_root (pyenv root)
-
-    set venv "$XDG_DATA_HOME/virtualenv"
-    fish_add_path --global $venv/bin
-
     if test ! -d $venv
         echo "Creating virtualenv in $venv" >&2
         python3 -m venv $venv
@@ -79,16 +68,9 @@ function install
         " &
     end
 
-    if test -n "$pyenv_root"
-        # Set pyenv PATH through fish_user_paths, which has higher precedence than raw PATH
-        fish_add_path $pyenv_root/shims
-
-        set -l pyenv_virtualenv_plugin $pyenv_root/plugins/pyenv-virtualenv
-        test -d $pyenv_virtualenv_plugin; or git clone --branch v1.4.0 --depth 1 https://github.com/pyenv/pyenv-virtualenv.git $pyenv_virtualenv_plugin
-    else
-        echo "pyenv root returned empty; skipping pyenv shim setup" >&2
-    end
+    set -l pyenv_virtualenv_plugin $PYENV_ROOT/plugins/pyenv-virtualenv
+    test -d $pyenv_virtualenv_plugin; or git clone --branch v1.4.0 --depth 1 https://github.com/pyenv/pyenv-virtualenv.git $pyenv_virtualenv_plugin
 end
 
+pyenv-init
 status --is-login; and install
-status --is-interactive; and main

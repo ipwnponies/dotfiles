@@ -20,5 +20,5 @@ if type -q go
     status --is-login; and install_aqua_tools
 
     # aqua root-dir is always $XDG_DATA_HOME/aquaproj-aqua; skip shelling out for it
-    fish_add_path $XDG_DATA_HOME/aquaproj-aqua/bin
+    fish_add_path --global $XDG_DATA_HOME/aquaproj-aqua/bin
 end
