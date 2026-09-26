@@ -22,4 +22,4 @@ def copy(output: object) -> None:
         case _:
             raise NotImplementedError(f"Clipboard copy not supported on {os_name}")
 
-    subprocess.run(command, input=output, text=True, check=True)
+    subprocess.run(command, input=str(output), text=True, check=True)

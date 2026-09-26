@@ -8,8 +8,23 @@
 #
 # ie. 'git previous 2 fileA' would give the return the SHA for the version of the file two changes ago.
 # Most commonly, you would want to use N=1 to get the last file version for reverting
+set -euo pipefail
+
+usage() {
+    echo 'usage: git previous <N> [file]'
+}
+
+if [[ ${1:-} == -h || ${1:-} == --help ]]; then
+    usage
+    exit 0
+fi
+
+if [[ $# -lt 1 || ! $1 =~ ^[0-9]+$ ]]; then
+    usage >&2
+    exit 1
+fi
 
 num_version_rollback=$1
-file=$2
+shift
 
-git log --pretty=format:'%h' "$file" | awk -v row="$num_version_rollback" 'FNR == row+1 {print}'
+git log --format=%h --skip="$num_version_rollback" --max-count=1 -- "$@"
