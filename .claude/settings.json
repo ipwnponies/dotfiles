@@ -1,7 +1,6 @@
 {
   "permissions": {
     "allow": [
-      "Bash(* --help)",
       "Bash(git status)",
       "Bash(git status *)",
       "Bash(git diff)",
