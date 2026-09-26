@@ -9,7 +9,7 @@ function install
     is_expired $stamp $venv/package.json $venv/package-lock.json; or return
     mkdir -p (dirname $stamp)
 
-    set logfile "$XDG_CACHE_HOME/npm"
+    set logfile "$XDG_CACHE_HOME/npm-install.log"
     fish --no-config -c "
         mkdir -p (dirname $logfile)
         if npm ci --lockfile-version 3 --loglevel=error --prefix $venv >> $logfile 2>&1
@@ -63,3 +63,6 @@ function main
 end
 
 main
+
+# Helpers are global; erase them so they don't shadow commands (e.g. coreutils `install`) later
+functions --erase main install install_bun_globals

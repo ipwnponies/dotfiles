@@ -102,13 +102,21 @@ status --is-interactive; and main
 ```
 
 `main` and `install` are plain global functions, not scoped to the file that
-defines them — once all conf.d files finish sourcing, whichever file defined
-them last (alphabetically) wins for the rest of the session. That's fine for
-the guarded calls above, since each fires immediately, before the next file
-can redefine it — but never call `main`/`install` manually later expecting a
-specific file's logic. It also means `install` can run again in another login
-shell before the first finishes, so make it idempotent (see the
-`test -d`/`is_expired` guards in `20-virtualenv.fish` and `omf.fish`).
+defines them. Each fires immediately, before the next file can redefine it,
+but left alone they would outlive startup, and a function named `install`
+shadows coreutils `install` in the interactive shell. So every file that
+defines such helpers ends with:
+
+```fish
+functions --erase main install
+```
+
+Inside these helpers, bail out with `return`, not `exit`: `exit` stops
+sourcing the whole file, which skips the trailing erase.
+
+`install` can also run again in another login shell before the first
+finishes, so make it idempotent (see the `test -d`/`is_expired` guards in
+`20-virtualenv.fish` and `omf.fish`).
 
 This avoids paying install costs (package syncs, git fetches) on every new terminal tab.
 

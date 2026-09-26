@@ -3,7 +3,7 @@ set -x CARGO_TARGET_DIR $XDG_CACHE_HOME/cargo
 fish_add_path --global $CARGO_INSTALL_ROOT/bin --append
 
 function main
-    type -q cargo; or exit
+    type -q cargo; or return
 
     set -l stamp $XDG_STATE_HOME/cargo/install.stamp
     is_expired $stamp $XDG_CONFIG_HOME/cargo/tools.txt; or return
@@ -24,3 +24,6 @@ function main
 end
 
 status --is-login; and main
+
+# Helpers are global; erase them so they don't shadow commands (e.g. coreutils `install`) later
+functions --erase main

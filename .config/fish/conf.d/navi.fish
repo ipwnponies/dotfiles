@@ -5,7 +5,9 @@ set --export NAVI_CONFIG $XDG_CONFIG_HOME/navi/config.yaml
 function _navi_smart_replace
     set -l current_process (commandline -p | string trim)
 
-    commandline (navi --print --query "$current_process")
+    # Leave the commandline untouched if navi is cancelled
+    set -l selection (navi --print --query "$current_process" | string collect)
+    test -n "$selection"; and commandline -- $selection
     commandline -f repaint
 end
 

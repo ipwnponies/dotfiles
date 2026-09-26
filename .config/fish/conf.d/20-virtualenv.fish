@@ -74,3 +74,6 @@ end
 
 pyenv-init
 status --is-login; and install
+
+# Helpers are global; erase them so they don't shadow commands (e.g. coreutils `install`) later
+functions --erase pyenv-init install

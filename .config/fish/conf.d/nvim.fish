@@ -9,3 +9,6 @@ function main
 end
 
 status --is-interactive; and main
+
+# Helpers are global; erase them so they don't shadow commands (e.g. coreutils `install`) later
+functions --erase main

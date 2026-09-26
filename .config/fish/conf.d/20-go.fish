@@ -16,9 +16,14 @@ function install_aqua_tools --description 'Sync aqua-managed tools, unless recen
 end
 
 if type -q go
-    type -q aqua; or install_aqua
-    status --is-login; and install_aqua_tools
+    if status --is-login
+        type -q aqua; or install_aqua
+        install_aqua_tools
+    end
 
     # aqua root-dir is always $XDG_DATA_HOME/aquaproj-aqua; skip shelling out for it
     fish_add_path --global $XDG_DATA_HOME/aquaproj-aqua/bin
 end
+
+# Helpers are global; erase them so they don't shadow commands (e.g. coreutils `install`) later
+functions --erase install_aqua install_aqua_tools

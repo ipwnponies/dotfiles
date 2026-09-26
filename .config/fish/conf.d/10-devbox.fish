@@ -50,3 +50,6 @@ end
 status --is-login; and install
 status --is-interactive; and main
 status --is-interactive; and status is-login; and regenerate
+
+# Helpers are global; erase them so they don't shadow commands (e.g. coreutils `install`) later
+functions --erase main install regenerate
