@@ -5,18 +5,11 @@ function taskdepends -d 'Add a task that depends on another task'
     set parent_task $argv[1]
 
     set inherit_properties due priority project scheduled tags until wait
-    set inherit_values
-
-    for prop in $inherit_properties
-        set inherit_values $inherit_values (task _get $parent_task.$prop)
-    end
-
     set add_args
     for prop in $inherit_properties
-        if set -l index (contains -i -- $prop $inherit_properties)
-            set value $inherit_values[$index]
-            test -n $value; and set add_args $add_args $prop:$value
-        end
+        # Join output so an empty value can't collapse to zero elements
+        set -l value (task _get $parent_task.$prop | string collect)
+        test -n "$value"; and set -a add_args $prop:$value
     end
 
     echo task add depends:$parent_task $add_args $argv[2..]

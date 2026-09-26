@@ -2,7 +2,7 @@
 #
 # Send SIGWINCH to docker exec process so that initial tty size is correctly set.
 function docker
-    if test $argv[1] = 'exec'; and contains -- '-it' $argv
+    if test "$argv[1]" = exec; and contains -- '-it' $argv
         command docker $argv &
         set pid $last_pid
         fish -c "sleep 0.1; kill -SIGWINCH $pid" &

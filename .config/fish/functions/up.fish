@@ -7,11 +7,12 @@ function up -d 'cd up directory with int param'
         set levels (math $argv[1] + 0)
     end
 
+    set -l path
     for i in (seq $levels)
         set path "../$path"
     end
 
-    if test -n $path
+    if test -n "$path"
         cd $path
     end
 end

@@ -21,9 +21,13 @@ function notification -d 'Windows notification'
         return
     end
 
+    # Base64 keeps quotes and $(...) in the text from being interpreted as PowerShell
+    set -l title64 (printf '%s' $titleText | base64 -w0)
+    set -l body64 (printf '%s' $bodyText | base64 -w0)
+
     powershell.exe '
-    $titleText = "'$titleText'"
-    $bodyText = "'$bodyText'"
+    $titleText = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String("'"$title64"'"))
+    $bodyText = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String("'"$body64"'"))
 
     [Windows.UI.Notifications.ToastNotificationManager, Windows.UI.Notifications, ContentType = WindowsRuntime] > $null
     $template = [Windows.UI.Notifications.ToastNotificationManager]::GetTemplateContent([Windows.UI.Notifications.ToastTemplateType]::ToastText02)

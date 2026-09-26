@@ -6,9 +6,8 @@ function completions_load_upstream --description 'Load upstream completions'
     set completion_file $argv[1]
     set search_paths $fish_complete_path
 
-    set this_dir (contains --index (path dirname $completion_file) $search_paths)
-    if test $status
-        # Remove this directory from the search paths
+    # Remove this directory from the search paths
+    if set -l this_dir (contains --index -- (path dirname $completion_file) $search_paths)
         set --erase search_paths[$this_dir]
     end
 
